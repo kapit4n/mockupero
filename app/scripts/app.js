@@ -37,11 +37,11 @@ angular
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
-      .when('/project', {
+      .when('/project/:projectId', {
         templateUrl: 'views/project.html',
         controller: 'ProjectCtrl'
       })
-      .when('/mockup', {
+      .when('/mockup/:mockupId', {
         templateUrl: 'views/mockup.html',
         controller: 'MockupCtrl'
       })
