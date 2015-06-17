@@ -2,19 +2,19 @@
 
 /**
  * @ngdoc function
- * @name myYoProjectApp.controller:MainCtrl
+ * @name myYoProjectApp.controller:ProjectNewCtrl
  * @description
- * # MainCtrl
+ * # ProjectNewCtrl
  * Controller of the myYoProjectApp
  */
 angular.module('myYoProjectApp')
-  .controller('MainCtrl', ['$scope', '$location', function ($scope,$location) {
+  .controller('ProjectNewCtrl', ['$scope', '$location', function ($scope,$location) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    $scope.addProject = function () {
-    	$location.path('/project-new');
+    $scope.createProject = function () {
+    	$location.path('/');
     };
   }]);

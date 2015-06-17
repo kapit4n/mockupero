@@ -8,10 +8,13 @@
  * Controller of the myYoProjectApp
  */
 angular.module('myYoProjectApp')
-  .controller('ProjectCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+  .controller('ProjectCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+    $scope.addMockup = function () {
+    	$location.path('/mockup-new');
+    };
   }]);

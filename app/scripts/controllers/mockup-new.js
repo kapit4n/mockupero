@@ -2,19 +2,19 @@
 
 /**
  * @ngdoc function
- * @name myYoProjectApp.controller:MainCtrl
+ * @name myYoProjectApp.controller:MockupNewCtrl
  * @description
- * # MainCtrl
+ * # MockupNewCtrl
  * Controller of the myYoProjectApp
  */
 angular.module('myYoProjectApp')
-  .controller('MainCtrl', ['$scope', '$location', function ($scope,$location) {
+  .controller('MockupNewCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    $scope.addProject = function () {
-    	$location.path('/project-new');
+    $scope.createMockup = function () {
+    	$location.path('/project/0');
     };
   }]);
