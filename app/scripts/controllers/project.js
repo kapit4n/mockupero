@@ -15,6 +15,8 @@ angular.module('myYoProjectApp')
       'Karma'
     ];
     $scope.addMockup = function () {
-    	$location.path('/mockup-new');
+      $location.path('/mockup-new');
     };
+    $scope.workflow = {start: "start", close: "close", abandon: "abandon"};
+
   }]);

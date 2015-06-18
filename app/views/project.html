@@ -3,6 +3,32 @@
   <li class="active">Project</li>
 </ol>
 
+<div style="background: #f5f5f5; ">
+  <h3>Information</h3>
+  <div>
+    Name: Mockup project
+  </div>
+  <div>
+    Status: New
+  </div>
+  <div>
+    Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut aliquid animi quisquam voluptatibus, quis sit quas, quod, alias maiores adipisci, repellat atque quam magni eveniet velit natus quaerat necessitatibus ea?
+  </div>
+
+</div>
+
+<div style="  padding-top: 10px;">
+  <button type="button" class="btn btn-primary"  btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        {{workflow.start}}
+  </button>
+  <button type="button" class="btn btn-success"  btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        {{workflow.close}}
+  </button>
+  <button type="button" class="btn btn-danger"  btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        {{workflow.abandon}}
+  </button>
+</div>
+
 <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button> Mockups </h3>
