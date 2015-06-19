@@ -1,68 +1,40 @@
 <ol class="breadcrumb">
-  <li><a href="#/">Home</a></li>
-  <li class="active">Project</li>
+    <li><a href="#/">Home</a></li>
+    <li class="active">Project</li>
 </ol>
-
-<div style="background: #f5f5f5; ">
-  <h3>Information</h3>
-  <div>
-    Name: Mockup project
-  </div>
-  <div>
-    Status: New
-  </div>
-  <div>
-    Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut aliquid animi quisquam voluptatibus, quis sit quas, quod, alias maiores adipisci, repellat atque quam magni eveniet velit natus quaerat necessitatibus ea?
-  </div>
-
+<div class="container" style="background: #f5f5f5; ">
+    <div class="row">
+        <div class="col-sm-2"><strong>Name</strong></div>
+        <div class="col-sm-10" style="color: #737373;">Project Name</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><strong>Status</strong></div>
+        <div class="col-sm-10" style="color: #737373;">New</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><strong>Description</strong></div>
+        <div class="col-sm-10" style="color: #737373;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam est sit ipsum, officiis ratione placeat nam voluptate inventore dignissimos aliquam dolores cupiditate, cum nihil laudantium. Alias, nemo autem. Repellendus, doloribus!
+        </div>
+    </div>
 </div>
-
-<div style="  padding-top: 10px;">
-  <button type="button" class="btn btn-primary"  btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-        {{workflow.start}}
-  </button>
-  <button type="button" class="btn btn-success"  btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-        {{workflow.close}}
-  </button>
-  <button type="button" class="btn btn-danger"  btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-        {{workflow.abandon}}
-  </button>
+<div style="padding-top: 10px;" class="container">
+    <button type="button" class="btn {{wf.className}}" ng-repeat="wf in workflows" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        {{wf.name}}
+    </button>
 </div>
 
 <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button> Mockups </h3>
-
-
 <div class="row">
-  <div class="col-sm-4 col-md-4">
-    <div class="thumbnail">
-      <img src="http://www.appcooker.com/wp-content/uploads/2012/01/Mockup-iPhone-Screens-View1.png" width="80px" alt="...">
-      <div class="caption">
-        <h4>Mockup 1</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-        <p><a href="#/mockup/0" class="btn btn-primary" role="button">View</a> <a href="#/mockup/0" class="btn btn-default" role="button">Edit</a></p>
-      </div>
+    <div class="col-sm-4 col-md-4" ng-repeat="mockup in mockups track by $index">
+        <div class="thumbnail">
+            <img src="{{mockup.img}}" height="30px" alt="...">
+            <div class="caption">
+                <h4>{{mockup.name}}</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                <p><a href="#/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a> <a href="#/mockup/{{mockup.id}}" class="btn btn-default" role="button">Edit</a></p>
+            </div>
+        </div>
     </div>
-  </div>
-   <div class="col-sm-4 col-md-4">
-    <div class="thumbnail">
-      <img src="http://cameronbarrett.com/images/lg_ia1.gif" width="80px" alt="...">
-      <div class="caption">
-        <h4>Mockup 2</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-        <p><a href="#/mockup/1" class="btn btn-primary" role="button">View</a> <a href="#/mockup/1" class="btn btn-default" role="button">Edit</a></p>
-      </div>
-    </div>
-  </div>
-   <div class="col-sm-4 col-md-4">
-    <div class="thumbnail">
-      <img src="http://community.protoshare.com/wp-content/uploads/2010/12/example4-anim.gif" width="80px" alt="...">
-      <div class="caption">
-        <h4>Mockup 3</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-        <p><a href="#/mockup/2" class="btn btn-primary" role="button">View</a> <a href="#/mockup/2" class="btn btn-default" role="button">Edit</a></p>
-      </div>
-    </div>
-  </div>
 </div>
