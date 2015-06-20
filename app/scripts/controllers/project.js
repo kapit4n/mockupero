@@ -8,12 +8,13 @@
  * Controller of the myYoProjectApp
  */
 angular.module('myYoProjectApp')
-    .controller('ProjectCtrl', ['$scope', '$location', function($scope, $location) {
+    .controller('ProjectCtrl', ['$scope', '$routeParams', '$location', function($scope, $routeParams, $location) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
         ];
+        $scope.projectId = $routeParams.projectId;
         $scope.addMockup = function() {
             $location.path('/mockup-new');
         };
@@ -38,36 +39,6 @@ angular.module('myYoProjectApp')
         }, {
             id: 1,
             name: 'Mockup 2',
-            img: 'http://cameronbarrett.com/images/lg_ia1.gif',
-            description: 'abandon'
-        }, {
-            id: 2,
-            name: 'Mockup 3',
-            img: 'http://community.protoshare.com/wp-content/uploads/2010/12/example4-anim.gif',
-            description: 'abandon'
-        }, {
-            id: 3,
-            name: 'Mockup 4',
-            img: 'http://cameronbarrett.com/images/lg_ia1.gif',
-            description: 'abandon'
-        }, {
-            id: 0,
-            name: 'Mockup 1',
-            img: 'http://community.protoshare.com/wp-content/uploads/2010/12/example4-anim.gif',
-            description: 'abandon'
-        }, {
-            id: 1,
-            name: 'Mockup 2',
-            img: 'http://cameronbarrett.com/images/lg_ia1.gif',
-            description: 'abandon'
-        }, {
-            id: 2,
-            name: 'Mockup 3',
-            img: 'http://community.protoshare.com/wp-content/uploads/2010/12/example4-anim.gif',
-            description: 'abandon'
-        }, {
-            id: 3,
-            name: 'Mockup 4',
             img: 'http://cameronbarrett.com/images/lg_ia1.gif',
             description: 'abandon'
         }];

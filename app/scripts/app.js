@@ -41,7 +41,7 @@ angular
         templateUrl: 'views/project.html',
         controller: 'ProjectCtrl'
       })
-      .when('/mockup/:mockupId', {
+      .when('/project/:projectId/mockup/:mockupId', {
         templateUrl: 'views/mockup.html',
         controller: 'MockupCtrl'
       })
@@ -53,7 +53,7 @@ angular
         templateUrl: 'views/project-new.html',
         controller: 'ProjectNewCtrl'
       })
-      .when('/mockup-new', {
+      .when('/project/:projectId/mockup-new', {
         templateUrl: 'views/mockup-new.html',
         controller: 'MockupNewCtrl'
       })
