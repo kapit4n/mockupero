@@ -27,16 +27,42 @@ angular.module('myYoProjectApp')
         fac.workflows = [{
             name: 'start',
             functionName: '',
-            className : 'btn-primary'
+            className: 'btn-primary'
         }, {
             name: 'close',
             functionName: '',
-            className : 'btn-success'
+            className: 'btn-success'
         }, {
             name: 'abandon',
             functionName: '',
-            className : 'btn-danger'
+            className: 'btn-danger'
         }];
+
+        fac.breadcrumb = {
+            home: [{
+                name: 'Home',
+                url: '/'
+            }],
+            project: [{
+                name: 'Home',
+                url: '/'
+            }, {
+                name: 'Project',
+                url: '/project'
+            }],
+            mockup: [{
+                name: 'Home',
+                url: '/'
+            }, {
+                name: 'Project',
+                url: '/project'
+            }, {
+                name: 'Mockup',
+                url: '/project/1/mockup'
+            }]
+        };
+
+
 
         fac.projects = ['John', 'James', 'Jake'];
 

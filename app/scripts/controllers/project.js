@@ -8,7 +8,7 @@
  * Controller of the myYoProjectApp
  */
 angular.module('myYoProjectApp')
-    .controller('ProjectCtrl', ['$scope', '$routeParams', '$location', function($scope, $routeParams, $location) {
+    .controller('ProjectCtrl', ['$scope', 'mockupService', '$routeParams', '$location', '$rootScope', function($scope, mockupService, $routeParams, $location, $rootScope) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -18,6 +18,9 @@ angular.module('myYoProjectApp')
         $scope.addMockup = function() {
             $location.path('/mockup-new');
         };
+
+        $rootScope.breadcrumb = mockupService.breadcrumb['project'];
+
         $scope.workflows = [{
             name: 'start',
             functionName: '',
