@@ -15,7 +15,7 @@ angular.module('myYoProjectApp')
             'Karma'
         ];
 
-        $scope.mockupList = mockupService.mockupService;
+        $scope.mockupList = mockupService.mockups;
 
         $scope.mockupId = $routeParams.mockupId % $scope.mockupList.length;
         $scope.projectId = $routeParams.projectId;
