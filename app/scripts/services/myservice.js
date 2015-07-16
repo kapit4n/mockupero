@@ -66,6 +66,7 @@ angular.module('myYoProjectApp')
 
         fac.projects = ['John', 'James', 'Jake'];
 
+
         fac.project1 = $resource('http://localhost:1337/projects', {userId:'@id'}, {get: {method:'GET', isArray:true}});
 
         return fac;

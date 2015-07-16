@@ -8,7 +8,7 @@
  * Controller of the myYoProjectApp
  */
 angular.module('myYoProjectApp')
-    .controller('MainCtrl', ['$scope', 'mockupService', '$location', '$rootScope', function($scope, mockupService, $location, $rootScope) {
+    .controller('MainCtrl', ['$scope', 'mockupService', 'projectService', '$location', '$rootScope', function($scope, mockupService, projectService, $location, $rootScope) {
             $scope.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,7 +20,7 @@ angular.module('myYoProjectApp')
             $scope.projects = [];
             $rootScope.breadcrumb = mockupService.breadcrumb['home'];
 
-            mockupService.project1.get({
+            projectService.projects.get({
                     userId: 123
                 })
                 .$promise.then(function(projects) {
