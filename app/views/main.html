@@ -1,21 +1,107 @@
 <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addProject()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button> List design projects </h3>
-<div class="row" ng-repeat="project in projects track by $index">
-    <div class="col-sm-12">
-        <div class="thumbnail" style="height: 199px;">
-            <img class="col-sm-2" src="https://www.alcaweb.org/archfs/v3/gsacket/8/gNFtNF63rU.png" alt="...">
-            <div class="caption" class="col-sm-8">
-                <h4 class="col-sm-4">{{project.name}} </h4>
-                <div class="col-sm-6"><a href="#/project/0" class="btn btn-primary" role="button">View</a> <a href="#/project/edit/0" class="btn btn-default" role="button">Edit</a></div>
-                <div class="col-sm-12">{{project.description}} </div>
-                <div class="col-sm-12" style="color: darkgray;">
-                    <div>State: {{project.state}}</div>
-                    <div>Type: {{project.type}}</div>
-                    <div>Created: {{project.createdAt}}</div>
+</button> List design projeccol-sm-10ts </h3>
+<div class="container" style="padding: 0;">
+    <div class="col-sm-3" style="padding: 0;">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
+                            </span>Most Liked</a>
+                        </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <span class="glyphicon glyphicon-comment text-success"></span><a href="">Users List</a>
+                                    <span class="badge">42</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="glyphicon glyphicon-comment text-success"></span><a href="">Users List</a>
+                                    <span class="badge">22</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th">
+                            </span>My Mockups</a>
+                                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <span class="glyphicon glyphicon-tasks"></span><a href="">Project list mockup</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="">User list</a> <span class="label label-success">$ 320</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="">Project List</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-user">
+                            </span>Last Users</a>
+                        </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <a href="">David Vallejos</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="">Luis Hansel</a> <span class="label label-info">5</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="col-sm-9" style="padding: 1px;">
+        <div class="row" ng-repeat="project in projects track by $index">
+            <div class="col-sm-12">
+                <div class="thumbnail" style="height: 199px;">
+                    <img class="col-sm-2" src="https://www.alcaweb.org/archfs/v3/gsacket/8/gNFtNF63rU.png" alt="...">
+                    <div class="caption" class="col-sm-8">
+                        <h4 class="col-sm-4">{{project.name}} </h4>
+                        <div class="col-sm-6"><a href="#/project/0" class="btn btn-primary" role="button">View</a> <a href="#/project/edit/0" class="btn btn-default" role="button">Edit</a></div>
+                        <div class="col-sm-12">{{project.description}} </div>
+                        <div class="col-sm-12" style="color: darkgray;">
+                            <div>State: {{project.state}}</div>
+                            <div>Type: {{project.type}}</div>
+                            <div>Created: {{project.createdAt}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
