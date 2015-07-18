@@ -12,12 +12,12 @@ angular.module('mockuperApp')
 
         $scope.projectName = 'Project Name Scope';
         $scope.description = 'Project Description Scope';
-        $scope.createProject = function() {
+        $scope.save = function() {
             projectService.createProject.save({
                 name: $scope.projectName,
                 description: $scope.description
             }, function(result) {
-                $window.location.href = '#/project/edit/' + result.id;
+                $window.location.href = '#/project/' + result.id;
             });
         };
     }]);

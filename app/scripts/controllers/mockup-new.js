@@ -8,8 +8,19 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-  .controller('MockupNewCtrl', ['$scope', '$location', function ($scope, $location) {
-    $scope.createMockup = function () {
-    	$location.path('/project/0');
-    };
-  }]);
+    .controller('MockupNewCtrl', ['$scope', '$window', '$location', '$routeParams', 'mockupService', function($scope, $window, $location, $routeParams, mockupService) {
+
+        $scope.name = 'Mockup Name Scope';
+        $scope.description = 'Mockup Description Scope';
+        $scope.project = {};
+        $scope.project.id = $routeParams.projectId;
+        $scope.save = function() {
+            mockupService.createMockup.save({
+                name: $scope.name,
+                description: $scope.description,
+                project: $scope.project
+            }, function(result) {
+                $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
+            });
+        };
+    }]);

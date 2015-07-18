@@ -72,5 +72,17 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.createMockup = $resource('http://localhost:1337/mockup/', {}, {
+            save: {
+                method: 'POST'
+            }
+        });
+
+        fac.updateMockup = $resource('http://localhost:1337/mockup/:id', {}, {
+            update: {
+                method: 'PUT'
+            }
+        });
+
         return fac;
     });

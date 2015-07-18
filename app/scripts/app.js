@@ -57,6 +57,10 @@ angular
         templateUrl: 'views/mockup-new.html',
         controller: 'MockupNewCtrl'
       })
+      .when('/project/:projectId/mockup/edit/:mockupId', {
+        templateUrl: 'views/mockup-edit.html',
+        controller: 'MockupEditCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -17,7 +17,7 @@ angular.module('mockuperApp')
             ];
             $scope.projectId = $routeParams.projectId;
             $scope.addMockup = function() {
-                $location.path('/mockup-new');
+                $location.path('/project/' + $scope.projectId + '/mockup-new');
             };
 
             $rootScope.breadcrumb = mockupService.breadcrumb['project'];

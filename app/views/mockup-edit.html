@@ -1,0 +1,24 @@
+<div>
+    <form role="form">
+        <div class="form-group">
+            <label for="name">Mockup Name:</label>
+            <input type="text" ng-model="editObject.name" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="textarea" class="form-control" id="description" ng-model="editObject.description">
+        </div>
+        <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" class="form-control" id="state" ng-model="editObject.state">
+        </div>
+        <div class="form-group">
+            <label for="type">type:</label>
+            <input type="text" class="form-control" id="type" ng-model="editObject.type">
+        </div>
+        <div>Updated At: {{editObject.createdAt}}</div>
+        <div>Created: {{editObject.createdAt}}</div>
+        <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
+    </form>
+</div>
