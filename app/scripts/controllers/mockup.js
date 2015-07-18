@@ -27,5 +27,7 @@ angular.module('mockuperApp')
                 $scope.viewObject = result;
                 $scope.viewObject.title = 'Mockup View';
                 $scope.viewObject.editUrl = 'project/' + result.project.id + '/mockup/edit/' + result.id;
+                $scope.viewObject.parentName = result.project.name;
+                $scope.viewObject.parentUrl = '#/project/' + result.project.id;
             });
     }]);
