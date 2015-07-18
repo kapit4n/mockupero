@@ -2,17 +2,17 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:myDirective
+ * @name myYoProjectApp.directive:leftSideBar
  * @description
- * # myDirective
+ * # leftSideBar
  */
 angular.module('myYoProjectApp')
-  .directive('myDirective', function () {
+  .directive('leftSideBar', function () {
     return {
-      template: '<div></div>',
+      templateUrl: 'views/templates/leftSideBar.html',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-        element.text('this is the myDirective directive');
+        
       }
     };
   });

@@ -20,5 +20,14 @@ angular.module('myYoProjectApp')
                 isArray: true
             }
         });
+        
+        fac.projectById = $resource('http://localhost:1337/project/:projectId', {
+            projectId: '@id'
+        }, {
+            get: {
+                method: 'GET'
+            }
+        });
+
         return fac;
     });

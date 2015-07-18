@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:customListDirective
+ * @name myYoProjectApp.directive:projectList
  * @description
- * # customListDirective
+ * # projectList
  */
 angular.module('myYoProjectApp')
-  .directive('customListDirective', function () {
+  .directive('projectList', function () {
     return {
-      templateUrl: 'views/customListTemplate.html',
+      templateUrl: 'views/templates/projectList.html',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
         
