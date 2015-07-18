@@ -23,4 +23,8 @@ angular.module('mockuperApp')
                 $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
             });
         };
+
+        $scope.cancel = function() {
+            $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+        }
     }]);

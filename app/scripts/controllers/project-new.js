@@ -20,4 +20,8 @@ angular.module('mockuperApp')
                 $window.location.href = '#/project/' + result.id;
             });
         };
+
+        $scope.cancel = function() {
+            $window.location.href = '#/';
+        }
     }]);

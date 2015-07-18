@@ -13,8 +13,10 @@
             <img src="" height="30px" alt="...">
             <div class="caption">
                 <h4>{{mockup.name}}</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                <p><a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a> <a href="#/mockup/{{mockup.id}}" class="btn btn-default" role="button">Edit</a>
+                <p>{{mockup.description}}</p>
+                <p>
+                    <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a>
+                    <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-default" role="button">Edit</a>
                 </p>
             </div>
         </div>
