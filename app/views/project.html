@@ -1,35 +1,21 @@
-<div class="container" style="background: #f5f5f5; ">
-    <div class="row">
-        <div class="col-sm-2"><strong>Name</strong></div>
-        <div class="col-sm-10" style="color: #737373;">{{project.name}}</div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"><strong>Status</strong></div>
-        <div class="col-sm-10" style="color: #737373;">{{project.state}}</div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"><strong>Description</strong></div>
-        <div class="col-sm-10" style="color: #737373;"> {{project.description}}
-        </div>
-    </div>
-</div>
+<view-object> </view-object>
 <div style="padding-top: 10px;" class="container">
     <button type="button" class="btn {{wf.className}}" ng-repeat="wf in workflows" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
         {{wf.name}}
     </button>
 </div>
-
 <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button> Mockups </h3>
 <div class="row">
-    <div class="col-sm-4 col-md-4" ng-repeat="mockup in mockups track by $index">
+    <div class="col-sm-4 col-md-4" ng-repeat="mockup in project.mockups track by $index">
         <div class="thumbnail">
-            <img src="{{mockup.img}}" height="30px" alt="...">
+            <img src="" height="30px" alt="...">
             <div class="caption">
                 <h4>{{mockup.name}}</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                <p><a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a> <a href="#/mockup/{{mockup.id}}" class="btn btn-default" role="button">Edit</a></p>
+                <p><a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a> <a href="#/mockup/{{mockup.id}}" class="btn btn-default" role="button">Edit</a>
+                </p>
             </div>
         </div>
     </div>

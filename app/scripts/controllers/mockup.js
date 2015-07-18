@@ -16,10 +16,16 @@ angular.module('myYoProjectApp')
         ];
 
         $scope.mockupList = mockupService.mockups;
-
-        $scope.mockupId = $routeParams.mockupId % $scope.mockupList.length;
-        $scope.projectId = $routeParams.projectId;
-        $scope.mockup = $scope.mockupList[$scope.mockupId];
-
         $rootScope.breadcrumb = mockupService.breadcrumb['mockup'];
+        $scope.mockup = null;
+        mockupService.mockupById.get({
+                mockupId: $routeParams.mockupId
+            })
+            .$promise.then(function(result) {
+                console.log(result);
+                $scope.mockup = result;
+                $scope.viewObject = result;
+                $scope.viewObject.title = 'Mockup View';
+                $scope.viewObject.editUrl = 'project/' + result.project.id + '/mockup/edit/' + result.id;
+            });
     }]);

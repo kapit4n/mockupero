@@ -47,12 +47,16 @@ angular.module('myYoProjectApp')
                 description: 'abandon'
             }];
             $scope.project = null;
+            $scope.viewObject = null;
             projectService.projectById.get({
                     projectId: $routeParams.projectId
                 })
                 .$promise.then(function(result) {
+                    console.log(result);
+                    $scope.viewObject = result;
                     $scope.project = result;
+                    $scope.viewObject.title = 'Project View';
+                    $scope.viewObject.editUrl = 'project/edit/' + result.id;
                 });
-
         }
     ]);

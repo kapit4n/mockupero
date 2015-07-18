@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc service
- * @name myYoProjectApp.myService
+ * @name myYoProjectApp.mockupService
  * @description
- * # myService
+ * # mockupService
  * Service in the myYoProjectApp.
  */
 angular.module('myYoProjectApp')
@@ -62,12 +62,15 @@ angular.module('myYoProjectApp')
             }]
         };
 
-
-
         fac.projects = ['John', 'James', 'Jake'];
 
-
-        fac.project1 = $resource('http://localhost:1337/projects', {userId:'@id'}, {get: {method:'GET', isArray:true}});
+        fac.mockupById = $resource('http://localhost:1337/mockup/:mockupId', {
+            mockupId: '@id'
+        }, {
+            get: {
+                method: 'GET'
+            }
+        });
 
         return fac;
     });
