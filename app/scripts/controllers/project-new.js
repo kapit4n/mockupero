@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name myYoProjectApp.controller:ProjectNewCtrl
+ * @name mockuperApp.controller:ProjectNewCtrl
  * @description
  * # ProjectNewCtrl
- * Controller of the myYoProjectApp
+ * Controller of the mockuperApp
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .controller('ProjectNewCtrl', ['$scope', '$location', function ($scope,$location) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

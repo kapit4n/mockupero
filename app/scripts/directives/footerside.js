@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:footerSide
+ * @name mockuperApp.directive:footerSide
  * @description
  * # footerSide
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .directive('footerSide', function () {
     return {
       templateUrl: 'views/templates/footerSide.html',

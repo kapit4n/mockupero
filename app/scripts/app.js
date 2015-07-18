@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name myYoProjectApp
+ * @name mockuperApp
  * @description
- * # myYoProjectApp
+ * # mockuperApp
  *
  * Main module of the application.
  */
 angular
-  .module('myYoProjectApp', [
+  .module('mockuperApp', [
     'ngAnimate',
     'ngAria',
     'ngCookies',

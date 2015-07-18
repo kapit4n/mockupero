@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:projectList
+ * @name mockuperApp.directive:projectList
  * @description
  * # projectList
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .directive('projectList', function () {
     return {
       templateUrl: 'views/templates/projectList.html',

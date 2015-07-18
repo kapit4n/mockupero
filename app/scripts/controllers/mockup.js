@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name myYoProjectApp.controller:MockupCtrl
+ * @name mockuperApp.controller:MockupCtrl
  * @description
  * # MockupCtrl
- * Controller of the myYoProjectApp
+ * Controller of the mockuperApp
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
     .controller('MockupCtrl', ['$scope', 'mockupService', '$routeParams', '$rootScope', function($scope, mockupService, $routeParams, $rootScope) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name myYoProjectApp.controller:ProjectCtrl
+ * @name moCkUperapp.controller:ProjectCtrl
  * @description
  * # ProjectCtrl
- * Controller of the myYoProjectApp
+ * Controller of the mockuperApp
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', 'mockupService', 'projectService', '$routeParams', '$location', '$rootScope',
         function($scope, mockupService, projectService, $routeParams, $location, $rootScope) {
             $scope.awesomeThings = [

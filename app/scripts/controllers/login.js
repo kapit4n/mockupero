@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name myYoProjectApp.controller:LoginCtrl
+ * @name mockuperApp.controller:LoginCtrl
  * @description
  * # LoginCtrl
- * Controller of the myYoProjectApp
+ * Controller of the mockuperApp
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .controller('LoginCtrl', ['$scope', '$location', function ($scope,$location) {
     $scope.userName = '';
     $scope.password = '';

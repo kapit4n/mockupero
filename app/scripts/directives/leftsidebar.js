@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:leftSideBar
+ * @name mockuperApp.directive:leftSideBar
  * @description
  * # leftSideBar
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .directive('leftSideBar', function () {
     return {
       templateUrl: 'views/templates/leftSideBar.html',

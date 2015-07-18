@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:viewObject
+ * @name mockuperApp.directive:viewObject
  * @description
  * # viewObject
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .directive('viewObject', function () {
     return {
       templateUrl: 'views/templates/viewObject.html',

@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name myYoProjectApp.directive:headerSide
+ * @name mockuperApp.directive:headerSide
  * @description
  * # headerSide
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .directive('headerSide', function () {
     return {
       templateUrl: '/views/templates/headerSide.html',

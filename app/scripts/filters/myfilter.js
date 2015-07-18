@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc filter
- * @name myYoProjectApp.filter:myFilter
+ * @name mockuperApp.filter:myFilter
  * @function
  * @description
  * # myFilter
- * Filter in the myYoProjectApp.
+ * Filter in the mockuperApp.
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
   .filter('myFilter', function () {
     return function (input) {
       return 'myFilter filter: ' + input;

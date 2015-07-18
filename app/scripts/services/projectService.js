@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name myYoProjectApp.myService
+ * @name mockuperApp.myService
  * @description
  * # myService
- * Service in the myYoProjectApp.
+ * Service in the mockuperApp.
  */
-angular.module('myYoProjectApp')
+angular.module('mockuperApp')
     .service('projectService', function($resource) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var fac = {};
