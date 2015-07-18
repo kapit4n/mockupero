@@ -1,6 +1,23 @@
-<ol class="breadcrumb">
-  <li><a href="#/">Home</a></li>
-  <li class="active">Project</li>
-</ol>
-
-<p>This is the project-edit view.</p>
+<div>
+    <form role="form">
+        <div class="form-group">
+            <label for="name">Project Name:</label>
+            <input type="text" ng-model="project.name" class="form-control" id="name" placeholder="Project Name">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="textarea" class="form-control" id="description" ng-model="project.description">
+        </div>
+        <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" class="form-control" id="state" ng-model="project.state">
+        </div>
+        <div class="form-group">
+            <label for="type">type:</label>
+            <input type="text" class="form-control" id="type" ng-model="project.type">
+        </div>
+        <div>Updated At: {{project.createdAt}}</div>
+        <div>Created: {{project.createdAt}}</div>
+        <button type="submit" class="btn btn-success" ng-click="saveProject()">Save</button>
+    </form>
+</div>

@@ -27,5 +27,17 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.createProject = $resource('http://localhost:1337/project/', {}, {
+            save: {
+                method: 'POST'
+            }
+        });
+
+        fac.updateProject = $resource('http://localhost:1337/project/:id', {}, {
+            update: {
+                method: 'PUT'
+            }
+        });
+
         return fac;
     });
