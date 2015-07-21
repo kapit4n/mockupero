@@ -10,11 +10,6 @@
 angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', 'mockupService', 'projectService', '$routeParams', '$location', '$rootScope',
         function($scope, mockupService, projectService, $routeParams, $location, $rootScope) {
-            $scope.awesomeThings = [
-                'HTML5 Boilerplate',
-                'AngularJS',
-                'Karma'
-            ];
             $scope.projectId = $routeParams.projectId;
             $scope.addMockup = function() {
                 $location.path('/project/' + $scope.projectId + '/mockup-new');

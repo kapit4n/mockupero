@@ -12,7 +12,10 @@ angular.module('mockuperApp')
         // AngularJS will instantiate a singleton by calling "new" on this function
         var fac = {};
 
-        fac.projects = $resource('http://localhost:1337/project', {}, {
+        fac.projects = $resource('http://localhost:1337/project', {
+            where: '@where',
+            limit: '@limit'
+        }, {
             get: {
                 method: 'GET',
                 isArray: true

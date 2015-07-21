@@ -1,5 +1,6 @@
 <div class="col-sm-9" style="padding: 1px;">
-    <div class="row" ng-repeat="project in projects track by $index">
+    <input type="text" placeholder="Search by Project Name" ng-model="searchName" ng-keyup="reloadProject()">
+    <div class="row" ng-repeat="project in projects">
         <div class="col-sm-12">
             <div class="thumbnail" style="height: 199px;">
                 <img class="col-sm-2" src="https://www.alcaweb.org/archfs/v3/gsacket/8/gNFtNF63rU.png" alt="...">

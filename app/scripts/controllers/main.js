@@ -18,11 +18,23 @@ angular.module('mockuperApp')
             $location.path('/project-new');
         };
         $scope.projects = [];
+        $scope.searchName = '';
         $rootScope.breadcrumb = mockupService.breadcrumb['home'];
 
-        projectService.projects.get({})
-            .$promise.then(function(result) {
-                console.log(result);
-                $scope.projects = result;
-            });
+        $scope.reloadProject = function() {
+            projectService.projects.get({
+                    where: {
+                        name: {
+                            "like": "%" + $scope.searchName + "%"
+                        }
+                    }
+                })
+                .$promise.then(function(result) {
+                    console.log(result);
+                    $scope.projects = result;
+                });
+        };
+
+        $scope.reloadProject();
+
     }]);
