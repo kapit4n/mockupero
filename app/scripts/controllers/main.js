@@ -27,7 +27,8 @@ angular.module('mockuperApp')
                         name: {
                             "like": "%" + $scope.searchName + "%"
                         }
-                    }
+                    },
+                    limit: 2
                 })
                 .$promise.then(function(result) {
                     console.log(result);
