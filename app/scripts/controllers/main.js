@@ -22,6 +22,7 @@ angular.module('mockuperApp')
         $scope.projects = [];
         $scope.searchName = '';
         $scope.totalSize = 0;
+        $scope.totalPages = 0;
         $rootScope.breadcrumb = mockupService.breadcrumb['home'];
         $scope.projectPages = [];
 
@@ -29,19 +30,14 @@ angular.module('mockuperApp')
             $scope.projectPages = [];
             var isCurrentAux;
             var pageLabelText;
-            var totalPages = parseInt($scope.totalSize / $scope.pageSize);
-            if ((totalPages * $scope.pageSize) < $scope.totalSize) {
-                totalPages += 1;
-            }
-            if($scope.currentPage > totalPages) {
-                $scope.currentPage -= 1;
-            }
-            for (var i = 1; i <= totalPages; i++) {
+
+
+            for (var i = 1; i <= $scope.totalPages; i++) {
                 isCurrentAux = (i == $scope.currentPage);
                 pageLabelText = i;
                 if (i == 1) {
                     pageLabelText = 'First';
-                } else if (i == totalPages) {
+                } else if (i == $scope.totalPages) {
                     pageLabelText = 'Last';
                 }
                 var pageItem = {
@@ -59,6 +55,16 @@ angular.module('mockuperApp')
                 name: $scope.searchName
             }).$promise.then(function(countResult) {
                 $scope.totalSize = countResult.count;
+
+                $scope.totalPages = parseInt($scope.totalSize / $scope.pageSize);
+                if (($scope.totalPages * $scope.pageSize) < $scope.totalSize) {
+                    $scope.totalPages += 1;
+                }
+
+                if ($scope.totalPages < $scope.currentPage) {
+                    $scope.currentPage -= 1;
+                }
+
                 projectService.projects.get({
                         where: {
                             name: {
@@ -79,6 +85,7 @@ angular.module('mockuperApp')
             projectService.deleteProject.get({
                 id: projectId
             }).$promise.then(function(result) {
+
                 $scope.reloadProject($scope.currentPage);
             });
         }
