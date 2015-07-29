@@ -6,7 +6,11 @@
                 <img class="col-sm-2" src="https://www.alcaweb.org/archfs/v3/gsacket/8/gNFtNF63rU.png" alt="...">
                 <div class="caption" class="col-sm-8">
                     <h4 class="col-sm-4">{{project.name}} </h4>
-                    <div class="col-sm-6"><a href="#/project/{{project.id}}" class="btn btn-primary" role="button">View</a> <a href="#/project/edit/{{project.id}}" class="btn btn-default" role="button">Edit</a></div>
+                    <div class="col-sm-6">
+                        <a href="#/project/{{project.id}}" class="btn btn-primary" role="button">View</a>
+                        <a href="#/project/edit/{{project.id}}" class="btn btn-default" role="button">Edit</a>
+                        <a href="" ng-click="deleteProject(project.id)" class="btn btn-danger" role="button">Delete</a>
+                    </div>
                     <div class="col-sm-12">{{project.description}} </div>
                     <div class="col-sm-12" style="color: darkgray;">
                         <div>State: {{project.state}}</div>

@@ -33,6 +33,9 @@ angular.module('mockuperApp')
             if ((totalPages * $scope.pageSize) < $scope.totalSize) {
                 totalPages += 1;
             }
+            if($scope.currentPage > totalPages) {
+                $scope.currentPage -= 1;
+            }
             for (var i = 1; i <= totalPages; i++) {
                 isCurrentAux = (i == $scope.currentPage);
                 pageLabelText = i;
@@ -71,5 +74,14 @@ angular.module('mockuperApp')
                     });
             });
         };
+
+        $scope.deleteProject = function(projectId) {
+            projectService.deleteProject.get({
+                id: projectId
+            }).$promise.then(function(result) {
+                $scope.reloadProject($scope.currentPage);
+            });
+        }
+
         $scope.reloadProject(1);
     }]);

@@ -30,6 +30,12 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.deleteProject = $resource('http://localhost:1337/project/:id', {}, {
+            get: {
+                method: 'DELETE'
+            }
+        });
+
         fac.createProject = $resource('http://localhost:1337/project/', {}, {
             save: {
                 method: 'POST'
