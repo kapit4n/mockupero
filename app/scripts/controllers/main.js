@@ -52,7 +52,9 @@ angular.module('mockuperApp')
 
         $scope.reloadProject = function(currentPage) {
             $scope.currentPage = currentPage;
-            projectService.countProject.get({}).$promise.then(function(countResult) {
+            projectService.countProject.get({
+                name: $scope.searchName
+            }).$promise.then(function(countResult) {
                 $scope.totalSize = countResult.count;
                 projectService.projects.get({
                         where: {
