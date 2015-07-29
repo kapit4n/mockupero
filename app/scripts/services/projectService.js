@@ -42,5 +42,11 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.countProject = $resource('http://localhost:1337/project/count', {}, {
+            get: {
+                method: 'GET'
+            }
+        });
+
         return fac;
     });

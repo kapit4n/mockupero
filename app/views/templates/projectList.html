@@ -1,5 +1,5 @@
 <div class="col-sm-9" style="padding: 1px;">
-    <input type="text" placeholder="Search by Project Name" ng-model="searchName" ng-keyup="reloadProject()">
+    <input type="text" placeholder="Search by Project Name" ng-model="searchName" ng-keyup="reloadProject(1)">
     <div class="row" ng-repeat="project in projects">
         <div class="col-sm-12">
             <div class="thumbnail" style="height: 199px;">
@@ -18,10 +18,11 @@
         </div>
     </div>
     <div>
-        First
-        <button onclick="">2</button>
-        <button onclick="">3</button>
-        .....
-        <button onclick="">Last</button>
+        <ul class="pagination">
+            <li ng-repeat="projectPage in projectPages">
+            <a href="" class="active" ng-click="reloadProject(projectPage.pageIndex)">{{projectPage.pageLabel}}
+            </a>
+            </li>
+        </ul>
     </div>
 </div>
