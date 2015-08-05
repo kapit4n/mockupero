@@ -12,6 +12,7 @@ angular.module('mockuperApp')
 
         $scope.projectName = 'Project Name Scope';
         $scope.description = 'Project Description Scope';
+        $scope.imgToShow = 'Project Description Scope';
         $scope.save = function() {
             projectService.createProject.save({
                 name: $scope.projectName,
