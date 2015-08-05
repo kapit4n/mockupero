@@ -10,9 +10,10 @@
 angular.module('mockuperApp')
     .controller('MockupNewCtrl', ['$scope', '$window', '$location', '$routeParams', 'mockupService', function($scope, $window, $location, $routeParams, mockupService) {
 
-        $scope.name = 'Mockup Name Scope';
-        $scope.description = 'Mockup Description Scope';
-        $scope.imgToShow = 'http://codeconvey.com/wp-content/uploads/2014/02/HTML-Login-form.png';
+        $scope.name = '';
+        $scope.objName = 'Mockup';
+        $scope.description = '';
+        $scope.imgToShow = '';
         $scope.project = {};
         $scope.project.id = $routeParams.projectId;
         $scope.save = function() {

@@ -10,9 +10,10 @@
 angular.module('mockuperApp')
     .controller('ProjectNewCtrl', ['$scope', '$window', 'projectService', function($scope, $window, projectService) {
 
-        $scope.projectName = 'Project Name Scope';
-        $scope.description = 'Project Description Scope';
-        $scope.imgToShow = 'Project Description Scope';
+        $scope.projectName = '';
+        $scope.objName = "Project";
+        $scope.description = '';
+        $scope.imgToShow = '';
         $scope.save = function() {
             projectService.createProject.save({
                 name: $scope.projectName,
