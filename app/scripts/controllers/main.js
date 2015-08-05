@@ -26,6 +26,8 @@ angular.module('mockuperApp')
         $rootScope.breadcrumb = mockupService.breadcrumb['home'];
         $scope.projectPages = [];
 
+        $scope.sortAsc = true;
+
         $scope.makePagination = function() {
             $scope.projectPages = [];
             var isCurrentAux;
@@ -49,6 +51,11 @@ angular.module('mockuperApp')
             };
         };
 
+        $scope.sortByName = function() {
+            $scope.sortAsc = !$scope.sortAsc;
+            $scope.reloadProject($scope.currentPage);
+        };
+
         $scope.reloadProject = function(currentPage) {
             $scope.currentPage = currentPage;
             projectService.countProject.get({
@@ -64,7 +71,7 @@ angular.module('mockuperApp')
                 if ($scope.totalPages < $scope.currentPage) {
                     $scope.currentPage -= 1;
                 }
-
+                var sortA = $scope.sortAsc ? 'ASC': 'DESC';
                 projectService.projects.get({
                         where: {
                             name: {
@@ -72,7 +79,8 @@ angular.module('mockuperApp')
                             }
                         },
                         limit: $scope.pageSize,
-                        skip: (($scope.currentPage - 1) * $scope.pageSize)
+                        skip: (($scope.currentPage - 1) * $scope.pageSize),
+                        sort: 'name ' + sortA
                     })
                     .$promise.then(function(result) {
                         $scope.projects = result;
