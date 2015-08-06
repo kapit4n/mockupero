@@ -6,19 +6,11 @@
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
-            <input type="textarea" class="form-control" id="description" ng-model="editObject.description">
+            <textarea type="textarea" class="form-control" id="description" cols="30" rows="10" ng-model="editObject.description"></textarea>
         </div>
         <div class="form-group">
             <label for="imgToShow">Icon Image</label>
-            <textarea class="form-control" name="" id="imgToShow" cols="30" rows="10" ng-model="editObject.imgToShow"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="state">State:</label>
-            <input type="text" class="form-control" id="state" ng-model="editObject.state">
-        </div>
-        <div class="form-group">
-            <label for="type">type:</label>
-            <input type="text" class="form-control" id="type" ng-model="editObject.type">
+            <input class="form-control" id="imgToShow" ng-model="editObject.imgToShow">
         </div>
         <div>Updated At: {{editObject.createdAt}}</div>
         <div>Created: {{editObject.createdAt}}</div>

@@ -54,7 +54,7 @@ angular.module('mockuperApp')
             }
         });
 
-        fac.projectStatus = ['New', 'In Progress', 'Abandoned', 'Closed'];
+        fac.projectTypes = ['Type 1', 'Type 2'];
 
         return fac;
     });

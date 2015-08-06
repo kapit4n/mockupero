@@ -9,12 +9,7 @@
  */
 angular.module('mockuperApp')
     .controller('MockupCtrl', ['$scope', 'mockupService', '$routeParams', '$rootScope', function($scope, mockupService, $routeParams, $rootScope) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
+        
         $scope.mockupList = mockupService.mockups;
         $rootScope.breadcrumb = mockupService.breadcrumb['mockup'];
         $scope.mockup = null;
@@ -27,6 +22,7 @@ angular.module('mockuperApp')
                 $scope.viewObject = result;
                 $scope.viewObject.title = 'Mockup View';
                 $scope.viewObject.editUrl = 'project/' + result.project.id + '/mockup/edit/' + result.id;
+                $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
                 $scope.viewObject.parentName = result.project.name;
                 $scope.viewObject.parentUrl = '#/project/' + result.project.id;
             });

@@ -31,6 +31,6 @@ angular.module('mockuperApp')
             $window.location.href = '#/project/' + $scope.project.id;
         }
 
-        $scope.projectStatus = projectService.projectStatus;
+        $scope.projectTypes = projectService.projectTypes;
 
     }]);

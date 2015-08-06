@@ -10,17 +10,11 @@
         </div>
         <div class="form-group">
             <label for="state">State:</label>
-            <select class="form-control" id="state" ng-model="project.state">
-                <option value="{{projectSt}}" ng-repeat="projectSt in projectStatus">{{projectSt}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="type">type:</label>
-            <input type="text" class="form-control" id="type" ng-model="project.type">
+            <input type="text" class="form-control" id="state" ng-model="project.type">
         </div>
         <div>Updated At: {{project.createdAt}}</div>
         <div>Created: {{project.createdAt}}</div>
         <button type="submit" class="btn btn-success" ng-click="saveProject()">Save</button>
-        <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
     </form>
 </div>
