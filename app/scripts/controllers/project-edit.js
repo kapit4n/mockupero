@@ -30,4 +30,7 @@ angular.module('mockuperApp')
         $scope.cancel = function() {
             $window.location.href = '#/project/' + $scope.project.id;
         }
+
+        $scope.projectStatus = projectService.projectStatus;
+
     }]);
