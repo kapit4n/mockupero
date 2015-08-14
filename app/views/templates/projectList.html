@@ -11,7 +11,7 @@
                     <h4 class="col-sm-4">{{project.name}} </h4>
                     <div class="col-sm-6">
                         <a href="#/project/{{project.id}}" class="btn btn-primary" role="button">View</a>
-                        <button class="btn btn-primary" role="button" data-toggle="modal" data-target="#myModal">Share</button>
+                        <button class="btn btn-primary" role="button" data-toggle="modal" ng-click="reloadUsers(project.id)" data-target="#myModal">Share</button>
                         <a href="#/project/edit/{{project.id}}" class="btn btn-default" role="button">Edit</a>
                         <a href="" ng-click="deleteProject(project.id)" class="btn btn-danger" role="button">Delete</a>
                     </div>
@@ -41,10 +41,7 @@
                             <label for="people">People</label>
                             <br/>
                             <select class="form-control" style="width: 150px; display: inline;" id="people">
-                                <option>Luis arce</option>
-                                <option>Victor paredez</option>
-                                <option>Jhon Smith</option>
-                                <option>David Luis</option>
+                                <option ng-repeat="user in users">{{user.name}}</option>
                             </select>
                             <select class="form-control" style="width: 150px; display: inline;" id="people2">
                                 <option>Can Edit</option>
