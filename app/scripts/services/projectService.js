@@ -54,6 +54,25 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.shareProject = $resource('http://localhost:1337/projectShare', {}, {
+            get: {
+                method: 'POST'
+            }
+        });
+
+        fac.getProjectUsers = $resource('http://localhost:1337/projectShare', {}, {
+            get: {
+                method: 'GET',
+                isArray: true
+            }
+        });
+
+        fac.deleteProjectShare = $resource('http://localhost:1337/projectShare/:id', {}, {
+            delete: {
+                method: 'DELETE'
+            }
+        });
+
         fac.projectTypes = ['Type 1', 'Type 2'];
 
         return fac;

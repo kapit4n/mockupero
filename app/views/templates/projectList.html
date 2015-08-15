@@ -40,17 +40,24 @@
                         <div class="form-group">
                             <label for="people">People</label>
                             <br/>
-                            <select class="form-control" style="width: 150px; display: inline;" id="people">
-                                <option ng-repeat="user in users">{{user.name}}</option>
+                            <select class="form-control" style="width: 150px; display: inline;" id="people" ng-model="userIdToadd">
+                                <option ng-value="user.id" ng-repeat="user in users">{{user.name}}</option>
                             </select>
-                            <select class="form-control" style="width: 150px; display: inline;" id="people2">
-                                <option>Can Edit</option>
-                                <option>Can Read</option>
+                            <select class="form-control" style="width: 150px; display: inline;" id="people2" ng-model="permissionIdToadd">
+                                <option ng-value="permission.id" ng-repeat="permission in permissions">Can {{permission.can}}</option>
                             </select>
-                            <button type="submit" style="width: 100px; display: inline;" class="btn btn-default">Share</button>
+                            <button type="submit" style="width: 100px; display: inline;" class="btn btn-default" ng-click="addUsertoProject()">Share</button>
                         </div>
                     </form>
-                    <p>Shared with: Jhon smith</p>
+                    <div class="col-sm-12" style="max-height: 100px;  overflow: scroll;">
+                        <div class="label-primary">Shared with:</div>
+                        <div ng-repeat="projectShareEntry in projectShareEntries">
+                            <span class=""> {{projectShareEntry.user.name}} Can {{projectShareEntry.permission.can}} </span>
+                            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="removeProjectShare(projectShareEntry.id, projectShareEntry.project.id)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

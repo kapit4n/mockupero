@@ -11,9 +11,6 @@ angular.module('mockuperApp')
     .controller('MainCtrl', ['$scope', 'mockupService', 'projectService', 'userService', '$location', '$rootScope',
         function($scope, mockupService, projectService, userService, $location, $rootScope) {
 
-            $scope.addProject = function() {
-                $location.path('/project-new');
-            };
             $scope.currentPage = 1;
             $scope.pageSize = 2;
             $scope.projects = [];
@@ -22,16 +19,29 @@ angular.module('mockuperApp')
             $scope.totalPages = 0;
             $rootScope.breadcrumb = mockupService.breadcrumb['home'];
             $scope.projectPages = [];
-
+            $scope.projectShareEntries = [];
             $scope.users = [];
-
             $scope.sortAsc = true;
+            $scope.userIdToadd = '';
+            $scope.sharedProjectId = '';
+            $scope.permissionIdToadd = '';
+
+            userService.user.get().$promise.then(function(result) {
+                $scope.users = result;
+            });
+
+            userService.permission.get().$promise.then(function(result) {
+                $scope.permissions = result;
+            });
+
+            $scope.addProject = function() {
+                $location.path('/project-new');
+            };
 
             $scope.makePagination = function() {
                 $scope.projectPages = [];
                 var isCurrentAux;
                 var pageLabelText;
-
 
                 for (var i = 1; i <= $scope.totalPages; i++) {
                     isCurrentAux = (i == $scope.currentPage);
@@ -97,13 +107,39 @@ angular.module('mockuperApp')
                 });
             };
 
-            userService.users.get().$promise.then(function(result) {
-                $scope.users = result;
-            });
-
             $scope.reloadUsers = function(projectId) {
-                console.log('this is the project shared ' + projectId);
+                $scope.sharedProjectId = projectId;
+                projectService.getProjectUsers.get({
+                    where: {
+                        project: $scope.sharedProjectId
+                    }
+                }).$promise.then(function(result) {
+                    console.log(result);
+                    $scope.projectShareEntries = [];
+                    result.forEach(function(projectShare) {
+                        $scope.projectShareEntries.push(projectShare);
+                    });
+                });
             };
+
+            $scope.addUsertoProject = function() {
+                var userProjectTuple = {
+                    user: $scope.userIdToadd,
+                    project: $scope.sharedProjectId,
+                    permission: $scope.permissionIdToadd
+                };
+                projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
+                    $scope.reloadUsers($scope.sharedProjectId);
+                });
+            }
+
+            $scope.removeProjectShare = function(shareProjectId, projectId) {
+                projectService.deleteProjectShare.delete({
+                    id: shareProjectId
+                }).$promise.then(function(result) {
+                    $scope.reloadUsers(projectId);
+                });
+            }
 
             $scope.reloadProject(1);
         }
