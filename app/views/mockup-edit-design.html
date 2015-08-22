@@ -1,12 +1,47 @@
+<style>
+.resize-drag {
+    background-color: #29e;
+    color: white;
+    font-size: 20px;
+    font-family: sans-serif;
+    border-radius: 8px;
+    /*padding: 20px;*/
+    /*margin: 30px 20px;*/
+    width: 120px;
+    /* This makes things *much* easier */
+    /*box-sizing: border-box;*/
+}
+
+.resize-container {
+    width: 100%;
+    height: 240px;
+}
+</style>
 <div class="container">
     <div class="container">
         <toolbar-item-image></toolbar-item-image>
         <toolbar-item-table></toolbar-item-table>
     </div>
-    <div id="design-div" style="height: 600px; background: black;">
-        <table-item></table-item>
-        <image-item></image-item>
-        <image-item></image-item>
+    <div id="design-div" style="height: 600px; background: black; position absolute; ">
+        <img class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
+        <img class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
+        <table class="resize-drag table" style="position absolute;">
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td>94</td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td>94</td>
+            </tr>
+        </table>
     </div>
     <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
