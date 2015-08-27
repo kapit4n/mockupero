@@ -22,10 +22,27 @@
         <toolbar-item-image></toolbar-item-image>
         <toolbar-item-table></toolbar-item-table>
     </div>
-    <div id="design-div" style="height: 600px; background: black; position absolute; ">
-        <img class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <img class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <table class="resize-drag table" style="position absolute;">
+    <div class="dropdown position-fixed" id="menu-image">
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="panel.highlight = true">
+         Select Panel {{ $index + 1 }}
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="2"
+         ng-click="panel.highlight = false">
+         Deselect Panel  {{ $index + 1 }}
+      </a>
+    </li>
+  </ul>
+</div>
+    <div id="design-div" style="height: 600px; background: black; position absolute; "
+    >
+        <img context-menu data-target="menu-image" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
+        <img context-menu data-target="menu-image" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" contextmenu="{{menuList}}" click-menu="clickMenu(item)" right-click="moveToTop($event)" class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
+        <table class="resize-drag table" style="position absolute;" ng-click="moveToTop($event)">
             <tr>
                 <td>Jill</td>
                 <td>Smith</td>

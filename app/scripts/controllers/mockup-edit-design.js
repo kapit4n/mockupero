@@ -20,6 +20,16 @@ angular.module('mockuperApp')
                 $scope.editObject = result;
             });
 
+        $scope.moveToTop = function($event){
+            console.log($event);
+            $event.target.parentNode.appendChild($event.target);
+        };
+        $scope.clickMenu = function(item){
+            console.log(item);
+        };
+
+        $scope.menuList = ['menu1','menu2','menu3'];
+
         $scope.save = function() {
             mockupService.updateMockup.update({
                 id: $scope.editObject.id

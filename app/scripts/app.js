@@ -17,7 +17,9 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ng-context-menu'
+
   ])
   .config(function ($routeProvider) {
     $routeProvider
