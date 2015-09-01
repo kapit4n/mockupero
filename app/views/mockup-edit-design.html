@@ -46,23 +46,25 @@
     <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
 </div>
-<div class="dropdown position-fixed" id="menu-image-1">
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('menu-image-1x');">Bring to Front</a>
-        </li>
-        <li>
-            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-1x');">Send Backward</a>
-        </li>
-    </ul>
-</div>
-<div class="dropdown position-fixed" id="menu-image-2">
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('menu-image-2x');">Bring to Front</a>
-        </li>
-        <li>
-            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-2x');">Send Backward</a>
-        </li>
-    </ul>
+<div id="design-div-content-menu">
+    <div class="dropdown position-fixed" id="menu-image-1">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('menu-image-1x');">Bring to Front</a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-1x');">Send Backward</a>
+            </li>
+        </ul>
+    </div>
+    <div class="dropdown position-fixed" id="menu-image-2">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('menu-image-2x');">Bring to Front</a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-2x');">Send Backward</a>
+            </li>
+        </ul>
+    </div>
 </div>

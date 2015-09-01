@@ -120,7 +120,26 @@ angular.module('mockuperApp')
 
         $scope.addImage = function() {
             var myEl = angular.element(document.querySelector('#design-div'));
-            myEl.append($compile('<image-item></image-item>')($scope));
+            var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
+            $scope.lastId++;
+            var imgHtml =  '<img id="menu-image-' + $scope.lastId +'x" context-menu data-target="menu-image-' + $scope.lastId +'" class="resize-drag" '+
+                'style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">';
+            myEl.append($compile(imgHtml)($scope));
+            
+            var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId +'">'+
+                '    <ul class="dropdown-menu" role="menu">'+
+                '        <li>'+
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-image-' + $scope.lastId +'x\');">Bring to FrontXX</a>'+
+                '        </li>'+
+                '        <li>'+
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-image-' + $scope.lastId +'x\');">Send BackwardXX</a>'+
+                '        </li>'+
+                '    </ul>'+
+                '</div>';
+            myEl2.append($compile(contentMenuHtml)($scope));
+
+
+
         };
 
         $scope.bringToFront = function(idComponent) {
