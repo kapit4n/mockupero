@@ -11,6 +11,7 @@ angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$compile','$window', '$routeParams', 'mockupService', function($scope, $compile , $window, $routeParams, mockupService) {
 
         $scope.editObject = null;
+        $scope.lastId = 2;
 
         mockupService.mockupById.get({
                 mockupId: $routeParams.mockupId
@@ -120,5 +121,21 @@ angular.module('mockuperApp')
         $scope.addImage = function() {
             var myEl = angular.element(document.querySelector('#design-div'));
             myEl.append($compile('<image-item></image-item>')($scope));
-        }
+        };
+
+        $scope.bringToFront = function(idComponent) {
+            var myEl = angular.element(document.querySelector('#' + idComponent));
+            console.log(myEl);
+            var containerEl = angular.element(document.querySelector('#design-div'));
+            containerEl.append($compile(myEl)($scope));
+            console.log('Append the ' + myEl);
+        };
+
+        $scope.sendToBackward = function(idComponent) {
+            var myEl = angular.element(document.querySelector('#' + idComponent));
+            console.log(myEl);
+            var containerEl = angular.element(document.querySelector('#design-div'));
+            containerEl.prepend($compile(myEl)($scope));
+            console.log('Prepend the ' + myEl);
+        };
     }]);

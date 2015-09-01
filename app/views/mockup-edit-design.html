@@ -23,9 +23,9 @@
         <toolbar-item-table></toolbar-item-table>
     </div>
     <div id="design-div" style="height: 600px; background: black; position absolute; ">
-        <img context-menu data-target="menu-image-1" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <img context-menu data-target="menu-image-2" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" contextmenu="{{menuList}}" click-menu="clickMenu(item)" right-click="moveToTop($event)" class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <table class="resize-drag table" style="position absolute;" ng-click="moveToTop($event)">
+        <img id="menu-image-1x" context-menu data-target="menu-image-1" class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
+        <img id="menu-image-2x" context-menu data-target="menu-image-2" class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
+        <table class="resize-drag table" style="position absolute;">
             <tr>
                 <td>Jill</td>
                 <td>Smith</td>
@@ -49,20 +49,20 @@
 <div class="dropdown position-fixed" id="menu-image-1">
     <ul class="dropdown-menu" role="menu">
         <li>
-            <a class="pointer" role="menuitem" tabindex="1" ng-click="panel.highlight = true">Select Panel Menu Item 1</a>
+            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('menu-image-1x');">Bring to Front</a>
         </li>
         <li>
-            <a class="pointer" role="menuitem" tabindex="2" ng-click="panel.highlight = false">Deselect Panel  Item 1</a>
+            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-1x');">Send Backward</a>
         </li>
     </ul>
 </div>
 <div class="dropdown position-fixed" id="menu-image-2">
     <ul class="dropdown-menu" role="menu">
         <li>
-            <a class="pointer" role="menuitem" tabindex="1" ng-click="panel.highlight = true">Select Panel Menu Item 2</a>
+            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('menu-image-2x');">Bring to Front</a>
         </li>
         <li>
-            <a class="pointer" role="menuitem" tabindex="2" ng-click="panel.highlight = false">Deselect Panel  Item 2</a>
+            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-2x');">Send Backward</a>
         </li>
     </ul>
 </div>
