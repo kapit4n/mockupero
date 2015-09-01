@@ -24,28 +24,7 @@
     </div>
     <div id="design-div" style="height: 600px; background: black; position absolute; ">
         <img context-menu data-target="menu-image-1" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <div class="dropdown position-fixed" id="menu-image-1">
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a class="pointer" role="menuitem" tabindex="1" ng-click="panel.highlight = true">Select Panel Menu Item 1</a>
-                </li>
-                <li>
-                    <a class="pointer" role="menuitem" tabindex="2" ng-click="panel.highlight = false">Deselect Panel  Item 1</a>
-                </li>
-            </ul>
-        </div>
         <img context-menu data-target="menu-image-2" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" contextmenu="{{menuList}}" click-menu="clickMenu(item)" right-click="moveToTop($event)" class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <div class="dropdown position-fixed" id="menu-image-2">
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a class="pointer" role="menuitem" tabindex="1" ng-click="panel.highlight = true">Select Panel Menu Item 2</a>
-                </li>
-                <li>
-                    <a class="pointer" role="menuitem" tabindex="2" ng-click="panel.highlight = false">Deselect Panel  Item 2</a>
-                </li>
-            </ul>
-        </div>
-
         <table class="resize-drag table" style="position absolute;" ng-click="moveToTop($event)">
             <tr>
                 <td>Jill</td>
@@ -66,4 +45,24 @@
     </div>
     <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
+</div>
+<div class="dropdown position-fixed" id="menu-image-1">
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a class="pointer" role="menuitem" tabindex="1" ng-click="panel.highlight = true">Select Panel Menu Item 1</a>
+        </li>
+        <li>
+            <a class="pointer" role="menuitem" tabindex="2" ng-click="panel.highlight = false">Deselect Panel  Item 1</a>
+        </li>
+    </ul>
+</div>
+<div class="dropdown position-fixed" id="menu-image-2">
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a class="pointer" role="menuitem" tabindex="1" ng-click="panel.highlight = true">Select Panel Menu Item 2</a>
+        </li>
+        <li>
+            <a class="pointer" role="menuitem" tabindex="2" ng-click="panel.highlight = false">Deselect Panel  Item 2</a>
+        </li>
+    </ul>
 </div>
