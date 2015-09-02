@@ -165,8 +165,7 @@ angular.module('mockuperApp')
 
         $scope.imageProperties = function(idComponent){
             var myEl = angular.element(document.querySelector('#' + idComponent));
-            console.log();
-
+            console.log(myEl[0]);
             var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                 '<form class="form-horizontal" role="form">' +
                 '    <div class="form-group">' +
@@ -184,6 +183,15 @@ angular.module('mockuperApp')
                 '                <div class="col-md-5">' +
                 '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myEl[0].height + '">' +
                 '                </div>' +
+                '                <label for="topValue" class="col-md-1 control-label">top</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + angular.element(myEl[0]).data('x')  + '">' +
+                '                </div>' +
+                '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + angular.element(myEl[0]).data('y') + '">' +
+                '                </div>' +
+
                 '            </div>' +
                 '        </div>' +
                 '    </div>' +
