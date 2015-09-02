@@ -8,6 +8,10 @@
     width: 120px;
 }
 
+.resize-drag:hover { 
+    opacity: 0.8;
+}
+
 .resize-container {
     width: 100%;
     height: 240px;
@@ -22,26 +26,15 @@
         <toolbar-item-image></toolbar-item-image>
         <toolbar-item-table></toolbar-item-table>
     </div>
+    <div class="container">
+        <div id="properties">
+            
+        </div>
+    </div>
     <div id="design-div" style="height: 600px; background: black; position absolute; ">
         <img id="menu-image-1x" context-menu data-target="menu-image-1" class="resize-drag" style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
         <img id="menu-image-2x" context-menu data-target="menu-image-2" class="resize-drag" style="padding:0;position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">
-        <table class="resize-drag table" style="position absolute;">
-            <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
-            </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>94</td>
-            </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>94</td>
-            </tr>
-        </table>
+        
     </div>
     <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
@@ -55,6 +48,9 @@
             <li>
                 <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-1x');">Send Backward</a>
             </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="2" ng-click="loadProperties('menu-image-1x');">Properties</a>
+            </li>
         </ul>
     </div>
     <div class="dropdown position-fixed" id="menu-image-2">
@@ -64,6 +60,9 @@
             </li>
             <li>
                 <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('menu-image-2x');">Send Backward</a>
+            </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="2" ng-click="loadProperties('menu-image-2x');">Properties</a>
             </li>
         </ul>
     </div>

@@ -8,7 +8,7 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', '$compile','$window', '$routeParams', 'mockupService', function($scope, $compile , $window, $routeParams, mockupService) {
+    .controller('MockupEditDesignCtrl', ['$scope', '$compile', '$window', '$routeParams', 'mockupService', function($scope, $compile, $window, $routeParams, mockupService) {
 
         $scope.editObject = null;
         $scope.lastId = 2;
@@ -21,15 +21,15 @@ angular.module('mockuperApp')
                 $scope.editObject = result;
             });
 
-        $scope.moveToTop = function($event){
+        $scope.moveToTop = function($event) {
             console.log($event);
             $event.target.parentNode.appendChild($event.target);
         };
-        $scope.clickMenu = function(item){
+        $scope.clickMenu = function(item) {
             console.log(item);
         };
 
-        $scope.menuList = ['menu1','menu2','menu3'];
+        $scope.menuList = ['menu1', 'menu2', 'menu3'];
 
         $scope.save = function() {
             mockupService.updateMockup.update({
@@ -122,19 +122,19 @@ angular.module('mockuperApp')
             var myEl = angular.element(document.querySelector('#design-div'));
             var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
-            var imgHtml =  '<img id="menu-image-' + $scope.lastId +'x" context-menu data-target="menu-image-' + $scope.lastId +'" class="resize-drag" '+
+            var imgHtml = '<img id="menu-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
                 'style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">';
             myEl.append($compile(imgHtml)($scope));
-            
-            var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId +'">'+
-                '    <ul class="dropdown-menu" role="menu">'+
-                '        <li>'+
-                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-image-' + $scope.lastId +'x\');">Bring to FrontXX</a>'+
-                '        </li>'+
-                '        <li>'+
-                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-image-' + $scope.lastId +'x\');">Send BackwardXX</a>'+
-                '        </li>'+
-                '    </ul>'+
+
+            var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +
+                '    <ul class="dropdown-menu" role="menu">' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-image-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-image-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '        </li>' +
+                '    </ul>' +
                 '</div>';
             myEl2.append($compile(contentMenuHtml)($scope));
 
@@ -156,5 +156,44 @@ angular.module('mockuperApp')
             var containerEl = angular.element(document.querySelector('#design-div'));
             containerEl.prepend($compile(myEl)($scope));
             console.log('Prepend the ' + myEl);
+        };
+
+        $scope.loadProperties = function(idComponent) {
+            var containerEl = angular.element(document.querySelector('#properties'));
+            containerEl.html($compile($scope.imageProperties(idComponent))($scope));
+        };
+
+        $scope.imageProperties = function(idComponent){
+            var myEl = angular.element(document.querySelector('#' + idComponent));
+            console.log();
+
+            var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
+                '<form class="form-horizontal" role="form">' +
+                '    <div class="form-group">' +
+                '        <div class="col-md-12">' +
+                '            <div class="form-group row">' +
+                '                <label for="hrefValue" class="col-md-1 control-label">href</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myEl[0].src + '">' +
+                '                </div>' +
+                '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="widtValue" placeholder="Value" value="' + myEl[0].width + '">' +
+                '                </div>' +
+                '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myEl[0].height + '">' +
+                '                </div>' +
+                '            </div>' +
+                '        </div>' +
+                '    </div>' +
+                '</form>';
+            return myEl;
+
+        }
+
+        $scope.closeProperties = function() {
+            var containerEl = angular.element(document.querySelector('#properties'));
+            containerEl.html($compile('')($scope));
         };
     }]);
