@@ -32,12 +32,24 @@ angular.module('mockuperApp')
         $scope.menuList = ['menu1', 'menu2', 'menu3'];
 
         $scope.save = function() {
-            mockupService.updateMockup.update({
-                id: $scope.editObject.id
-            }, $scope.editObject, function(result) {
+            var item = $scope.getItem('#menu-image-2x');
+            mockupService.createMockupItem.save(item, $scope.editObject, function(result) {
                 console.log(result);
-                $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
             });
+        }
+
+        $scope.getItem = function(idComp) {
+            var item = {};
+            console.log($(idComp)[0]);
+            item.width = $(idComp)[0].width;
+            item.height = $(idComp)[0].height;
+            item.src = $(idComp)[0].src;
+            item.y = $($(idComp)[0]).position().top;
+            item.x = $($(idComp)[0]).position().left;
+            item.type = "image";
+            item.idHtml = $(idComp)[0].id;
+
+            return {"width": item.width, "height": item.height, "y": item.y, "x": item.x, "type": item.type, "idHtml": item.idHtml, "src": item.src };
         }
 
         $scope.cancel = function() {
