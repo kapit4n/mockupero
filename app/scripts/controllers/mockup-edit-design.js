@@ -160,12 +160,22 @@ angular.module('mockuperApp')
 
         $scope.loadProperties = function(idComponent) {
             var containerEl = angular.element(document.querySelector('#properties'));
-            containerEl.html($compile($scope.imageProperties(idComponent))($scope));
+            var example = imageProperties(idComponent);
+            containerEl.html($compile(example)($scope));
         };
 
-        $scope.imageProperties = function(idComponent){
-            var myEl = angular.element(document.querySelector('#' + idComponent));
-            console.log(myEl[0]);
+        function imageProperties(idComponent){
+            var myElww = angular.element(document.querySelector('#' + idComponent));
+            console.log(myElww[0]);
+            console.log($($('#' + idComponent)[0]).position().top);//372
+            var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
+            var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
+            console.log($($('#' + idComponent)[0]).position().left);//383
+
+            console.log( $($('#' + idComponent)[0]).data('x'));//372
+            console.log( $($('#' + idComponent)[0]).data('y'));//
+            console.log($($('#' + idComponent)[0]));
+
             var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                 '<form class="form-horizontal" role="form">' +
                 '    <div class="form-group">' +
@@ -173,23 +183,23 @@ angular.module('mockuperApp')
                 '            <div class="form-group row">' +
                 '                <label for="hrefValue" class="col-md-1 control-label">href</label>' +
                 '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myEl[0].src + '">' +
+                '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myElww[0].src + '">' +
                 '                </div>' +
                 '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
                 '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="widtValue" placeholder="Value" value="' + myEl[0].width + '">' +
+                '                    <input type="text" class="form-control" id="widtValue" placeholder="Value" value="' + myElww[0].width + '">' +
                 '                </div>' +
                 '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
                 '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myEl[0].height + '">' +
+                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myElww[0].height + '">' +
                 '                </div>' +
                 '                <label for="topValue" class="col-md-1 control-label">top</label>' +
                 '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + angular.element(myEl[0]).data('x')  + '">' +
+                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition  + '">' +
                 '                </div>' +
                 '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
                 '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + angular.element(myEl[0]).data('y') + '">' +
+                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
                 '                </div>' +
 
                 '            </div>' +
