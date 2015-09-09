@@ -38,15 +38,31 @@ angular.module('mockuperApp')
             $scope.result = result;
         });
 
+        $scope.item = {};
+
         $scope.save = function() {
-            var item = $scope.getItem('#menu-image-2x');
-            mockupService.createMockupItem.save(item, $scope.editObject, function(result) {
-                console.log(result);
-            });
-        }
+            var myEl = angular.element(document.querySelector('#design-div'));
+            $scope.item = $scope.getItem('#' + myEl[0].children[0].id);
+            if ($scope.item.id == undefined) {
+                mockupService.createMockupItem.save($scope.item, function(result) {
+                    console.log(result);
+                });
+            } else {
+                mockupService.updateMockupItem.save({
+                    id: $scope.item.id
+                }, $scope.item, function(result) {
+                    console.log(result);
+                });
+            }
+        };
 
         $scope.getItem = function(idComp) {
             var item = {};
+            if (idComp.length > 10) {
+                item.id = idComp.substring(8);
+            } else {
+                console.log(idComp);
+            }
             console.log($(idComp)[0]);
             item.width = $(idComp)[0].width;
             item.height = $(idComp)[0].height;
@@ -57,6 +73,7 @@ angular.module('mockuperApp')
             item.idHtml = $(idComp)[0].id;
 
             return {
+                "id": item.id,
                 "width": item.width,
                 "height": item.height,
                 "y": item.y,
@@ -149,7 +166,7 @@ angular.module('mockuperApp')
             var myEl = angular.element(document.querySelector('#design-div'));
             var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
-            var imgHtml = '<img id="menu-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
+            var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
                 'style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">';
             myEl.append($compile(imgHtml)($scope));
 
@@ -193,6 +210,7 @@ angular.module('mockuperApp')
 
         function imageProperties(idComponent) {
             var myElww = angular.element(document.querySelector('#' + idComponent));
+            console.log(idComponent);
             console.log(myElww[0]);
             console.log($($('#' + idComponent)[0]).position().top); //372
             var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
