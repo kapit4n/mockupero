@@ -8,22 +8,22 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-  .controller('LoginCtrl', ['$scope', '$location', function ($scope,$location) {
+  .controller('LoginCtrl', ['$scope', '$location', 'loginService', function ($scope,$location, loginService) {
+    console.log('controle called 2');
     $scope.userName = '';
     $scope.password = '';
+    $scope.userInfo = {};
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
     $scope.singIn = function() {
-    	console.log('This is login event');
-    	if ($scope.userName === 'admin' && $scope.password === 'admin') {
-    		console.log('matched');
-    		$location.path('/');
-    	} else {
-    		console.log('no matched');
-    	}
+    	var identifier = {"identifier": "demo", "password": "demodemodemo"};
+      loginService.loginUser.save(identifier).$promise.then(function(result) {
+          console.log(result);
+          $scope.userInfo = result;
+      });
     };
     
   }]);
