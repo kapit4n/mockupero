@@ -31,15 +31,38 @@ angular.module('mockuperApp')
 
         $scope.menuList = ['menu1', 'menu2', 'menu3'];
 
+        $scope.result = [];
+
+        mockupService.getMockupItems.get({}).$promise.then(function(result) {
+            console.log(result);
+            $scope.result = result;
+        });
+
+        $scope.item = {};
+
         $scope.save = function() {
-            var item = $scope.getItem('#menu-image-2x');
-            mockupService.createMockupItem.save(item, $scope.editObject, function(result) {
-                console.log(result);
-            });
-        }
+            var myEl = angular.element(document.querySelector('#design-div'));
+            $scope.item = $scope.getItem('#' + myEl[0].children[0].id);
+            if ($scope.item.id == undefined) {
+                mockupService.createMockupItem.save($scope.item, function(result) {
+                    console.log(result);
+                });
+            } else {
+                mockupService.updateMockupItem.save({
+                    id: $scope.item.id
+                }, $scope.item, function(result) {
+                    console.log(result);
+                });
+            }
+        };
 
         $scope.getItem = function(idComp) {
             var item = {};
+            if (idComp.length > 10) {
+                item.id = idComp.substring(8);
+            } else {
+                console.log(idComp);
+            }
             console.log($(idComp)[0]);
             item.width = $(idComp)[0].width;
             item.height = $(idComp)[0].height;
@@ -49,7 +72,16 @@ angular.module('mockuperApp')
             item.type = "image";
             item.idHtml = $(idComp)[0].id;
 
-            return {"width": item.width, "height": item.height, "y": item.y, "x": item.x, "type": item.type, "idHtml": item.idHtml, "src": item.src };
+            return {
+                "id": item.id,
+                "width": item.width,
+                "height": item.height,
+                "y": item.y,
+                "x": item.x,
+                "type": item.type,
+                "idHtml": item.idHtml,
+                "src": item.src
+            };
         }
 
         $scope.cancel = function() {
@@ -134,7 +166,7 @@ angular.module('mockuperApp')
             var myEl = angular.element(document.querySelector('#design-div'));
             var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
-            var imgHtml = '<img id="menu-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
+            var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
                 'style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">';
             myEl.append($compile(imgHtml)($scope));
 
@@ -176,16 +208,17 @@ angular.module('mockuperApp')
             containerEl.html($compile(example)($scope));
         };
 
-        function imageProperties(idComponent){
+        function imageProperties(idComponent) {
             var myElww = angular.element(document.querySelector('#' + idComponent));
+            console.log(idComponent);
             console.log(myElww[0]);
-            console.log($($('#' + idComponent)[0]).position().top);//372
+            console.log($($('#' + idComponent)[0]).position().top); //372
             var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
             var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-            console.log($($('#' + idComponent)[0]).position().left);//383
+            console.log($($('#' + idComponent)[0]).position().left); //383
 
-            console.log( $($('#' + idComponent)[0]).data('x'));//372
-            console.log( $($('#' + idComponent)[0]).data('y'));//
+            console.log($($('#' + idComponent)[0]).data('x')); //372
+            console.log($($('#' + idComponent)[0]).data('y')); //
             console.log($($('#' + idComponent)[0]));
 
             var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
@@ -207,7 +240,7 @@ angular.module('mockuperApp')
                 '                </div>' +
                 '                <label for="topValue" class="col-md-1 control-label">top</label>' +
                 '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition  + '">' +
+                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
                 '                </div>' +
                 '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
                 '                <div class="col-md-5">' +
