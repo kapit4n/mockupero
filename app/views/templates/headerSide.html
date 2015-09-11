@@ -18,8 +18,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
                     </li>
-                    <li><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    <li ng-hide="isAuthenticated"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
                     </li>
+                    <li ng-show="isAuthenticated"><a href="#/logout"><span class="glyphicon glyphicon-log-in"></span> {{globals.currentUser.username}}</a>
+                    </li>
+
                 </ul>
             </div>
             <ol class="breadcrumb">

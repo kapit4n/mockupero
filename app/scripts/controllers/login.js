@@ -10,20 +10,18 @@
 angular.module('mockuperApp')
   .controller('LoginCtrl', ['$scope', '$location', 'loginService', function ($scope,$location, loginService) {
     console.log('controle called 2');
-    $scope.userName = '';
-    $scope.password = '';
+    $scope.userName = 'demo';
+    $scope.password = 'demodemodemo';
     $scope.userInfo = {};
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
     $scope.singIn = function() {
-    	var identifier = {"identifier": "demo", "password": "demodemodemo"};
+    	var identifier = {
+        "identifier": $scope.userName,
+        "password": $scope.password
+      };
       loginService.loginUser.save(identifier).$promise.then(function(result) {
-          console.log(result);
           $scope.userInfo = result;
+          loginService.registerUser($scope.userName, result);
+          $location.path("/");
       });
     };
-    
   }]);
