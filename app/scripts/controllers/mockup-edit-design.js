@@ -34,7 +34,7 @@ angular.module('mockuperApp')
 
             $scope.result = [];
 
-            mockupService.getMockupItems.get({}).$promise.then(function(result) {
+            mockupService.getMockupItems.get({sort: 'position '}).$promise.then(function(result) {
                 console.log(result);
                 $scope.result = result;
             });
@@ -43,9 +43,12 @@ angular.module('mockuperApp')
 
             $scope.save = function() {
                 var myEl = angular.element(document.querySelector('#design-div'));
+                var position = 0;
                 angular.forEach(myEl[0].children, function(child) {
                     $timeout(function() {
+                        position++;
                         $scope.item = $scope.getItem('#' + child.id);
+                        $scope.item.position = position;
                             if ($scope.item.id === undefined) {
                                 mockupService.createMockupItem.save($scope.item, function(result) {
                                     console.log(result);
@@ -197,18 +200,14 @@ angular.module('mockuperApp')
 
                 $scope.bringToFront = function(idComponent) {
                     var myEl = angular.element(document.querySelector('#' + idComponent));
-                    console.log(myEl);
                     var containerEl = angular.element(document.querySelector('#design-div'));
-                    containerEl.append($compile(myEl)($scope));
-                    console.log('Append the ' + myEl);
+                    containerEl.append(myEl);
                 };
 
                 $scope.sendToBackward = function(idComponent) {
                     var myEl = angular.element(document.querySelector('#' + idComponent));
-                    console.log(myEl);
                     var containerEl = angular.element(document.querySelector('#design-div'));
-                    containerEl.prepend($compile(myEl)($scope));
-                    console.log('Prepend the ' + myEl);
+                    containerEl.prepend(myEl);
                 };
 
                 $scope.loadProperties = function(idComponent) {
@@ -219,16 +218,8 @@ angular.module('mockuperApp')
 
                 function imageProperties(idComponent) {
                     var myElww = angular.element(document.querySelector('#' + idComponent));
-                    console.log(idComponent);
-                    console.log(myElww[0]);
-                    console.log($($('#' + idComponent)[0]).position().top); //372
                     var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
                     var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-                    console.log($($('#' + idComponent)[0]).position().left); //383
-
-                    console.log($($('#' + idComponent)[0]).data('x')); //372
-                    console.log($($('#' + idComponent)[0]).data('y')); //
-                    console.log($($('#' + idComponent)[0]));
 
                     var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                         '<form class="form-horizontal" role="form">' +

@@ -33,13 +33,13 @@
     <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
     <div id="design-div" style="height: 600px; background: black; position: absolute; top: 350px; left: 382px; width: 800px;">
-        <img id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-1" class="resize-drag" style="padding:0; position: absolute; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="http://paradiseinfosoft.com/images/service_images/service-cat-358850847-banner.jpg" alt="..." height="">
+        <img id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="http://paradiseinfosoft.com/images/service_images/service-cat-358850847-banner.jpg" alt="..." height="">
 
     </div>
     
 </div>
 <div id="design-div-content-menu">
-    <div class="dropdown position-fixed" id="menu-image-1" ng-repeat="ite in result">
+    <div class="dropdown position-fixed" id="menu-image-{{ite.id}}" ng-repeat="ite in result">
         <ul class="dropdown-menu" role="menu">
             <li>
                 <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront('x-{{ite.type}}{{ite.id}}');">Bring to Front</a>
@@ -48,7 +48,7 @@
                 <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward('x-{{ite.type}}{{ite.id}}');">Send Backward</a>
             </li>
             <li>
-                <a class="pointer" role="menuitem" tabindex="2" ng-click="loadProperties('x-{{ite.type}}{{ite.id}}');">Properties</a>
+                <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties('x-{{ite.type}}{{ite.id}}');">Properties</a>
             </li>
         </ul>
     </div>
