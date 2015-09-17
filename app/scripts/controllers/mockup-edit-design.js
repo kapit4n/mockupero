@@ -226,13 +226,13 @@ angular.module('mockuperApp')
                         '    <div class="form-group">' +
                         '        <div class="col-md-12">' +
                         '            <div class="form-group row">' +
-                        '                <label for="hrefValue" class="col-md-1 control-label">href</label>' +
+                        '                <label for="hrefValue" class="col-md-1 control-label">src</label>' +
                         '                <div class="col-md-5">' +
                         '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myElww[0].src + '">' +
                         '                </div>' +
                         '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
                         '                <div class="col-md-5">' +
-                        '                    <input type="text" class="form-control" id="widtValue" placeholder="Value" value="' + myElww[0].width + '">' +
+                        '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + myElww[0].width + '">' +
                         '                </div>' +
                         '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
                         '                <div class="col-md-5">' +
@@ -246,6 +246,7 @@ angular.module('mockuperApp')
                         '                <div class="col-md-5">' +
                         '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
                         '                </div>' +
+                                        '<button type="submit" class="btn btn-success" ng-click="saveProperties(\'' + idComponent +'\')">Save</button>'
 
                         '            </div>' +
                         '        </div>' +
@@ -254,6 +255,26 @@ angular.module('mockuperApp')
                     return myEl;
 
                 }
+
+                $scope.saveProperties = function(idComponent) {
+                    console.log(idComponent);
+                    var component = angular.element(document.querySelector('#' + idComponent));
+                    var hrefValue = angular.element(document.querySelector('#hrefValue'));
+                    var heightValue = angular.element(document.querySelector('#heightValue'));
+                    var widthValue = angular.element(document.querySelector('#widthValue'));
+                    var topValue = angular.element(document.querySelector('#topValue'));
+                    var leftValue = angular.element(document.querySelector('#leftValue'));
+                    console.log(heightValue[0].value);
+                    console.log(widthValue[0].value);
+
+                    component[0].style.width = widthValue[0].value + 'px';
+                    component[0].style.height = heightValue[0].value + 'px';
+                    component[0].style.top = topValue[0].value + 'px';
+                    component[0].style.left = leftValue[0].value + 'px';
+                    component[0].src = hrefValue[0].value;
+
+
+                };
 
                 $scope.closeProperties = function() {
                     var containerEl = angular.element(document.querySelector('#properties'));

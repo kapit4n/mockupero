@@ -9,7 +9,6 @@
  */
 angular.module('mockuperApp')
   .controller('LoginCtrl', ['$scope', '$location', 'loginService', function ($scope,$location, loginService) {
-    console.log('controle called 2');
     $scope.userName = 'demo';
     $scope.password = 'demodemodemo';
     $scope.userInfo = {};
