@@ -18,6 +18,16 @@
 </head>
 
 <body ng-app="mockuperApp">
+    <script src="bower_components/socket.io-client/socket.io.js"></script>
+    <script type="text/javascript" src="bower_components/sails.io.js/sails.io.js"></script>
+    <script type="text/javascript">
+    io.sails.url = 'http://localhost:1337';
+    io.socket.get('/project', function serverResponded (body, JWR) {
+      console.log('Sails responded with: ', body);
+      console.log('with headers: ', JWR.headers);
+      console.log('and with status code: ', JWR.statusCode);
+    });
+    </script>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
