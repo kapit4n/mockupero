@@ -14,7 +14,8 @@
     "angular-touch": "^1.3.0",
     "interact": "~1.2.4",
     "ng-context-menu": "~1.0.1",
-    "socket.io-client": "~1.3.7"
+    "socket.io-client": "~1.3.7",
+    "sails.io.js": "~0.11.7"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"
@@ -22,4 +23,3 @@
   "appPath": "app",
   "moduleName": "mockuperApp"
 }
-

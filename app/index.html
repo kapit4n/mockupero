@@ -19,7 +19,7 @@
 
 <body ng-app="mockuperApp">
     <script src="bower_components/socket.io-client/socket.io.js"></script>
-    <script type="text/javascript" src="bower_components/sails.io.js/sails.io.js"></script>
+    <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
     <script type="text/javascript">
     io.sails.url = 'http://localhost:1337';
     io.socket.get('/project', function serverResponded (body, JWR) {
@@ -64,6 +64,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/interact/interact.js"></script>
     <script src="bower_components/ng-context-menu/dist/ng-context-menu.js"></script>
+    
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
