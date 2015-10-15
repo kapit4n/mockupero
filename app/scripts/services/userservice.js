@@ -23,5 +23,12 @@ angular.module('mockuperApp')
                 isArray: true
             }
         });
+
+        fac.createUser = $resource('http://localhost:1337/user/', {}, {
+            save: {
+                method: 'POST'
+            }
+        });
+
         return fac;
   });

@@ -67,6 +67,11 @@ angular
         templateUrl: 'views/mockup-edit-design.html',
         controller: 'MockupEditDesignCtrl'
       })
+      .when('/registerUser', {
+        templateUrl: 'views/registeruser.html',
+        controller: 'RegisteruserCtrl',
+        controllerAs: 'registerUser'
+      })
       .otherwise({
         redirectTo: '/'
       });

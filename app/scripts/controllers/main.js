@@ -11,6 +11,24 @@ angular.module('mockuperApp')
     .controller('MainCtrl', ['$scope', 'mockupService', 'projectService', 'userService', '$location', '$rootScope',
         function($scope, mockupService, projectService, userService, $location, $rootScope) {
 
+            $scope.logingLog = {};
+
+            io.socket.get('/loginlog', function serverResponded (body, JWR) {
+                $scope.$apply(function(){
+                    for (var i = 0; i < body.length; i++) {
+                        $scope.logingLog[body[i].identifier] = body[i];
+                        $scope.logingLog[body[i].identifier].online = false;
+                    };
+                });
+            });
+
+            io.socket.on('loginlog', function onServerSentEvent (msg) {
+                $scope.$apply(function(){
+                    $scope.logingLog[msg.data.identifier] = msg.data;
+                    $scope.logingLog[msg.data.identifier].online = true;// ((new Date(msg.data.createdAt)).getTime())
+                });
+            });
+
             $scope.currentPage = 1;
             $scope.pageSize = 2;
             $scope.projects = [];
