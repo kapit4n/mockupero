@@ -16,10 +16,6 @@ angular.module('mockuperApp')
 	    $scope.password_confirm = '';
 
 	    $scope.registerUserSave = function() {
-            console.log($scope.username);
-		    console.log($scope.email);
-		    console.log($scope.password);
-		    console.log($scope.password_confirm);
 		    userService.createUser.save({
 		    	username: $scope.username,
 		    	email: $scope.email,
