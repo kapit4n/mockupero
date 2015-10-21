@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', 'mockupService', 'projectService', 'userService', '$location', '$rootScope',
-        function($scope, mockupService, projectService, userService, $location, $rootScope) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'userService', '$location', '$rootScope',
+        function($scope, $cookieStore, mockupService, projectService, userService, $location, $rootScope) {
 
             $scope.logingLog = {};
 
@@ -103,7 +103,8 @@ angular.module('mockuperApp')
                             where: {
                                 name: {
                                     "like": "%" + $scope.searchName + "%"
-                                }
+                                },
+                                userId: $cookieStore.get('userId')
                             },
                             limit: $scope.pageSize,
                             skip: (($scope.currentPage - 1) * $scope.pageSize),
