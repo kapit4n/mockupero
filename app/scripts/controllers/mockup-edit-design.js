@@ -186,7 +186,7 @@ angular.module('mockuperApp')
                 var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
                 $scope.lastId++;
                 var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
-                    'style="padding:0; position: absolute;" src="http://dreamatico.com/data_images/girl/girl-8.jpg" alt="...">';
+                    'style="padding:0; position: absolute;" src="static/mockups/items/image-icon.png" alt="...">';
                 myEl.append($compile(imgHtml)($scope));
 
                 var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +

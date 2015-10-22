@@ -8,7 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupNewCtrl', ['$scope', '$window', '$location', '$routeParams', 'mockupService', function($scope, $window, $location, $routeParams, mockupService) {
+    .controller('MockupNewCtrl', ['$scope', '$cookieStore' , '$window', '$location', '$routeParams', 'mockupService',
+        function($scope, $cookieStore, $window, $location, $routeParams, mockupService) {
 
         $scope.name = '';
         $scope.objName = 'Mockup';
@@ -21,7 +22,8 @@ angular.module('mockuperApp')
                 name: $scope.name,
                 description: $scope.description,
                 imgToShow: $scope.imgToShow,
-                project: $scope.project
+                project: $scope.project,
+                userId: $cookieStore.get('userId')
             }, function(result) {
                 $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
             });
