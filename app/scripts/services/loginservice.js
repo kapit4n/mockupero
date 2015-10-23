@@ -31,7 +31,6 @@ angular.module('mockuperApp')
     });
 
   fac.registerUser = function(username, token) {
-  	$rootScope.isAuthenticated = true;
   	$rootScope.globals = {
   		currentUser: {
   		    username: username,

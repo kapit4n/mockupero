@@ -12,9 +12,8 @@ angular.module('mockuperApp')
         function($scope, $cookieStore, mockupService, projectService, userService, $location, $rootScope) {
 
             $scope.logingLog = {};
-
             io.socket.get('/loginlog', function serverResponded (body, JWR) {
-                $scope.$apply(function(){
+                $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].identifier] = body[i];
                         $scope.logingLog[body[i].identifier].online = false;
@@ -51,6 +50,10 @@ angular.module('mockuperApp')
             userService.permission.get().$promise.then(function(result) {
                 $scope.permissions = result;
             });
+
+            $rootScope.logout = function() {
+                $rootScope.isAuthenticated  = false;
+            };
 
             $scope.addProject = function() {
                 $location.path('/project-new');

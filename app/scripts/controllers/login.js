@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('LoginCtrl', ['$scope', '$location', 'loginService', '$cookieStore', 
-      function($scope, $location, loginService, $cookieStore) {
+    .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'loginService', '$cookieStore', 
+      function($rootScope, $scope, $location, loginService, $cookieStore) {
         $scope.userName = '';
         $scope.password = '';
         $scope.userInfo = {};
@@ -19,8 +19,12 @@ angular.module('mockuperApp')
             };
             loginService.loginLogLogin.save(identifier).$promise.then(function(result) {
                 console.log(result);
-                $cookieStore.put('userId',result.userId);
-                $cookieStore.put('username',result.username);
+                $rootScope.isAuthenticated = true;
+                $rootScope.userNameLogin = result.username;
+
+                $cookieStore.put('userId', result.userId);
+                $cookieStore.put('username', result.username);
+                $rootScope.isAuthenticated  = true;
                 $location.path("/");
             });
         };
