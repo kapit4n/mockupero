@@ -15,16 +15,16 @@ angular.module('mockuperApp')
             io.socket.get('/loginlog', function serverResponded (body, JWR) {
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
-                        $scope.logingLog[body[i].identifier] = body[i];
-                        $scope.logingLog[body[i].identifier].online = false;
+                        $scope.logingLog[body[i].username] = body[i];
+                        $scope.logingLog[body[i].username].online = false;
                     };
                 });
             });
 
             io.socket.on('loginlog', function onServerSentEvent (msg) {
                 $scope.$apply(function(){
-                    $scope.logingLog[msg.data.identifier] = msg.data;
-                    $scope.logingLog[msg.data.identifier].online = true;// ((new Date(msg.data.createdAt)).getTime())
+                    $scope.logingLog[msg.data.username] = msg.data;
+                    $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
                 });
             });
 
