@@ -22,11 +22,7 @@
     <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
     <script type="text/javascript">
     io.sails.url = 'http://localhost:1337';
-    io.socket.get('/project', function serverResponded (body, JWR) {
-      console.log('Sails responded with: ', body);
-      console.log('with headers: ', JWR.headers);
-      console.log('and with status code: ', JWR.statusCode);
-    });
+    
 
     </script>
     <!--[if lt IE 7]>

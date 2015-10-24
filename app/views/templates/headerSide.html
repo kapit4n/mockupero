@@ -20,7 +20,7 @@
                     </li>
                     <li ng-hide="isAuthenticated"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
                     </li>
-                    <li ng-show="isAuthenticated"><a><span ng-click="logout()" class="glyphicon glyphicon-log-in"></span> Logout</a>
+                    <li ng-show="isAuthenticated"><a><span ng-click="logoutUser()" class="glyphicon glyphicon-log-in"></span> Logout</a>
                     </li>
                     <li ng-show="isAuthenticated"  style="padding-top: 14px;"> {{userNameLogin}}
                     </li>

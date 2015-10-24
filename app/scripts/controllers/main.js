@@ -12,16 +12,38 @@ angular.module('mockuperApp')
         function($scope, $cookieStore, mockupService, projectService, userService, $location, $rootScope) {
 
             $scope.logingLog = {};
+
+            io.socket.get('/project', function serverResponded (body, JWR) {
+              /*console.log('Sails responded with: ', body);
+              console.log('with headers: ', JWR.headers);
+              console.log('and with status code: ', JWR.statusCode);
+              */
+              console.log('project get');
+            });
+
             io.socket.get('/loginlog', function serverResponded (body, JWR) {
+                console.log('Login log get');
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
-                        $scope.logingLog[body[i].username].online = false;
+                        //console.log(body[i]);
                     };
                 });
             });
 
+            $rootScope.logoutUser = function() {
+                io.socket.post('/loginlog/logout', {username: $rootScope.userNameLogin}, function serverResponded (body, JWR) {
+                    console.log('Logout User');
+                    $scope.$apply(function() {
+                        $scope.logingLog[body.username] = body;
+                        console.log(body);
+                    });
+                });
+            };
+
             io.socket.on('loginlog', function onServerSentEvent (msg) {
+                console.log('on login log');
+                console.log(msg);
                 $scope.$apply(function(){
                     $scope.logingLog[msg.data.username] = msg.data;
                     $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
