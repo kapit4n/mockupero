@@ -11,9 +11,28 @@ angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', 'mockupService', 'projectService', '$routeParams', '$location', '$rootScope',
         function($scope, mockupService, projectService, $routeParams, $location, $rootScope) {
             $scope.projectId = $routeParams.projectId;
+             $scope.logingLog = {};
+
             $scope.addMockup = function() {
                 $location.path('/project/' + $scope.projectId + '/mockup-new');
             };
+
+            io.socket.get('/loginlog', function serverResponded (body, JWR) {
+                console.log('Login log get');
+                $scope.$apply(function() {
+                    for (var i = 0; i < body.length; i++) {
+                        $scope.logingLog[body[i].username] = body[i];
+                    };
+                });
+            });
+
+            io.socket.on('loginlog', function onServerSentEvent (msg) {
+                console.log(msg);
+                $scope.$apply(function(){
+                    $scope.logingLog[msg.data.username] = msg.data;
+                    $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
+                });
+            });
 
             $rootScope.breadcrumb = mockupService.breadcrumb['project'];
 
@@ -47,7 +66,6 @@ angular.module('mockuperApp')
                     projectId: $routeParams.projectId
                 })
                 .$promise.then(function(result) {
-                    console.log(result);
                     $scope.viewObject = result;
                     $scope.project = result;
                     $scope.viewObject.title = 'Project View';
