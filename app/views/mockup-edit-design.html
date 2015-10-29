@@ -47,7 +47,7 @@
 
     <button id="btnSave" type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
-    <img id="spinner" ng-src="http://www.securenet.com/sites/default/files/spinner.gif"  style="display:none; "  width="30px">
+    <img id="spinner" ng-src="static/spinner.gif"  style="display:none; "  width="30px">
     <div id="design-div" style="height: 600px; background: black; position: absolute; top: 236px; width: 800px;">
         <img id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
