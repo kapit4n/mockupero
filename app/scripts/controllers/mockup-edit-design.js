@@ -68,6 +68,8 @@ angular.module('mockuperApp')
             $scope.item = {};
 
             $scope.save = function() {
+                $("#spinner").show();
+                $("#btnSave").prop('disabled', true);
                 var myEl = angular.element(document.querySelector('#design-div'));
                 var position = 0;
                 angular.forEach(myEl[0].children, function(child) {
@@ -86,6 +88,8 @@ angular.module('mockuperApp')
                                 console.log(result);
                             });
                         }
+                        $("#spinner").hide();
+                        $("#btnSave").prop('disabled', false);
                     }, 4000);
                 });
             };
@@ -286,6 +290,7 @@ angular.module('mockuperApp')
             }
 
             $scope.saveProperties = function(idComponent) {
+
                 console.log(idComponent);
                 var component = angular.element(document.querySelector('#' + idComponent));
                 var hrefValue = angular.element(document.querySelector('#hrefValue'));
