@@ -18,6 +18,22 @@ angular.module('mockuperApp')
         // call method get /mockupEditor?mockupId=$scope.mockupId
         // unsubscribe when I disconnect 
 
+        $scope.createImage = function() {
+            html2canvas($("#design-div"), {
+                onrendered: function(canvas) {
+                    var theCanvas = canvas;
+                    //document.body.appendChild(canvas);
+
+                    /*// Convert and download as image 
+                    Canvas2Image.saveAsPNG(canvas); 
+                    $("#img-out").append(canvas)
+                    console.log($("#img-out"));*/
+                    var img = canvas.toDataURL("image/png");
+                    $('#img-out').append('<img src="'+img+'" style="width: 100px; height: 100px;"/>');
+                }
+            });
+        }
+
         io.socket.get('/loginlog', function serverResponded (body, JWR) {
             console.log('Login log get');
             $scope.$apply(function() {
@@ -92,6 +108,7 @@ angular.module('mockuperApp')
                         $("#btnSave").prop('disabled', false);
                     }, 4000);
                 });
+                $scope.createImage();
             };
 
             $scope.getItem = function(idComp) {
