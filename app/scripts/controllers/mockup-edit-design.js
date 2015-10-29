@@ -242,6 +242,7 @@ angular.module('mockuperApp')
                 var containerEl = angular.element(document.querySelector('#properties'));
                 var example = imageProperties(idComponent);
                 containerEl.html($compile(example)($scope));
+                $('#myProperties').modal('toggle');
             };
 
             function imageProperties(idComponent) {
@@ -300,6 +301,7 @@ angular.module('mockuperApp')
                 component[0].style.top = topValue[0].value + 'px';
                 component[0].style.left = leftValue[0].value + 'px';
                 component[0].src = hrefValue[0].value;
+                $('#myProperties').modal('hide');
 
 
             };
