@@ -14,6 +14,27 @@ angular.module('mockuperApp')
             $scope.editObject = null;
             $scope.lastId = 2;
 
+        $scope.logingLog = {};
+        // call method get /mockupEditor?mockupId=$scope.mockupId
+        // unsubscribe when I disconnect 
+
+        io.socket.get('/loginlog', function serverResponded (body, JWR) {
+            console.log('Login log get');
+            $scope.$apply(function() {
+                for (var i = 0; i < body.length; i++) {
+                    $scope.logingLog[body[i].username] = body[i];
+                };
+            });
+        });
+
+        io.socket.on('loginlog', function onServerSentEvent (msg) {
+            console.log(msg);
+            $scope.$apply(function(){
+                $scope.logingLog[msg.data.username] = msg.data;
+                $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
+            });
+        });
+
             mockupService.mockupById.get({
                     mockupId: $routeParams.mockupId
                 })

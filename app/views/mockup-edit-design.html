@@ -21,6 +21,12 @@
     position: fixed;
 }
 </style>
+<div style="float: right;">
+    <div ng-repeat="n in logingLog track by $index" style="display:inline-block;">
+        <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
+    </div>
+</div>
+
 <div class="container">
     <div style="float: right;">
         <div ng-repeat="mockupEditor in mockupEditors track by $index" style="display:inline-block;">
