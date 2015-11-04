@@ -13,6 +13,12 @@ angular.module('mockuperApp')
 
             $scope.logingLog = {};
 
+            if ($cookieStore.get('userId')) {
+                console.log($cookieStore.get('userId'));
+                console.log($cookieStore.get('username'));
+                $rootScope.isAuthenticated  = true;
+            }
+
             io.socket.get('/project', function serverResponded (body, JWR) {
               /*console.log('Sails responded with: ', body);
               console.log('with headers: ', JWR.headers);
@@ -23,6 +29,7 @@ angular.module('mockuperApp')
 
             io.socket.get('/loginlog', function serverResponded (body, JWR) {
                 console.log('Login log get');
+                console.log(body);
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
@@ -32,21 +39,25 @@ angular.module('mockuperApp')
             });
 
             $rootScope.logoutUser = function() {
-                io.socket.post('/loginlog/logout', {username: $rootScope.userNameLogin}, function serverResponded (body, JWR) {
-                    console.log('Logout User');
-                    $scope.$apply(function() {
-                        $scope.logingLog[body.username] = body;
-                        console.log(body);
-                    });
+                io.socket.post('/loginlog/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+                    console.log('Logout User Success ' + body);
                 });
+                $cookieStore.remove('username');
+                $cookieStore.remove('userId');
+                $location.path("/");
             };
 
             io.socket.on('loginlog', function onServerSentEvent (msg) {
                 console.log('on login log');
                 console.log(msg);
-                $scope.$apply(function(){
-                    $scope.logingLog[msg.data.username] = msg.data;
-                    $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
+                $scope.$apply(function() {
+                    if(msg.verb == 'update') {
+                        $scope.logingLog[msg.data.username] = msg.data;
+                        $scope.logingLog[msg.data.username].online = msg.data.online;// ((new Date(msg.data.createdAt)).getTime())
+                    } else {
+                        $scope.logingLog[msg.data.username] = msg.data;
+                        $scope.logingLog[msg.data.username].online = msg.data.online;// ((new Date(msg.data.createdAt)).getTime())
+                    }
                 });
             });
 
