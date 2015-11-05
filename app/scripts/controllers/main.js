@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'userService', '$location', '$rootScope',
-        function($scope, $cookieStore, mockupService, projectService, userService, $location, $rootScope) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'userService', '$location', '$rootScope', '$window',
+        function($scope, $cookieStore, mockupService, projectService, userService, $location, $rootScope, $window) {
 
             $scope.logingLog = {};
 
@@ -45,6 +45,7 @@ angular.module('mockuperApp')
                 $cookieStore.remove('username');
                 $cookieStore.remove('userId');
                 $location.path("/");
+                $window.location.reload();
             };
 
             io.socket.on('loginlog', function onServerSentEvent (msg) {
