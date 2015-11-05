@@ -8,8 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('UserlistCtrl', ['$scope', 'mockupService', 'projectService', 'userService', '$location',
-        function($scope, mockupService, projectService, userService, $location) {
+    .controller('UserlistCtrl', ['$scope', 'loginService', 'mockupService', 'projectService', 'userService', '$location',
+        function($scope, loginService, mockupService, projectService, userService, $location) {
+            loginService.reloadScope();
             $scope.users = [];
             userService.user.get({})
                 .$promise.then(function(result) {

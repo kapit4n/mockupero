@@ -8,7 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupCtrl', ['$scope', 'mockupService', '$routeParams', '$rootScope', function($scope, mockupService, $routeParams, $rootScope) {
+    .controller('MockupCtrl', ['$scope', 'loginService', 'mockupService', '$routeParams', '$rootScope', function($scope, loginService, mockupService, $routeParams, $rootScope) {
+        loginService.reloadScope();
         
         $scope.mockupList = mockupService.mockups;
         $rootScope.breadcrumb = mockupService.breadcrumb['mockup'];

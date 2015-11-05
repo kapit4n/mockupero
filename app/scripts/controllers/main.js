@@ -8,22 +8,13 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'userService', '$location', '$rootScope', '$window',
-        function($scope, $cookieStore, mockupService, projectService, userService, $location, $rootScope, $window) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window) {
 
             $scope.logingLog = {};
 
-            if ($cookieStore.get('userId')) {
-                console.log($cookieStore.get('userId'));
-                console.log($cookieStore.get('username'));
-                $rootScope.isAuthenticated  = true;
-            }
-
+            loginService.reloadScope();
             io.socket.get('/project', function serverResponded (body, JWR) {
-              /*console.log('Sails responded with: ', body);
-              console.log('with headers: ', JWR.headers);
-              console.log('and with status code: ', JWR.statusCode);
-              */
               console.log('project get');
             });
 
@@ -33,7 +24,6 @@ angular.module('mockuperApp')
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
-                        //console.log(body[i]);
                     };
                 });
             });

@@ -9,7 +9,7 @@
  */
 angular.module('mockuperApp')
   .service('loginService', 
-  	function ($resource, $rootScope) {
+  	function ($resource, $rootScope, $cookieStore) {
     var fac = {};
 
     fac.loginUser = $resource('http://localhost:1337/login', {}, {
@@ -38,6 +38,13 @@ angular.module('mockuperApp')
   		}
   	};
   };
+
+  fac.reloadScope = function() {
+    if ($cookieStore.get('userId')) {
+        $rootScope.isAuthenticated  = true;
+        $rootScope.userNameLogin = $cookieStore.get('username');
+    }
+  }
 
     return fac;
   });
