@@ -8,9 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', '$compile', '$window', '$routeParams', 'mockupService', '$timeout',
-        function($scope, $compile, $window, $routeParams, mockupService, $timeout) {
-
+    .controller('MockupEditDesignCtrl', ['$scope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http',
+        function($scope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http) {
+            loginService.reloadScope();
             $scope.editObject = null;
             $scope.lastId = 2;
 
@@ -28,10 +28,32 @@ angular.module('mockuperApp')
                     Canvas2Image.saveAsPNG(canvas); 
                     $("#img-out").append(canvas)
                     console.log($("#img-out"));*/
-                    var img = canvas.toDataURL("image/png");
-                    $('#img-out').append('<img src="'+img+'" style="width: 100px; height: 100px;"/>');
+                    //var img = canvas.toDataURL("image/png");
+                    var dataURL = canvas.toDataURL();
+                    //$('#img-out').append('<input type="file" name="'+ dataURL + '" style="width: 100px; height: 100px;"/>');
+                    $($('#avatar')[0]).value = dataURL;
+                    /*mockupService.createMockupItemUploadAvatar.save({avatar: dataURL}, function(result) {
+                        console.log(result);
+                        console.log('The image was uploaded');
+                    });
+                    */
+                    var fd = new FormData(document.getElementById('myform'));
+                    //var fd = new FormData();
+                    fd.append('avatar', $('#img-out')[0].file);
+                    $http.post('http://localhost:1337/mockupItem/uploadAvatar', fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                    })
+                    .success(function(){
+                    })
+                    .error(function(){
+                    });
                 }
             });
+        }
+
+        $scope.uploadAvatar = function() {
+
         }
 
         io.socket.get('/loginlog', function serverResponded (body, JWR) {
