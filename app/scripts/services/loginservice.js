@@ -9,8 +9,18 @@
  */
 angular.module('mockuperApp')
   .service('loginService', 
-  	function ($resource, $rootScope, $cookieStore) {
+  	function ($resource, $rootScope, $cookieStore, $location, $window) {
     var fac = {};
+
+    $rootScope.logoutUser = function() {
+        io.socket.post('/loginlog/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+            console.log('Logout User Success ' + body);
+        });
+        $cookieStore.remove('username');
+        $cookieStore.remove('userId');
+        $location.path("/");
+        $window.location.reload();
+    };
 
     fac.loginUser = $resource('http://localhost:1337/login', {}, {
         save: {
@@ -31,12 +41,22 @@ angular.module('mockuperApp')
     });
 
   fac.registerUser = function(username, token) {
-  	$rootScope.globals = {
-  		currentUser: {
-  		    username: username,
-  		    tokeb: token
-  		}
-  	};
+    $rootScope.globals = {
+      currentUser: {
+          username: username,
+          tokeb: token
+      }
+    };
+  };
+  
+  fac.logoutUser = function(username, token) {
+    io.socket.post('/loginlog/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+        console.log('Logout User Success ' + body);
+    });
+    $cookieStore.remove('username');
+    $cookieStore.remove('userId');
+    $location.path("/");
+    $window.location.reload();
   };
 
   fac.reloadScope = function() {
@@ -44,7 +64,7 @@ angular.module('mockuperApp')
         $rootScope.isAuthenticated  = true;
         $rootScope.userNameLogin = $cookieStore.get('username');
     }
-  }
+  };
 
     return fac;
   });

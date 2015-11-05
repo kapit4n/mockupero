@@ -28,16 +28,6 @@ angular.module('mockuperApp')
                 });
             });
 
-            $rootScope.logoutUser = function() {
-                io.socket.post('/loginlog/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
-                    console.log('Logout User Success ' + body);
-                });
-                $cookieStore.remove('username');
-                $cookieStore.remove('userId');
-                $location.path("/");
-                $window.location.reload();
-            };
-
             io.socket.on('loginlog', function onServerSentEvent (msg) {
                 console.log('on login log');
                 console.log(msg);
