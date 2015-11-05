@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http',
-        function($scope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http) {
+    .controller('MockupEditDesignCtrl', ['$scope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore',
+        function($scope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore) {
             loginService.reloadScope();
             $scope.editObject = null;
             $scope.lastId = 2;
@@ -17,6 +17,11 @@ angular.module('mockuperApp')
         $scope.logingLog = {};
         // call method get /mockupEditor?mockupId=$scope.mockupId
         // unsubscribe when I disconnect 
+
+        io.socket.post('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+            console.log('Edit UserSuccess ');
+            console.log(body);
+        });
 
         $scope.createImage = function() {
             html2canvas($("#design-div"), {
@@ -56,7 +61,7 @@ angular.module('mockuperApp')
 
         }
 
-        io.socket.get('/loginlog', function serverResponded (body, JWR) {
+        io.socket.get('/mockupeditor', function serverResponded (body, JWR) {
             console.log('Login log get');
             $scope.$apply(function() {
                 for (var i = 0; i < body.length; i++) {
@@ -65,7 +70,7 @@ angular.module('mockuperApp')
             });
         });
 
-        io.socket.on('loginlog', function onServerSentEvent (msg) {
+        io.socket.on('mockupeditor', function onServerSentEvent (msg) {
             console.log(msg);
             $scope.$apply(function(){
                 $scope.logingLog[msg.data.username] = msg.data;
@@ -168,6 +173,9 @@ angular.module('mockuperApp')
             }
 
             $scope.cancel = function() {
+                io.socket.post('/mockupEditor/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+                    console.log('Logout Editor Success ' + body);
+                });
                 $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
             }
 
