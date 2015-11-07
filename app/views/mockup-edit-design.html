@@ -36,7 +36,7 @@
 
     <div class="container">
         <toolbar-item-image></toolbar-item-image>
-        <toolbar-item-table></toolbar-item-table>
+        <toolbar-item-btn></toolbar-item-btn>
     </div>
     <div class="container">
         <div id="myProperties" style="height: 130px;" class="modal fade" role="dialog">
@@ -50,7 +50,8 @@
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
     <img id="spinner" ng-src="static/spinner.gif"  style="display:none; "  width="30px">
     <div id="design-div" style="height: 600px; background: black; position: absolute; top: 236px; width: 800px;">
-        <img id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
+
+        <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
     </div>
 
