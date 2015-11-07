@@ -53,6 +53,8 @@
 
         <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
+        <button ng-if="ite.type == 'button'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-btn-{{ite.id}}" class="resize-drag ng-scope ng-isolate-scope" style="padding: 0px; position: absolute; height: {{ite.height?ite.height:50}}px; width: {{ite.width?ite.width: 150}}px; transform: translate(225px, 148px); top: {{ite.y?ite.y: 10}}px; left: {{ite.x?ite.x: 10}}px; z-index:{{ite.position}};" alt="..." data-x="225" data-y="148"></button>
+
     </div>
 
 

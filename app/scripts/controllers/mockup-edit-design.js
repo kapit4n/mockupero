@@ -122,13 +122,13 @@ angular.module('mockuperApp')
                         $scope.item.position = position;
                         if ($scope.item.id === undefined) {
                             mockupService.createMockupItem.save($scope.item, function(result) {
-                                console.log(result);
+                                //console.log(result);
                             });
                         } else {
                             mockupService.updateMockupItem.save({
                                 id: $scope.item.id
                             }, $scope.item, function(result) {
-                                console.log(result);
+                                //console.log(result);
                             });
                         }
                         $("#spinner").hide();
@@ -144,20 +144,38 @@ angular.module('mockuperApp')
                     console.log(idComp.length);
                     console.log(idComp);
 
-                    item.id = idComp.substring(8);
+                    if (idComp.indexOf('image') > -1) {
+                        item.id = idComp.substring(8);
+                    } else {
+                        item.id = idComp.substring(9);
+                    }
                 } else {
                     console.log(idComp);
                     item.id = undefined;
                 }
-                console.log($(idComp)[0]);
-                item.width = $(idComp)[0].width;
-                item.height = $(idComp)[0].height;
                 item.src = $(idComp)[0].src;
                 item.y = $($(idComp)[0]).position().top;
                 item.x = $($(idComp)[0]).position().left;
-                item.type = "image";
+                if (idComp.indexOf('image') > -1) {
+                    item.type = "image";
+                    item.width = $(idComp)[0].width;
+                    item.height = $(idComp)[0].height;
+                } else {
+                    item.type = "button";
+                    item.width = $($(idComp)[0]).width();
+                    item.height = $($(idComp)[0]).height();
+                }
+                
                 item.idHtml = $(idComp)[0].id;
                 item.mockupId = $routeParams.mockupId;
+
+                if (item.type == "button") {
+                    console.log('This is the values');
+                    console.log($(idComp)[0]);
+                    console.log(item);
+                    console.log($($(idComp)[0]).width());
+                    console.log($($(idComp)[0]).height());
+                }
 
                 return {
                     "id": item.id,
@@ -280,17 +298,17 @@ angular.module('mockuperApp')
                 var myEl = angular.element(document.querySelector('#design-div'));
                 var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
                 $scope.lastId++;
-                var btnHtml = '<button id="new-btn-' + $scope.lastId + 'x" context-menu data-target="menu-btn-' + $scope.lastId + '" class="resize-drag" ' +
-                    'style="padding:0; position: absolute; height: 52px; width: 150px;" alt="...">';
+                var btnHtml = '<button id="new-button-' + $scope.lastId + 'x" context-menu data-target="menu-button-' + $scope.lastId + '" class="resize-drag" ' +
+                    'style="padding:0; position: absolute; height: 52px; width: 150px; z-index=" + $scope.lastId + " alt="...">';
                 myEl.append($compile(btnHtml)($scope));
                 console.log('Add button 2');
                 var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-button-' + $scope.lastId + '">' +
                     '    <ul class="dropdown-menu" role="menu">' +
                     '        <li>' +
-                    '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-btn-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                    '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-button-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
                     '        </li>' +
                     '        <li>' +
-                    '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-btn-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                    '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-button-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
                     '        </li>' +
                     '    </ul>' +
                     '</div>';
