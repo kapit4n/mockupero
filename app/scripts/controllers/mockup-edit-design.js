@@ -276,7 +276,7 @@ angular.module('mockuperApp')
                 var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
                 $scope.lastId++;
                 var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
-                    'style="padding:0; position: absolute;" src="static/mockups/items/image-icon.png" alt="...">';
+                    'style="padding:0; position: absolute;  z-index=' + $scope.lastId + '" src="static/mockups/items/image-icon.png" alt="...">';
                 myEl.append($compile(imgHtml)($scope));
 
                 var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +
@@ -299,7 +299,7 @@ angular.module('mockuperApp')
                 var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
                 $scope.lastId++;
                 var btnHtml = '<button id="new-button-' + $scope.lastId + 'x" context-menu data-target="menu-button-' + $scope.lastId + '" class="resize-drag" ' +
-                    'style="padding:0; position: absolute; height: 52px; width: 150px; z-index=" + $scope.lastId + " alt="...">';
+                    'style="padding:0; position: absolute; height: 52px; width: 150px; z-index=' + $scope.lastId + '" alt="...">';
                 myEl.append($compile(btnHtml)($scope));
                 console.log('Add button 2');
                 var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-button-' + $scope.lastId + '">' +
