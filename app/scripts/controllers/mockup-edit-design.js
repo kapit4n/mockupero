@@ -330,10 +330,46 @@ angular.module('mockuperApp')
 
             $scope.loadProperties = function(idComponent) {
                 var containerEl = angular.element(document.querySelector('#properties'));
-                var example = imageProperties(idComponent);
+                var example = buttonProperties(idComponent);
                 containerEl.html($compile(example)($scope));
                 $('#myProperties').modal('toggle');
             };
+
+
+            function buttonProperties(idComponent) {
+                var myElww = angular.element(document.querySelector('#' + idComponent));
+                var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
+                var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
+
+                var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
+                    '<form class="form-horizontal" role="form">' +
+                    '    <div class="form-group">' +
+                    '        <div class="col-md-12">' +
+                    '            <div class="form-group row">' +
+                    '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                    '                <div class="col-md-5">' +
+                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myElww[0]).width() + '">' +
+                    '                </div>' +
+                    '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                    '                <div class="col-md-5">' +
+                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myElww[0]).height() + '">' +
+                    '                </div>' +
+                    '                <label for="topValue" class="col-md-1 control-label">top</label>' +
+                    '                <div class="col-md-5">' +
+                    '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
+                    '                </div>' +
+                    '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                    '                <div class="col-md-5">' +
+                    '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
+                    '                </div>' +
+                    '<button type="submit" class="btn btn-success" ng-click="saveProperties(\'' + idComponent + '\')">Save</button>'
+
+                '            </div>' +
+                '        </div>' +
+                '    </div>' +
+                '</form>';
+                return myEl;
+            }
 
             function imageProperties(idComponent) {
                 var myElww = angular.element(document.querySelector('#' + idComponent));
@@ -372,10 +408,29 @@ angular.module('mockuperApp')
                 '    </div>' +
                 '</form>';
                 return myEl;
-
             }
 
             $scope.saveProperties = function(idComponent) {
+
+                console.log(idComponent);
+                var component = angular.element(document.querySelector('#' + idComponent));
+                var heightValue = angular.element(document.querySelector('#heightValue'));
+                var widthValue = angular.element(document.querySelector('#widthValue'));
+                var topValue = angular.element(document.querySelector('#topValue'));
+                var leftValue = angular.element(document.querySelector('#leftValue'));
+                console.log(heightValue[0].value);
+                console.log(widthValue[0].value);
+
+                component[0].style.width = widthValue[0].value + 'px';
+                component[0].style.height = heightValue[0].value + 'px';
+                component[0].style.top = topValue[0].value + 'px';
+                component[0].style.left = leftValue[0].value + 'px';
+                $('#myProperties').modal('hide');
+
+            };
+
+
+            $scope.saveImageProperties = function(idComponent) {
 
                 console.log(idComponent);
                 var component = angular.element(document.querySelector('#' + idComponent));
@@ -393,7 +448,6 @@ angular.module('mockuperApp')
                 component[0].style.left = leftValue[0].value + 'px';
                 component[0].src = hrefValue[0].value;
                 $('#myProperties').modal('hide');
-
 
             };
 
