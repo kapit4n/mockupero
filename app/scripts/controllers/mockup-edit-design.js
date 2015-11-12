@@ -162,8 +162,11 @@ angular.module('mockuperApp')
                     item.height = $(idComp)[0].height;
                 } else {
                     item.type = "button";
-                    item.width = $($(idComp)[0]).width();
+                    /*item.width = $($(idComp)[0]).width();
                     item.height = $($(idComp)[0]).height();
+                    */
+                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length-2);
+                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length-2);
                 }
                 
                 item.idHtml = $(idComp)[0].id;
@@ -340,7 +343,12 @@ angular.module('mockuperApp')
                 var myElww = angular.element(document.querySelector('#' + idComponent));
                 var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
                 var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-
+                console.log('button');
+                console.log($(myElww[0])[0].style);
+                console.log('width');
+                console.log($(myElww[0]).width());
+                console.log('height');
+                console.log($(myElww[0]).height());
                 var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                     '<form class="form-horizontal" role="form">' +
                     '    <div class="form-group">' +
@@ -348,11 +356,11 @@ angular.module('mockuperApp')
                     '            <div class="form-group row">' +
                     '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myElww[0]).width() + '">' +
+                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myElww[0])[0].style.width + '">' +
                     '                </div>' +
                     '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myElww[0]).height() + '">' +
+                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myElww[0])[0].style.height + '">' +
                     '                </div>' +
                     '                <label for="topValue" class="col-md-1 control-label">top</label>' +
                     '                <div class="col-md-5">' +
@@ -421,10 +429,11 @@ angular.module('mockuperApp')
                 console.log(heightValue[0].value);
                 console.log(widthValue[0].value);
 
-                component[0].style.width = widthValue[0].value + 'px';
-                component[0].style.height = heightValue[0].value + 'px';
+                component[0].style.width = widthValue[0].value;
+                component[0].style.height = heightValue[0].value;
                 component[0].style.top = topValue[0].value + 'px';
                 component[0].style.left = leftValue[0].value + 'px';
+                console.log(component[0]);
                 $('#myProperties').modal('hide');
 
             };

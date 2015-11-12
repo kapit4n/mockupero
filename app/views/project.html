@@ -11,6 +11,19 @@
         {{wf.name}}
     </button>
 </div>
+</button> Members </h3>
+<div class="row">
+    <div class="col-sm-1 col-md-1" style="padding: 5px;" ng-repeat="member in project.members">
+        <div class="thumbnail" style="height: 60px;">
+            <img src="/static/users/avatar.jpg" style="height: 20px; " alt="...">
+            <div class="caption">
+                <p>
+                    {{member.user.substring(0,1)}} {{member.user.substring(member.user.length - 1,member.user.length)}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button> Mockups </h3>

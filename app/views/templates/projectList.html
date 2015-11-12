@@ -41,7 +41,7 @@
                             <label for="people">People</label>
                             <br/>
                             <select class="form-control" style="width: 150px; display: inline;" id="people" ng-model="userIdToadd">
-                                <option ng-value="user.id" ng-repeat="user in users">{{user.name}}</option>
+                                <option ng-value="user.id" ng-repeat="user in users">{{user.username}}</option>
                             </select>
                             <select class="form-control" style="width: 150px; display: inline;" id="people2" ng-model="permissionIdToadd">
                                 <option ng-value="permission.id" ng-repeat="permission in permissions">Can {{permission.can}}</option>
@@ -52,7 +52,7 @@
                     <div class="col-sm-12" style="max-height: 100px;  overflow: scroll;">
                         <div class="label-primary">Shared with:</div>
                         <div ng-repeat="projectShareEntry in projectShareEntries">
-                            <span class=""> {{projectShareEntry.user.name}} Can {{projectShareEntry.permission.can}} </span>
+                            <span class=""> {{projectShareEntry.user.username}} Can {{projectShareEntry.permission.can}} </span>
                             <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="removeProjectShare(projectShareEntry.id, projectShareEntry.project.id)">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </button>
