@@ -8,17 +8,19 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http) {
 
             $scope.logingLog = {};
+            $scope.chatList = [];
 
             loginService.reloadScope();
-            io.socket.get('/project', function serverResponded (body, JWR) {
-              console.log('project get');
+            $scope.userName = $rootScope.userNameLogin;
+            io.socket.get('/project', function serverResponded(body, JWR) {
+                console.log('project get');
             });
 
-            io.socket.get('/loginlog', function serverResponded (body, JWR) {
+            io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 console.log('Login log get');
                 console.log(body);
                 $scope.$apply(function() {
@@ -28,16 +30,16 @@ angular.module('mockuperApp')
                 });
             });
 
-            io.socket.on('loginlog', function onServerSentEvent (msg) {
+            io.socket.on('loginlog', function onServerSentEvent(msg) {
                 console.log('on login log');
                 console.log(msg);
                 $scope.$apply(function() {
-                    if(msg.verb == 'update') {
+                    if (msg.verb == 'update') {
                         $scope.logingLog[msg.data.username] = msg.data;
-                        $scope.logingLog[msg.data.username].online = msg.data.online;// ((new Date(msg.data.createdAt)).getTime())
+                        $scope.logingLog[msg.data.username].online = msg.data.online; // ((new Date(msg.data.createdAt)).getTime())
                     } else {
                         $scope.logingLog[msg.data.username] = msg.data;
-                        $scope.logingLog[msg.data.username].online = msg.data.online;// ((new Date(msg.data.createdAt)).getTime())
+                        $scope.logingLog[msg.data.username].online = msg.data.online; // ((new Date(msg.data.createdAt)).getTime())
                     }
                 });
             });
@@ -59,6 +61,7 @@ angular.module('mockuperApp')
 
             userService.user.get().$promise.then(function(result) {
                 $scope.users = result;
+                console.log($scope.users);
             });
 
             userService.permission.get().$promise.then(function(result) {
@@ -66,7 +69,7 @@ angular.module('mockuperApp')
             });
 
             $rootScope.logout = function() {
-                $rootScope.isAuthenticated  = false;
+                $rootScope.isAuthenticated = false;
             };
 
             $scope.addProject = function() {
@@ -175,8 +178,31 @@ angular.module('mockuperApp')
                 }).$promise.then(function(result) {
                     $scope.reloadUsers(projectId);
                 });
-            }
+            };
 
             $scope.reloadProject(1);
+
+            io.socket.get('http://localhost:1337/chat/addconv');
+            $http.get('http://localhost:1337/chat')
+                .success(function(success_data) {
+                    $scope.chatList = success_data;
+                });
+
+            io.socket.on('chat', function(obj) {
+                console.log('created something');
+                if (obj.verb === 'created') {
+                    $scope.chatList.push(obj.data);
+                    $scope.$digest();
+                }
+            });
+
+            $scope.sendMsg = function() {
+                io.socket.post('http://localhost:1337/chat/addconv/', {
+                    user: $rootScope.userNameLogin,
+                    message: $scope.chatMessage
+                });
+                $scope.chatMessage = "";
+            };
+
         }
     ]);
