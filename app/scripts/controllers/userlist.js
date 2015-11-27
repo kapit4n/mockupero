@@ -16,5 +16,9 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.users = result;
                 });
+
+            $scope.addUser = function() {
+                $location.path('/registerUser');
+            }
         }
     ]);
