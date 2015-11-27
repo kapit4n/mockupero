@@ -182,7 +182,8 @@ angular.module('mockuperApp')
 
             $scope.reloadProject(1);
 
-            io.socket.get('http://localhost:1337/chat/addconv');
+            io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
+            // get all existing date
             $http.get('http://localhost:1337/chat')
                 .success(function(success_data) {
                     $scope.chatList = success_data;
