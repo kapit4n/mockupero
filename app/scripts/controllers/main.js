@@ -202,6 +202,8 @@ angular.module('mockuperApp')
                     user: $rootScope.userNameLogin,
                     message: $scope.chatMessage
                 });
+                var objDiv = document.getElementById("chatContainer");
+                objDiv.scrollTop = objDiv.scrollHeight;
                 $scope.chatMessage = "";
             };
 
