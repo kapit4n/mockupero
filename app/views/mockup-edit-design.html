@@ -22,7 +22,7 @@
 }
 </style>
 <div style="float: right;">
-    <div ng-repeat="n in logingLog track by $index" style="display:inline-block;">
+    <div ng-repeat="n in logingLog" style="display:inline-block;">
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
     </div>
 </div>
@@ -48,7 +48,7 @@
     <button id="btnSave" type="submit" class="btn btn-success" ng-click="save()">Save</button>
     <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
     <img id="spinner" ng-src="static/spinner.gif"  style="display:none; "  width="30px">
-    <div id="design-div" style="height: 600px; background: black; position: absolute; top: 236px; width: 800px;">
+    <div id="design-div" style="height: 600px; background-color:hsla(200,100%,75%,0.3); position: absolute; top: 236px; width: 800px;">
 
         <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
@@ -57,7 +57,7 @@
     </div>
 
 </div>
-<div id="design-div-content-menu">
+<div id="design-div-content-menu" style="z-index:100;">
     <div class="dropdown position-fixed" id="menu-{{ite.type}}-{{ite.id}}" ng-repeat="ite in result">
         <ul class="dropdown-menu" role="menu">
             <li>
@@ -69,10 +69,10 @@
             <li>
                 <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties('x-{{ite.type}}{{ite.id}}');">Properties</a>
             </li>
+            <li>
+                <a class="pointer" role="menuitem" tabindex="3" ng-click="deleteItem('x-{{ite.type}}{{ite.id}}');">Delete</a>
+            </li>
         </ul>
     </div>
 </div>
-<form id="myForm">
-<div id="img-out"  style="position: absolute; left: 10px; height: 100px; width: 100px; background:red;"> </div>
-<input type="file" id="avatar" name="avatar" multiple="multiple">
-</form>
+<div id="img-out"  style="position: absolute; left: 10px; height: 100px; width: 100px;"> </div>

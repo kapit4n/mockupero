@@ -84,6 +84,12 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.deleteMockupItem = $resource('http://localhost:1337/mockupItem/:id', {}, {
+            deleteIt: {
+                method: 'DELETE'
+            }
+        });
+
         fac.createMockupItemUploadAvatar = $resource('http://localhost:1337/mockupItem/uploadAvatar', {}, {
             save: {
                 method: 'POST'

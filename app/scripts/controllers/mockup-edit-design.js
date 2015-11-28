@@ -33,15 +33,17 @@ angular.module('mockuperApp')
                     Canvas2Image.saveAsPNG(canvas); 
                     $("#img-out").append(canvas)
                     console.log($("#img-out"));*/
-                    //var img = canvas.toDataURL("image/png");
-                    var dataURL = canvas.toDataURL();
-                    //$('#img-out').append('<input type="file" name="'+ dataURL + '" style="width: 100px; height: 100px;"/>');
+                    var img = canvas.toDataURL("image/png");
+                    //var dataURL = canvas.toDataURL();
+                    $('#img-out').append('<img src="'+img+'" style="width: 100px; height: 100px;"/>');
+                    
+                    /*$('#img-out').append('<input type="file" name="'+ dataURL + '" style="width: 100px; height: 100px;"/>');
                     $($('#avatar')[0]).value = dataURL;
-                    /*mockupService.createMockupItemUploadAvatar.save({avatar: dataURL}, function(result) {
+                    mockupService.createMockupItemUploadAvatar.save({avatar: dataURL}, function(result) {
                         console.log(result);
                         console.log('The image was uploaded');
                     });
-                    */
+                    
                     var fd = new FormData(document.getElementById('myform'));
                     //var fd = new FormData();
                     fd.append('avatar', $('#img-out')[0].file);
@@ -52,7 +54,7 @@ angular.module('mockuperApp')
                     .success(function(){
                     })
                     .error(function(){
-                    });
+                    });*/
                 }
             });
         }
@@ -137,6 +139,16 @@ angular.module('mockuperApp')
                 });
                 $scope.createImage();
             };
+
+            $scope.getItemId = function(idComp) {
+                var idResult = 0;
+                if (idComp.indexOf('image') > -1) {
+                    idResult = idComp.substring(7);
+                } else {
+                    idResult = idComp.substring(8);
+                }
+                return idResult;
+            }
 
             $scope.getItem = function(idComp) {
                 var item = {};
@@ -260,11 +272,12 @@ angular.module('mockuperApp')
                     // keep the dragged position in the data-x/data-y attributes
                     x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
                     y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
                 // translate the element
                 target.style.webkitTransform =
                     target.style.transform =
                     'translate(' + x + 'px, ' + y + 'px)';
+                console.log(x);
+                console.log(y);
 
                 // update the posiion attributes
                 target.setAttribute('data-x', x);
@@ -333,7 +346,13 @@ angular.module('mockuperApp')
 
             $scope.loadProperties = function(idComponent) {
                 var containerEl = angular.element(document.querySelector('#properties'));
-                var example = buttonProperties(idComponent);
+                var example = '';
+                if (idComponent.indexOf('image') > -1) {
+                    example = imageProperties(idComponent);
+                } else {
+                    example = buttonProperties(idComponent);
+                }
+                
                 containerEl.html($compile(example)($scope));
                 $('#myProperties').modal('toggle');
             };
@@ -350,7 +369,7 @@ angular.module('mockuperApp')
                 console.log('height');
                 console.log($(myElww[0]).height());
                 var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
-                    '<form class="form-horizontal" role="form">' +
+                    '<form class="form-horizontal" role="form" >' +
                     '    <div class="form-group">' +
                     '        <div class="col-md-12">' +
                     '            <div class="form-group row">' +
@@ -409,7 +428,7 @@ angular.module('mockuperApp')
                     '                <div class="col-md-5">' +
                     '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
                     '                </div>' +
-                    '<button type="submit" class="btn btn-success" ng-click="saveProperties(\'' + idComponent + '\')">Save</button>'
+                    '<button type="submit" class="btn btn-success" ng-click="saveImageProperties(\'' + idComponent + '\')">Save</button>'
 
                 '            </div>' +
                 '        </div>' +
@@ -464,5 +483,16 @@ angular.module('mockuperApp')
                 var containerEl = angular.element(document.querySelector('#properties'));
                 containerEl.html($compile('')($scope));
             };
+
+            $scope.deleteItem = function(idComponent) {
+                var myElww = angular.element(document.querySelector('#' + idComponent));
+                myElww.remove();
+                var itemId = $scope.getItemId(idComponent);
+                mockupService.deleteMockupItem.deleteIt({
+                    id: itemId
+                }).$promise.then(function(result) {
+                    console.log('Item deleted');
+                });
+            }
         }
     ]);
