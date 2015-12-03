@@ -72,11 +72,18 @@ angular.module('mockuperApp')
             });
         });
 
-        io.socket.on('mockupeditor', function onServerSentEvent (msg) {
-            console.log(msg);
-            $scope.$apply(function(){
-                $scope.logingLog[msg.data.username] = msg.data;
-                $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
+        io.socket.on('mockupeditor', function(msg) {
+            if (msg.verb == 'updated') {
+                console.log(msg);
+            }
+            $scope.$apply(function() {
+                if (msg.offline) {
+                    $scope.logingLog[msg.data.username].online = false;
+                    msg.data.online = false;
+                } else {
+                    $scope.logingLog[msg.data.username].online = true;
+                }
+               $scope.logingLog[msg.data.username] = msg.data;
             });
         });
 
@@ -207,7 +214,7 @@ angular.module('mockuperApp')
 
             $scope.cancel = function() {
                 io.socket.post('/mockupEditor/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
-                    console.log('Logout Editor Success ' + body);
+                    console.log('Mockup editor out');
                 });
                 $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
             }
