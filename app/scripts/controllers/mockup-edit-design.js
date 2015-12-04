@@ -145,6 +145,12 @@ angular.module('mockuperApp')
                     }, 4000);
                 });
                 $scope.createImage();
+                $timeout(function() {
+                    // this will be called on the save methods to create the version
+                    io.socket.post('/mockupVersion/saveIt', {number: 'version 1', mockupId: $routeParams.mockupId}, function serverResponded (body, JWR) {
+                        console.log('Creating our first mockup version');
+                    });
+                }, 5000);
             };
 
             $scope.getItemId = function(idComp) {
@@ -359,7 +365,6 @@ angular.module('mockuperApp')
                 } else {
                     example = buttonProperties(idComponent);
                 }
-                
                 containerEl.html($compile(example)($scope));
                 $('#myProperties').modal('toggle');
             };
@@ -501,5 +506,31 @@ angular.module('mockuperApp')
                     console.log('Item deleted');
                 });
             }
-        }
+
+            // move this code to some service to have all sockets methods in the same place
+            io.socket.get('/mockupVersion', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+                console.log('Subscribe to mockup version');
+            });
+
+            // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
+            io.socket.on('mockupversion', function(msg) {
+                $scope.$apply(function() {
+                    if (msg.data.mockupId == $routeParams.mockupId) {
+                        console.log(' Updated and we need to reload the data');
+                        $scope.loadMockupItems();
+                    }
+                });
+            });
+
+            $scope.loadMockupItems = function() {
+                mockupService.getMockupItems.get({
+                    sort: 'position ',
+                    where: {
+                        mockupId: $routeParams.mockupId
+                    }
+                }).$promise.then(function(result) {
+                    $scope.result = result;
+                });
+            }; // end of the load mockup items
+        }// end of the controller function
     ]);
