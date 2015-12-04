@@ -34,10 +34,15 @@
         </div>
     </div>
 
-    <div class="container">
-        <toolbar-item-image></toolbar-item-image>
-        <toolbar-item-btn></toolbar-item-btn>
+    <div class="container" style="height: 80px; position: absolute; top: 115px; border: 3px dashed #ccc;">
+        <div style="">
+            <toolbar-item-image></toolbar-item-image>
+        </div>
+        <div style="">
+            <toolbar-item-btn></toolbar-item-btn>
+        </div>
     </div>
+
     <div class="container">
         <div id="myProperties" style="height: 130px;" class="modal fade" role="dialog">
             <div id="properties">
@@ -45,10 +50,14 @@
         </div>
     </div>
 
-    <button id="btnSave" type="submit" class="btn btn-success" ng-click="save()">Save</button>
-    <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
-    <img id="spinner" ng-src="static/spinner.gif"  style="display:none; "  width="30px">
-    <div id="design-div" style="height: 600px; background-color:hsla(200,100%,75%,0.3); position: absolute; top: 236px; width: 800px;">
+    <div style="height: 80px; position: absolute; top: 200px;">
+        <button id="btnSave" type="submit" class="btn btn-success" ng-click="save()">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
+        <img id="spinner" ng-src="static/spinner.gif"  style="display:none; "  width="30px">
+    </div>
+
+
+    <div id="design-div" style="height: 600px; background-color:hsla(200,100%,75%,0.3); position: absolute; top: 236px; width: 800px; overflow: scroll;">
 
         <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 

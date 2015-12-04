@@ -8,12 +8,12 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore',
-        function($scope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore) {
+    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore',
+        function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore) {
             loginService.reloadScope();
             $scope.editObject = null;
             $scope.lastId = 2;
-
+        $rootScope.hideFooter = true;
         $scope.logingLog = {};
 
         // move this code to socket services related to mockups
