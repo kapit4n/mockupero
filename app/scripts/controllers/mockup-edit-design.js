@@ -17,8 +17,20 @@ angular.module('mockuperApp')
         $scope.logingLog = {};
 
         // move this code to socket services related to mockups
-        io.socket.get('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+        io.socket.get('/mockupEditor/editors', {/*username: $cookieStore.get('username')*/}, function serverResponded (body, JWR) {
             console.log('Get of the mockupe editor');
+            console.log(body);
+        });
+
+        // move this code to socket services related to mockups
+        io.socket.get('/mockupEditor', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+            console.log('Get of the mockup editor list');
+            console.log(body);
+            if (body.length > 0) {
+                for (var i = 0; i < body.length; i++) {
+                    $scope.logingLog[body[i].username] = body[i];
+                }
+            }
         });
 
         io.socket.post('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
@@ -76,16 +88,16 @@ angular.module('mockuperApp')
 
         io.socket.on('mockupeditor', function(msg) {
             if (msg.verb == 'updated') {
+                console.log('updated mockup editor');
                 console.log(msg);
             }
             $scope.$apply(function() {
-                if (msg.offline) {
+                if (msg.data.offline) {
+                    $scope.logingLog[msg.data.username] = msg.data;
                     $scope.logingLog[msg.data.username].online = false;
-                    msg.data.online = false;
                 } else {
-                    //$scope.logingLog[msg.data.username].online = true;
+                    $scope.logingLog[msg.data.username] = msg.data;
                 }
-               $scope.logingLog[msg.data.username] = msg.data;
             });
         });
 
