@@ -17,26 +17,15 @@ angular.module('mockuperApp')
         $scope.logingLog = {};
 
         // move this code to socket services related to mockups
-        io.socket.get('/mockupEditor/editors', {/*username: $cookieStore.get('username')*/}, function serverResponded (body, JWR) {
-            console.log('Get of the mockupe editor');
-            console.log(body);
-        });
-
-        // move this code to socket services related to mockups
-        io.socket.get('/mockupEditor', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
-            console.log('Get of the mockup editor list');
-            console.log(body);
-            if (body.length > 0) {
-                for (var i = 0; i < body.length; i++) {
-                    $scope.logingLog[body[i].username] = body[i];
-                }
-            }
+        io.socket.get('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+            console.log('Subscribe the mockup editor');
         });
 
         io.socket.post('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
-            console.log('Post to mockup editors');
+            console.log('Mockup editor post');
         });
 
+        // Some source code to save min image that we are to use on the mockup preview and version of the mockup
         $scope.createImage = function() {
             html2canvas($("#design-div"), {
                 onrendered: function(canvas) {
@@ -73,12 +62,8 @@ angular.module('mockuperApp')
             });
         }
 
-        $scope.uploadAvatar = function() {
-
-        }
-
+        // move this code to socket services related to mockups
         io.socket.get('/mockupeditor', function serverResponded (body, JWR) {
-            console.log('Login log get');
             $scope.$apply(function() {
                 for (var i = 0; i < body.length; i++) {
                     $scope.logingLog[body[i].username] = body[i];
@@ -86,6 +71,7 @@ angular.module('mockuperApp')
             });
         });
 
+        // method that listen the mockup editors
         io.socket.on('mockupeditor', function(msg) {
             if (msg.verb == 'updated') {
                 console.log('updated mockup editor');
@@ -132,6 +118,7 @@ angular.module('mockuperApp')
 
             $scope.item = {};
 
+            // save the mockup item modifications
             $scope.save = function() {
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
@@ -293,6 +280,7 @@ angular.module('mockuperApp')
                     target.setAttribute('data-y', y);
                 });
 
+            // use component draggings by types here 
             function dragMoveListener(event) {
                 var target = event.target,
                     // keep the dragged position in the data-x/data-y attributes
@@ -310,13 +298,14 @@ angular.module('mockuperApp')
             // this is used later in the resizing demo
             window.dragMoveListener = dragMoveListener;
 
+            // Method to add a image to the design div
             $scope.addImage = function() {
-                var myEl = angular.element(document.querySelector('#design-div'));
-                var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
+                var designDiv = angular.element(document.querySelector('#design-div'));
+                var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
                 $scope.lastId++;
                 var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
                     'style="padding:0; position: absolute;  z-index=' + $scope.lastId + '" src="static/mockups/items/image-icon.png" alt="...">';
-                myEl.append($compile(imgHtml)($scope));
+                designDiv.append($compile(imgHtml)($scope));
 
                 var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +
                     '    <ul class="dropdown-menu" role="menu">' +
@@ -328,16 +317,16 @@ angular.module('mockuperApp')
                     '        </li>' +
                     '    </ul>' +
                     '</div>';
-                myEl2.append($compile(contentMenuHtml)($scope));
+                designContentMenu.append($compile(contentMenuHtml)($scope));
             };
 
             $scope.addButton = function() {
-                var myEl = angular.element(document.querySelector('#design-div'));
-                var myEl2 = angular.element(document.querySelector('#design-div-content-menu'));
+                var designDiv = angular.element(document.querySelector('#design-div'));
+                var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
                 $scope.lastId++;
                 var btnHtml = '<button id="new-button-' + $scope.lastId + 'x" context-menu data-target="menu-button-' + $scope.lastId + '" class="resize-drag" ' +
                     'style="padding:0; position: absolute; height: 52px; width: 150px; z-index=' + $scope.lastId + '" alt="...">';
-                myEl.append($compile(btnHtml)($scope));
+                designDiv.append($compile(btnHtml)($scope));
                 var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-button-' + $scope.lastId + '">' +
                     '    <ul class="dropdown-menu" role="menu">' +
                     '        <li>' +
@@ -348,53 +337,53 @@ angular.module('mockuperApp')
                     '        </li>' +
                     '    </ul>' +
                     '</div>';
-                myEl2.append($compile(contentMenuHtml)($scope));
+                designContentMenu.append($compile(contentMenuHtml)($scope));
             };
 
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {
-                var myEl = angular.element(document.querySelector('#' + idComponent));
-                var containerEl = angular.element(document.querySelector('#design-div'));
-                containerEl.append(myEl);
+                var myComponent = angular.element(document.querySelector('#' + idComponent));
+                var designDiv = angular.element(document.querySelector('#design-div'));
+                designDiv.append(myComponent);
             };
 
             // Updated the mockup item to the backward part, we have to modify this method using the z-index
             $scope.sendToBackward = function(idComponent) {
-                var myEl = angular.element(document.querySelector('#' + idComponent));
-                var containerEl = angular.element(document.querySelector('#design-div'));
-                containerEl.prepend(myEl);
+                var myComponent = angular.element(document.querySelector('#' + idComponent));
+                var designDiv = angular.element(document.querySelector('#design-div'));
+                designDiv.prepend(myComponent);
             };
 
             // Method to load the properties for the existend mockup items
             $scope.loadProperties = function(idComponent) {
-                var containerEl = angular.element(document.querySelector('#properties'));
-                var example = '';
+                var propertiesDiv = angular.element(document.querySelector('#properties'));
+                var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
-                    example = imageProperties(idComponent);
+                    myComponent = imageProperties(idComponent);
                 } else {
-                    example = buttonProperties(idComponent);
+                    myComponent = buttonProperties(idComponent);
                 }
-                containerEl.html($compile(example)($scope));
+                propertiesDiv.html($compile(myComponent)($scope));
                 $('#myProperties').modal('toggle');
             };
 
             // Loads the button properties to a popup
             function buttonProperties(idComponent) {
-                var myElww = angular.element(document.querySelector('#' + idComponent));
+                var myComponent = angular.element(document.querySelector('#' + idComponent));
                 var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
                 var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-                var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
+                var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                     '<form class="form-horizontal" role="form" >' +
                     '    <div class="form-group">' +
                     '        <div class="col-md-12">' +
                     '            <div class="form-group row">' +
                     '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myElww[0])[0].style.width + '">' +
+                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
                     '                </div>' +
                     '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myElww[0])[0].style.height + '">' +
+                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
                     '                </div>' +
                     '                <label for="topValue" class="col-md-1 control-label">top</label>' +
                     '                <div class="col-md-5">' +
@@ -410,31 +399,31 @@ angular.module('mockuperApp')
                 '        </div>' +
                 '    </div>' +
                 '</form>';
-                return myEl;
+                return propertiesValuesDiv;
             }
 
             // This load the image properties to a popup
             function imageProperties(idComponent) {
-                var myElww = angular.element(document.querySelector('#' + idComponent));
+                var myComponent = angular.element(document.querySelector('#' + idComponent));
                 var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
                 var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
 
-                var myEl = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
+                var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                     '<form class="form-horizontal" role="form">' +
                     '    <div class="form-group">' +
                     '        <div class="col-md-12">' +
                     '            <div class="form-group row">' +
                     '                <label for="hrefValue" class="col-md-1 control-label">src</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myElww[0].src + '">' +
+                    '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myComponent[0].src + '">' +
                     '                </div>' +
                     '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + myElww[0].width + '">' +
+                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + myComponent[0].width + '">' +
                     '                </div>' +
                     '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
                     '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myElww[0].height + '">' +
+                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myComponent[0].height + '">' +
                     '                </div>' +
                     '                <label for="topValue" class="col-md-1 control-label">top</label>' +
                     '                <div class="col-md-5">' +
@@ -450,7 +439,7 @@ angular.module('mockuperApp')
                 '        </div>' +
                 '    </div>' +
                 '</form>';
-                return myEl;
+                return propertiesValuesDiv;
             }
 
             // save te properties of a button by now
@@ -486,14 +475,14 @@ angular.module('mockuperApp')
 
             // close the properties popup
             $scope.closeProperties = function() {
-                var containerEl = angular.element(document.querySelector('#properties'));
-                containerEl.html($compile('')($scope));
+                var propertiesDiv = angular.element(document.querySelector('#properties'));
+                propertiesDiv.html($compile('')($scope));
             };
 
             // Method to delete a item from the design board
             $scope.deleteItem = function(idComponent) {
-                var myElww = angular.element(document.querySelector('#' + idComponent));
-                myElww.remove();
+                var component = angular.element(document.querySelector('#' + idComponent));
+                component.remove();
                 var itemId = $scope.getItemId(idComponent);
                 mockupService.deleteMockupItem.deleteIt({
                     id: itemId
