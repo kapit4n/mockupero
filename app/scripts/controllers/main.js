@@ -119,12 +119,31 @@ angular.module('mockuperApp')
                         $scope.currentPage -= 1;
                     }
                     var sortA = $scope.sortAsc ? 'ASC' : 'DESC';
-                    projectService.projects.get({
+
+                    projectService.getProjectUsers.get({
+                        where: {
+                            user: $cookieStore.get('userId'),
+
+                        }
+                    }).$promise.then(function(result) {
+                        var userProjectIds = [];
+                        for (var i = 0; i < result.length; i++) {
+                            userProjectIds[i] = result[i].project.id;
+                            console.log(userProjectIds[i]);
+                        }
+                        projectService.projects.get({
                             where: {
+                                or: [
+                                    {
+                                        userId: $cookieStore.get('userId'),
+                                    },
+                                    {
+                                        id: userProjectIds
+                                    }
+                                ],
                                 name: {
                                     "like": "%" + $scope.searchName + "%"
-                                },
-                                userId: $cookieStore.get('userId')
+                                }
                             },
                             limit: $scope.pageSize,
                             skip: (($scope.currentPage - 1) * $scope.pageSize),
@@ -134,6 +153,10 @@ angular.module('mockuperApp')
                             $scope.projects = result;
                             $scope.makePagination();
                         });
+
+                    });
+
+                    
                 });
             };
 
