@@ -147,7 +147,7 @@ angular.module('mockuperApp')
                 $scope.createImage();
                 $timeout(function() {
                     // this will be called on the save methods to create the version
-                    io.socket.post('/mockupVersion/saveIt', {number: 'version 1', mockupId: $routeParams.mockupId}, function serverResponded (body, JWR) {
+                    io.socket.post('/mockupVersion/saveIt', {number: 'version 1', mockupId: $routeParams.mockupId, username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
                         console.log('Creating our first mockup version');
                     });
                 }, 5000);
@@ -501,6 +501,7 @@ angular.module('mockuperApp')
                 $scope.$apply(function() {
                     if (msg.data.mockupId == $routeParams.mockupId) {
                         console.log(' Updated and we need to reload the data');
+                        $("#alert_message_text").text('Updated by ' + msg.data.username);
                         $scope.loadMockupItems();
                     }
                 });
