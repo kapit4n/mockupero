@@ -108,15 +108,12 @@ angular.module('mockuperApp')
             }
         });
 
-
         fac.getMockupItems = $resource('http://localhost:1337/mockupItem', {}, {
             get: {
                 method: 'GET',
                 isArray: true
             }
         });
-
-       
 
         return fac;
     });
