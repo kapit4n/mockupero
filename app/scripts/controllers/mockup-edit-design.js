@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore',
-        function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore) {
+    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore','propertyService',
+        function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore, propertyService) {
             loginService.reloadScope();
             $scope.editObject = null;
             $scope.lastId = 2;
@@ -17,9 +17,11 @@ angular.module('mockuperApp')
         $scope.logingLog = {};
 
         // move this code to socket services related to mockups
-        io.socket.get('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+        io.socket.get('/mockupEditor/editors', {username: $cookieStore.get('username'), roomName: $routeParams.mockupId}, function serverResponded (body, JWR) {
             console.log('Subscribe the mockup editor');
         });
+
+
 
         io.socket.post('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
             console.log('Mockup editor post');
@@ -69,6 +71,18 @@ angular.module('mockuperApp')
                     $scope.logingLog[body[i].username] = body[i];
                 };
             });
+        io.socket.get('/mockupeditor/getSocketId', function serverResponded(body, JWR) {
+            console.log('Socket Id: ');
+            console.log(body);
+        });
+
+
+        });
+
+        // move this code to socket services related to mockups
+        io.socket.get('/mockupeditor/getEditors', {username: $cookieStore.get('username'), roomName: $routeParams.mockupId},  function serverResponded (body, JWR) {
+            console.log('get Editors');
+            console.log(body);
         });
 
         // method that listen the mockup editors
@@ -299,46 +313,9 @@ angular.module('mockuperApp')
             window.dragMoveListener = dragMoveListener;
 
             // Method to add a image to the design div
-            $scope.addImage = function() {
-                var designDiv = angular.element(document.querySelector('#design-div'));
-                var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
-                $scope.lastId++;
-                var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
-                    'style="padding:0; position: absolute;  z-index=' + $scope.lastId + '" src="static/mockups/items/image-icon.png" alt="...">';
-                designDiv.append($compile(imgHtml)($scope));
+            $scope.addImage = propertyService.addImage;
 
-                var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +
-                    '    <ul class="dropdown-menu" role="menu">' +
-                    '        <li>' +
-                    '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-image-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
-                    '        </li>' +
-                    '        <li>' +
-                    '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-image-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
-                    '        </li>' +
-                    '    </ul>' +
-                    '</div>';
-                designContentMenu.append($compile(contentMenuHtml)($scope));
-            };
-
-            $scope.addButton = function() {
-                var designDiv = angular.element(document.querySelector('#design-div'));
-                var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
-                $scope.lastId++;
-                var btnHtml = '<button id="new-button-' + $scope.lastId + 'x" context-menu data-target="menu-button-' + $scope.lastId + '" class="resize-drag" ' +
-                    'style="padding:0; position: absolute; height: 52px; width: 150px; z-index=' + $scope.lastId + '" alt="...">';
-                designDiv.append($compile(btnHtml)($scope));
-                var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-button-' + $scope.lastId + '">' +
-                    '    <ul class="dropdown-menu" role="menu">' +
-                    '        <li>' +
-                    '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-button-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
-                    '        </li>' +
-                    '        <li>' +
-                    '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-button-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
-                    '        </li>' +
-                    '    </ul>' +
-                    '</div>';
-                designContentMenu.append($compile(contentMenuHtml)($scope));
-            };
+            $scope.addButton = propertyService.addButton;
 
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {
@@ -359,125 +336,24 @@ angular.module('mockuperApp')
                 var propertiesDiv = angular.element(document.querySelector('#properties'));
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
-                    myComponent = imageProperties(idComponent);
+                    myComponent = propertyService.image(idComponent);
                 } else {
-                    myComponent = buttonProperties(idComponent);
+                    myComponent = propertyService.button(idComponent);
                 }
                 propertiesDiv.html($compile(myComponent)($scope));
                 $('#myProperties').modal('toggle');
             };
 
             // Loads the button properties to a popup
-            function buttonProperties(idComponent) {
-                var myComponent = angular.element(document.querySelector('#' + idComponent));
-                var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
-                var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-                var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
-                    '<form class="form-horizontal" role="form" >' +
-                    '    <div class="form-group">' +
-                    '        <div class="col-md-12">' +
-                    '            <div class="form-group row">' +
-                    '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
-                    '                </div>' +
-                    '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
-                    '                </div>' +
-                    '                <label for="topValue" class="col-md-1 control-label">top</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
-                    '                </div>' +
-                    '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
-                    '                </div>' +
-                    '<button type="submit" class="btn btn-success" ng-click="saveProperties(\'' + idComponent + '\')">Save</button>'
-
-                '            </div>' +
-                '        </div>' +
-                '    </div>' +
-                '</form>';
-                return propertiesValuesDiv;
-            }
-
-            // This load the image properties to a popup
-            function imageProperties(idComponent) {
-                var myComponent = angular.element(document.querySelector('#' + idComponent));
-                var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
-                var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-
-                var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
-                    '<form class="form-horizontal" role="form">' +
-                    '    <div class="form-group">' +
-                    '        <div class="col-md-12">' +
-                    '            <div class="form-group row">' +
-                    '                <label for="hrefValue" class="col-md-1 control-label">src</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myComponent[0].src + '">' +
-                    '                </div>' +
-                    '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + myComponent[0].width + '">' +
-                    '                </div>' +
-                    '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myComponent[0].height + '">' +
-                    '                </div>' +
-                    '                <label for="topValue" class="col-md-1 control-label">top</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
-                    '                </div>' +
-                    '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
-                    '                <div class="col-md-5">' +
-                    '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
-                    '                </div>' +
-                    '<button type="submit" class="btn btn-success" ng-click="saveImageProperties(\'' + idComponent + '\')">Save</button>'
-
-                '            </div>' +
-                '        </div>' +
-                '    </div>' +
-                '</form>';
-                return propertiesValuesDiv;
-            }
 
             // save te properties of a button by now
-            $scope.saveProperties = function(idComponent) {
-                var component = angular.element(document.querySelector('#' + idComponent));
-                var heightValue = angular.element(document.querySelector('#heightValue'));
-                var widthValue = angular.element(document.querySelector('#widthValue'));
-                var topValue = angular.element(document.querySelector('#topValue'));
-                var leftValue = angular.element(document.querySelector('#leftValue'));
-                component[0].style.width = widthValue[0].value;
-                component[0].style.height = heightValue[0].value;
-                component[0].style.top = topValue[0].value + 'px';
-                component[0].style.left = leftValue[0].value + 'px';
-                $('#myProperties').modal('hide');
-
-            };
+            $scope.saveButtonProperties = propertyService.saveButton;
 
             // Update the item selected to edit the properties and close/hide the popup
-            $scope.saveImageProperties = function(idComponent) {
-                var component = angular.element(document.querySelector('#' + idComponent));
-                var hrefValue = angular.element(document.querySelector('#hrefValue'));
-                var heightValue = angular.element(document.querySelector('#heightValue'));
-                var widthValue = angular.element(document.querySelector('#widthValue'));
-                var topValue = angular.element(document.querySelector('#topValue'));
-                var leftValue = angular.element(document.querySelector('#leftValue'));
-                component[0].style.width = widthValue[0].value + 'px';
-                component[0].style.height = heightValue[0].value + 'px';
-                component[0].style.top = topValue[0].value + 'px';
-                component[0].style.left = leftValue[0].value + 'px';
-                component[0].src = hrefValue[0].value;
-                $('#myProperties').modal('hide');
-            };
+            $scope.saveImageProperties = propertyService.saveImage;
 
             // close the properties popup
-            $scope.closeProperties = function() {
-                var propertiesDiv = angular.element(document.querySelector('#properties'));
-                propertiesDiv.html($compile('')($scope));
-            };
+            $scope.closeProperties = propertyService.close;
 
             // Method to delete a item from the design board
             $scope.deleteItem = function(idComponent) {
