@@ -313,9 +313,13 @@ angular.module('mockuperApp')
             window.dragMoveListener = dragMoveListener;
 
             // Method to add a image to the design div
-            $scope.addImage = propertyService.addImage;
+            $scope.addImage = function() {
+                propertyService.addImage($scope, $compile);
+            };
 
-            $scope.addButton = propertyService.addButton;
+            $scope.addButton = function() {
+                propertyService.addButton($scope, $compile);
+            };
 
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {

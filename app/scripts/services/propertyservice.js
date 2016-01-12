@@ -112,12 +112,12 @@ angular.module('mockuperApp')
             $('#myProperties').modal('hide');
         };
 
-        fac.close = function() {
+        fac.close = function($scope, $compile) {
             var propertiesDiv = angular.element(document.querySelector('#properties'));
             propertiesDiv.html($compile('')($scope));
         };
 
-        fac.addButton = function() {
+        fac.addButton = function($scope, $compile) {
             var designDiv = angular.element(document.querySelector('#design-div'));
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
@@ -137,7 +137,7 @@ angular.module('mockuperApp')
             designContentMenu.append($compile(contentMenuHtml)($scope));
         };
 
-        fac.addImage = function() {
+        fac.addImage = function($scope, $compile) {
             var designDiv = angular.element(document.querySelector('#design-div'));
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
