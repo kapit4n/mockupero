@@ -112,9 +112,8 @@ angular.module('mockuperApp')
             $('#myProperties').modal('hide');
         };
 
-        fac.close = function($scope, $compile) {
-            var propertiesDiv = angular.element(document.querySelector('#properties'));
-            propertiesDiv.html($compile('')($scope));
+        fac.close = function() {
+            $('#myProperties').modal('hide');
         };
 
         fac.addButton = function($scope, $compile) {

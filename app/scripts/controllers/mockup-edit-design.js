@@ -276,8 +276,8 @@ angular.module('mockuperApp')
                 })
                 .on('resizemove', function(event) {
                     var target = event.target,
-                        x = (parseFloat(target.getAttribute('data-x')) || 0),
-                        y = (parseFloat(target.getAttribute('data-y')) || 0);
+                        x = (parseFloat(target.getAttribute('top')) || 0),
+                        y = (parseFloat(target.getAttribute('left')) || 0);
 
                     // update the element's style
                     target.style.width = event.rect.width + 'px';
@@ -290,23 +290,26 @@ angular.module('mockuperApp')
                     target.style.webkitTransform = target.style.transform =
                         'translate(' + x + 'px,' + y + 'px)';
 
-                    target.setAttribute('data-x', x);
-                    target.setAttribute('data-y', y);
+                    target.setAttribute('top', x);
+                    target.setAttribute('left', y);
                 });
 
             // use component draggings by types here 
             function dragMoveListener(event) {
+                //console.log(event.target);
                 var target = event.target,
                     // keep the dragged position in the data-x/data-y attributes
-                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+                    x = (parseFloat(target.getAttribute('top')) || 0) + event.dx,
+                    y = (parseFloat(target.getAttribute('left')) || 0) + event.dy;
+
                 // translate the element
                 target.style.webkitTransform =
                     target.style.transform =
                     'translate(' + x + 'px, ' + y + 'px)';
                 // update the posiion attributes
-                target.setAttribute('data-x', x);
-                target.setAttribute('data-y', y);
+
+                target.setAttribute('top', x);
+                target.setAttribute('left', y);
             }
 
             // this is used later in the resizing demo
