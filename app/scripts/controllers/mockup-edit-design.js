@@ -12,7 +12,7 @@ angular.module('mockuperApp')
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore, propertyService) {
             loginService.reloadScope();
             $scope.editObject = null;
-            $scope.lastId = 2;
+            $scope.lastId = 0;
         $rootScope.hideFooter = true;
         $scope.logingLog = {};
 
@@ -20,8 +20,6 @@ angular.module('mockuperApp')
         io.socket.get('/mockupEditor/editors', {username: $cookieStore.get('username'), roomName: $routeParams.mockupId}, function serverResponded (body, JWR) {
             console.log('Subscribe the mockup editor');
         });
-
-
 
         io.socket.post('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
             console.log('Mockup editor post');
@@ -76,7 +74,6 @@ angular.module('mockuperApp')
             console.log(body);
         });
 
-
         });
 
         // move this code to socket services related to mockups
@@ -121,14 +118,27 @@ angular.module('mockuperApp')
 
             $scope.result = [];
 
-            mockupService.getMockupItems.get({
-                sort: 'position ',
-                where: {
-                    mockupId: $routeParams.mockupId
-                }
-            }).$promise.then(function(result) {
-                $scope.result = result;
-            });
+
+            $scope.loadMockupItems = function() {
+                mockupService.getMockupItems.get({
+                    sort: 'position ',
+                    where: {
+                        mockupId: $routeParams.mockupId
+                    }
+                }).$promise.then(function(result) {
+                    $scope.result = result;
+                    var positionAux = 0;
+                    angular.forEach($scope.result, function(value, key) {
+                    console.log(value.position);
+                    if (positionAux < value.position) {
+                        $scope.lastId = value.position;
+                    }
+                }, []);
+                });
+            }; // end of the load mockup items
+
+            // This code is duplicated, replace this code using $scope.loadMockupItems();
+            $scope.loadMockupItems();
 
             $scope.item = {};
 
@@ -142,7 +152,7 @@ angular.module('mockuperApp')
                     $timeout(function() {
                         position++;
                         $scope.item = $scope.getItem('#' + child.id);
-                        $scope.item.position = position;
+                        //$scope.item.position = position;
                         if ($scope.item.id === undefined) {
                             mockupService.createMockupItem.save($scope.item, function(result) {
                                 //console.log(result);
@@ -177,6 +187,9 @@ angular.module('mockuperApp')
                 return idResult;
             }
 
+            /**
+                This id has # included in the string
+            */
             $scope.getItem = function(idComp) {
                 var item = {};
                 if (idComp.length > 15) {
@@ -207,7 +220,8 @@ angular.module('mockuperApp')
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length-2);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length-2);
                 }
-                
+                //var zIndex = $( '#' + idComp ).css( "z-index" );
+                var zIndex = $(idComp ).css( "z-index" );
                 item.idHtml = $(idComp)[0].id;
                 item.mockupId = $routeParams.mockupId;
 
@@ -225,6 +239,7 @@ angular.module('mockuperApp')
                     "height": item.height,
                     "y": item.y,
                     "x": item.x,
+                    "position": zIndex,
                     "type": item.type,
                     "idHtml": item.idHtml,
                     "src": item.src,
@@ -326,13 +341,51 @@ angular.module('mockuperApp')
 
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {
-                var myComponent = angular.element(document.querySelector('#' + idComponent));
-                var designDiv = angular.element(document.querySelector('#design-div'));
-                designDiv.append(myComponent);
+                var zIndex = $scope.getZ_Index(idComponent);
+                zIndex++;
+                console.log(zIndex);
+                $($( '#' + idComponent )[0]).css("z-index" , zIndex);
+                $scope.updateOtherZ_Index(idComponent, zIndex, false);
             };
 
             // Updated the mockup item to the backward part, we have to modify this method using the z-index
             $scope.sendToBackward = function(idComponent) {
+                var zIndex = $scope.getZ_Index(idComponent);
+                zIndex--;
+                console.log(zIndex);
+                if (zIndex >= 0) {
+                    $scope.updateZ_Index(idComponent, zIndex);
+                    $scope.updateOtherZ_Index(idComponent, zIndex, true);
+                }
+            };
+
+            // update the other z index after we update some z index
+            $scope.updateOtherZ_Index = function(idComponent, zIndex, backward) {
+                var myEl = angular.element(document.querySelector('#design-div'));
+                var position = 0;
+                angular.forEach(myEl[0].children, function(child) {
+                    if (child.id != idComponent && $scope.getZ_Index(child.id) == zIndex) {
+                        if (backward) {
+                            $scope.updateZ_Index(child.id, zIndex + 1);
+                        } else {
+                            $scope.updateZ_Index(child.id, zIndex - 1);
+                        }
+                        console.log($scope.getZ_Index(child.id));
+                    }
+                });
+            };
+
+            // 
+            $scope.getZ_Index = function(idComponent) {
+                return $( '#' + idComponent ).css( "z-index" );
+            };
+
+            $scope.updateZ_Index = function (idComponent, zIndex) {
+                $($( '#' + idComponent )[0]).css("z-index" , zIndex);
+            };
+
+            // Updated the mockup item to the backward part, we have to modify this method using the z-index
+            $scope.sendToBackward_back = function(idComponent) {
                 var myComponent = angular.element(document.querySelector('#' + idComponent));
                 var designDiv = angular.element(document.querySelector('#design-div'));
                 designDiv.prepend(myComponent);
@@ -381,6 +434,9 @@ angular.module('mockuperApp')
 
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
             io.socket.on('mockupversion', function(msg) {
+                console.log('Mockup version update');
+                console.log(msg);
+
                 $scope.$apply(function() {
                     if (msg.data.mockupId == $routeParams.mockupId) {
                         console.log(' Updated and we need to reload the data');
@@ -390,15 +446,5 @@ angular.module('mockuperApp')
                 });
             });
 
-            $scope.loadMockupItems = function() {
-                mockupService.getMockupItems.get({
-                    sort: 'position ',
-                    where: {
-                        mockupId: $routeParams.mockupId
-                    }
-                }).$promise.then(function(result) {
-                    $scope.result = result;
-                });
-            }; // end of the load mockup items
         }// end of the controller function
     ]);
