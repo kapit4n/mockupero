@@ -8,95 +8,103 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore','propertyService',
+    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore', 'propertyService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore, propertyService) {
             loginService.reloadScope();
             $scope.editObject = null;
             $scope.lastId = 0;
-        $rootScope.hideFooter = true;
-        $scope.logingLog = {};
+            $rootScope.hideFooter = true;
+            $scope.logingLog = {};
 
-        // move this code to socket services related to mockups
-        io.socket.get('/mockupEditor/editors', {username: $cookieStore.get('username'), roomName: $routeParams.mockupId}, function serverResponded (body, JWR) {
-            console.log('Subscribe the mockup editor');
-        });
-
-        io.socket.post('/mockupEditor/editors', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
-            console.log('Mockup editor post');
-        });
-
-        // Some source code to save min image that we are to use on the mockup preview and version of the mockup
-        $scope.createImage = function() {
-            html2canvas($("#design-div"), {
-                onrendered: function(canvas) {
-                    var theCanvas = canvas;
-                    //document.body.appendChild(canvas);
-
-                    /*// Convert and download as image 
-                    Canvas2Image.saveAsPNG(canvas); 
-                    $("#img-out").append(canvas)
-                    console.log($("#img-out"));*/
-                    var img = canvas.toDataURL("image/png");
-                    //var dataURL = canvas.toDataURL();
-                    $('#img-out').append('<img src="'+img+'" style="width: 100px; height: 100px;"/>');
-                    
-                    /*$('#img-out').append('<input type="file" name="'+ dataURL + '" style="width: 100px; height: 100px;"/>');
-                    $($('#avatar')[0]).value = dataURL;
-                    mockupService.createMockupItemUploadAvatar.save({avatar: dataURL}, function(result) {
-                        console.log(result);
-                        console.log('The image was uploaded');
-                    });
-                    
-                    var fd = new FormData(document.getElementById('myform'));
-                    //var fd = new FormData();
-                    fd.append('avatar', $('#img-out')[0].file);
-                    $http.post('http://localhost:1337/mockupItem/uploadAvatar', fd, {
-                        transformRequest: angular.identity,
-                        headers: {'Content-Type': undefined}
-                    })
-                    .success(function(){
-                    })
-                    .error(function(){
-                    });*/
-                }
+            // move this code to socket services related to mockups
+            io.socket.get('/mockupEditor/editors', {
+                username: $cookieStore.get('username'),
+                roomName: $routeParams.mockupId
+            }, function serverResponded(body, JWR) {
+                console.log('Subscribe the mockup editor');
             });
-        }
 
-        // move this code to socket services related to mockups
-        io.socket.get('/mockupeditor', function serverResponded (body, JWR) {
-            $scope.$apply(function() {
-                for (var i = 0; i < body.length; i++) {
-                    $scope.logingLog[body[i].username] = body[i];
-                };
+            io.socket.post('/mockupEditor/editors', {
+                username: $cookieStore.get('username')
+            }, function serverResponded(body, JWR) {
+                console.log('Mockup editor post');
             });
-        io.socket.get('/mockupeditor/getSocketId', function serverResponded(body, JWR) {
-            console.log('Socket Id: ');
-            console.log(body);
-        });
 
-        });
+            // Some source code to save min image that we are to use on the mockup preview and version of the mockup
+            $scope.createImage = function() {
+                html2canvas($("#design-div"), {
+                    onrendered: function(canvas) {
+                        var theCanvas = canvas;
+                        //document.body.appendChild(canvas);
 
-        // move this code to socket services related to mockups
-        io.socket.get('/mockupeditor/getEditors', {username: $cookieStore.get('username'), roomName: $routeParams.mockupId},  function serverResponded (body, JWR) {
-            console.log('get Editors');
-            console.log(body);
-        });
+                        /*// Convert and download as image 
+                        Canvas2Image.saveAsPNG(canvas); 
+                        $("#img-out").append(canvas)
+                        console.log($("#img-out"));*/
+                        var img = canvas.toDataURL("image/png");
+                        //var dataURL = canvas.toDataURL();
+                        $('#img-out').append('<img src="' + img + '" style="width: 100px; height: 100px;"/>');
 
-        // method that listen the mockup editors
-        io.socket.on('mockupeditor', function(msg) {
-            if (msg.verb == 'updated') {
-                console.log('updated mockup editor');
-                console.log(msg);
+                        /*$('#img-out').append('<input type="file" name="'+ dataURL + '" style="width: 100px; height: 100px;"/>');
+                        $($('#avatar')[0]).value = dataURL;
+                        mockupService.createMockupItemUploadAvatar.save({avatar: dataURL}, function(result) {
+                            console.log(result);
+                            console.log('The image was uploaded');
+                        });
+                    
+                        var fd = new FormData(document.getElementById('myform'));
+                        //var fd = new FormData();
+                        fd.append('avatar', $('#img-out')[0].file);
+                        $http.post('http://localhost:1337/mockupItem/uploadAvatar', fd, {
+                            transformRequest: angular.identity,
+                            headers: {'Content-Type': undefined}
+                        })
+                        .success(function(){
+                        })
+                        .error(function(){
+                        });*/
+                    }
+                });
             }
-            $scope.$apply(function() {
-                if (msg.data.offline) {
-                    $scope.logingLog[msg.data.username] = msg.data;
-                    $scope.logingLog[msg.data.username].online = false;
-                } else {
-                    $scope.logingLog[msg.data.username] = msg.data;
-                }
+
+            // move this code to socket services related to mockups
+            io.socket.get('/mockupeditor', function serverResponded(body, JWR) {
+                $scope.$apply(function() {
+                    for (var i = 0; i < body.length; i++) {
+                        $scope.logingLog[body[i].username] = body[i];
+                    };
+                });
+                io.socket.get('/mockupeditor/getSocketId', function serverResponded(body, JWR) {
+                    console.log('Socket Id: ');
+                    console.log(body);
+                });
+
             });
-        });
+
+            // move this code to socket services related to mockups
+            io.socket.get('/mockupeditor/getEditors', {
+                username: $cookieStore.get('username'),
+                roomName: $routeParams.mockupId
+            }, function serverResponded(body, JWR) {
+                console.log('get Editors');
+                console.log(body);
+            });
+
+            // method that listen the mockup editors
+            io.socket.on('mockupeditor', function(msg) {
+                if (msg.verb == 'updated') {
+                    console.log('updated mockup editor');
+                    console.log(msg);
+                }
+                $scope.$apply(function() {
+                    if (msg.data.offline) {
+                        $scope.logingLog[msg.data.username] = msg.data;
+                        $scope.logingLog[msg.data.username].online = false;
+                    } else {
+                        $scope.logingLog[msg.data.username] = msg.data;
+                    }
+                });
+            });
 
             mockupService.mockupById.get({
                     mockupId: $routeParams.mockupId
@@ -129,11 +137,11 @@ angular.module('mockuperApp')
                     $scope.result = result;
                     var positionAux = 0;
                     angular.forEach($scope.result, function(value, key) {
-                    console.log(value.position);
-                    if (positionAux < value.position) {
-                        $scope.lastId = value.position;
-                    }
-                }, []);
+                        console.log(value.position);
+                        if (positionAux < value.position) {
+                            $scope.lastId = value.position;
+                        }
+                    }, []);
                 });
             }; // end of the load mockup items
 
@@ -171,7 +179,11 @@ angular.module('mockuperApp')
                 $scope.createImage();
                 $timeout(function() {
                     // this will be called on the save methods to create the version
-                    io.socket.post('/mockupVersion/saveIt', {number: 'version 1', mockupId: $routeParams.mockupId, username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+                    io.socket.post('/mockupVersion/saveIt', {
+                        number: 'version 1',
+                        mockupId: $routeParams.mockupId,
+                        username: $cookieStore.get('username')
+                    }, function serverResponded(body, JWR) {
                         console.log('Creating our first mockup version');
                     });
                 }, 5000);
@@ -217,11 +229,11 @@ angular.module('mockuperApp')
                     /*item.width = $($(idComp)[0]).width();
                     item.height = $($(idComp)[0]).height();
                     */
-                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length-2);
-                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length-2);
+                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
+                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
                 }
                 //var zIndex = $( '#' + idComp ).css( "z-index" );
-                var zIndex = $(idComp ).css( "z-index" );
+                var zIndex = $(idComp).css("z-index");
                 item.idHtml = $(idComp)[0].id;
                 item.mockupId = $routeParams.mockupId;
 
@@ -248,7 +260,9 @@ angular.module('mockuperApp')
             }
 
             $scope.cancel = function() {
-                io.socket.post('/mockupEditor/logout', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+                io.socket.post('/mockupEditor/logout', {
+                    username: $cookieStore.get('username')
+                }, function serverResponded(body, JWR) {
                     console.log('Mockup editor out');
                 });
                 $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
@@ -344,7 +358,7 @@ angular.module('mockuperApp')
                 var zIndex = $scope.getZ_Index(idComponent);
                 zIndex++;
                 console.log(zIndex);
-                $($( '#' + idComponent )[0]).css("z-index" , zIndex);
+                $($('#' + idComponent)[0]).css("z-index", zIndex);
                 $scope.updateOtherZ_Index(idComponent, zIndex, false);
             };
 
@@ -377,11 +391,11 @@ angular.module('mockuperApp')
 
             // 
             $scope.getZ_Index = function(idComponent) {
-                return $( '#' + idComponent ).css( "z-index" );
+                return $('#' + idComponent).css("z-index");
             };
 
-            $scope.updateZ_Index = function (idComponent, zIndex) {
-                $($( '#' + idComponent )[0]).css("z-index" , zIndex);
+            $scope.updateZ_Index = function(idComponent, zIndex) {
+                $($('#' + idComponent)[0]).css("z-index", zIndex);
             };
 
             // Updated the mockup item to the backward part, we have to modify this method using the z-index
@@ -428,7 +442,9 @@ angular.module('mockuperApp')
             }
 
             // move this code to some service to have all sockets methods in the same place
-            io.socket.get('/mockupVersion', {username: $cookieStore.get('username')}, function serverResponded (body, JWR) {
+            io.socket.get('/mockupVersion', {
+                username: $cookieStore.get('username')
+            }, function serverResponded(body, JWR) {
                 console.log('Subscribe to mockup version');
             });
 
@@ -446,5 +462,5 @@ angular.module('mockuperApp')
                 });
             });
 
-        }// end of the controller function
+        } // end of the controller function
     ]);
