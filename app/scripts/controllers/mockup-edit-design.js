@@ -206,8 +206,10 @@ angular.module('mockuperApp')
 
                     if (idComp.indexOf('image') > -1) {
                         item.id = idComp.substring(8);
-                    } else {
+                    } else if (idComp.indexOf('button') > -1) {
                         item.id = idComp.substring(9);
+                    } else {
+                        item.id = idComp.substring(8);
                     }
                 } else {
                     ////console.log(idComp);
@@ -220,7 +222,7 @@ angular.module('mockuperApp')
                     item.type = "image";
                     item.width = $(idComp)[0].width;
                     item.height = $(idComp)[0].height;
-                } else {
+                } else if (idComp.indexOf('button') > -1){
                     item.type = "button";
                     /*item.width = $($(idComp)[0]).width();
                     item.height = $($(idComp)[0]).height();
@@ -228,6 +230,11 @@ angular.module('mockuperApp')
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
                     item.text = $(idComp).text();
+                } else {
+                    item.type = "input";
+                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
+                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
+                    item.text = $(idComp).val();
                 }
                 //var zIndex = $( '#' + idComp ).css( "z-index" );
                 var zIndex = $(idComp).css("z-index");
@@ -351,6 +358,10 @@ angular.module('mockuperApp')
                 propertyService.addButton($scope, $compile);
             };
 
+            $scope.addInput = function() {
+                propertyService.addInput($scope, $compile);
+            };
+
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {
                 var zIndex = $scope.getZ_Index(idComponent);
@@ -409,8 +420,10 @@ angular.module('mockuperApp')
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
                     myComponent = propertyService.image(idComponent);
-                } else {
+                } else if(idComponent.indexOf('button') > -1){
                     myComponent = propertyService.button(idComponent);
+                } else {
+                    myComponent = propertyService.input(idComponent);
                 }
                 propertiesDiv.html($compile(myComponent)($scope));
                 $('#myProperties').modal('toggle');
@@ -420,6 +433,9 @@ angular.module('mockuperApp')
 
             // save te properties of a button by now
             $scope.saveButtonProperties = propertyService.saveButton;
+
+            // save te properties of a input by now
+            $scope.saveInputProperties = propertyService.saveInput;
 
             // Update the item selected to edit the properties and close/hide the popup
             $scope.saveImageProperties = propertyService.saveImage;

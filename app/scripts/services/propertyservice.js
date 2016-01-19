@@ -89,6 +89,46 @@ angular.module('mockuperApp')
             return propertiesValuesDiv;
         };
 
+        fac.input = function(idComponent) {
+            var myComponent = angular.element(document.querySelector('#' + idComponent));
+            var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
+            var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
+            console.log($('#' + idComponent).text());
+            var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
+                '<form class="form-horizontal" role="form" >' +
+                '    <div class="form-group">' +
+                '        <div class="col-md-12">' +
+                '            <div class="form-group row">' +
+                '                <label for="textValue" class="col-md-1 control-label">Text</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
+                '                </div>' +
+                '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
+                '                </div>' +
+                '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
+                '                </div>' +
+                '                <label for="topValue" class="col-md-1 control-label">top</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
+                '                </div>' +
+                '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
+                '                </div>' +
+                '<button type="submit" class="btn btn-success" ng-click="saveInputProperties(\'' + idComponent + '\')">Save</button>'
+
+            '            </div>' +
+            '        </div>' +
+            '    </div>' +
+            '</form>';
+            return propertiesValuesDiv;
+        };
+
+
         fac.saveImage = function(idComponent) {
             var component = angular.element(document.querySelector('#' + idComponent));
             var hrefValue = angular.element(document.querySelector('#hrefValue'));
@@ -112,6 +152,21 @@ angular.module('mockuperApp')
             var topValue = angular.element(document.querySelector('#topValue'));
             var leftValue = angular.element(document.querySelector('#leftValue'));
             $('#' + idComponent).text(textValue[0].value);
+            component[0].style.width = widthValue[0].value;
+            component[0].style.height = heightValue[0].value;
+            component[0].style.top = topValue[0].value + 'px';
+            component[0].style.left = leftValue[0].value + 'px';
+            $('#myProperties').modal('hide');
+        };
+
+        fac.saveInput = function(idComponent) {
+            var component = angular.element(document.querySelector('#' + idComponent));
+            var textValue = angular.element(document.querySelector('#textValue'));
+            var heightValue = angular.element(document.querySelector('#heightValue'));
+            var widthValue = angular.element(document.querySelector('#widthValue'));
+            var topValue = angular.element(document.querySelector('#topValue'));
+            var leftValue = angular.element(document.querySelector('#leftValue'));
+            $('#' + idComponent).val(textValue[0].value); // just this difference with saveButton method
             component[0].style.width = widthValue[0].value;
             component[0].style.height = heightValue[0].value;
             component[0].style.top = topValue[0].value + 'px';
@@ -163,5 +218,27 @@ angular.module('mockuperApp')
                 '</div>';
             designContentMenu.append($compile(contentMenuHtml)($scope));
         };
+
+
+        fac.addInput = function($scope, $compile) {
+            var designDiv = angular.element(document.querySelector('#design-div'));
+            var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
+            $scope.lastId++;
+            var btnHtml = '<input id="new-input-' + $scope.lastId + 'x" context-menu data-target="menu-input-' + $scope.lastId + '" class="resize-drag" ' +
+                'style="padding:0; position: absolute; height: 52px; width: 150px; z-index:' + $scope.lastId + '" alt="...">';
+            designDiv.append($compile(btnHtml)($scope));
+            var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-input-' + $scope.lastId + '">' +
+                '    <ul class="dropdown-menu" role="menu">' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-input-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-input-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '        </li>' +
+                '    </ul>' +
+                '</div>';
+            designContentMenu.append($compile(contentMenuHtml)($scope));
+        };
+
         return fac;
     });

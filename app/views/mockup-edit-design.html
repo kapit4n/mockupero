@@ -34,12 +34,15 @@
         </div>
     </div>
 
-    <div style="height: 80px; position: absolute; top: 115px; border: 3px dashed #ccc; width: 800px;">
+    <div style="height: 80px; position: absolute; top: 115px; border: 3px dashed #ccc; width: 800px; overflow: scroll;">
         <div style="">
             <toolbar-item-image></toolbar-item-image>
         </div>
-        <div style="">
+        <div>
             <toolbar-item-btn></toolbar-item-btn>
+        </div>
+        <div >
+            <img style="display: inline-block; height: 40px; top: 16px;" height="60px" class="col-sm-2" ng-click="addInput()" src="static/mockups/items/input-icon.jpg" alt="..."/>
         </div>
     </div>
 
@@ -65,7 +68,9 @@
 
         <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
-        <button ng-if="ite.type == 'button'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-button-{{ite.id}}" class="resize-drag" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px;" alt="..." data-x="225" data-y="148">{{ite.text}}</button>
+        <button ng-if="ite.type == 'button'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-button-{{ite.id}}" class="resize-drag" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px;" alt="..." >{{ite.text}}</button>
+
+        <input ng-if="ite.type == 'input'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-input-{{ite.id}}" class="resize-drag" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px; " alt="..." type="text" value="{{ite.text}}"></input>
 
     </div>
 
