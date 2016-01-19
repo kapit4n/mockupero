@@ -54,11 +54,16 @@ angular.module('mockuperApp')
             var myComponent = angular.element(document.querySelector('#' + idComponent));
             var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
             var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
+            console.log($('#' + idComponent).text());
             var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
                 '<form class="form-horizontal" role="form" >' +
                 '    <div class="form-group">' +
                 '        <div class="col-md-12">' +
                 '            <div class="form-group row">' +
+                '                <label for="textValue" class="col-md-1 control-label">Text</label>' +
+                '                <div class="col-md-5">' +
+                '                    <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
+                '                </div>' +
                 '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
                 '                <div class="col-md-5">' +
                 '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
@@ -101,10 +106,12 @@ angular.module('mockuperApp')
 
         fac.saveButton = function(idComponent) {
             var component = angular.element(document.querySelector('#' + idComponent));
+            var textValue = angular.element(document.querySelector('#textValue'));
             var heightValue = angular.element(document.querySelector('#heightValue'));
             var widthValue = angular.element(document.querySelector('#widthValue'));
             var topValue = angular.element(document.querySelector('#topValue'));
             var leftValue = angular.element(document.querySelector('#leftValue'));
+            $('#' + idComponent).text(textValue[0].value);
             component[0].style.width = widthValue[0].value;
             component[0].style.height = heightValue[0].value;
             component[0].style.top = topValue[0].value + 'px';
