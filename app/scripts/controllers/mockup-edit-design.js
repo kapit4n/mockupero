@@ -34,35 +34,12 @@ angular.module('mockuperApp')
             $scope.createImage = function() {
                 html2canvas($("#design-div"), {
                     onrendered: function(canvas) {
-                        var theCanvas = canvas;
-                        //document.body.appendChild(canvas);
-
-                        /*// Convert and download as image 
-                        Canvas2Image.saveAsPNG(canvas); 
-                        $("#img-out").append(canvas)
-                        //console.log($("#img-out"));*/
-                        var img = canvas.toDataURL("image/png");
-                        //var dataURL = canvas.toDataURL();
-                        $('#img-out').append('<img src="' + img + '" style="width: 100px; height: 100px;"/>');
-
-                        /*$('#img-out').append('<input type="file" name="'+ dataURL + '" style="width: 100px; height: 100px;"/>');
-                        $($('#avatar')[0]).value = dataURL;
-                        mockupService.createMockupItemUploadAvatar.save({avatar: dataURL}, function(result) {
-                            //console.log(result);
-                            //console.log('The image was uploaded');
+                        var ctx = canvas.getContext('2d');
+                        var dataURL = canvas.toDataURL();
+                        $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
+                        mockupService.createMockupItemUploadAvatar.save({img: dataURL, mockupId: $routeParams.mockupId}, function(result) {
+                            console.log(result);
                         });
-                    
-                        var fd = new FormData(document.getElementById('myform'));
-                        //var fd = new FormData();
-                        fd.append('avatar', $('#img-out')[0].file);
-                        $http.post('http://localhost:1337/mockupItem/uploadAvatar', fd, {
-                            transformRequest: angular.identity,
-                            headers: {'Content-Type': undefined}
-                        })
-                        .success(function(){
-                        })
-                        .error(function(){
-                        });*/
                     }
                 });
             }
@@ -185,6 +162,7 @@ angular.module('mockuperApp')
                 }, 5000);
             };
 
+            // This id has # included in the string
             $scope.getItemId = function(idComp) {
                 var idResult = 0;
                 if (idComp.indexOf('image') > -1) {
