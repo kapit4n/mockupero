@@ -15,6 +15,12 @@ angular.module('mockuperApp')
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
+            $scope.viewMode = false;
+            if ($scope.viewMode) {
+                $scope.itemStyle = '';
+            } else {
+                $scope.itemStyle = 'resize-drag';
+            }
 
             // move this code to socket services related to mockups
             io.socket.get('/mockupEditor/editors', {

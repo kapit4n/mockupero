@@ -1,15 +1,10 @@
 <style>
 .resize-drag {
-    background-color: #29e;
-    color: white;
-    font-size: 20px;
     font-family: sans-serif;
-    border-radius: 8px;
-    width: 120px;
 }
 
 .resize-drag:hover {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .resize-container {
@@ -74,11 +69,11 @@
 
     <div id="design-div" style="height: 600px; background-color:hsla(200,100%,75%,0.3); position: absolute; top: 236px; width: 800px; overflow: scroll;">
 
-        <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="resize-drag" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
+        <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
-        <button ng-if="ite.type == 'button'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-button-{{ite.id}}" class="resize-drag" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px;" alt="..." >{{ite.text}}</button>
+        <button ng-if="ite.type == 'button'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-button-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px;" alt="..." >{{ite.text}}</button>
 
-        <input ng-if="ite.type == 'input'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-input-{{ite.id}}" class="resize-drag" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px; " alt="..." type="text" value="{{ite.text}}"></input>
+        <input ng-if="ite.type == 'input'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-input-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px; " alt="..." type="text" value="{{ite.text}}"></input>
 
     </div>
 
