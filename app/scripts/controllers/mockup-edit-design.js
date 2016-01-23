@@ -173,8 +173,12 @@ angular.module('mockuperApp')
                 var idResult = 0;
                 if (idComp.indexOf('image') > -1) {
                     idResult = idComp.substring(7);
-                } else {
+                } else if  (idComp.indexOf('button') > -1)  {
                     idResult = idComp.substring(8);
+                } else if  (idComp.indexOf('input') > -1)  {
+                    idResult = idComp.substring(7);
+                } else if  (idComp.indexOf('label') > -1)  {
+                    idResult = idComp.substring(7);
                 }
                 return idResult;
             }

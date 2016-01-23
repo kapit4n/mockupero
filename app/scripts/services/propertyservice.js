@@ -191,7 +191,7 @@ angular.module('mockuperApp')
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
             var btnHtml = '<button id="new-button-' + $scope.lastId + 'x" context-menu data-target="menu-button-' + $scope.lastId + '" class="resize-drag" ' +
-                'style="padding:0; position: absolute; height: 52px; width: 150px; z-index:' + $scope.lastId + '" alt="...">';
+                'style="position: absolute; height: 52px; width: 150px; z-index:' + $scope.lastId + '" alt="...">Button</button>';
             designDiv.append($compile(btnHtml)($scope));
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-button-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
@@ -233,7 +233,7 @@ angular.module('mockuperApp')
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
             var btnHtml = '<input id="new-input-' + $scope.lastId + 'x" context-menu data-target="menu-input-' + $scope.lastId + '" class="resize-drag" ' +
-                'style="padding:0; position: absolute; height: 52px; width: 150px; z-index:' + $scope.lastId + '" alt="...">';
+                'style="position: absolute; z-index:' + $scope.lastId + '" alt="..." value ="Input" type="text" ></input>';
             designDiv.append($compile(btnHtml)($scope));
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-input-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
@@ -253,7 +253,7 @@ angular.module('mockuperApp')
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
             var btnHtml = '<span id="new-label-' + $scope.lastId + 'x" context-menu data-target="menu-label-' + $scope.lastId + '" class="resize-drag" ' +
-                'style="padding:0; position: absolute; height: 52px; width: 150px; z-index:' + $scope.lastId + '" alt="...">Label</span>';
+                'style="padding:0; position: absolute; height: 60px; width: 150px; z-index:' + $scope.lastId + '" alt="...">Label</span>';
             designDiv.append($compile(btnHtml)($scope));
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-label-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
