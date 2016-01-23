@@ -20,6 +20,16 @@
 .position-fixed {
     position: fixed;
 }
+
+#wrapper {
+    box-shadow: 10px 10px 5px #d;
+    position:fixed;
+    right: 0;
+    height:100%;
+    width: 180px;
+    background-color: #f2f3f2;
+}
+
 </style>
 <div style="position: absolute; top: 50px; right: 110px; height: 80px;" >
     <div ng-repeat="n in logingLog" style="display:inline-block;">
@@ -59,10 +69,8 @@
         <img id="spinner" ng-src="static/spinner.gif"  style="display:none; "  width="30px">
     </div>
 
-    <div id="alert_message" class="alert" style="width:200px; position: absolute; top: 188px; right: 110px; ">
-        <span class="close" data-dismiss="alert">×</span>
-        <span id="alert_message_text"></span>
-    </div>
+    <div id="alert_message"  style="position: absolute; top: 91px; right: 1px; background: green; z-index: 150; "></div>
+    
 
     <div id="design-div" style="height: 600px; background-color:hsla(200,100%,75%,0.3); position: absolute; top: 236px; width: 800px; overflow: scroll;">
 
@@ -94,3 +102,4 @@
     </div>
 </div>
 <div id="img-out"  style="position: absolute; left: 10px; height: 100px; width: 100px;"> </div>
+<div id="wrapper-container"> </div>

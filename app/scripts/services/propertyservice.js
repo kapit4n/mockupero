@@ -16,36 +16,30 @@ angular.module('mockuperApp')
             var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
             var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
 
-            var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
-                '<form class="form-horizontal" role="form">' +
+            var propertiesValuesDiv = '' +
+                '<form class="form" role="form">' +
                 '    <div class="form-group">' +
-                '        <div class="col-md-12">' +
-                '            <div class="form-group row">' +
-                '                <label for="hrefValue" class="col-md-1 control-label">src</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myComponent[0].src + '">' +
-                '                </div>' +
-                '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + myComponent[0].width + '">' +
-                '                </div>' +
-                '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myComponent[0].height + '">' +
-                '                </div>' +
-                '                <label for="topValue" class="col-md-1 control-label">top</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
-                '                </div>' +
-                '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
-                '                </div>' +
-                '<button type="submit" class="btn btn-success" ng-click="saveImageProperties(\'' + idComponent + '\')">Save</button>'
-
-            '            </div>' +
-            '        </div>' +
-            '    </div>' +
+                '       <label for="hrefValue" class="col-md-1 control-label">src</label>' +
+                '       <input type="text" class="form-control" id="hrefValue" placeholder="https://exampleImage.com" value="' + myComponent[0].src + '">' +
+                '   </div>' +
+                '   <div class="form-group">' +
+                '       <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                '       <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + myComponent[0].width + '">' +
+                '   </div>' +
+                '   <div class="form-group">' +
+                '       <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                '       <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + myComponent[0].height + '">' +
+                '   </div>' +
+                '   <div class="form-group">' +
+                '       <label for="topValue" class="col-md-1 control-label">top</label>' +
+                '       <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
+                '   </div>' +
+                '   <div class="form-group">' +
+                '       <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                '       <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
+                '   </div>' +
+                '   <div class="form-group">' +
+                '   <button type="submit" class="col-md-10 btn btn-success" ng-click="saveImageProperties(\'' + idComponent + '\')">Save</button>'
             '</form>';
             return propertiesValuesDiv;
         };
@@ -54,37 +48,29 @@ angular.module('mockuperApp')
             var myComponent = angular.element(document.querySelector('#' + idComponent));
             var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
             var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-            console.log($('#' + idComponent).text());
-            var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
-                '<form class="form-horizontal" role="form" >' +
+            var propertiesValuesDiv = '' +
+                '<form class="form" role="form" >' +
                 '    <div class="form-group">' +
-                '        <div class="col-md-12">' +
-                '            <div class="form-group row">' +
-                '                <label for="textValue" class="col-md-1 control-label">Text</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
-                '                </div>' +
-                '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
-                '                </div>' +
-                '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
-                '                </div>' +
-                '                <label for="topValue" class="col-md-1 control-label">top</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
-                '                </div>' +
-                '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
-                '                </div>' +
-                '<button type="submit" class="btn btn-success" ng-click="saveButtonProperties(\'' + idComponent + '\')">Save</button>'
-
-            '            </div>' +
-            '        </div>' +
-            '    </div>' +
+                '       <label for="textValue" class="col-md-1 control-label">Text</label>' +
+                '       <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                '       <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                '       <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="topValue" class="col-md-1 control-label">top</label>' +
+                '       <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                '       <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
+                '    </div>' +
+                '   <button type="submit" class="btn btn-success" ng-click="saveButtonProperties(\'' + idComponent + '\')">Save</button>'
             '</form>';
             return propertiesValuesDiv;
         };
@@ -93,37 +79,29 @@ angular.module('mockuperApp')
             var myComponent = angular.element(document.querySelector('#' + idComponent));
             var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
             var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
-            console.log($('#' + idComponent).text());
-            var propertiesValuesDiv = '<button type="button" class="close" aria-hidden="true" ng-click="closeProperties()">&times;</button>' +
-                '<form class="form-horizontal" role="form" >' +
+            var propertiesValuesDiv = '' +
+                '<form class="form" role="form" >' +
                 '    <div class="form-group">' +
-                '        <div class="col-md-12">' +
-                '            <div class="form-group row">' +
-                '                <label for="textValue" class="col-md-1 control-label">Text</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
-                '                </div>' +
-                '                <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
-                '                </div>' +
-                '                <label for="heightValue" class="col-md-1 control-label">height</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
-                '                </div>' +
-                '                <label for="topValue" class="col-md-1 control-label">top</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
-                '                </div>' +
-                '                <label for="leftValue" class="col-md-1 control-label">left</label>' +
-                '                <div class="col-md-5">' +
-                '                    <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
-                '                </div>' +
+                '       <label for="textValue" class="col-md-1 control-label">Text</label>' +
+                '       <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                '       <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                '       <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="topValue" class="col-md-1 control-label">top</label>' +
+                '       <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                '       <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
+                '    </div>' +
                 '<button type="submit" class="btn btn-success" ng-click="saveInputProperties(\'' + idComponent + '\')">Save</button>'
-
-            '            </div>' +
-            '        </div>' +
-            '    </div>' +
             '</form>';
             return propertiesValuesDiv;
         };

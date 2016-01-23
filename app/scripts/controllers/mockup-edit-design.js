@@ -394,17 +394,18 @@ angular.module('mockuperApp')
 
             // Method to load the properties for the existend mockup items
             $scope.loadProperties = function(idComponent) {
-                var propertiesDiv = angular.element(document.querySelector('#properties'));
+                var propertiesDiv = angular.element(document.querySelector('#wrapper-container'));
+                console.log(propertiesDiv);
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
-                    myComponent = propertyService.image(idComponent);
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent) +'</div>';
                 } else if(idComponent.indexOf('button') > -1){
-                    myComponent = propertyService.button(idComponent);
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.button(idComponent)+'</div>';
                 } else {
-                    myComponent = propertyService.input(idComponent);
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent)+'</div>';
                 }
                 propertiesDiv.html($compile(myComponent)($scope));
-                $('#myProperties').modal('toggle');
+                //$('#myProperties').modal('toggle');
             };
 
             // Loads the button properties to a popup
@@ -447,8 +448,9 @@ angular.module('mockuperApp')
 
                 $scope.$apply(function() {
                     if (msg.data.mockupId == $routeParams.mockupId) {
-                        //console.log(' Updated and we need to reload the data');
-                        $("#alert_message_text").text('Updated by ' + msg.data.username);
+                        var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span> </div>';
+                        var propertiesDiv = angular.element(document.querySelector('#alert_message'));
+                        propertiesDiv.html($compile(message)($scope));
                         $scope.loadMockupItems();
                         // send a little notification by here
                         /*notificationService.sendMail.get({
