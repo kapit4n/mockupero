@@ -185,14 +185,13 @@ angular.module('mockuperApp')
             $scope.getItem = function(idComp) {
                 var item = {};
                 if (idComp.length > 15) {
-                    ////console.log(idComp.length);
-                    ////console.log(idComp);
-
                     if (idComp.indexOf('image') > -1) {
                         item.id = idComp.substring(8);
                     } else if (idComp.indexOf('button') > -1) {
                         item.id = idComp.substring(9);
-                    } else {
+                    } else  if (idComp.indexOf('input') > -1) {
+                        item.id = idComp.substring(8);
+                    } else if (idComp.indexOf('label') > -1 ) {
                         item.id = idComp.substring(8);
                     }
                 } else {
@@ -208,17 +207,19 @@ angular.module('mockuperApp')
                     item.height = $(idComp)[0].height;
                 } else if (idComp.indexOf('button') > -1){
                     item.type = "button";
-                    /*item.width = $($(idComp)[0]).width();
-                    item.height = $($(idComp)[0]).height();
-                    */
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
                     item.text = $(idComp).text();
-                } else {
+                } else if (idComp.indexOf('input') > -1){
                     item.type = "input";
-                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
-                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
+                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
+                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
                     item.text = $(idComp).val();
+                } else if (idComp.indexOf('label') > -1){
+                    item.type = "label";
+                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
+                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
+                    item.text = $(idComp).text();
                 }
                 //var zIndex = $( '#' + idComp ).css( "z-index" );
                 var zIndex = $(idComp).css("z-index");
@@ -346,6 +347,10 @@ angular.module('mockuperApp')
                 propertyService.addInput($scope, $compile);
             };
 
+            $scope.addLabel = function() {
+                propertyService.addLabel($scope, $compile);
+            };
+
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {
                 var zIndex = $scope.getZ_Index(idComponent);
@@ -405,13 +410,14 @@ angular.module('mockuperApp')
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent) +'</div>';
-                } else if(idComponent.indexOf('button') > -1){
+                } else if(idComponent.indexOf('button') > -1) {
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.button(idComponent)+'</div>';
-                } else {
+                } else if(idComponent.indexOf('input') > -1)  {
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent)+'</div>';
+                } else if(idComponent.indexOf('label') > -1)  {
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent)+'</div>';
                 }
                 propertiesDiv.html($compile(myComponent)($scope));
-                //$('#myProperties').modal('toggle');
             };
 
             // Loads the button properties to a popup

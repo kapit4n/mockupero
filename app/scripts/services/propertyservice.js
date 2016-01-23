@@ -83,7 +83,7 @@ angular.module('mockuperApp')
                 '<form class="form" role="form" >' +
                 '    <div class="form-group">' +
                 '       <label for="textValue" class="col-md-1 control-label">Text</label>' +
-                '       <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
+                '       <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).val() + '">' +
                 '    </div>' +
                 '    <div class="form-group">' +
                 '       <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
@@ -106,6 +106,36 @@ angular.module('mockuperApp')
             return propertiesValuesDiv;
         };
 
+        fac.label = function(idComponent) {
+            var myComponent = angular.element(document.querySelector('#' + idComponent));
+            var topPosition = parseInt($($('#' + idComponent)[0]).position().top);
+            var leftPosition = parseInt($($('#' + idComponent)[0]).position().left);
+            var propertiesValuesDiv = '' +
+                '<form class="form" role="form" >' +
+                '    <div class="form-group">' +
+                '       <label for="textValue" class="col-md-1 control-label">Text</label>' +
+                '       <input type="text" class="form-control" id="textValue" placeholder="Value" value="' + $('#' + idComponent).text() + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="widtValue" class="col-md-1 control-label">witdh</label>' +
+                '       <input type="text" class="form-control" id="widthValue" placeholder="Value" value="' + $(myComponent[0])[0].style.width + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="heightValue" class="col-md-1 control-label">height</label>' +
+                '       <input type="text" class="form-control" id="heightValue" placeholder="Value" value="' + $(myComponent[0])[0].style.height + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="topValue" class="col-md-1 control-label">top</label>' +
+                '       <input type="text" class="form-control" id="topValue" placeholder="Value" value="' + topPosition + '">' +
+                '    </div>' +
+                '    <div class="form-group">' +
+                '       <label for="leftValue" class="col-md-1 control-label">left</label>' +
+                '       <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
+                '    </div>' +
+                '<button type="submit" class="btn btn-success" ng-click="saveInputProperties(\'' + idComponent + '\')">Save</button>'
+            '</form>';
+            return propertiesValuesDiv;
+        };
 
         fac.saveImage = function(idComponent) {
             var component = angular.element(document.querySelector('#' + idComponent));
@@ -212,6 +242,26 @@ angular.module('mockuperApp')
                 '        </li>' +
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-input-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '        </li>' +
+                '    </ul>' +
+                '</div>';
+            designContentMenu.append($compile(contentMenuHtml)($scope));
+        };
+
+        fac.addLabel = function($scope, $compile) {
+            var designDiv = angular.element(document.querySelector('#design-div'));
+            var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
+            $scope.lastId++;
+            var btnHtml = '<span id="new-label-' + $scope.lastId + 'x" context-menu data-target="menu-label-' + $scope.lastId + '" class="resize-drag" ' +
+                'style="padding:0; position: absolute; height: 52px; width: 150px; z-index:' + $scope.lastId + '" alt="...">Label</span>';
+            designDiv.append($compile(btnHtml)($scope));
+            var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-label-' + $scope.lastId + '">' +
+                '    <ul class="dropdown-menu" role="menu">' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-label-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-label-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
                 '        </li>' +
                 '    </ul>' +
                 '</div>';

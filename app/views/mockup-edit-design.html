@@ -49,6 +49,9 @@
         <div >
             <img style="display: inline-block; height: 40px; top: 16px;" height="60px" class="col-sm-2" ng-click="addInput()" src="static/mockups/items/input-icon.jpg" alt="..."/>
         </div>
+        <div >
+            <img style="display: inline-block; height: 40px; top: 16px;" height="60px" class="col-sm-2" ng-click="addLabel()" src="static/mockups/items/label-icon.png" alt="..."/>
+        </div>
     </div>
 
     <div class="container">
@@ -74,6 +77,8 @@
         <button ng-if="ite.type == 'button'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-button-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px;" alt="..." >{{ite.text}}</button>
 
         <input ng-if="ite.type == 'input'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-input-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px; " alt="..." type="text" value="{{ite.text}}"></input>
+
+        <span ng-if="ite.type == 'label'"  id="x-{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result"  data-target="menu-label-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px; " alt="...">{{ite.text}}</span>
 
     </div>
 
