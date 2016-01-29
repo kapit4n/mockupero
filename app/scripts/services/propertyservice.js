@@ -132,7 +132,7 @@ angular.module('mockuperApp')
                 '       <label for="leftValue" class="col-md-1 control-label">left</label>' +
                 '       <input type="text" class="form-control" id="leftValue" placeholder="Value" value="' + leftPosition + '">' +
                 '    </div>' +
-                '<button type="submit" class="btn btn-success" ng-click="saveInputProperties(\'' + idComponent + '\')">Save</button>'
+                '<button type="submit" class="btn btn-success" ng-click="saveLabelProperties(\'' + idComponent + '\')">Save</button>'
             '</form>';
             return propertiesValuesDiv;
         };
@@ -182,6 +182,22 @@ angular.module('mockuperApp')
             $('#myProperties').modal('hide');
         };
 
+        fac.saveLabel = function(idComponent) {
+            console.log('save label');
+            var component = angular.element(document.querySelector('#' + idComponent));
+            var textValue = angular.element(document.querySelector('#textValue'));
+            var heightValue = angular.element(document.querySelector('#heightValue'));
+            var widthValue = angular.element(document.querySelector('#widthValue'));
+            var topValue = angular.element(document.querySelector('#topValue'));
+            var leftValue = angular.element(document.querySelector('#leftValue'));
+             $('#' + idComponent).text(textValue[0].value);
+            component[0].style.width = widthValue[0].value;
+            component[0].style.height = heightValue[0].value;
+            component[0].style.top = topValue[0].value + 'px';
+            component[0].style.left = leftValue[0].value + 'px';
+            $('#myProperties').modal('hide');
+        };
+
         fac.close = function() {
             $('#myProperties').modal('hide');
         };
@@ -211,7 +227,7 @@ angular.module('mockuperApp')
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
             var imgHtml = '<img id="new-image-' + $scope.lastId + 'x" context-menu data-target="menu-image-' + $scope.lastId + '" class="resize-drag" ' +
-                'style="padding:0; position: absolute;  z-index:' + $scope.lastId + '" src="static/mockups/items/image-icon.png" alt="...">';
+                'style="width: 80px; height: 80px; padding:0; position: absolute;  z-index:' + $scope.lastId + '" src="static/mockups/items/image-icon.png" alt="...">';
             designDiv.append($compile(imgHtml)($scope));
 
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +

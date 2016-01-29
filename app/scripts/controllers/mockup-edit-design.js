@@ -429,6 +429,9 @@ angular.module('mockuperApp')
             // save te properties of a button by now
             $scope.saveButtonProperties = propertyService.saveButton;
 
+            // save te properties of a button by now
+            $scope.saveLabelProperties = propertyService.saveLabel;
+
             // save te properties of a input by now
             $scope.saveInputProperties = propertyService.saveInput;
 
