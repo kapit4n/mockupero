@@ -142,13 +142,14 @@ angular.module('mockuperApp')
                         //$scope.item.position = position;
                         if ($scope.item.id === undefined) {
                             mockupService.createMockupItem.save($scope.item, function(result) {
-                                ////console.log(result);
+                                //console.log('Created an item');
                             });
+                            $(child).remove();
                         } else {
                             mockupService.updateMockupItem.save({
                                 id: $scope.item.id
                             }, $scope.item, function(result) {
-                                ////console.log(result);
+                                //console.log(result);
                             });
                         }
                         $("#spinner").hide();
