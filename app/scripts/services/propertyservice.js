@@ -212,10 +212,10 @@ angular.module('mockuperApp')
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-button-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-button-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-button-' + $scope.lastId + 'x\');">Bring to Front</a>' +
                 '        </li>' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-button-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-button-' + $scope.lastId + 'x\');">Send Backward</a>' +
                 '        </li>' +
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-button-' + $scope.lastId + 'x\');">Properties</a>' +
@@ -266,10 +266,10 @@ angular.module('mockuperApp')
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-input-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-input-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-input-' + $scope.lastId + 'x\');">Bring to Front</a>' +
                 '        </li>' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-input-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-input-' + $scope.lastId + 'x\');">Send Backward</a>' +
                 '        </li>' +
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-input-' + $scope.lastId + 'x\');">Properties</a>' +
@@ -292,10 +292,10 @@ angular.module('mockuperApp')
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-label-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-label-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-label-' + $scope.lastId + 'x\');">Bring to Front</a>' +
                 '        </li>' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-label-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-label-' + $scope.lastId + 'x\');">Send Backward</a>' +
                 '        </li>' +
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-label-' + $scope.lastId + 'x\');">Properties</a>' +
