@@ -233,10 +233,16 @@ angular.module('mockuperApp')
             var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-image-' + $scope.lastId + '">' +
                 '    <ul class="dropdown-menu" role="menu">' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'menu-image-' + $scope.lastId + 'x\');">Bring to FrontXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'new-image-' + $scope.lastId + 'x\');">Bring to Front</a>' +
                 '        </li>' +
                 '        <li>' +
-                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-image-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'new-image-' + $scope.lastId + 'x\');">Send Backward</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-image-' + $scope.lastId + 'x\');">Properties</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="deleteItem(\'new-image-' + $scope.lastId + 'x\');">Delete</a>' +
                 '        </li>' +
                 '    </ul>' +
                 '</div>';

@@ -44,7 +44,7 @@ angular.module('mockuperApp')
                         var dataURL = canvas.toDataURL();
                         $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
                         mockupService.createMockupItemUploadAvatar.save({img: dataURL, mockupId: $routeParams.mockupId}, function(result) {
-                            console.log(result);
+                            //console.log(result);
                         });
                     }
                 });
@@ -410,7 +410,7 @@ angular.module('mockuperApp')
             // Method to load the properties for the existend mockup items
             $scope.loadProperties = function(idComponent) {
                 var propertiesDiv = angular.element(document.querySelector('#wrapper-container'));
-                console.log(propertiesDiv);
+                //console.log(propertiesDiv);
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent) +'</div>';
@@ -445,12 +445,15 @@ angular.module('mockuperApp')
             $scope.deleteItem = function(idComponent) {
                 var component = angular.element(document.querySelector('#' + idComponent));
                 component.remove();
-                var itemId = $scope.getItemId(idComponent);
-                mockupService.deleteMockupItem.deleteIt({
-                    id: itemId
-                }).$promise.then(function(result) {
-                    //console.log('Item deleted');
-                });
+                if (idComponent.indexOf('new-') > -1) {
+                } else {
+                    var itemId = $scope.getItemId(idComponent);
+                    mockupService.deleteMockupItem.deleteIt({
+                        id: itemId
+                    }).$promise.then(function(result) {
+                        //console.log('Item deleted');
+                    });
+                }
             }
 
             // move this code to some service to have all sockets methods in the same place
