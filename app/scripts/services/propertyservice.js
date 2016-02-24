@@ -217,6 +217,12 @@ angular.module('mockuperApp')
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-button-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
                 '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-button-' + $scope.lastId + 'x\');">Properties</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="deleteItem(\'new-button-' + $scope.lastId + 'x\');">Delete</a>' +
+                '        </li>' +
                 '    </ul>' +
                 '</div>';
             designContentMenu.append($compile(contentMenuHtml)($scope));
@@ -265,6 +271,12 @@ angular.module('mockuperApp')
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-input-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
                 '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-input-' + $scope.lastId + 'x\');">Properties</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="deleteItem(\'new-input-' + $scope.lastId + 'x\');">Delete</a>' +
+                '        </li>' +
                 '    </ul>' +
                 '</div>';
             designContentMenu.append($compile(contentMenuHtml)($scope));
@@ -284,6 +296,12 @@ angular.module('mockuperApp')
                 '        </li>' +
                 '        <li>' +
                 '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'menu-label-' + $scope.lastId + 'x\');">Send BackwardXX</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-label-' + $scope.lastId + 'x\');">Properties</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="deleteItem(\'new-label-' + $scope.lastId + 'x\');">Delete</a>' +
                 '        </li>' +
                 '    </ul>' +
                 '</div>';
