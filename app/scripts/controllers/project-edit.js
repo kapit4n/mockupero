@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('ProjectEditCtrl', ['$scope', 'loginService', '$window', '$routeParams', 'projectService', 'breadcrumbService',
-        function($scope, loginService, $window, $routeParams, projectService, breadcrumbService) {
+    .controller('ProjectEditCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'projectService', 'breadcrumbService',
+        function($rootScope, $scope, loginService, $window, $routeParams, projectService, breadcrumbService) {
         loginService.reloadScope();
         
         $scope.project = null;
