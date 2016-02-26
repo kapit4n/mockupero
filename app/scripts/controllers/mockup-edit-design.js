@@ -90,8 +90,11 @@ angular.module('mockuperApp')
                     mockupId: $routeParams.mockupId
                 })
                 .$promise.then(function(result) {
-                    //console.log(result);
                     $scope.editObject = result;
+                    try {
+                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
+                        $rootScope.$digest();
+                    } catch(e) {}
                 });
 
             $scope.moveToTop = function($event) {

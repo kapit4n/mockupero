@@ -8,12 +8,17 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('ProjectNewCtrl', ['$scope', '$window', '$cookieStore', 'projectService', function($scope, $window, $cookieStore, projectService) {
+    .controller('ProjectNewCtrl', ['$scope', '$window', '$cookieStore', 'projectService', 'breadcrumbService',
+        function($scope, $window, $cookieStore, projectService, breadcrumbService) {
 
         $scope.projectName = '';
         $scope.objName = "Project";
         $scope.description = '';
         $scope.imgToShow = '';
+
+        try {
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-new', 'Home');
+        } catch(e) {}
 
         $scope.save = function() {
             projectService.createProject.save({
