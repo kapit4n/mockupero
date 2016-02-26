@@ -8,11 +8,11 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('ProjectCtrl', ['$scope', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope',
-        function($scope, mockupService, loginService, projectService, $routeParams, $location, $rootScope) {
+    .controller('ProjectCtrl', ['$scope', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
+        function($scope, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService) {
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
-             $scope.logingLog = {};
+            $scope.logingLog = {};
 
             $scope.addMockup = function() {
                 $location.path('/project/' + $scope.projectId + '/mockup-new');
@@ -34,8 +34,6 @@ angular.module('mockuperApp')
                     $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
                 });
             });
-
-            $rootScope.breadcrumb = mockupService.breadcrumb['project'];
 
             $scope.workflows = [{
                 name: 'start',
@@ -71,6 +69,10 @@ angular.module('mockuperApp')
                     $scope.project = result;
                     $scope.viewObject.title = 'Project View';
                     $scope.viewObject.editUrl = 'project/edit/' + result.id;
+                    try {
+                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project', $scope.project);
+                        $rootScope.$digest();
+                    } catch(e) {}
                 });
         }
     ]);
