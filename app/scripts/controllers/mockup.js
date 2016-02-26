@@ -8,11 +8,10 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupCtrl', ['$scope', 'loginService', 'mockupService', '$routeParams', '$rootScope', function($scope, loginService, mockupService, $routeParams, $rootScope) {
+    .controller('MockupCtrl', ['$scope', 'loginService', 'mockupService', 'breadcrumbService', '$routeParams', '$rootScope',
+        function($scope, loginService, mockupService, breadcrumbService, $routeParams, $rootScope) {
         loginService.reloadScope();
-        
         $scope.mockupList = mockupService.mockups;
-        $rootScope.breadcrumb = mockupService.breadcrumb['mockup'];
         $scope.mockup = null;
         $scope.logingLog = {};
 
@@ -37,7 +36,6 @@ angular.module('mockuperApp')
                 mockupId: $routeParams.mockupId
             })
             .$promise.then(function(result) {
-                console.log(result);
                 $scope.mockup = result;
                 $scope.viewObject = result;
                 $scope.viewObject.title = 'Mockup View';
@@ -45,5 +43,9 @@ angular.module('mockuperApp')
                 $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
                 $scope.viewObject.parentName = result.project.name;
                 $scope.viewObject.parentUrl = '#/project/' + result.project.id;
+                try {
+                    $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
+                    $rootScope.$digest();
+                } catch(e) {}
             });
     }]);
