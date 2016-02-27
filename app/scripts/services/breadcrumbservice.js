@@ -23,6 +23,15 @@ angular.module('mockuperApp')
                 url: 'projectlist'
             }];
           return result;
+      } else if (type == 'user-list') {
+         var result =[{
+                name: 'Home',
+                url: ''
+            }, {
+                name: 'Users',
+                url: 'userlist'
+            }];
+          return result;
       } else if (type == 'project-new') {
          var result =[{
                 name: 'Home',
