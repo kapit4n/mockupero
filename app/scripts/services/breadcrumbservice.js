@@ -14,13 +14,22 @@ angular.module('mockuperApp')
     * the param in the object that we want to manage
     */
     fac.updateBreadcrumb = function(type, param) {
-      if (type == 'project-new') {
+      if (type == 'project-list') {
+         var result =[{
+                name: 'Home',
+                url: ''
+            }, {
+                name: 'Projects',
+                url: 'projectlist'
+            }];
+          return result;
+      } else if (type == 'project-new') {
          var result =[{
                 name: 'Home',
                 url: '#/'
             }, {
                 name: 'Projects',
-                url: ''
+                url: 'projectlist'
             }];
           return result;
       } else if (type == 'project') {
@@ -29,7 +38,7 @@ angular.module('mockuperApp')
                 url: '#/'
             }, {
                 name: 'Projects',
-                url: ''
+                url: 'projectlist'
             }, {
                 name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
                 url: 'project/' + param.id
@@ -41,7 +50,7 @@ angular.module('mockuperApp')
                 url: '#/'
             }, {
                 name: 'Projects',
-                url: ''
+                url: 'projectlist'
             }, {
                 name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
                 url: 'project/' + param.id
@@ -50,7 +59,7 @@ angular.module('mockuperApp')
       } else if (type == 'mockup') {
          var result =[{
                 name: 'Home',
-                url: ''
+                url: 'projectlist'
             }, {
                 name: 'Projects',
                 url: ''

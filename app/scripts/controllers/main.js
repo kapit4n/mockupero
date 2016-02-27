@@ -14,7 +14,7 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.chatList = [];
             loginService.reloadScope();
-            headerService.updateHeader('projects');
+            headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
             io.socket.get('/project', function serverResponded(body, JWR) {
                 console.log('project get');
