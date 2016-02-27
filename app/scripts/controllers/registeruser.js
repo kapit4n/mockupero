@@ -8,8 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('RegisteruserCtrl', ['$scope', 'userService', 'projectService', '$routeParams', '$location', '$rootScope',
-        function($scope, userService, projectService, $routeParams, $location, $rootScope) {
+    .controller('RegisteruserCtrl', ['$scope', 'userService', 'projectService', '$routeParams', '$location', '$rootScope', 'headerService',
+        function($scope, userService, projectService, $routeParams, $location, $rootScope, headerService) {
+            headerService.updateHeader('users');
             $scope.username = '';
             $scope.email = '';
             $scope.password = '';

@@ -8,11 +8,12 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditCtrl', ['$scope', 'loginService', '$window', '$routeParams', 'mockupService', 'breadcrumbService',
-        function($scope, loginService, $window, $routeParams, mockupService, breadcrumbService) {
+    .controller('MockupEditCtrl', ['$scope', 'loginService', '$window', '$routeParams', 'mockupService', 'breadcrumbService', 'headerService',
+        function($scope, loginService, $window, $routeParams, mockupService, breadcrumbService, headerService) {
 
         $scope.editObject = null;
         loginService.reloadScope();
+        headerService.updateHeader('projects');
         mockupService.mockupById.get({
                 mockupId: $routeParams.mockupId
             })

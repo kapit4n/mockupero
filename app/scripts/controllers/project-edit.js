@@ -8,10 +8,10 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('ProjectEditCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'projectService', 'breadcrumbService',
-        function($rootScope, $scope, loginService, $window, $routeParams, projectService, breadcrumbService) {
+    .controller('ProjectEditCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'projectService', 'breadcrumbService', 'headerService',
+        function($rootScope, $scope, loginService, $window, $routeParams, projectService, breadcrumbService, headerService) {
         loginService.reloadScope();
-        
+        headerService.updateHeader('projects');
         $scope.project = null;
 
         projectService.projectById.get({

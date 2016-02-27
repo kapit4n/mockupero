@@ -9,10 +9,11 @@
  */
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
-        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService',
+        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
-                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService) {
+                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService) {
             loginService.reloadScope();
+            headerService.updateHeader('projects');
             $scope.editObject = null;
             $scope.lastId = 0;
             $rootScope.hideFooter = true;

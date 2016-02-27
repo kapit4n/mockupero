@@ -8,8 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupNewCtrl', ['$rootScope', '$scope', '$cookieStore' , '$window', '$location', '$routeParams', 'mockupService', 'projectService', 'breadcrumbService',
-        function($rootScope, $scope, $cookieStore, $window, $location, $routeParams, mockupService, projectService, breadcrumbService) {
+    .controller('MockupNewCtrl', ['$rootScope', '$scope', '$cookieStore' , '$window', '$location', '$routeParams', 'mockupService', 'projectService', 'breadcrumbService', 'headerService',
+        function($rootScope, $scope, $cookieStore, $window, $location, $routeParams, mockupService, projectService, breadcrumbService, headerService) {
+        headerService.updateHeader('projects');
         $scope.name = '';
         $scope.objName = 'Mockup';
         $scope.description = '';

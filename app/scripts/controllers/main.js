@@ -8,13 +8,13 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService) {
 
             $scope.logingLog = {};
             $scope.chatList = [];
-
             loginService.reloadScope();
+            headerService.updateHeader('projects');
             $scope.userName = $rootScope.userNameLogin;
             io.socket.get('/project', function serverResponded(body, JWR) {
                 console.log('project get');
