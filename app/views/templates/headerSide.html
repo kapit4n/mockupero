@@ -12,11 +12,15 @@
             </div>
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/">Projects</a>
+                    <li class="{{current_active == 'home'? 'active' :''}}"><a href="#/">Home</a>
+                    </li>
+                    <li class="{{current_active == 'projects'? 'active' :''}}"><a href="#/projectlist">Projects</a>
+                    </li>
+                    <li class="{{current_active == 'users'? 'active' :''}}"><a href="#/userlist">Users</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    <li ng-hide="isAuthenticated"><a href="#/registerUser"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
                     </li>
                     <li ng-hide="isAuthenticated"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
                     </li>
@@ -29,7 +33,7 @@
             </div>
             <ol class="breadcrumb">
                 <li ng-repeat="bread in breadcrumb track by $index">
-                    <a href="#/{{bread.bUrl}}">{{bread.name}}</a>
+                    <a href="#/{{bread.url}}">{{bread.name}}</a>
                 </li>
             </ol>
         </div>

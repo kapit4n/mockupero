@@ -8,9 +8,12 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService', '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService',
-        function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService, $timeout, $http, $cookieStore, propertyService, notificationService) {
+    .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
+        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService',
+        function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
+                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService) {
             loginService.reloadScope();
+            headerService.updateHeader('projects');
             $scope.editObject = null;
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
@@ -90,8 +93,11 @@ angular.module('mockuperApp')
                     mockupId: $routeParams.mockupId
                 })
                 .$promise.then(function(result) {
-                    //console.log(result);
                     $scope.editObject = result;
+                    try {
+                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
+                        $rootScope.$digest();
+                    } catch(e) {}
                 });
 
             $scope.moveToTop = function($event) {

@@ -2,27 +2,27 @@
 
 /**
  * @ngdoc function
- * @name mockuperApp.controller:MainCtrl
+ * @name mockuperApp.controller:ProjectlistCtrl
  * @description
- * # MainCtrl
+ * # ProjectlistCtrl
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService) {
+    .controller('ProjectlistCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'breadcrumbService', 'headerService',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, breadcrumbService, headerService) {
 
             $scope.logingLog = {};
             $scope.chatList = [];
             loginService.reloadScope();
-            headerService.updateHeader('home');
+            headerService.updateHeader('projects');
             $scope.userName = $rootScope.userNameLogin;
             io.socket.get('/project', function serverResponded(body, JWR) {
-                console.log('project get');
+                //console.log('project get');
             });
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
-                console.log('Login log get');
-                console.log(body);
+                //console.log('Login log get');
+                //console.log(body);
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
@@ -31,8 +31,8 @@ angular.module('mockuperApp')
             });
 
             io.socket.on('loginlog', function onServerSentEvent(msg) {
-                console.log('on login log');
-                console.log(msg);
+                //console.log('on login log');
+                //console.log(msg);
                 $scope.$apply(function() {
                     if (msg.verb == 'update') {
                         $scope.logingLog[msg.data.username] = msg.data;
@@ -50,7 +50,8 @@ angular.module('mockuperApp')
             $scope.searchName = '';
             $scope.totalSize = 0;
             $scope.totalPages = 0;
-            $rootScope.breadcrumb = mockupService.breadcrumb['home'];
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-list', '');
+
             $scope.projectPages = [];
             $scope.projectShareEntries = [];
             $scope.users = [];
@@ -61,7 +62,7 @@ angular.module('mockuperApp')
 
             userService.user.get().$promise.then(function(result) {
                 $scope.users = result;
-                console.log($scope.users);
+                //console.log($scope.users);
             });
 
             userService.permission.get().$promise.then(function(result) {
@@ -129,7 +130,6 @@ angular.module('mockuperApp')
                         var userProjectIds = [];
                         for (var i = 0; i < result.length; i++) {
                             userProjectIds[i] = result[i].project.id;
-                            console.log(userProjectIds[i]);
                         }
                         projectService.projects.get({
                             where: {
@@ -176,7 +176,7 @@ angular.module('mockuperApp')
                         project: $scope.sharedProjectId
                     }
                 }).$promise.then(function(result) {
-                    console.log(result);
+                    //console.log(result);
                     $scope.projectShareEntries = [];
                     result.forEach(function(projectShare) {
                         $scope.projectShareEntries.push(projectShare);
@@ -211,16 +211,18 @@ angular.module('mockuperApp')
                 .success(function(success_data) {
                     $scope.chatList = success_data;
                     $timeout(function() {
-                        var objDiv = document.getElementById("chatContainer");
+                    	// looks like we will not have chat here by now
+                        /*var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
                         $scope.chatMessage = "";
-                        console.log('Updated the scrollTop');
+                        //console.log('Updated the scrollTop');
+                        */
                     }, 200);
                     
                 });
 
             io.socket.on('chat', function(obj) {
-                console.log('created something');
+                //console.log('created something');
                 if (obj.verb === 'created') {
                     $scope.chatList.push(obj.data);
                     $scope.$digest();
