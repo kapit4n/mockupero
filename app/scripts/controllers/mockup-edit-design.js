@@ -9,12 +9,13 @@
  */
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
-        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService',
+        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
-                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService) {
+                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.editObject = null;
+            $scope.chatCollapsed = true;
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
@@ -24,6 +25,11 @@ angular.module('mockuperApp')
             } else {
                 $scope.itemStyle = 'resize-drag';
             }
+
+            $scope.changeChat = function() {
+                console.log('Updated chatCollapsed');
+                $scope.chatCollapsed = !$scope.chatCollapsed;
+            };
 
             // move this code to socket services related to mockups
             io.socket.get('/mockupEditor/editors', {
@@ -235,14 +241,6 @@ angular.module('mockuperApp')
                 var zIndex = $(idComp).css("z-index");
                 item.idHtml = $(idComp)[0].id;
                 item.mockupId = $routeParams.mockupId;
-
-                if (item.type == "button") {
-                    /*//console.log('This is the values');
-                    //console.log($(idComp)[0]);
-                    //console.log(item);
-                    //console.log($($(idComp)[0]).width());
-                    //console.log($($(idComp)[0]).height());*/
-                }
 
                 return {
                     "id": item.id,
@@ -471,9 +469,6 @@ angular.module('mockuperApp')
 
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
             io.socket.on('mockupversion', function(msg) {
-                //console.log('Mockup version update');
-                //console.log(msg);
-
                 $scope.$apply(function() {
                     if (msg.data.mockupId == $routeParams.mockupId) {
                         var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span> </div>';
@@ -493,6 +488,9 @@ angular.module('mockuperApp')
                     }
                 });
             });
-
+            chatService.subscribe($scope);
+            $scope.sendMsg = function() {
+                chatService.sendMsg($scope);
+            }
         } // end of the controller function
     ]);
