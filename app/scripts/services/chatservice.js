@@ -11,21 +11,37 @@ angular.module('mockuperApp')
   .service('chatService', function ($http, $rootScope, $timeout) {
     var fac = {};
 
+    var chatServiceLoad = function($scope) {
+
+        if ($scope.chatRoom != '') {
+            $http.get('http://localhost:1337/chat?sort=createdAt%20DESC&limit=100&where={"room":%20"' + $scope.chatRoom + '"}')
+                .success(function(success_data) {
+                    $scope.chatList = success_data;
+                    $timeout(function() {
+                        var objDiv = document.getElementById("chatContainer");
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                        $scope.chatMessage = "";
+                        console.log('Updated the scrollTop');
+                    }, 200);
+                });
+        } else {
+            $http.get('http://localhost:1337/chat?sort=createdAt%20DESC&limit=100&where={"room":%20""}')
+                .success(function(success_data) {
+                    $scope.chatList = success_data;
+                    $timeout(function() {
+                        var objDiv = document.getElementById("chatContainer");
+                        objDiv.scrollTop = objDiv.scrollHeight;
+                        $scope.chatMessage = "";
+                        console.log('Updated the scrollTop');
+                    }, 200);
+                });
+        }
+    }
+
     fac.subscribe  = function($scope) {
         io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
         // get all existing date
-        $http.get('http://localhost:1337/chat')
-            .success(function(success_data) {
-                $scope.chatList = success_data;
-                $timeout(function() {
-                    var objDiv = document.getElementById("chatContainer");
-                    objDiv.scrollTop = objDiv.scrollHeight;
-                    $scope.chatMessage = "";
-                    console.log('Updated the scrollTop');
-                }, 200);
-                
-            });
-
+        chatServiceLoad($scope);
         io.socket.on('chat', function(obj) {
             console.log('created something');
             if (obj.verb === 'created') {
@@ -43,7 +59,8 @@ angular.module('mockuperApp')
     fac.sendMsg = function($scope) {
         io.socket.post('http://localhost:1337/chat/addconv/', {
             user: $rootScope.userNameLogin,
-            message: $scope.chatMessage
+            message: $scope.chatMessage,
+            room: $scope.chatRoom
         });
         $timeout(function() {
                 var objDiv = document.getElementById("chatContainer");

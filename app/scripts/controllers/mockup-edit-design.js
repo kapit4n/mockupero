@@ -14,6 +14,7 @@ angular.module('mockuperApp')
                  $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
+            $scope.chatRoom = $routeParams.mockupId;
             $scope.editObject = null;
             $scope.chatCollapsed = true;
             $scope.lastId = 0;
