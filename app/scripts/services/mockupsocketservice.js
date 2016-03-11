@@ -63,27 +63,7 @@ angular.module('mockuperApp')
             //console.log('Subscribe to mockup version');
         });
 
-        // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
-        io.socket.on('mockupversion', function(msg) {
-            $scope.$apply(function() {
-                if (msg.data.mockupId == $routeParams.mockupId) {
-                    var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span> </div>';
-                    var propertiesDiv = angular.element(document.querySelector('#alert_message'));
-                    propertiesDiv.html($compile(message)($scope));
-                    $scope.loadMockupItems();
-                    // send a little notification by here
-                    /*notificationService.sendMail.get({
-                        to: 'luis.arce22@gmail.com',
-                        subject: 'Subject send from mockup edit design',
-                        text: 'This is the text send from mockup edit design'
-                    })
-                    .$promise.then(function(result) {
-                        //console.log(result);
-                    });
-                    */
-                }
-            });
-        });
+        
 
     }
     return fac;

@@ -118,7 +118,7 @@ angular.module('mockuperApp')
                         }
                         $("#spinner").hide();
                         $("#btnSave").prop('disabled', false);
-                    }, 4000);
+                    }, 50);
                 });
                 $scope.createImage();
                 $timeout(function() {
@@ -130,7 +130,7 @@ angular.module('mockuperApp')
                     }, function serverResponded(body, JWR) {
                         //console.log('Creating our first mockup version');
                     });
-                }, 5000);
+                }, 2000);
             };
 
             // This id has # included in the string
@@ -411,6 +411,16 @@ angular.module('mockuperApp')
                         //console.log('Item deleted');
                     });
                 }
+                $timeout(function() {
+                    // this will be called on the save methods to create the version
+                    io.socket.post('/mockupVersion/saveIt', {
+                        number: 'version 1',
+                        mockupId: $routeParams.mockupId,
+                        username: $cookieStore.get('username')
+                    }, function serverResponded(body, JWR) {
+                        //console.log('Creating our first mockup version');
+                    });
+                }, 500);
             }
 
             $timeout(function() {
@@ -422,5 +432,29 @@ angular.module('mockuperApp')
             $scope.sendMsg = function() {
                 chatService.sendMsg($scope);
             }
+
+            // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
+        io.socket.on('mockupversion', function(msg) {
+            console.log(msg);
+            $scope.$apply(function() {
+                if (msg.data.mockupId == $routeParams.mockupId) {
+                    var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span> </div>';
+                    var propertiesDiv = angular.element(document.querySelector('#alert_message'));
+                    propertiesDiv.html($compile(message)($scope));
+                    $scope.loadMockupItems();
+                    // send a little notification by here
+                    /*notificationService.sendMail.get({
+                        to: 'luis.arce22@gmail.com',
+                        subject: 'Subject send from mockup edit design',
+                        text: 'This is the text send from mockup edit design'
+                    })
+                    .$promise.then(function(result) {
+                        //console.log(result);
+                    });
+                    */
+                }
+            });
+        });
+
         } // end of the controller function
     ]);
