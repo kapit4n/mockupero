@@ -10,8 +10,10 @@
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
         '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
+        'mockupSocketService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
-                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService) {
+                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
+                 mockupSocketService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -32,20 +34,6 @@ angular.module('mockuperApp')
                 $scope.chatCollapsed = !$scope.chatCollapsed;
             };
 
-            // move this code to socket services related to mockups
-            io.socket.get('/mockupEditor/editors', {
-                username: $cookieStore.get('username'),
-                roomName: $routeParams.mockupId
-            }, function serverResponded(body, JWR) {
-                //console.log('Subscribe the mockup editor');
-            });
-
-            io.socket.post('/mockupEditor/editors', {
-                username: $cookieStore.get('username')
-            }, function serverResponded(body, JWR) {
-                //console.log('Mockup editor post');
-            });
-
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
             $scope.createImage = function() {
                 html2canvas($("#design-div"), {
@@ -59,42 +47,6 @@ angular.module('mockuperApp')
                     }
                 });
             }
-
-            // move this code to socket services related to mockups
-            io.socket.get('/mockupeditor', function serverResponded(body, JWR) {
-                $scope.$apply(function() {
-                    for (var i = 0; i < body.length; i++) {
-                        $scope.logingLog[body[i].username] = body[i];
-                    };
-                });
-                io.socket.get('/mockupeditor/getSocketId', function serverResponded(body, JWR) {
-                    //console.log('Socket Id: ');
-                });
-
-            });
-
-            // move this code to socket services related to mockups
-            io.socket.get('/mockupeditor/getEditors', {
-                username: $cookieStore.get('username'),
-                roomName: $routeParams.mockupId
-            }, function serverResponded(body, JWR) {
-                //console.log('get Editors');
-            });
-
-            // method that listen the mockup editors
-            io.socket.on('mockupeditor', function(msg) {
-                if (msg.verb == 'updated') {
-                    //console.log('updated mockup editor');
-                }
-                $scope.$apply(function() {
-                    if (msg.data.offline) {
-                        $scope.logingLog[msg.data.username] = msg.data;
-                        $scope.logingLog[msg.data.username].online = false;
-                    } else {
-                        $scope.logingLog[msg.data.username] = msg.data;
-                    }
-                });
-            });
 
             mockupService.mockupById.get({
                     mockupId: $routeParams.mockupId
@@ -461,34 +413,11 @@ angular.module('mockuperApp')
                 }
             }
 
-            // move this code to some service to have all sockets methods in the same place
-            io.socket.get('/mockupVersion', {
-                username: $cookieStore.get('username')
-            }, function serverResponded(body, JWR) {
-                //console.log('Subscribe to mockup version');
-            });
-
-            // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
-            io.socket.on('mockupversion', function(msg) {
-                $scope.$apply(function() {
-                    if (msg.data.mockupId == $routeParams.mockupId) {
-                        var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span> </div>';
-                        var propertiesDiv = angular.element(document.querySelector('#alert_message'));
-                        propertiesDiv.html($compile(message)($scope));
-                        $scope.loadMockupItems();
-                        // send a little notification by here
-                        /*notificationService.sendMail.get({
-                            to: 'luis.arce22@gmail.com',
-                            subject: 'Subject send from mockup edit design',
-                            text: 'This is the text send from mockup edit design'
-                        })
-                        .$promise.then(function(result) {
-                            //console.log(result);
-                        });
-                        */
-                    }
-                });
-            });
+            $timeout(function() {
+                console.log("Looks like I need to put some delay to fix it");
+                mockupSocketService.subscribeToMockupEdit($scope);
+            }, 500);
+            
             chatService.subscribe($scope);
             $scope.sendMsg = function() {
                 chatService.sendMsg($scope);
