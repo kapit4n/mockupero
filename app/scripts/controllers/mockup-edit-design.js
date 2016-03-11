@@ -77,7 +77,8 @@ angular.module('mockuperApp')
                     sort: 'position ',
                     where: {
                         mockupId: $routeParams.mockupId
-                    }
+                    },
+                    limit: 100
                 }).$promise.then(function(result) {
                     $scope.result = result;
                     var positionAux = 0;
