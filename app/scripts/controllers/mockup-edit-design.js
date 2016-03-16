@@ -15,6 +15,7 @@ angular.module('mockuperApp')
                  $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
                  mockupSocketService) {
             loginService.reloadScope();
+            
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
             $scope.editObject = null;
@@ -127,7 +128,9 @@ angular.module('mockuperApp')
                     io.socket.post('/mockupVersion/saveIt', {
                         number: 'version 1',
                         mockupId: $routeParams.mockupId,
-                        username: $cookieStore.get('username')
+                        username: $cookieStore.get('username'),
+                        action: 'update',
+                        message: 'Update the Mockup'
                     }, function serverResponded(body, JWR) {
                         //console.log('Creating our first mockup version');
                     });
@@ -417,7 +420,9 @@ angular.module('mockuperApp')
                     io.socket.post('/mockupVersion/saveIt', {
                         number: 'version 1',
                         mockupId: $routeParams.mockupId,
-                        username: $cookieStore.get('username')
+                        username: $cookieStore.get('username'),
+                        action: 'delete_item',
+                        message: 'Update the Mockup'
                     }, function serverResponded(body, JWR) {
                         //console.log('Creating our first mockup version');
                     });
@@ -439,7 +444,7 @@ angular.module('mockuperApp')
             console.log(msg);
             $scope.$apply(function() {
                 if (msg.data.mockupId == $routeParams.mockupId) {
-                    var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span> </div>';
+                    var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span></div>';
                     var propertiesDiv = angular.element(document.querySelector('#alert_message'));
                     propertiesDiv.html($compile(message)($scope));
                     $scope.loadMockupItems();
