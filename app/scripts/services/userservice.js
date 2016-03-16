@@ -17,6 +17,12 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.projectPermission = $resource('http://localhost:1337/project/projectPermission', {}, {
+            get: {
+                method: 'GET'
+            }
+        });
+
         fac.permission = $resource('http://localhost:1337/permission', {}, {
             get: {
                 method: 'GET',

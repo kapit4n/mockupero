@@ -10,26 +10,55 @@
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
         '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
-        'mockupSocketService',
+        'mockupSocketService', 'userService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
                  $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
-                 mockupSocketService) {
+                 mockupSocketService, userService) {
             loginService.reloadScope();
             
+            userService.projectPermission.get(
+                { 
+                    projectId: '564d1d0f608fd0c009b16046',
+                    userId: '5621ad6042e45aa84642173d'
+                }).$promise.then(function(result) {
+                    
+                    if (result.permission[0].can == 'edit') {
+                        try{
+                            console.log(result.permission[0].can);
+                            $scope.viewMode = false;
+                            if (!$scope.viewMode) {
+                                $scope.itemStyle = 'resize-drag';
+                            } else {
+                                $scope.itemStyle = '';
+                            }
+                            $rootScope.$digest();
+                        } catch(e) {
+                            console.log(e);
+                        }
+                    } else {
+                        try{
+                            console.log(result.permission[0].can);
+                            $scope.viewMode = true;
+                            if (!$scope.viewMode) {
+                                $scope.itemStyle = 'resize-drag';
+                            } else {
+                                $scope.itemStyle = '';
+                            }
+                            $rootScope.$digest();
+                        } catch(e) {
+                            console.log(e);
+                        }
+                    }
+                });
             headerService.updateHeader('projects');
+            
             $scope.chatRoom = $routeParams.mockupId;
             $scope.editObject = null;
             $scope.chatCollapsed = true;
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
-            $scope.viewMode = false;
-            if ($scope.viewMode) {
-                $scope.itemStyle = '';
-            } else {
-                $scope.itemStyle = 'resize-drag';
-            }
-
+            
             $scope.changeChat = function() {
                 console.log('Updated chatCollapsed');
                 $scope.chatCollapsed = !$scope.chatCollapsed;
@@ -221,6 +250,7 @@ angular.module('mockuperApp')
                     ////console.log('Mockup editor out');
                 });
                 $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+
             }
 
             interact('.resize-drag')
