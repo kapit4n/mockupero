@@ -8,12 +8,12 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService) {
 
             $scope.logingLog = {};
-            $scope.chatList = [];
             loginService.reloadScope();
+            $scope.chatCollapsed = false;
             headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
             io.socket.get('/project', function serverResponded(body, JWR) {
@@ -203,46 +203,16 @@ angular.module('mockuperApp')
                 });
             };
 
-            $scope.reloadProject(1);
-
-            io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
-            // get all existing date
-            $http.get('http://localhost:1337/chat')
-                .success(function(success_data) {
-                    $scope.chatList = success_data;
-                    $timeout(function() {
-                        var objDiv = document.getElementById("chatContainer");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                        $scope.chatMessage = "";
-                        console.log('Updated the scrollTop');
-                    }, 200);
-                    
-                });
-
-            io.socket.on('chat', function(obj) {
-                console.log('created something');
-                if (obj.verb === 'created') {
-                    $scope.chatList.push(obj.data);
-                    $scope.$digest();
-                    $timeout(function() {
-                        var objDiv = document.getElementById("chatContainer");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 200);
-                    $scope.chatMessage = "";
-                }
-            });
-
+            chatService.subscribe($scope);
             $scope.sendMsg = function() {
-                io.socket.post('http://localhost:1337/chat/addconv/', {
-                    user: $rootScope.userNameLogin,
-                    message: $scope.chatMessage
-                });
-                $timeout(function() {
-                        var objDiv = document.getElementById("chatContainer");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 200);
-                $scope.chatMessage = "";
+                chatService.sendMsg($scope);
+            }
+
+            $scope.changeChat = function() {
+                console.log('Updated chatCollapsed');
+                $scope.chatCollapsed = !$scope.chatCollapsed;
             };
 
+            $scope.reloadProject(1);
         }
     ]);
