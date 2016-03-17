@@ -15,43 +15,7 @@ angular.module('mockuperApp')
                  $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
                  mockupSocketService, userService) {
             loginService.reloadScope();
-            
-            userService.projectPermission.get(
-                { 
-                    projectId: '564d1d0f608fd0c009b16046',
-                    userId: '5621ad6042e45aa84642173d'
-                }).$promise.then(function(result) {
-                    
-                    if (result.permission[0].can == 'edit') {
-                        try{
-                            console.log(result.permission[0].can);
-                            $scope.viewMode = false;
-                            if (!$scope.viewMode) {
-                                $scope.itemStyle = 'resize-drag';
-                            } else {
-                                $scope.itemStyle = '';
-                            }
-                            $rootScope.$digest();
-                        } catch(e) {
-                            console.log(e);
-                        }
-                    } else {
-                        try{
-                            console.log(result.permission[0].can);
-                            $scope.viewMode = true;
-                            if (!$scope.viewMode) {
-                                $scope.itemStyle = 'resize-drag';
-                            } else {
-                                $scope.itemStyle = '';
-                            }
-                            $rootScope.$digest();
-                        } catch(e) {
-                            console.log(e);
-                        }
-                    }
-                });
             headerService.updateHeader('projects');
-            
             $scope.chatRoom = $routeParams.mockupId;
             $scope.editObject = null;
             $scope.chatCollapsed = true;
@@ -60,10 +24,8 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             
             $scope.changeChat = function() {
-                console.log('Updated chatCollapsed');
                 $scope.chatCollapsed = !$scope.chatCollapsed;
             };
-
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
             $scope.createImage = function() {
                 html2canvas($("#design-div"), {
@@ -84,6 +46,37 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.editObject = result;
                     try {
+                        userService.projectPermission.get(
+                            {
+                                projectId: result.project.id,
+                                userId: $cookieStore.get('userId')
+                            }).$promise.then(function(result) {
+                                if (result.permission[0].can == 'edit') {
+                                    try{
+                                        $scope.viewMode = false;
+                                        if (!$scope.viewMode) {
+                                            $scope.itemStyle = 'resize-drag';
+                                        } else {
+                                            $scope.itemStyle = '';
+                                        }
+                                        $rootScope.$digest();
+                                    } catch(e) {
+                                        console.log(e);
+                                    }
+                                } else {
+                                    try{
+                                        $scope.viewMode = true;
+                                        if (!$scope.viewMode) {
+                                            $scope.itemStyle = 'resize-drag';
+                                        } else {
+                                            $scope.itemStyle = '';
+                                        }
+                                        $rootScope.$digest();
+                                    } catch(e) {
+                                        console.log(e);
+                                    }
+                                }
+                            });
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
                         $rootScope.$digest();
                     } catch(e) {}
