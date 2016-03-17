@@ -69,9 +69,8 @@
     </div>
 
     <div id="alert_message"  style="position: absolute; top: 91px; right: 1px; background: green; z-index: 150; "></div>
-    
 
-    <div id="design-div" style="height: 600px; background-color:hsla(200,100%,75%,0.3); position: absolute; top: 236px; width: 800px; overflow: scroll;">
+    <div id="design-div" style="height: 600px; border-width: 1px; border-style: solid; border-color: black; position: absolute; top: 236px; width: 800px; overflow: scroll;">
 
         <img ng-if="ite.type == 'image'" id="x-{{ite.type}}{{ite.id}}"  ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
 
