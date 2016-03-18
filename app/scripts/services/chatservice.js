@@ -21,7 +21,7 @@ angular.module('mockuperApp')
                         var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
                         $scope.chatMessage = "";
-                        console.log('Updated the scrollTop');
+                        //console.log('Updated the scrollTop');
                     }, 200);
                 });
         } else {
@@ -32,7 +32,7 @@ angular.module('mockuperApp')
                         var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
                         $scope.chatMessage = "";
-                        console.log('Updated the scrollTop');
+                        //console.log('Updated the scrollTop');
                     }, 200);
                 });
         }

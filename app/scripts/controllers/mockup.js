@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupCtrl', ['$scope', 'loginService', 'mockupService', 'breadcrumbService', '$routeParams', '$rootScope', 'headerService',
-        function($scope, loginService, mockupService, breadcrumbService, $routeParams, $rootScope, headerService) {
+    .controller('MockupCtrl', ['$scope', '$cookieStore', 'loginService', 'mockupService', 'breadcrumbService', '$routeParams', '$rootScope', 'headerService', 'permissionService',
+        function($scope, $cookieStore, loginService, mockupService, breadcrumbService, $routeParams, $rootScope, headerService, permissionService) {
         loginService.reloadScope();
         headerService.updateHeader('projects');
 
@@ -18,7 +18,7 @@ angular.module('mockuperApp')
         $scope.logingLog = {};
 
         io.socket.get('/loginlog', function serverResponded (body, JWR) {
-            console.log('Login log get');
+            //console.log('Login log get');
             $scope.$apply(function() {
                 for (var i = 0; i < body.length; i++) {
                     $scope.logingLog[body[i].username] = body[i];
@@ -27,7 +27,7 @@ angular.module('mockuperApp')
         });
 
         io.socket.on('loginlog', function onServerSentEvent (msg) {
-            console.log(msg);
+            //console.log(msg);
             $scope.$apply(function(){
                 $scope.logingLog[msg.data.username] = msg.data;
                 $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
@@ -46,8 +46,9 @@ angular.module('mockuperApp')
                 $scope.viewObject.parentName = result.project.name;
                 $scope.viewObject.parentUrl = '#/project/' + result.project.id;
                 try {
+                    permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                     $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
-                    $rootScope.$digest();
-                } catch(e) {}
+                    //$rootScope.$digest();
+                } catch(e) {console.log(e);}
             });
     }]);

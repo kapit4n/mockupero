@@ -8,8 +8,10 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('ProjectCtrl', ['$scope', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService', 'headerService',
-        function($scope, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService, headerService) {
+    .controller('ProjectCtrl', ['$scope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
+                'headerService', 'permissionService',
+        function($scope, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
+                headerService, permissionService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
@@ -71,9 +73,10 @@ angular.module('mockuperApp')
                     $scope.viewObject.title = 'Project View';
                     $scope.viewObject.editUrl = 'project/edit/' + result.id;
                     try {
+                        permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project', $scope.project);
-                        $rootScope.$digest();
-                    } catch(e) {}
+                        //$rootScope.$digest();
+                    } catch(e) {console.log(e);}
                 });
         }
     ]);

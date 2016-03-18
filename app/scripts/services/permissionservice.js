@@ -20,15 +20,15 @@ angular.module('mockuperApp')
                 }).$promise.then(function(result) {
                     try {
                         if (result.permission[0].can == 'edit') {
-                            scope.viewMode = false;
-                            if (!scope.viewMode) {
+                            scope.editMode = true;
+                            if (scope.editMode) {
                                 scope.itemStyle = 'resize-drag';
                             } else {
                                 scope.itemStyle = '';
                             }
                         } else {
-                            scope.viewMode = true;
-                            if (!scope.viewMode) {
+                            scope.editMode = false;
+                            if (scope.editMode) {
                                 scope.itemStyle = 'resize-drag';
                             } else {
                                 scope.itemStyle = '';

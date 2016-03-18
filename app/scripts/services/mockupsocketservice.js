@@ -21,8 +21,8 @@ angular.module('mockuperApp')
         $timeout(function() {
              // move this code to socket services related to mockups
             io.socket.get('/mockupeditor', function serverResponded(body, JWR) {
-                console.log('here is the get og all mockup editors');
-                console.log(body);
+                //console.log('here is the get og all mockup editors');
+                //console.log(body);
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];

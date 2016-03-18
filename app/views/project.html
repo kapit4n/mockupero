@@ -36,7 +36,7 @@
                 <p>{{mockup.description}}</p>
                 <p>
                     <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a>
-                    <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-default" role="button">Edit</a>
+                    <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit</a>
                 </p>
             </div>
         </div>
