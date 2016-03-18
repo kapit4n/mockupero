@@ -10,10 +10,10 @@
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
         '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
-        'mockupSocketService', 'userService',
+        'mockupSocketService', 'userService', 'permissionService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
                  $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
-                 mockupSocketService, userService) {
+                 mockupSocketService, userService, permissionService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -46,40 +46,10 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.editObject = result;
                     try {
-                        userService.projectPermission.get(
-                            {
-                                projectId: result.project.id,
-                                userId: $cookieStore.get('userId')
-                            }).$promise.then(function(result) {
-                                if (result.permission[0].can == 'edit') {
-                                    try{
-                                        $scope.viewMode = false;
-                                        if (!$scope.viewMode) {
-                                            $scope.itemStyle = 'resize-drag';
-                                        } else {
-                                            $scope.itemStyle = '';
-                                        }
-                                        $rootScope.$digest();
-                                    } catch(e) {
-                                        console.log(e);
-                                    }
-                                } else {
-                                    try{
-                                        $scope.viewMode = true;
-                                        if (!$scope.viewMode) {
-                                            $scope.itemStyle = 'resize-drag';
-                                        } else {
-                                            $scope.itemStyle = '';
-                                        }
-                                        $rootScope.$digest();
-                                    } catch(e) {
-                                        console.log(e);
-                                    }
-                                }
-                            });
+                        permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
-                        $rootScope.$digest();
-                    } catch(e) {}
+                        //$rootScope.$digest(); // review when we need to run this method
+                    } catch(e) {console.log(e);}
                 });
 
             $scope.moveToTop = function($event) {
