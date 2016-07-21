@@ -12,14 +12,15 @@ angular.module('mockuperApp')
         function($rootScope, $scope, $cookieStore, $window, $location, $routeParams, mockupService, projectService, breadcrumbService, headerService) {
         headerService.updateHeader('projects');
         $scope.name = '';
-        $scope.objName = 'Mockup';
+        $scope.objType = 'Mockup';
+        $scope.objName = '';
         $scope.description = '';
         $scope.imgToShow = '';
         $scope.project = {};
         $scope.project.id = $routeParams.projectId;
         $scope.save = function() {
             mockupService.createMockup.save({
-                name: $scope.name,
+                name: $scope.objName,
                 description: $scope.description,
                 imgToShow: $scope.imgToShow,
                 project: $scope.project,

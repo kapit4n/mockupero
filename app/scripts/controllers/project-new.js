@@ -12,7 +12,8 @@ angular.module('mockuperApp')
         function($scope, $window, $cookieStore, projectService, breadcrumbService, headerService) {
         headerService.updateHeader('projects');
         $scope.projectName = '';
-        $scope.objName = "Project";
+        $scope.objType = "Project";
+        $scope.objName = "";
         $scope.description = '';
         $scope.imgToShow = '';
 
@@ -22,7 +23,7 @@ angular.module('mockuperApp')
 
         $scope.save = function() {
             projectService.createProject.save({
-                name: $scope.projectName,
+                name: $scope.objName,
                 description: $scope.description,
                 imgToShow: $scope.imgToShow,
                 userId: $cookieStore.get('userId')
