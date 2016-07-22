@@ -134,13 +134,13 @@ angular.module('mockuperApp')
             $scope.getItemId = function(idComp) {
                 var idResult = 0;
                 if (idComp.indexOf('image') > -1) {
-                    idResult = idComp.substring(7);
+                    idResult = idComp.substring(5);
                 } else if  (idComp.indexOf('button') > -1)  {
-                    idResult = idComp.substring(8);
+                    idResult = idComp.substring(6);
                 } else if  (idComp.indexOf('input') > -1)  {
-                    idResult = idComp.substring(7);
+                    idResult = idComp.substring(5);
                 } else if  (idComp.indexOf('label') > -1)  {
-                    idResult = idComp.substring(7);
+                    idResult = idComp.substring(5);
                 }
                 return idResult;
             }
@@ -152,13 +152,13 @@ angular.module('mockuperApp')
                 var item = {};
                 if (idComp.length > 15) {
                     if (idComp.indexOf('image') > -1) {
-                        item.id = idComp.substring(8);
+                        item.id = idComp.substring(6);
                     } else if (idComp.indexOf('button') > -1) {
-                        item.id = idComp.substring(9);
+                        item.id = idComp.substring(7);
                     } else  if (idComp.indexOf('input') > -1) {
-                        item.id = idComp.substring(8);
+                        item.id = idComp.substring(6);
                     } else if (idComp.indexOf('label') > -1 ) {
-                        item.id = idComp.substring(8);
+                        item.id = idComp.substring(6);
                     }
                 } else {
                     ////console.log(idComp);
@@ -364,6 +364,8 @@ angular.module('mockuperApp')
 
             // Method to load the properties for the existend mockup items
             $scope.loadProperties = function(idComponent) {
+                console.log(idComponent);
+                console.log("Here is some error");
                 var propertiesDiv = angular.element(document.querySelector('#wrapper-container'));
                 //console.log(propertiesDiv);
                 var myComponent = '';
@@ -375,6 +377,8 @@ angular.module('mockuperApp')
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent)+'</div>';
                 } else if(idComponent.indexOf('label') > -1)  {
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent)+'</div>';
+                } else {
+                    console.log("Here is another error " + idComponent);
                 }
                 propertiesDiv.html($compile(myComponent)($scope));
             };
