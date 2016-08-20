@@ -1,1 +1,2 @@
+git pull
 grunt serve
