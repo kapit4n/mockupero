@@ -1,3 +1,5 @@
+'use strict';
+
 myApp.directive("addbuttons", function($compile){
     return function(scope, element, attrs){
         element.bind("click", function(){
