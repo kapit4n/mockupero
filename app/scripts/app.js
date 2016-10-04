@@ -82,6 +82,11 @@ angular
         controller: 'ProjectlistCtrl',
         controllerAs: 'projectlist'
       })
+      .when('/user', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl',
+        controllerAs: 'user'
+      })
       .otherwise({
         redirectTo: '/'
       });

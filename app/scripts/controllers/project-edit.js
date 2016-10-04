@@ -18,18 +18,17 @@ angular.module('mockuperApp')
                 projectId: $routeParams.projectId
             })
             .$promise.then(function(result) {
-                console.log(result);
                 $scope.project = result;
                 try {
                     $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project', $scope.project);
                     $rootScope.$digest();
                 } catch(e) {}
             });
+
         $scope.saveProject = function() {
             projectService.updateProject.update({
                 id: $scope.project.id
             }, $scope.project, function(result) {
-                console.log(result);
                 $window.location.href = '#/project/' + $scope.project.id;
             });
         }
