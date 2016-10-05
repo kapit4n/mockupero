@@ -17,7 +17,7 @@ describe('Controller: UserEditCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(UserEditCtrl.awesomeThings.length).toBe(3);
+  it('User should be null if there is not any userId like param', function () {
+    expect(scope.user).toBe(null);
   });
 });
