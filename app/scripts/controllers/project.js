@@ -22,7 +22,6 @@ angular.module('mockuperApp')
             };
 
             io.socket.get('/loginlog', function serverResponded (body, JWR) {
-                console.log('Login log get');
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
@@ -31,7 +30,6 @@ angular.module('mockuperApp')
             });
 
             io.socket.on('loginlog', function onServerSentEvent (msg) {
-                console.log(msg);
                 $scope.$apply(function(){
                     $scope.logingLog[msg.data.username] = msg.data;
                     $scope.logingLog[msg.data.username].online = true;// ((new Date(msg.data.createdAt)).getTime())
