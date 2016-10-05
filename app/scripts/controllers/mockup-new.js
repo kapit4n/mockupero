@@ -18,6 +18,7 @@ angular.module('mockuperApp')
         $scope.imgToShow = '';
         $scope.project = {};
         $scope.project.id = $routeParams.projectId;
+
         $scope.save = function() {
             mockupService.createMockup.save({
                 name: $scope.objName,
@@ -29,6 +30,7 @@ angular.module('mockuperApp')
                 $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
             });
         };
+
         projectService.projectById.get({projectId: $routeParams.projectId })
             .$promise.then(function(result) {
                 $scope.project = result;

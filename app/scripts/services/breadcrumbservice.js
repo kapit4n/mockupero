@@ -27,6 +27,12 @@ angular.module('mockuperApp')
          var result =[{
                 name: 'Home',
                 url: ''
+            }];
+          return result;
+      } else if (type == 'user') {
+         var result =[{
+                name: 'Home',
+                url: ''
             }, {
                 name: 'Users',
                 url: 'userlist'
