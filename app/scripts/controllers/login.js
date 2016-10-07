@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'loginService', '$cookieStore', 
-      function($rootScope, $scope, $location, loginService, $cookieStore) {
+    .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'loginService', '$cookieStore', 'projectService',
+      function($rootScope, $scope, $location, loginService, $cookieStore, projectService) {
         $scope.userName = '';
         $scope.password = '';
         $scope.userInfo = {};
