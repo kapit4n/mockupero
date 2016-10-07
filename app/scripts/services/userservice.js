@@ -8,8 +8,8 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-  .service('userService', function ($resource) {
-    var fac = {};
+    .service('userService', function($resource) {
+        var fac = {};
         fac.user = $resource('http://localhost:1337/user', {}, {
             get: {
                 method: 'GET',
@@ -36,5 +36,19 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.updateUser = $resource('http://localhost:1337/user/:id', {}, {
+            save: {
+                method: 'PUT'
+            }
+        });
+
+        fac.userById = $resource('http://localhost:1337/user/:userId', {
+            userId: '@id'
+        }, {
+            get: {
+                method: 'GET'
+            }
+        });
+
         return fac;
-  });
+    });

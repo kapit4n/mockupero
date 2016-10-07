@@ -8,12 +8,11 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('UserCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'userService', 'breadcrumbService', 'headerService',
+    .controller('UserEditCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'userService', 'breadcrumbService', 'headerService',
         function($rootScope, $scope, loginService, $window, $routeParams, userService, breadcrumbService, headerService) {
             loginService.reloadScope();
             headerService.updateHeader('users');
             $scope.user = null;
-            $scope.editMode = true;
 
             userService.userById.get({
                     userId: $routeParams.userId
@@ -25,5 +24,17 @@ angular.module('mockuperApp')
                         $rootScope.$digest();
                     } catch (e) {}
                 });
+
+            $scope.saveUser = function() {
+                userService.updateUser.save({
+                    id: $scope.user.id
+                }, $scope.user, function(result) {
+                    $window.location.href = '#/user/' + $scope.user.id;
+                });
+            }
+
+            $scope.cancel = function() {
+                $window.location.href = '#/user/' + $scope.user.id;
+            }
         }
     ]);

@@ -82,10 +82,15 @@ angular
         controller: 'ProjectlistCtrl',
         controllerAs: 'projectlist'
       })
-      .when('/user', {
+      .when('/user/:userId', {
         templateUrl: 'views/user.html',
         controller: 'UserCtrl',
         controllerAs: 'user'
+      })
+      .when('/user-edit/:userId', {
+        templateUrl: 'views/user-edit.html',
+        controller: 'UserEditCtrl',
+        controllerAs: 'userEdit'
       })
       .otherwise({
         redirectTo: '/'
