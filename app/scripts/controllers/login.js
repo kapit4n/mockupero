@@ -10,20 +10,22 @@
 angular.module('mockuperApp')
     .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'loginService', '$cookieStore', 
       function($rootScope, $scope, $location, loginService, $cookieStore) {
-        $scope.userName = '';
+        $scope.identifier = '';
         $scope.password = '';
         $scope.userInfo = {};
         $scope.singIn = function() {
             var identifier = {
-                "username": $scope.userName
+                "email": $scope.identifier,
+                "password": $scope.password
             };
-            loginService.loginLogLogin.save(identifier).$promise.then(function(result) {
+            loginService.loginUser.save(identifier).$promise.then(function(result) {
                 console.log(result);
+                console.log("LoginCtrl");
                 $rootScope.isAuthenticated = true;
-                $rootScope.userNameLogin = result.username;
+                $rootScope.userNameLogin = result.user.email;
 
-                $cookieStore.put('userId', result.userId);
-                $cookieStore.put('username', result.username);
+                $cookieStore.put('userId', result.user.id);
+                $cookieStore.put('username', result.user.email);
                 $rootScope.isAuthenticated  = true;
                 $location.path("/");
             });
