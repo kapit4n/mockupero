@@ -11,9 +11,10 @@ angular.module('mockuperApp')
     .controller('UserCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'userService', 'breadcrumbService', 'headerService',
         function($rootScope, $scope, loginService, $window, $routeParams, userService, breadcrumbService, headerService) {
             loginService.reloadScope();
-            headerService.updateHeader('users');
+            headerService.updateHeader('user');
             $scope.user = null;
             $scope.editMode = true;
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('user', 'user');
 
             userService.userById.get({
                     userId: $routeParams.userId
