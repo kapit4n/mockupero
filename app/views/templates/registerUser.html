@@ -1,47 +1,50 @@
-  <fieldset>
+<fieldset>
     <div id="legend">
-      <legend class="">Register</legend>
+        <legend class="">Register</legend>
     </div>
-    <div class="control-group">
-      <!-- Username -->
-      <label class="control-label" for="username">Username</label>
-      <div class="controls">
-        <input type="text" id="username" name="username" ng-model="username" placeholder="User Name" class="input-xlarge">
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- E-mail -->
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="text" id="email" name="email"  ng-model="email" placeholder="example@gmail.com" class="input-xlarge">
-        <p class="help-block">Please provide your E-mail</p>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <!-- Password-->
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-        <input type="password" id="password" name="password"  ng-model="password" placeholder="" class="input-xlarge">
-        <p class="help-block">Password should be at least 4 characters</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Password -->
-      <label class="control-label" for="password_confirm">Password (Confirm)</label>
-      <div class="controls">
-        <input type="password" id="password_confirm" name="password_confirm"  ng-model="password_confirm" placeholder="" class="input-xlarge">
-        <p class="help-block">Please confirm password</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button class="btn btn-success" ng-click="registerUserSave()">Register</button>
-      </div>
-    </div>
-  </fieldset>
+    <form name="registerForm">
+        <div class="alert alert-danger" role="alert" ng-show="err">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span> {{err}}
+        </div>
+        <div class="control-group">
+            <!-- Username -->
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" name="username" ng-model="username" placeholder="User Name" class="input-xlarge" required>
+                <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <!-- E-mail -->
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+                <input type="text" id="email" name="email" ng-model="email" placeholder="example@gmail.com" class="input-xlarge" required>
+                <p class="help-block">Please provide your E-mail</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" name="password" ng-model="password" placeholder="" class="input-xlarge" required>
+                <p class="help-block">Password should be at least 4 characters</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <!-- Password -->
+            <label class="control-label" for="password_confirm">Password (Confirm)</label>
+            <div class="controls">
+                <input type="password" id="password_confirm" name="password_confirm" ng-model="password_confirm" placeholder="" class="input-xlarge" required>
+                <p class="help-block">Please confirm password</p>
+            </div>
+        </div>
+        <h1>{{registerForm.username.$valid}}</h1>
+        <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+                <button class="btn btn-success" ng-click="registerUserSave(registerForm)">Register</button>
+            </div>
+        </div>
+    </form>
+</fieldset>
