@@ -24,9 +24,11 @@ angular.module('mockuperApp')
                 console.log("LoginCtrl");
                 $rootScope.isAuthenticated = true;
                 $rootScope.userNameLogin = result.user.email;
+                $rootScope.email = result.user.email;
 
                 $cookieStore.put('userId', result.user.id);
                 $cookieStore.put('username', result.user.email);
+                $cookieStore.put('email', result.user.email);
                 $rootScope.isAuthenticated  = true;
                 $location.path("/");
             });
