@@ -1,7 +1,5 @@
 # Mockuper
-
-This project is where you can design your mockups to work in the UI of the project that you are working
-version 0.11.1.
+This project is a collaborative tool to design the user interfaz prototypes of the web system.
 
 ## Prerequisites
 * node 6

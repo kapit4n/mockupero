@@ -16,16 +16,20 @@ angular.module('mockuperApp')
             $scope.password = '';
             $scope.password_confirm = '';
             $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('user-list', 'user');
-            $scope.registerUserSave = function() {
-                userService.createUser.save({
-                    username: $scope.username,
-                    email: $scope.email,
-                    password: $scope.password,
-                    firstName: $scope.username,
-                    lastName: $scope.username
-                }, function(result) {
-                    $location.path('/userlist');
-                });
+            $scope.registerUserSave = function(registerForm) {
+                if (registerForm.$valid) {
+                    userService.createUser.save({
+                        username: $scope.username,
+                        email: $scope.email,
+                        password: $scope.password,
+                        firstName: $scope.username,
+                        lastName: $scope.username
+                    }, function(result) {
+                        $location.path('/userlist');
+                    }, function(err) {
+                        $scope.err = err;
+                    });
+                }
             };
         }
     ]);
