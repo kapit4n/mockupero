@@ -25,8 +25,6 @@ angular.module('mockuperApp')
                         firstName: $scope.username,
                         lastName: $scope.username
                     }, function(result) {
-                        console.log('result');
-                        console.log(result)
                         $location.path('/userlist');
                     }, function(err) {
                         $scope.err = err;
