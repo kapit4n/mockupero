@@ -21,7 +21,8 @@ angular.module('mockuperApp')
             $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-new', 'Home');
         } catch(e) {}
 
-        $scope.save = function() {
+        $scope.save = function(addObjectForm) {
+          if (addObjectForm.$valid){
             projectService.createProject.save({
                 name: $scope.objName,
                 description: $scope.description,
@@ -29,7 +30,10 @@ angular.module('mockuperApp')
                 userId: $cookieStore.get('userId')
             }, function(result) {
                 $window.location.href = '#/project/' + result.id;
+            }, function(err){
+                $scope.err = err;
             });
+          }
         };
 
         $scope.cancel = function() {

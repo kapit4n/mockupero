@@ -19,16 +19,20 @@ angular.module('mockuperApp')
         $scope.project = {};
         $scope.project.id = $routeParams.projectId;
 
-        $scope.save = function() {
+        $scope.save = function(addObjectForm) {
+          if (addObjectForm.$valid) {
             mockupService.createMockup.save({
-                name: $scope.objName,
-                description: $scope.description,
-                imgToShow: $scope.imgToShow,
-                project: $scope.project,
-                userId: $cookieStore.get('userId')
-            }, function(result) {
-                $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
+              name: $scope.objName,
+              description: $scope.description,
+              imgToShow: $scope.imgToShow,
+              project: $scope.project,
+              userId: $cookieStore.get('userId')
+            }, function (result) {
+              $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
+            }, function (err) {
+              $scope.err = err;
             });
+          }
         };
 
         projectService.projectById.get({projectId: $routeParams.projectId })
