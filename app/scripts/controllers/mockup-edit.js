@@ -25,12 +25,16 @@ angular.module('mockuperApp')
                 } catch(e) {}
             });
 
-        $scope.save = function() {
+        $scope.save = function(editMockupForm) {
+          if (editMockupForm.$valid) {
             mockupService.updateMockup.update({
-                id: $scope.editObject.id
-            }, $scope.editObject, function(result) {
-                $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+              id: $scope.editObject.id
+            }, $scope.editObject, function (result) {
+              $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+            }, function (err) {
+              $scope.err = err;
             });
+          }
         }
 
         $scope.cancel = function() {
