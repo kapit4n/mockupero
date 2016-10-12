@@ -1,8 +1,13 @@
 <div>
-    <form role="form">
+    <form role="form" name="editMockupForm">
+      <div class="alert alert-danger" role="alert" ng-show="err">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error: </span> {{err}}
+      </div>
         <div class="form-group">
             <label for="name">Mockup Name:</label>
-            <input type="text" ng-model="editObject.name" class="form-control" id="name">
+            <input type="text" ng-model="editObject.name" class="form-control" id="name" name="mockupName" required>
+            <p style="color:red" ng-show="editMockupForm.mockupName.$touched && editMockupForm.mockupName.$invalid" class="help-block"> Name cannot be empty </p>
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
@@ -14,7 +19,7 @@
         </div>
         <div>Updated At: {{editObject.createdAt}}</div>
         <div>Created: {{editObject.createdAt}}</div>
-        <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
+        <button type="submit" class="btn btn-success" ng-click="save(editMockupForm)">Save</button>
         <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
     </form>
 </div>
