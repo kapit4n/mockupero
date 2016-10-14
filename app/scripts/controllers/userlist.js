@@ -15,13 +15,28 @@ angular.module('mockuperApp')
             headerService.updateHeader('users');
             $scope.users = [];
             $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('user-list', 'user');
-            userService.user.get({})
-                .$promise.then(function(result) {
-                    $scope.users = result;
-                });
+
+            $scope.reloadUsers = function() {
+                userService.user.get({})
+                    .$promise.then(function(result) {
+                        $scope.users = result;
+                    });
+            }
 
             $scope.addUser = function() {
                 $location.path('/registerUser');
             }
+
+            $scope.deleteUser = function(userId) {
+                userService.deleteUser.delete({
+                    id: userId
+                }).$promise.then(function(result) {
+                    $scope.reloadUsers();
+                }, function(error) {
+                    $scope.err = error;
+                });
+            }
+
+            $scope.reloadUsers();
         }
     ]);

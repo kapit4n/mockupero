@@ -50,5 +50,10 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.deleteUser = $resource('http://localhost:1337/user/:id', {}, {
+            delete: {
+                method: 'DELETE'
+            }
+        });
         return fac;
     });
