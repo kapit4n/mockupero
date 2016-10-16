@@ -11,11 +11,11 @@
             </table>
         </div>
         <div class="col-lg-12">
-            <form class="form_chat">
+            <form class="form_chat" name="chatForm">
                 <div class="col-lg-9 col-md-9">
-                    <input type="text" ng-model="chatMessage" class="form-control" placeholder="TypeYourMessageHere">
+                    <input type="text" ng-model="chatMessage" class="form-control" placeholder="TypeYourMessageHere" name="chatMessage" required>
                 </div>
-                <button class="btn btn-default col-lg-3 col-md-3" ng-click="sendMsg()">Send</button>
+                <button class="btn btn-default col-lg-3 col-md-3" ng-click="sendMsg()" ng-disabled="chatForm.chatMessage.$invalid">Send</button>
             </form>
         </div>
     </div>
