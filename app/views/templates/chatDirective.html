@@ -1,25 +1,34 @@
-<div ng-show="isAuthenticated && chatCollapsed" style="position: absolute;  bottom: 15%; right: 10%; height: 100px; width: 250px;">
-    <div ng-click="changeChat()" style="background: darkcyan; position: relative;  top: 0%; right: 0%; height: 25px; width: 250px;">
-       -
+<div ng-show="isAuthenticated && chatCollapsed" style=" z-index: 100; position: absolute;  bottom: 125px; right: 0px; height: 200px; width: 300px;">
+    <div ng-click="changeChat()" style="background: darkcyan; position: relative;  top: 0%; right: 0%; height: 25px; width: 300px;">
+        -
     </div>
-    <div style="position: relative; left: 0px; height: 100px; width: 250px;" class="navbar navbar-inverse navbar-fixed-bottom" style="background: transparent;">
-        <div id="chatContainer" class="col-lg-12" style="padding-top:5px; padding-bottom:0; height: 150px; overflow: scroll; background-color:#fbf2ff;">
+    <div style="position: relative; left: 0px; height: 200px; width: 300px;" class="navbar navbar-inverse navbar-fixed-bottom" style="background: transparent;">
+        <div id="chatContainer" class="col-lg-12" style="padding-top:5px; padding-left:0; padding-right:0; padding-bottom:0; height: 250px; overflow: scroll; background-color:#fbf2ff;">
             <table class="table">
-                <tr class="chat_message" ng-repeat="chat in chatList">
-                    <td class="col-md-12 td_class"><strong> {{chat.user}}: </strong> {{chat.message}} </td>
+                <tr class="chat_message" ng-repeat="chat in chatList" style="font-size: 12px; padding-left:0; padding-right:0; padding-bottom:0; ">
+                    <td class="col-md-12 td_class" style="padding-left:0;">
+                        <div class="col-sm-2 col-lg-2" style="padding-left:0; padding-right:0; padding-bottom:0; ">
+                            <div class="thumbnail">
+                                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-md-9 col-lg-9" style="padding-left: 2px; padding-right:0; background-color: #e6e6ff; min-height: 45px;">
+                            {{chat.message}}
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
         <div class="col-lg-12">
             <form class="form_chat">
-                <div class="col-lg-9 col-md-9">
-                    <input type="text" ng-model="chatMessage" class="form-control" placeholder="TypeYourMessageHere">
-                </div>
-                <button class="btn btn-default col-lg-3 col-md-3" ng-click="sendMsg()">Send</button>
+                <input type="text" ng-model="chatMessage" style="width: 78%; display: inline-block;" class="form-control" placeholder="TypeYourMessageHere" ng-keydown="sendMsgByInput($event)">
+                <button type="button" style="width: 20%; display: inline-block;" class="btn btn-default btn-sm" ng-click="sendMsg()">
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                </button>
             </form>
         </div>
     </div>
 </div>
-<div ng-click="changeChat()" ng-show="isAuthenticated && !chatCollapsed" style="background: darkcyan; position: absolute;  bottom: 6%; right: 10%; height: 25px; width: 250px;">
-    <strong>chat</strong>
+<div ng-click="changeChat()" ng-show="isAuthenticated && !chatCollapsed" style="z-index: 100; background: darkcyan; position: absolute;  bottom: 0px; right: 0px; height: 25px; width: 300px;">
+    <strong>CHAT</strong>
 </div>
