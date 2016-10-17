@@ -10,6 +10,14 @@
                 <div>name: {{user.firstName}} {{user.lastName}}</div>
                 <div>User Name: {{user.username}}</div>
                 <div>Email: {{user.email}}</div>
+                <form action="http://localhost:1337/user/uploadAvatar" enctype="multipart/form-data" method="post">
+                    <br>
+                    <input type="file" name="avatar" accept="image/*">
+                    <br>
+                    <input type="hidden" name="userId" value="{{user.id}}">
+                    <br>
+                    <input type="submit" value="Upload">
+                </form>
             </div>
         </div>
     </div>
