@@ -40,13 +40,13 @@
                                         <ul class="nav pull-left">
                                             <li class="navbar-text pull-left">{{userNameLogin}}</li>
                                             <li class="dropdown pull-right">
-                                                <a href="#" data-toggle="dropdown" style="color:#777; margin-top: 5px;" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+                                                <a data-toggle="dropdown" style="color:#777; margin-top: 5px;" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a href="#/user/{{userId}}" title="Profile">Profile</a>
                                                     </li>
                                                     <li ng-show="isAuthenticated">
-                                                        <a>Logout<span ng-click="logoutUser()" class="glyphicon glyphicon-log-in"></span></a>
+                                                        <a>Logout <span ng-click="logoutUser()" class="glyphicon glyphicon-log-in"></span></a>
                                                     </li>
                                                 </ul>
                                             </li>
