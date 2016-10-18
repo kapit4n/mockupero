@@ -1,22 +1,23 @@
 <h3 class="col-sm-12"> user View </h3>
 <a class="col-sm-12" href="/#/userlist/">User List</a>
-<div class="col-sm-12" style="padding: 0;">
-    <div class="thumbnail" style="height: 199px;">
+<div class="col-sm-12">
+    <div class="thumbnail" style="height: 300px;">
         <div class="caption" class="col-sm-8">
-            <h4 class="col-sm-4">User Info</h4>
-            <div class="col-sm-6"><a href="#/user-edit/{{user.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
-            </div>
-            <div class="col-sm-12" style="color: darkgray;">
-                <div>name: {{user.firstName}} {{user.lastName}}</div>
+            <div class="col-sm-7" style="color: darkgray;">
+                <a href="#/user-edit/{{user.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+                <br />
+                <br />
+                <div>Name: {{user.firstName}} {{user.lastName}}</div>
                 <div>User Name: {{user.username}}</div>
                 <div>Email: {{user.email}}</div>
+            </div>
+            <div class="col-sm-5" style="color: darkgray;">
+                <img src="http://localhost:1337/images/avatar/{{user.id}}.jpg" width="130">
                 <form action="http://localhost:1337/user/uploadAvatar" enctype="multipart/form-data" method="post">
                     <br>
                     <input type="file" name="avatar" accept="image/*">
-                    <br>
-                    <input type="hidden" name="userId" value="{{user.id}}">
-                    <br>
                     <input type="submit" value="Upload">
+                    <input type="hidden" name="userId" value="{{user.id}}">
                 </form>
             </div>
         </div>
