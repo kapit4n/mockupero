@@ -184,7 +184,8 @@ angular.module('mockuperApp')
                     permission: $scope.permissionIdToadd
                 };
                 projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
-                    $scope.reloadUsers($scope.sharedProjectId);
+                    $scope.reload
+Users($scope.sharedProjectId);
                 });
             }
 
