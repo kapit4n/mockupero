@@ -26,15 +26,15 @@ angular.module('mockuperApp')
                 });
 
             $scope.saveProject = function(editProjectForm) {
-              if (editProjectForm.$valid){
-                projectService.updateProject.update({
-                    id: $scope.project.id
-                }, $scope.project, function(result) {
-                    $window.location.href = '#/project/' + $scope.project.id;
-                }, function(err) {
-                  $scope.err = err;
-                });
-              }
+                if (editProjectForm.$valid) {
+                    projectService.updateProject.update({
+                        id: $scope.project.id
+                    }, $scope.project, function(result) {
+                        $window.location.href = '#/project/' + $scope.project.id;
+                    }, function(err) {
+                        $scope.err = err;
+                    });
+                }
             }
 
             $scope.cancel = function() {

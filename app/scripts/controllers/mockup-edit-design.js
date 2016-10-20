@@ -12,8 +12,8 @@ angular.module('mockuperApp')
         '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
         'mockupSocketService', 'userService', 'permissionService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
-                 $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
-                 mockupSocketService, userService, permissionService) {
+            $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
+            mockupSocketService, userService, permissionService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -22,7 +22,7 @@ angular.module('mockuperApp')
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
-            
+
             $scope.changeChat = function() {
                 $scope.chatCollapsed = !$scope.chatCollapsed;
             };
@@ -33,7 +33,7 @@ angular.module('mockuperApp')
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
                         $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
-                        mockupService.createMockupItemUploadAvatar.save({img: dataURL, mockupId: $routeParams.mockupId}, function(result) {
+                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
                             //console.log(result);
                         });
                     }
@@ -49,7 +49,7 @@ angular.module('mockuperApp')
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
                         //$rootScope.$digest(); // review when we need to run this method
-                    } catch(e) {console.log(e);}
+                    } catch (e) { console.log(e); }
                 });
 
             $scope.moveToTop = function($event) {
@@ -135,11 +135,11 @@ angular.module('mockuperApp')
                 var idResult = 0;
                 if (idComp.indexOf('image') > -1) {
                     idResult = idComp.substring(5);
-                } else if  (idComp.indexOf('button') > -1)  {
+                } else if (idComp.indexOf('button') > -1) {
                     idResult = idComp.substring(6);
-                } else if  (idComp.indexOf('input') > -1)  {
+                } else if (idComp.indexOf('input') > -1) {
                     idResult = idComp.substring(5);
-                } else if  (idComp.indexOf('label') > -1)  {
+                } else if (idComp.indexOf('label') > -1) {
                     idResult = idComp.substring(5);
                 }
                 return idResult;
@@ -155,9 +155,9 @@ angular.module('mockuperApp')
                         item.id = idComp.substring(6);
                     } else if (idComp.indexOf('button') > -1) {
                         item.id = idComp.substring(7);
-                    } else  if (idComp.indexOf('input') > -1) {
+                    } else if (idComp.indexOf('input') > -1) {
                         item.id = idComp.substring(6);
-                    } else if (idComp.indexOf('label') > -1 ) {
+                    } else if (idComp.indexOf('label') > -1) {
                         item.id = idComp.substring(6);
                     }
                 } else {
@@ -171,17 +171,17 @@ angular.module('mockuperApp')
                     item.type = "image";
                     item.width = $(idComp)[0].width;
                     item.height = $(idComp)[0].height;
-                } else if (idComp.indexOf('button') > -1){
+                } else if (idComp.indexOf('button') > -1) {
                     item.type = "button";
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
                     item.text = $(idComp).text();
-                } else if (idComp.indexOf('input') > -1){
+                } else if (idComp.indexOf('input') > -1) {
                     item.type = "input";
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
                     item.text = $(idComp).val();
-                } else if (idComp.indexOf('label') > -1){
+                } else if (idComp.indexOf('label') > -1) {
                     item.type = "label";
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
@@ -370,13 +370,13 @@ angular.module('mockuperApp')
                 //console.log(propertiesDiv);
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent) +'</div>';
-                } else if(idComponent.indexOf('button') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.button(idComponent)+'</div>';
-                } else if(idComponent.indexOf('input') > -1)  {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent)+'</div>';
-                } else if(idComponent.indexOf('label') > -1)  {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent)+'</div>';
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent) + '</div>';
+                } else if (idComponent.indexOf('button') > -1) {
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.button(idComponent) + '</div>';
+                } else if (idComponent.indexOf('input') > -1) {
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent) + '</div>';
+                } else if (idComponent.indexOf('label') > -1) {
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent) + '</div>';
                 } else {
                     console.log("Here is another error " + idComponent);
                 }
@@ -404,8 +404,7 @@ angular.module('mockuperApp')
             $scope.deleteItem = function(idComponent) {
                 var component = angular.element(document.querySelector('#' + idComponent));
                 component.remove();
-                if (idComponent.indexOf('new-') > -1) {
-                } else {
+                if (idComponent.indexOf('new-') > -1) {} else {
                     var itemId = $scope.getItemId(idComponent);
                     mockupService.deleteMockupItem.deleteIt({
                         id: itemId
@@ -431,34 +430,39 @@ angular.module('mockuperApp')
                 //console.log("Looks like I need to put some delay to fix it");
                 mockupSocketService.subscribeToMockupEdit($scope);
             }, 500);
-            
+
             chatService.subscribe($scope);
+            $scope.sendMsgByInput = function(event) {
+                if (event.keyCode == 13) {
+                    chatService.sendMsg($scope);
+                }
+            }
+
             $scope.sendMsg = function() {
                 chatService.sendMsg($scope);
             }
 
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
-        io.socket.on('mockupversion', function(msg) {
-            //console.log(msg);
-            $scope.$apply(function() {
-                if (msg.data.mockupId == $routeParams.mockupId) {
-                    var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span></div>';
-                    var propertiesDiv = angular.element(document.querySelector('#alert_message'));
-                    propertiesDiv.html($compile(message)($scope));
-                    $scope.loadMockupItems();
-                    // send a little notification by here
-                    /*notificationService.sendMail.get({
-                        to: 'luis.arce22@gmail.com',
-                        subject: 'Subject send from mockup edit design',
-                        text: 'This is the text send from mockup edit design'
-                    })
-                    .$promise.then(function(result) {
-                        //console.log(result);
-                    });
-                    */
-                }
+            io.socket.on('mockupversion', function(msg) {
+                $scope.$apply(function() {
+                    if (msg.data.mockupId == $routeParams.mockupId) {
+                        var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span></div>';
+                        var propertiesDiv = angular.element(document.querySelector('#alert_message'));
+                        propertiesDiv.html($compile(message)($scope));
+                        $scope.loadMockupItems();
+                        // send a little notification by here
+                        /*notificationService.sendMail.get({
+                            to: 'luis.arce22@gmail.com',
+                            subject: 'Subject send from mockup edit design',
+                            text: 'This is the text send from mockup edit design'
+                        })
+                        .$promise.then(function(result) {
+                            //console.log(result);
+                        });
+                        */
+                    }
+                });
             });
-        });
 
         } // end of the controller function
     ]);

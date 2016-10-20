@@ -22,8 +22,6 @@ angular.module('mockuperApp')
             });
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
-                //console.log('Login log get');
-                //console.log(body);
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
@@ -32,8 +30,6 @@ angular.module('mockuperApp')
             });
 
             io.socket.on('loginlog', function onServerSentEvent(msg) {
-                //console.log('on login log');
-                //console.log(msg);
                 $scope.$apply(function() {
                     if (msg.verb == 'update') {
                         $scope.logingLog[msg.data.username] = msg.data;
@@ -133,31 +129,28 @@ angular.module('mockuperApp')
                             userProjectIds[i] = result[i].project;
                         }
                         projectService.projects.get({
-                            where: {
-                                or: [
-                                    {
+                                where: {
+                                    or: [{
                                         userId: $cookieStore.get('userId'),
-                                    },
-                                    {
+                                    }, {
                                         id: userProjectIds
+                                    }],
+                                    name: {
+                                        "like": "%" + $scope.searchName + "%"
                                     }
-                                ],
-                                name: {
-                                    "like": "%" + $scope.searchName + "%"
-                                }
-                            },
-                            limit: $scope.pageSize,
-                            skip: (($scope.currentPage - 1) * $scope.pageSize),
-                            sort: 'name ' + sortA
-                        })
-                        .$promise.then(function(result) {
-                            $scope.projects = result;
-                            $scope.makePagination();
-                        });
+                                },
+                                limit: $scope.pageSize,
+                                skip: (($scope.currentPage - 1) * $scope.pageSize),
+                                sort: 'name ' + sortA
+                            })
+                            .$promise.then(function(result) {
+                                $scope.projects = result;
+                                $scope.makePagination();
+                            });
 
                     });
 
-                    
+
                 });
             };
 
@@ -177,7 +170,6 @@ angular.module('mockuperApp')
                         project: $scope.sharedProjectId
                     }
                 }).$promise.then(function(result) {
-                    //console.log(result);
                     $scope.projectShareEntries = [];
                     result.forEach(function(projectShare) {
                         $scope.projectShareEntries.push(projectShare);
@@ -192,7 +184,8 @@ angular.module('mockuperApp')
                     permission: $scope.permissionIdToadd
                 };
                 projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
-                    $scope.reloadUsers($scope.sharedProjectId);
+                    $scope.reload
+Users($scope.sharedProjectId);
                 });
             }
 
@@ -212,18 +205,17 @@ angular.module('mockuperApp')
                 .success(function(success_data) {
                     $scope.chatList = success_data;
                     $timeout(function() {
-                    	// looks like we will not have chat here by now
+                        // looks like we will not have chat here by now
                         /*var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
                         $scope.chatMessage = "";
                         //console.log('Updated the scrollTop');
                         */
                     }, 200);
-                    
+
                 });
 
             io.socket.on('chat', function(obj) {
-                //console.log('created something');
                 if (obj.verb === 'created') {
                     $scope.chatList.push(obj.data);
                     $scope.$digest();
@@ -241,9 +233,9 @@ angular.module('mockuperApp')
                     message: $scope.chatMessage
                 });
                 $timeout(function() {
-                        var objDiv = document.getElementById("chatContainer");
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 200);
+                    var objDiv = document.getElementById("chatContainer");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                }, 200);
                 $scope.chatMessage = "";
             };
 

@@ -17,12 +17,10 @@ angular.module('mockuperApp')
             headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
             io.socket.get('/project', function serverResponded(body, JWR) {
-                console.log('project get');
+                console.log('Subscribed to socket');
             });
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
-                console.log('Login log get');
-                console.log(body);
                 $scope.$apply(function() {
                     for (var i = 0; i < body.length; i++) {
                         $scope.logingLog[body[i].username] = body[i];
@@ -31,8 +29,6 @@ angular.module('mockuperApp')
             });
 
             io.socket.on('loginlog', function onServerSentEvent(msg) {
-                console.log('on login log');
-                console.log(msg);
                 $scope.$apply(function() {
                     if (msg.verb == 'update') {
                         $scope.logingLog[msg.data.username] = msg.data;
@@ -61,7 +57,6 @@ angular.module('mockuperApp')
 
             userService.user.get().$promise.then(function(result) {
                 $scope.users = result;
-                console.log($scope.users);
             });
 
             userService.permission.get().$promise.then(function(result) {
@@ -128,8 +123,8 @@ angular.module('mockuperApp')
                     }).$promise.then(function(result) {
                         var userProjectIds = [];
                         for (var i = 0; i < result.length; i++) {
-                            userProjectIds[i] = result[i].project; // Fixed a showing bug
-                            console.log(userProjectIds[i]);
+                            //userProjectIds[i] = result[i].project; // Looks like it works in windows
+                            userProjectIds[i] = result[i].project.id; // Looks like it works on linux
                         }
                         projectService.projects.get({
                             where: {
@@ -176,7 +171,6 @@ angular.module('mockuperApp')
                         project: $scope.sharedProjectId
                     }
                 }).$promise.then(function(result) {
-                    console.log(result);
                     $scope.projectShareEntries = [];
                     result.forEach(function(projectShare) {
                         $scope.projectShareEntries.push(projectShare);
@@ -209,7 +203,6 @@ angular.module('mockuperApp')
             }
 
             $scope.changeChat = function() {
-                console.log('Updated chatCollapsed');
                 $scope.chatCollapsed = !$scope.chatCollapsed;
             };
 
