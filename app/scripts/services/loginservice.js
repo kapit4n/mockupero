@@ -63,6 +63,8 @@ angular.module('mockuperApp')
     if ($cookieStore.get('userId')) {
         $rootScope.isAuthenticated  = true;
         $rootScope.userNameLogin = $cookieStore.get('username');
+        $rootScope.userId = $cookieStore.get('userId');
+
     }
   };
 
