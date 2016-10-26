@@ -28,7 +28,7 @@
                         <center>
                             <div style="width: 20px; height: 20px; display: block;">
                                 <div class="thumbnail">
-                                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                    <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{userId}}.jpg">
                                 </div>
                             </div>
                             <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
@@ -40,7 +40,10 @@
                                         <ul class="nav pull-left">
                                             <li class="navbar-text pull-left">{{userNameLogin}}</li>
                                             <li class="dropdown pull-right">
-                                                <a data-toggle="dropdown" style="color:#777; margin-top: 5px;" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+                                                <a data-toggle="dropdown" style="color:#777; padding: 0;" class="dropdown-toggle">
+                                                    <div class="thumbnail" style="display: block; height: 30px;width: 40px;">
+                                                        <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{userId}}.jpg">
+                                                    </div>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a href="#/user/{{userId}}" title="Profile">Profile</a>
