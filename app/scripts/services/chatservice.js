@@ -13,7 +13,7 @@ angular.module('mockuperApp')
 
         var chatServiceLoad = function($scope) {
             if ($scope.chatRoom != '') {
-                $http.get('http://localhost:1337/chat?sort=createdAt%20DESC&limit=100&where={"room":%20"' + $scope.chatRoom + '"}')
+                $http.get('http://localhost:1337/chat?sort=createdAt%20ASC&limit=100&where={"room":%20"' + $scope.chatRoom + '"}')
                     .success(function(success_data) {
                         $scope.chatList = success_data;
                         $timeout(function() {
