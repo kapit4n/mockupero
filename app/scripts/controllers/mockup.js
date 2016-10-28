@@ -45,6 +45,7 @@ angular.module('mockuperApp')
                     $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
                     $scope.viewObject.parentName = result.project.name;
                     $scope.viewObject.parentUrl = '#/project/' + result.project.id;
+                    $scope.reloadComments();
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
