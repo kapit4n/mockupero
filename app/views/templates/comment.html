@@ -80,6 +80,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <strong>{{comment.userName}}</strong> <span class="text-muted"> Published At <time pubdate>{{comment.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
+                        <button ng-show="comment.userId==userId" type="button" class="btn btn-default" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <button ng-show="comment.userId==userId" type="button" class="btn btn-default" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
                     </div>
                     <div class="panel-body">
                         {{comment.comment}}
