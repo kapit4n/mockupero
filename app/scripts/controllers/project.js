@@ -78,35 +78,11 @@ angular.module('mockuperApp')
                     } catch (e) { console.log(e); }
                 });
             $scope.share = function() {
-                if ($scope.newComment) {
-                    commentService.createComment.save({
-                        comment: $scope.newComment,
-                        userId: $cookieStore.get('userId'),
-                        userName: $rootStore.userNameLogin,
-                        projectId: $scope.project.id,
-                        projectName: $scope.project.name
-                    }, function(result) {
-                        $scope.reloadComments();
-                        $scope.newComment = '';
-                    }, function(err) {
-                        $scope.err = err;
-                    });
-                }
+                commentService.share($scope, $cookieStore, $rootScope, $scope.project.id, $scope.project.name);
             }
 
-            $scope.reloadComments = function(projectId) {
-                commentService.getComments.get({
-                    where: {
-                        projectId: $scope.project.id
-                    },
-                    sort: 'createdAt DESC'
-                }).$promise.then(function(result) {
-                    $scope.comments = result;
-                }, function(err) {
-                    $scope.err = err;
-                });
+            $scope.reloadComments = function() {
+                commentService.reloadComments($scope, $scope.project.id);
             };
-
-            
         }
     ]);

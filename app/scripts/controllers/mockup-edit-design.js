@@ -446,9 +446,12 @@ angular.module('mockuperApp')
             io.socket.on('mockupversion', function(msg) {
                 $scope.$apply(function() {
                     if (msg.data.mockupId == $routeParams.mockupId) {
-                        var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span></div>';
-                        var propertiesDiv = angular.element(document.querySelector('#alert_message'));
-                        propertiesDiv.html($compile(message)($scope));
+                        var message = '<span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span>';
+
+                        $.notify(message, {
+                            newest_on_top: true
+                        });
+                        //propertiesDiv.html($compile(message)($scope));
                         $scope.loadMockupItems();
                         // send a little notification by here
                         /*notificationService.sendMail.get({

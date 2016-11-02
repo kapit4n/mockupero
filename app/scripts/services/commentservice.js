@@ -45,5 +45,35 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.share = function($scope, $cookieStore, $rootStore, relationId, relationName) {
+            if ($scope.newComment) {
+                fac.createComment.save({
+                    comment: $scope.newComment,
+                    userId: $cookieStore.get('userId'),
+                    userName: $rootStore.userNameLogin,
+                    relationId: relationId,
+                    relationName: relationName
+                }, function(result) {
+                    $scope.reloadComments();
+                    $scope.newComment = '';
+                }, function(err) {
+                    $scope.err = err;
+                });
+            }
+        };
+
+        fac.reloadComments = function($scope, relationId) {
+            fac.getComments.get({
+                where: {
+                    relationId: relationId
+                },
+                sort: 'createdAt DESC'
+            }).$promise.then(function(result) {
+                $scope.comments = result;
+            }, function(err) {
+                $scope.err = err;
+            });
+        };
+
         return fac;
     });
