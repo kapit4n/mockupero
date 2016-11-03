@@ -40,6 +40,8 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.mockup = result;
                     $scope.viewObject = result;
+                    $scope.relationId = $scope.mockup.id;
+                    $scope.relationName = $scope.mockup.name;
                     $scope.viewObject.title = 'Mockup View';
                     $scope.viewObject.editUrl = 'project/' + result.project.id + '/mockup/edit/' + result.id;
                     $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
@@ -51,13 +53,8 @@ angular.module('mockuperApp')
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
                         //$rootScope.$digest();
                     } catch (e) { console.error(e); }
+                }, function(error) {
+                    console.error(error);
                 });
-            $scope.share = function() {
-                commentService.share($scope, $cookieStore, $rootScope, $scope.mockup.id, $scope.mockup.name);
-            }
-
-            $scope.reloadComments = function() {
-                commentService.reloadComments($scope, $scope.mockup.id);
-            };
         }
     ]);

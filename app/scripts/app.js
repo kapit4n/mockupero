@@ -19,7 +19,6 @@ angular
     'ngSanitize',
     'ngTouch',
     'ng-context-menu'
-
   ])
   .config(function ($routeProvider) {
     $routeProvider
