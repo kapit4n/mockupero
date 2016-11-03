@@ -5,7 +5,7 @@ This project is a collaborative tool to design the user interfaz prototypes of t
 * node 6
 * npm 3.10.6
 * grunt-cli v1.2.0
-* run (https://github.com/larce1212/mockupero-api)
+* run (https://github.com/kapit4n/mockupero-api)
 
 ## Install
 * npm install
