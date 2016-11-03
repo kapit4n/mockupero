@@ -59,7 +59,7 @@
                             <br />
                             <div class="control-group">
                                 <div class="controls">
-                                    <button class="btn btn-success" ng-click="share()">Share
+                                    <button class="btn btn-success" ng-click="shareComment()">Share
                                     </button>
                                 </div>
                             </div>
@@ -80,6 +80,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <strong>{{comment.userName}}</strong> <span class="text-muted"> Published At <time pubdate>{{comment.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
+                        <button ng-show="comment.userId==userId" type="button" class="btn btn-default" aria-label="Left Align" ng-click="deleteComment(comment.id)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <button ng-show="comment.userId==userId" type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#commentEdit" ng-click="loadEdit(comment.id)">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
                     </div>
                     <div class="panel-body">
                         {{comment.comment}}
@@ -87,5 +93,29 @@
                 </div>
             </div>
         </dir>
+    </div>
+</div>
+<div id="commentEdit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Comment</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" rows="4" ng-model="commentToEdit.comment"></textarea>
+                        <br />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-success" ng-click="updateComment()" data-dismiss="modal">Share
+                </button>
+            </div>
+        </div>
     </div>
 </div>

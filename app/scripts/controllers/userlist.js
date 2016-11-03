@@ -20,6 +20,8 @@ angular.module('mockuperApp')
                 userService.user.get({})
                     .$promise.then(function(result) {
                         $scope.users = result;
+                    }, function(error) {
+                        $scope.err = error;
                     });
             }
 

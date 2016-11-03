@@ -16,6 +16,8 @@ angular.module('mockuperApp')
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
             $scope.logingLog = {};
+            $scope.relationId = 0;
+            $scope.relationName = "Project";
 
             $scope.addMockup = function() {
                 $location.path('/project/' + $scope.projectId + '/mockup-new');
@@ -68,6 +70,8 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.viewObject = result;
                     $scope.project = result;
+                    $scope.relationId = $scope.project.id;
+                    $scope.relationName = $scope.project.name;
                     $scope.viewObject.title = 'Project View';
                     $scope.viewObject.editUrl = 'project/edit/' + result.id;
                     $scope.reloadComments();
@@ -77,12 +81,5 @@ angular.module('mockuperApp')
                         //$rootScope.$digest();
                     } catch (e) { console.log(e); }
                 });
-            $scope.share = function() {
-                commentService.share($scope, $cookieStore, $rootScope, $scope.project.id, $scope.project.name);
-            }
-
-            $scope.reloadComments = function() {
-                commentService.reloadComments($scope, $scope.project.id);
-            };
         }
     ]);

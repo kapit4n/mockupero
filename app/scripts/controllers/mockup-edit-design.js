@@ -94,6 +94,10 @@ angular.module('mockuperApp')
                 $("#btnSave").prop('disabled', true);
                 var myEl = angular.element(document.querySelector('#design-div'));
                 var position = 0;
+                if (myEl[0].children.length == 0) {
+                    $("#spinner").hide();
+                    $("#btnSave").prop('disabled', false);
+                }
                 angular.forEach(myEl[0].children, function(child) {
                     $timeout(function() {
                         position++;
@@ -113,7 +117,7 @@ angular.module('mockuperApp')
                         }
                         $("#spinner").hide();
                         $("#btnSave").prop('disabled', false);
-                    }, 50);
+                    }, 30);
                 });
                 $scope.createImage();
                 $timeout(function() {
@@ -127,7 +131,7 @@ angular.module('mockuperApp')
                     }, function serverResponded(body, JWR) {
                         //console.log('Creating our first mockup version');
                     });
-                }, 2000);
+                }, myEl[0].children.length * 20);
             };
 
             // This id has # included in the string

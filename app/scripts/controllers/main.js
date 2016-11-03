@@ -148,10 +148,7 @@ angular.module('mockuperApp')
                             $scope.projects = result;
                             $scope.makePagination();
                         });
-
                     });
-
-                    
                 });
             };
 
@@ -159,7 +156,6 @@ angular.module('mockuperApp')
                 projectService.deleteProject.get({
                     id: projectId
                 }).$promise.then(function(result) {
-
                     $scope.reloadProject($scope.currentPage);
                 });
             };
