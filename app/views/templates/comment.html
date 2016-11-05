@@ -37,25 +37,25 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h3>Comments</h3>
+            <h3>Comments <button ng-hide="newCommentFlag" type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addComment()" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button> </h3>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="newCommentFlag">
         <div class="col-sm-2">
             <div class="thumbnail">
                 <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{userId}}.jpg">
             </div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10" style="padding-bottom: 0;">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>{{userNameLogin}}</strong> <span class="text-muted">Share a comment</span>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="padding-bottom: 0;">
                     <form>
-                        <div class="form-group">
+                        <div class="form-group" style="padding-bottom: 0;">
                             <label for="comment">Comment:</label>
-                            <textarea class="form-control" rows="4" id="comment" ng-model="newComment"></textarea>
+                            <textarea class="form-control" rows="3" id="comment" ng-model="newComment"></textarea>
                             <br />
                             <div class="control-group">
                                 <div class="controls">
