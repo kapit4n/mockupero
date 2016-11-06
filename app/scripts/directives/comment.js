@@ -13,7 +13,12 @@ angular.module('mockuperApp')
                 templateUrl: 'views/templates/comment.html',
                 restrict: 'E',
                 link: function postLink(scope, element, attrs) {
+                    scope.newCommentFlag = false;
+                    scope.addComment = function() {
+                        scope.newCommentFlag = true;
+                    }
                     scope.reloadComments = function() {
+                        scope.newCommentFlag = false;
                         commentService.reloadComments(scope, scope.relationId);
                     };
                     scope.shareComment = function() {

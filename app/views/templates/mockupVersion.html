@@ -1,0 +1,43 @@
+<div id="mockupVersionModal" class="modal fade" role="dialog">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Versions</h3>
+            </div>
+        </div>
+        <div class="row">
+            <dir ng-repeat="versionMockup in versionMockups">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>{{userName}}</strong> <span class="text-muted"> Created At <time pubdate>{{versionMockup.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
+                            <button ng-show="versionMockup.userId==userId" type="button" class="btn btn-default" aria-label="Left Align" ng-click="deleteVersionMockup(versionMockup.id)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                            <button ng-show="versionMockup.userId==userId" type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#versionMockupEdit" ng-click="loadEdit(versionMockup.id)">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="panel-body">
+                            <div class="container">
+                                <div class="col-md-7">
+                                    <div>
+                                        <strong>Mockup: </strong>{{versionMockup.mockup.name}}
+                                    </div>
+                                    <div>
+                                        <strong>User: </strong>{{versionMockup.user.firstName}}
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-xs">Restore</button>
+                                    <button type="button" class="btn btn-primary btn-xs">Suggest</button>
+                                </div>
+                                <div class="col-md-5">
+                                    <img style="padding:0; width: 150px;" src="http://localhost:1337/images/{{versionMockup.mockup.id}}.png" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </dir>
+        </div>
+    </div>
+</div>

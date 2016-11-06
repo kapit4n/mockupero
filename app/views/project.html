@@ -3,21 +3,25 @@
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
     </div>
 </div>
-<view-object> </view-object>
-<div style="padding-top: 10px;" class="container">
-    <button type="button" class="btn {{wf.className}}" ng-repeat="wf in workflows" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-        {{wf.name}}
-    </button>
-</div>
-</button> Members </h3>
-<div class="row">
-    <div class="col-sm-1 col-md-1" style="padding: 5px;" ng-repeat="member in project.members">
-        <div class="thumbnail" style="height: 60px;">
-            <img src="/static/users/avatar.jpg" style="height: 20px; " alt="...">
-            <div class="caption">
-                <p>
-                    {{member.user.substring(0,1)}} {{member.user.substring(member.user.length - 1,member.user.length)}}
-                </p>
+<view-object></view-object>
+<div class="container">
+    <div class="col-sm-6 col-md-6">
+        <button type="button" class="btn {{wf.className}}" ng-repeat="wf in workflows" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+            {{wf.name}}
+        </button>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <h3>Members </h3>
+        <div class="row">
+            <div class="col-sm-2 col-md-2" style="padding: 5px;" ng-repeat="member in project.members">
+                <div class="thumbnail" style="height: 60px;">
+                    <img src="http://localhost:1337/images/avatar/{{member.user}}.jpg" style="width: 30px; " alt="...">
+                    <div class="caption">
+                        <p style="font-size: 10px;">
+                            {{member.user.substring(0,1)}}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -40,5 +44,4 @@
         </div>
     </div>
 </div>
-
 <comment></comment>
