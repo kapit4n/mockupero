@@ -46,10 +46,10 @@ angular.module('mockuperApp')
                 }
             });
 
-            fac.reloadMockupVersions = function($scope, mockupIdX) {
+            fac.reloadMockupVersions = function($scope, mockupId) {
                 fac.getMockupVersions.get({
                     where: {
-                        mockupId: mockupIdX
+                        mockup: mockupId
                     },
                     sort: 'createdAt DESC'
                 }).$promise.then(function(result) {
