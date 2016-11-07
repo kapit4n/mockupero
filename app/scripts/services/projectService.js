@@ -8,11 +8,11 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('projectService', function($resource) {
+    .service('projectService', function($resource, GlobalService) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var fac = {};
 
-        fac.projects = $resource('http://localhost:1337/project', {
+        fac.projects = $resource(GlobalService.BASE_PATH + '/project', {
             where: '@where',
             limit: '@limit'
         }, {
@@ -22,7 +22,7 @@ angular.module('mockuperApp')
             }
         });
 
-        fac.projectById = $resource('http://localhost:1337/project/:projectId', {
+        fac.projectById = $resource(GlobalService.BASE_PATH + '/project/:projectId', {
             projectId: '@id'
         }, {
             get: {
@@ -30,44 +30,44 @@ angular.module('mockuperApp')
             }
         });
 
-        fac.deleteProject = $resource('http://localhost:1337/project/:id', {}, {
+        fac.deleteProject = $resource(GlobalService.BASE_PATH + '/project/:id', {}, {
             get: {
                 method: 'DELETE'
             }
         });
 
-        fac.createProject = $resource('http://localhost:1337/project/', {}, {
+        fac.createProject = $resource(GlobalService.BASE_PATH + '/project/', {}, {
             save: {
                 method: 'POST'
             }
         });
 
-        fac.updateProject = $resource('http://localhost:1337/project/:id', {}, {
+        fac.updateProject = $resource(GlobalService.BASE_PATH + '/project/:id', {}, {
             update: {
                 method: 'PUT'
             }
         });
 
-        fac.countProject = $resource('http://localhost:1337/project/count', {}, {
+        fac.countProject = $resource(GlobalService.BASE_PATH + '/project/count', {}, {
             get: {
                 method: 'GET'
             }
         });
 
-        fac.shareProject = $resource('http://localhost:1337/projectShare', {}, {
+        fac.shareProject = $resource(GlobalService.BASE_PATH + '/projectShare', {}, {
             get: {
                 method: 'POST'
             }
         });
 
-        fac.getProjectUsers = $resource('http://localhost:1337/projectShare', {}, {
+        fac.getProjectUsers = $resource(GlobalService.BASE_PATH + '/projectShare', {}, {
             get: {
                 method: 'GET',
                 isArray: true
             }
         });
 
-        fac.deleteProjectShare = $resource('http://localhost:1337/projectShare/:id', {}, {
+        fac.deleteProjectShare = $resource(GlobalService.BASE_PATH + '/projectShare/:id', {}, {
             delete: {
                 method: 'DELETE'
             }

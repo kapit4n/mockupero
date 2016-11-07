@@ -8,41 +8,41 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('userService', function($resource) {
+    .service('userService', function($resource, GlobalService) {
         var fac = {};
-        fac.user = $resource('http://localhost:1337/user', {}, {
+        fac.user = $resource(GlobalService.BASE_PATH + '/user', {}, {
             get: {
                 method: 'GET',
                 isArray: true
             }
         });
 
-        fac.projectPermission = $resource('http://localhost:1337/project/projectPermission', {}, {
+        fac.projectPermission = $resource(GlobalService.BASE_PATH + '/project/projectPermission', {}, {
             get: {
                 method: 'GET'
             }
         });
 
-        fac.permission = $resource('http://localhost:1337/permission', {}, {
+        fac.permission = $resource(GlobalService.BASE_PATH + '/permission', {}, {
             get: {
                 method: 'GET',
                 isArray: true
             }
         });
 
-        fac.createUser = $resource('http://localhost:1337/user/', {}, {
+        fac.createUser = $resource(GlobalService.BASE_PATH + '/user/', {}, {
             save: {
                 method: 'POST'
             }
         });
 
-        fac.updateUser = $resource('http://localhost:1337/user/:id', {}, {
+        fac.updateUser = $resource(GlobalService.BASE_PATH + '/user/:id', {}, {
             save: {
                 method: 'PUT'
             }
         });
 
-        fac.userById = $resource('http://localhost:1337/user/:userId', {
+        fac.userById = $resource(GlobalService.BASE_PATH + '/user/:userId', {
             userId: '@id'
         }, {
             get: {
@@ -50,7 +50,7 @@ angular.module('mockuperApp')
             }
         });
 
-        fac.deleteUser = $resource('http://localhost:1337/user/:id', {}, {
+        fac.deleteUser = $resource(GlobalService.BASE_PATH + '/user/:id', {}, {
             delete: {
                 method: 'DELETE'
             }
