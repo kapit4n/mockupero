@@ -422,7 +422,7 @@ angular.module('mockuperApp')
                     // this will be called on the save methods to create the version
                     io.socket.post('/mockupVersion/saveIt', {
                         number: 'version 1',
-                        mockupId: $routeParams.mockupId,
+                        mockup: $routeParams.mockupId,
                         username: $cookieStore.get('username'),
                         action: 'delete_item',
                         message: 'Update the Mockup'
