@@ -132,8 +132,14 @@ angular.module('mockuperApp')
                         message: 'Update the Mockup'
                     }, function serverResponded(body, JWR) {
                         //console.log('Creating our first mockup version');
+                        mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
                     });
                 }, myEl[0].children.length * 20);
+            };
+
+
+            $scope.reloadMockupVersion = function() {
+                mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
             };
 
             // This id has # included in the string

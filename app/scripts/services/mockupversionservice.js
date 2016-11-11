@@ -52,6 +52,12 @@ angular.module('mockuperApp')
                 }
             });
 
+            fac.deleteMockupVersion = $resource('http://localhost:1337/deleteMockupVersion/', {}, {
+                save: {
+                    method: 'POST'
+                }
+            });
+
             fac.reloadMockupVersions = function($scope, mockupId) {
                 fac.getMockupVersions.get({
                     where: {

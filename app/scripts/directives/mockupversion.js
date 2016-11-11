@@ -7,8 +7,8 @@
  * # mockupVersion
  */
 angular.module('mockuperApp')
-    .directive('mockupVersion', ['$cookieStore', 'mockupVersionService',
-        function($cookieStore, mockupVersionService) {
+    .directive('mockupVersion', ['$cookieStore', '$timeout', 'mockupVersionService',
+        function($cookieStore, $timeout, mockupVersionService) {
             return {
                 templateUrl: 'views/templates/mockupVersion.html',
                 restrict: 'E',
@@ -24,12 +24,27 @@ angular.module('mockuperApp')
 
                     };
 
+                    scope.deleteVersion = function(versionId) {
+                        mockupVersionService.deleteMockupVersion.save({
+                            mockupVersionId: versionId
+                        }).$promise.then(function(result) {
+                            $timeout(function() {
+                                scope.reloadMockupVersion();
+                            }, 2000);
+                        }, function(reason) {
+                            console.log(reason); // Error!
+                        });
+                    };
+
                     scope.restore = function(versionId) {
                         mockupVersionService.mockupVersionRestore.save({
                             mockupVersionId: versionId,
                             action: 'Restoring'
                         }).$promise.then(function(result) {
-                            console.log(result);
+                            $timeout(function() {
+                                scope.loadMockupItems();
+                                scope.reloadMockupVersion();
+                            }, 1000);
                         }, function(reason) {
                             console.log(reason); // Error!
                         });
