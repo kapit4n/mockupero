@@ -42,6 +42,9 @@ angular.module('mockuperApp')
                             console.error(err);
                         });
                     };
+
+                    
+
                     scope.updateComment = function() {
                         commentService.updateComment.update({
                             id: scope.commentToEdit.id

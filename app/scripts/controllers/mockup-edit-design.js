@@ -66,6 +66,10 @@ angular.module('mockuperApp')
 
             $scope.result = [];
 
+            $scope.reloadMockupVersion = function() {
+                console.log("This is the 3");
+                mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
+            };
 
             $scope.loadMockupItems = function() {
                 mockupService.getMockupItems.get({
@@ -122,6 +126,7 @@ angular.module('mockuperApp')
                     }, 30);
                 });
                 $scope.createImage();
+
                 $timeout(function() {
                     // this will be called on the save methods to create the version
                     io.socket.post('/mockupVersion/saveIt', {
@@ -133,14 +138,21 @@ angular.module('mockuperApp')
                     }, function serverResponded(body, JWR) {
                         //console.log('Creating our first mockup version');
                         mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
+                        $scope.loadMockupItems();
+                        //try {
+                        //    $scope.$digest();
+                        //} catch (ex) { console.log(ex); }
                     });
-                }, myEl[0].children.length * 20);
+                    try {
+                        //$scope.loadMockupItems();
+                        //mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
+                        $scope.$digest();
+                    } catch (ex) { console.log(ex); }
+
+                }, myEl[0].children.length * 30);
             };
 
 
-            $scope.reloadMockupVersion = function() {
-                mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
-            };
 
             // This id has # included in the string
             $scope.getItemId = function(idComp) {
@@ -155,7 +167,7 @@ angular.module('mockuperApp')
                     idResult = idComp.substring(5);
                 }
                 return idResult;
-            }
+            };
 
             /**
                 This id has # included in the string
