@@ -7,15 +7,12 @@
  * # mockupVersion
  */
 angular.module('mockuperApp')
-    .directive('mockupVersion', ['$cookieStore', 'mockupVersionService',
-        function($cookieStore, mockupVersionService) {
+    .directive('mockupVersion', ['$cookieStore', '$timeout', 'mockupVersionService', '$routeParams',
+        function($cookieStore, $timeout, mockupVersionService, $routeParams) {
             return {
                 templateUrl: 'views/templates/mockupVersion.html',
                 restrict: 'E',
                 link: function postLink(scope, element, attrs) {
-                    scope.reloadMockupVersion = function() {
-
-                    };
                     scope.newMockupVersion = function() {
 
                     };
@@ -24,12 +21,44 @@ angular.module('mockuperApp')
 
                     };
 
+                    scope.reloadMockupVersions = function() {
+                        mockupVersionService.getMockupVersions.get({
+                            where: {
+                                mockup: $routeParams.mockupId
+                            },
+                            sort: 'createdAt DESC'
+                        }).$promise.then(function(result) {
+                            scope.versionMockups = result;
+                            try {
+                                scope.$digest();
+                            } catch (ex) {}
+                        }, function(err) {
+                            scope.err = err;
+                        });
+                    };
+
+                    scope.deleteVersion = function(versionId) {
+
+                        mockupVersionService.deleteMockupVersion.save({
+                            mockupVersionId: versionId
+                        }).$promise.then(function(result) {
+                            $timeout(function() {
+                                scope.reloadMockupVersions();
+                            }, 2000);
+                        }, function(reason) {
+                            console.log(reason); // Error!
+                        });
+                    };
+
                     scope.restore = function(versionId) {
                         mockupVersionService.mockupVersionRestore.save({
                             mockupVersionId: versionId,
                             action: 'Restoring'
                         }).$promise.then(function(result) {
-                            console.log(result);
+                            $timeout(function() {
+                                scope.loadMockupItems();
+                                scope.reloadMockupVersions();
+                            }, 1000);
                         }, function(reason) {
                             console.log(reason); // Error!
                         });

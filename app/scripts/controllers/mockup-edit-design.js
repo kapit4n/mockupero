@@ -45,7 +45,7 @@ angular.module('mockuperApp')
                     mockupId: $routeParams.mockupId
                 })
                 .$promise.then(function(result) {
-                    mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
+                    $scope.reloadMockupVersions();
                     $scope.editObject = result;
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
@@ -66,7 +66,6 @@ angular.module('mockuperApp')
 
             $scope.result = [];
 
-
             $scope.loadMockupItems = function() {
                 mockupService.getMockupItems.get({
                     sort: 'position ',
@@ -82,6 +81,9 @@ angular.module('mockuperApp')
                             $scope.lastId = value.position;
                         }
                     }, []);
+                    try {
+                        //$scope.$digest();
+                    } catch (ex) { console.log(ex); }
                 });
             }; // end of the load mockup items
 
@@ -122,6 +124,7 @@ angular.module('mockuperApp')
                     }, 30);
                 });
                 $scope.createImage();
+
                 $timeout(function() {
                     // this will be called on the save methods to create the version
                     io.socket.post('/mockupVersion/saveIt', {
@@ -131,10 +134,17 @@ angular.module('mockuperApp')
                         action: 'update',
                         message: 'Update the Mockup'
                     }, function serverResponded(body, JWR) {
-                        //console.log('Creating our first mockup version');
+                        $scope.loadMockupItems();
+                        $scope.reloadMockupVersions();
                     });
-                }, myEl[0].children.length * 20);
+                    try {
+                        $scope.$digest();
+                    } catch (ex) { console.log(ex); }
+
+                }, myEl[0].children.length * 30);
             };
+
+
 
             // This id has # included in the string
             $scope.getItemId = function(idComp) {
@@ -149,7 +159,7 @@ angular.module('mockuperApp')
                     idResult = idComp.substring(5);
                 }
                 return idResult;
-            }
+            };
 
             /**
                 This id has # included in the string

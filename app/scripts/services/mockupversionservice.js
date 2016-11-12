@@ -8,8 +8,8 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('mockupVersionService', ['$resource', '$cookieStore', '$rootScope',
-        function($resource, $cookieStore, $rootScope) {
+    .service('mockupVersionService', ['$resource', '$cookieStore', '$routeParams',
+        function($resource, $cookieStore, $routeParams) {
             // AngularJS will instantiate a singleton by calling "new" on this function
             var fac = {};
 
@@ -52,18 +52,11 @@ angular.module('mockuperApp')
                 }
             });
 
-            fac.reloadMockupVersions = function($scope, mockupId) {
-                fac.getMockupVersions.get({
-                    where: {
-                        mockup: mockupId
-                    },
-                    sort: 'createdAt DESC'
-                }).$promise.then(function(result) {
-                    $scope.versionMockups = result;
-                }, function(err) {
-                    $scope.err = err;
-                });
-            };
+            fac.deleteMockupVersion = $resource('http://localhost:1337/deleteMockupVersion/', {}, {
+                save: {
+                    method: 'POST'
+                }
+            });
 
             return fac;
         }
