@@ -13,10 +13,6 @@ angular.module('mockuperApp')
                 templateUrl: 'views/templates/mockupVersion.html',
                 restrict: 'E',
                 link: function postLink(scope, element, attrs) {
-                    scope.reloadMockupVersion = function() {
-
-                    };
-
                     scope.newMockupVersion = function() {
 
                     };
@@ -25,8 +21,7 @@ angular.module('mockuperApp')
 
                     };
 
-                    scope.reloadMockupVersions = function(mockupId) {
-                        console.log("This is the first example");
+                    scope.reloadMockupVersions = function() {
                         mockupVersionService.getMockupVersions.get({
                             where: {
                                 mockup: $routeParams.mockupId
@@ -35,7 +30,6 @@ angular.module('mockuperApp')
                         }).$promise.then(function(result) {
                             scope.versionMockups = result;
                             try {
-                                console.log("This is the commit that I need to run after reload");
                                 scope.$digest();
                             } catch (ex) {}
                         }, function(err) {
@@ -49,15 +43,8 @@ angular.module('mockuperApp')
                             mockupVersionId: versionId
                         }).$promise.then(function(result) {
                             $timeout(function() {
-                                console.log("This is the delete timeout");
-                                console.log();
-                                scope.reloadMockupVersion();
-                                console.log("this is 2");
+                                scope.reloadMockupVersions();
                             }, 2000);
-                            try {
-                                console.log("This is the deletVersion");
-                                scope.$digest();
-                            } catch (ex) { console.log(ex); }
                         }, function(reason) {
                             console.log(reason); // Error!
                         });
@@ -69,12 +56,8 @@ angular.module('mockuperApp')
                             action: 'Restoring'
                         }).$promise.then(function(result) {
                             $timeout(function() {
-                                console.log("This is the restore timeout");
                                 scope.loadMockupItems();
-                                scope.reloadMockupVersion();
-                                try {
-                                    scope.$digest();
-                                } catch (ex) { console.log(ex); }
+                                scope.reloadMockupVersions();
                             }, 1000);
                         }, function(reason) {
                             console.log(reason); // Error!

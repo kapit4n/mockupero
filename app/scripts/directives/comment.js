@@ -16,14 +16,17 @@ angular.module('mockuperApp')
                     scope.newCommentFlag = false;
                     scope.addComment = function() {
                         scope.newCommentFlag = true;
-                    }
+                    };
+
                     scope.reloadComments = function() {
                         scope.newCommentFlag = false;
                         commentService.reloadComments(scope, scope.relationId);
                     };
+
                     scope.shareComment = function() {
                         commentService.share(scope);
                     };
+
                     scope.deleteComment = function(commentId) {
                         commentService.deleteComment.delete({
                             id: commentId
@@ -33,6 +36,7 @@ angular.module('mockuperApp')
                             console.error(err)
                         });
                     };
+
                     scope.loadEdit = function(commentId) {
                         commentService.commentById.get({
                             id: commentId
@@ -42,8 +46,6 @@ angular.module('mockuperApp')
                             console.error(err);
                         });
                     };
-
-                    
 
                     scope.updateComment = function() {
                         commentService.updateComment.update({

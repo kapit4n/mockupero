@@ -8,8 +8,8 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('mockupVersionService', ['$resource', '$cookieStore', '$rootScope', '$routeParams',
-        function($resource, $cookieStore, $rootScope, $routeParams) {
+    .service('mockupVersionService', ['$resource', '$cookieStore', '$routeParams',
+        function($resource, $cookieStore, $routeParams) {
             // AngularJS will instantiate a singleton by calling "new" on this function
             var fac = {};
 
@@ -57,24 +57,6 @@ angular.module('mockuperApp')
                     method: 'POST'
                 }
             });
-
-            fac.reloadMockupVersions = function($scope, mockupId) {
-                console.log("This is the first example");
-                fac.getMockupVersions.get({
-                    where: {
-                        mockup: $routeParams.mockupId
-                    },
-                    sort: 'createdAt DESC'
-                }).$promise.then(function(result) {
-                    $scope.versionMockups = result;
-                    try {
-                        console.log("This is the commit that I need to run after reload");
-                        $scope.$digest();
-                    } catch(ex) {}
-                }, function(err) {
-                    $scope.err = err;
-                });
-            };
 
             return fac;
         }

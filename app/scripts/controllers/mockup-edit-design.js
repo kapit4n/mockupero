@@ -45,7 +45,7 @@ angular.module('mockuperApp')
                     mockupId: $routeParams.mockupId
                 })
                 .$promise.then(function(result) {
-                    mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
+                    $scope.reloadMockupVersions();
                     $scope.editObject = result;
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
@@ -66,11 +66,6 @@ angular.module('mockuperApp')
 
             $scope.result = [];
 
-            $scope.reloadMockupVersion = function() {
-                console.log("This is the 3");
-                mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
-            };
-
             $scope.loadMockupItems = function() {
                 mockupService.getMockupItems.get({
                     sort: 'position ',
@@ -86,6 +81,9 @@ angular.module('mockuperApp')
                             $scope.lastId = value.position;
                         }
                     }, []);
+                    try {
+                        //$scope.$digest();
+                    } catch (ex) { console.log(ex); }
                 });
             }; // end of the load mockup items
 
@@ -136,16 +134,10 @@ angular.module('mockuperApp')
                         action: 'update',
                         message: 'Update the Mockup'
                     }, function serverResponded(body, JWR) {
-                        //console.log('Creating our first mockup version');
-                        mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
                         $scope.loadMockupItems();
-                        //try {
-                        //    $scope.$digest();
-                        //} catch (ex) { console.log(ex); }
+                        $scope.reloadMockupVersions();
                     });
                     try {
-                        //$scope.loadMockupItems();
-                        //mockupVersionService.reloadMockupVersions($scope, $routeParams.mockupId);
                         $scope.$digest();
                     } catch (ex) { console.log(ex); }
 
