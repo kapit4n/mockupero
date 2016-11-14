@@ -91,6 +91,26 @@ angular
         controller: 'UserEditCtrl',
         controllerAs: 'userEdit'
       })
+      .when('/workflow', {
+        templateUrl: 'views/workflow.html',
+        controller: 'WorkflowCtrl',
+        controllerAs: 'workflow'
+      })
+      .when('/workflowList', {
+        templateUrl: 'views/workflowlist.html',
+        controller: 'WorkflowlistCtrl',
+        controllerAs: 'workflowList'
+      })
+      .when('/workflow-new', {
+        templateUrl: 'views/workflow-new.html',
+        controller: 'WorkflowNewCtrl',
+        controllerAs: 'workflowNew'
+      })
+      .when('/workflow-edit', {
+        templateUrl: 'views/workflow-edit.html',
+        controller: 'WorkflowEditCtrl',
+        controllerAs: 'workflowEdit'
+      })
       .otherwise({
         redirectTo: '/'
       });
