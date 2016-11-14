@@ -115,5 +115,11 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.saveAllMockupItems = $resource('http://localhost:1337/mockupItem/saveAll', {}, {
+            save: {
+                method: 'POST'
+            }
+        });
+
         return fac;
     });
