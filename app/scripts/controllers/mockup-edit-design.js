@@ -35,7 +35,7 @@ angular.module('mockuperApp')
                         var dataURL = canvas.toDataURL();
                         $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
                         mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
-                            //console.log(result);
+
                         });
                     }
                 });
@@ -96,55 +96,57 @@ angular.module('mockuperApp')
             $scope.save = function() {
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
+
                 var myEl = angular.element(document.querySelector('#design-div'));
                 var position = 0;
                 if (myEl[0].children.length == 0) {
                     $("#spinner").hide();
                     $("#btnSave").prop('disabled', false);
                 }
-                angular.forEach(myEl[0].children, function(child) {
-                    $timeout(function() {
-                        position++;
-                        $scope.item = $scope.getItem('#' + child.id);
-                        //$scope.item.position = position;
-                        if ($scope.item.id === undefined) {
-                            mockupService.createMockupItem.save($scope.item, function(result) {
-                                //console.log('Created an item');
-                            });
-                            $(child).remove();
-                        } else {
-                            mockupService.updateMockupItem.save({
-                                id: $scope.item.id
-                            }, $scope.item, function(result) {
-                                //console.log(result);
-                            });
-                        }
-                        $("#spinner").hide();
-                        $("#btnSave").prop('disabled', false);
-                    }, 30);
-                });
+
                 $scope.createImage();
 
+                var items = [];
+                var toDelete = [];
                 $timeout(function() {
-                    // this will be called on the save methods to create the version
-                    io.socket.post('/mockupVersion/saveIt', {
-                        number: 'version 1',
-                        mockup: $routeParams.mockupId,
-                        user: $cookieStore.get('userId'),
-                        action: 'update',
-                        message: 'Update the Mockup'
-                    }, function serverResponded(body, JWR) {
-                        $scope.loadMockupItems();
-                        $scope.reloadMockupVersions();
+                    angular.forEach(myEl[0].children, function(child) {
+                        position++;
+                        var item = $scope.getItem('#' + child.id);
+                        items.push(item);
+                        if (item.id == undefined) {
+                            toDelete.push(child);
+                        }
                     });
-                    try {
-                        $scope.$digest();
-                    } catch (ex) { console.log(ex); }
 
-                }, myEl[0].children.length * 30);
+                    mockupService.saveAllMockupItems.save({ items: items }, function(result) {
+                        console.log(result);
+                        $timeout(function() {
+                            // this will be called on the save methods to create the version
+                            io.socket.post('/mockupVersion/saveIt', {
+                                number: 'version 1',
+                                mockup: $routeParams.mockupId,
+                                user: $cookieStore.get('userId'),
+                                action: 'update',
+                                message: 'Update the Mockup'
+                            }, function serverResponded(body, JWR) {
+                                toDelete.forEach(function(child) {
+                                    $(child).remove();
+                                });
+                                $scope.loadMockupItems();
+                                $scope.reloadMockupVersions();
+                                $("#spinner").hide();
+                                $("#btnSave").prop('disabled', false);
+                            });
+                            try {
+                                $scope.$digest();
+                            } catch (ex) { console.log(ex); }
+
+                        }, myEl[0].children.length * 30);
+                        $scope.loadMockupItems();
+                    });
+                }, myEl[0].children.length * 50);
+
             };
-
-
 
             // This id has # included in the string
             $scope.getItemId = function(idComp) {
@@ -380,8 +382,6 @@ angular.module('mockuperApp')
 
             // Method to load the properties for the existend mockup items
             $scope.loadProperties = function(idComponent) {
-                console.log(idComponent);
-                console.log("Here is some error");
                 var propertiesDiv = angular.element(document.querySelector('#wrapper-container'));
                 //console.log(propertiesDiv);
                 var myComponent = '';
