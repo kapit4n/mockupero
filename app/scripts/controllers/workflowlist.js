@@ -12,10 +12,10 @@ angular.module('mockuperApp')
         'breadcrumbService', '$location', '$rootScope',
         function($scope, workflowService, loginService, headerService, breadcrumbService, $location, $rootScope) {
             loginService.reloadScope();
-            headerService.updateHeader('user');
+            headerService.updateHeader('Workflows');
             $scope.workflows = [];
             $scope.editMode = true;
-            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('user', 'user');
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('workflow-list', 'workflow-list');
             $scope.err = "";
 
             $scope.reloadWorkflows = function() {

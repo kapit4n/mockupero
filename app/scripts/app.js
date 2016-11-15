@@ -92,7 +92,7 @@ angular
                 controller: 'UserEditCtrl',
                 controllerAs: 'userEdit'
             })
-            .when('/workflow', {
+            .when('/workflow/:workflowId', {
                 templateUrl: 'views/workflow.html',
                 controller: 'WorkflowCtrl',
                 controllerAs: 'workflow'
@@ -107,7 +107,7 @@ angular
                 controller: 'WorkflowNewCtrl',
                 controllerAs: 'workflowNew'
             })
-            .when('/workflow-edit', {
+            .when('/workflow-edit/:workflowId', {
                 templateUrl: 'views/workflow-edit.html',
                 controller: 'WorkflowEditCtrl',
                 controllerAs: 'workflowEdit'
