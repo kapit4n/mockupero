@@ -8,7 +8,7 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('WorkflowNewCtrl', ['$scope', '$window', '$cookieStore', 
+    .controller('WorkflowNewCtrl', ['$scope', '$window', '$cookieStore',
         'workflowService', 'breadcrumbService', 'headerService',
         function($scope, $window, $cookieStore, workflowService,
             breadcrumbService, headerService) {
@@ -16,6 +16,7 @@ angular.module('mockuperApp')
             headerService.updateHeader('workflow');
             $scope.wName = "";
             $scope.wAction = "";
+            $scope.wClassName = "btn-default";
 
             try {
                 $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-new', 'Home');
@@ -24,7 +25,8 @@ angular.module('mockuperApp')
                 if (workflowForm.$valid) {
                     workflowService.createWorkflow.save({
                         name: $scope.wName,
-                        action: $scope.wAction
+                        action: $scope.wAction,
+                        wClassName: $scope.wClassName,
                     }, function(result) {
                         $window.location.href = '#/workflow/' + result.id;
                     }, function(err) {

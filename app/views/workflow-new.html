@@ -15,6 +15,18 @@
             <input type="text" ng-model="wAction" class="form-control" name="wAction" id="name" placeholder="Workflow Action" required>
             <p style="color:red" ng-show="workflowForm.wAction.$touched && workflowForm.wAction.$invalid" class="help-block"> Action cannot be empty </p>
         </div>
+        <div class="form-group">
+            <label for="sel1">Select list (select one):</label>
+            <select class="form-control" ng-model="wClassName">
+                <option>btn-default</option>
+                <option>btn-primary</option>
+                <option>btn-success</option>
+                <option>btn-info</option>
+                <option>btn-warning</option>
+                <option>btn-danger</option>
+                <option>btn-link</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-success" ng-click="save(workflowForm)">Save</button>
         <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
     </form>
