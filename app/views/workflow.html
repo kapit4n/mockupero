@@ -1,12 +1,136 @@
 <h3 class="col-sm-12">Workflow </h3>
 <a class="col-sm-12" href="{{workflow.parentUrl}}">{{workflow.name}}</a>
 <div class="col-sm-12" style="padding: 0;">
-    <div class="thumbnail" style="height: 199px;">
-        <div class="caption" class="col-sm-8">
+    <div class="alert alert-danger" role="alert" ng-show="err">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error: </span> {{err}}
+    </div>
+    <div class="thumbnail" style="height: 100px;">
+        <div class="caption">
             <h4 class="col-sm-4">{{workflow.name}} </h4>
-            <div class="col-sm-6"><a href="#/workflow-edit/{{workflow.id}}" class="btn btn-default" role="button"  ng-if="editMode">Edit Info</a>
+            <div class="col-sm-6"><a href="#/workflow-edit/{{workflow.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
             </div>
-            <div class="col-sm-12">{{workflow.action}} </div> 
+            <div class="col-sm-12">{{workflow.action}} </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h3>
+    	<button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#previousWorkflow" >
+    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    	</button>
+    </h3> Previous Workflows
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="workflow in workflow.previous">
+                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td>{{workflow.name}}</td>
+                <td>{{workflow.action}}</td>
+                <td>
+                    <button ng-click="removePreviousWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <h3>
+    	<button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#nextWorkflow" >
+    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    	</button>
+    </h3> Next Workflows
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="workflow in workflow.next">
+                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td>{{workflow.name}}</td>
+                <td>{{workflow.action}}</td>
+                <td>
+                    <button ng-click="removeNextWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="previousWorkflow" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add workflow</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="workflow in workflows">
+                                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                                <td>{{workflow.name}}</td>
+                                <td>{{workflow.action}}</td>
+                                <td>
+                                    <a ng-click="addPreviousWorkflow(workflow)" class="btn btn-default btn-sm" role="button">Add</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="nextWorkflow" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add workflow</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="workflow in workflows">
+                                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                                <td>{{workflow.name}}</td>
+                                <td>{{workflow.action}}</td>
+                                <td>
+                                    <a ng-click="addNextWorkflow(workflow)" class="btn btn-default btn-sm" role="button">Add</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
