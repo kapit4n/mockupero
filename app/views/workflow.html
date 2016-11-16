@@ -23,14 +23,13 @@
     <table class="table table-condensed">
         <thead>
             <tr>
-                <th>name</th>
+                <th>Status</th>
                 <th>action</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflow.previous">
                 <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
-                <td>{{workflow.name}}</td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <button ng-click="removePreviousWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
@@ -48,14 +47,13 @@
     <table class="table table-condensed">
         <thead>
             <tr>
-                <th>name</th>
-                <th>action</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflow.next">
                 <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
-                <td>{{workflow.name}}</td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <button ng-click="removeNextWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
@@ -76,8 +74,8 @@
                     <table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th>name</th>
-                                <th>action</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,8 +109,8 @@
                     <table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th>name</th>
-                                <th>action</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
