@@ -83,5 +83,8 @@ angular.module('mockuperApp')
                     $scope.err = err;
                 });
             }
+            $scope.gotoDiagram = function() {
+                $location.path('/project/' + $scope.projectId + '/navigationDiagram');
+            }
         }
     ]);

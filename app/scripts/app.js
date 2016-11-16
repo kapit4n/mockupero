@@ -112,6 +112,11 @@ angular
                 controller: 'WorkflowEditCtrl',
                 controllerAs: 'workflowEdit'
             })
+            .when('/project/:projectId/navigationDiagram', {
+              templateUrl: 'views/navigationdiagram.html',
+              controller: 'NavigationdiagramCtrl',
+              controllerAs: 'navigationDiagram'
+            })
             .otherwise({
                 redirectTo: '/'
             });

@@ -40,10 +40,10 @@
         <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
 </div>
-    <div class="alert alert-danger" role="alert" ng-show="err">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span> {{err}}
-    </div>
+<div class="alert alert-danger" role="alert" ng-show="err">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span> {{err}}
+</div>
 <div>
     <div style="float: right; width: 800px;">
         <div ng-repeat="mockupEditor in mockupEditors track by $index" style="display:inline-block;">
