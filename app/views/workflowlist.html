@@ -8,13 +8,6 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
     </div>
-    <div class="col-md-9">
-        <input type="text" placeholder="Search by Workflow Name" ng-model="searchName" ng-keyup="reloadProject(1)">
-        <button type="button" class="btn btn-default" ng-click="sortByName()">
-            <span class="glyphicon {{ sortAsc?'glyphicon glyphicon-sort-by-alphabet-alt':'glyphicon-sort-by-alphabet'}}"></span> Sort By Name
-        </button>
-    </div>
-    <br/>
     <br/>
     <br/>
     <table class="table table-condensed">
@@ -27,7 +20,6 @@
         <tbody>
             <tr ng-repeat="workflow in workflows">
                 <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
-                <td>{{workflow.name}}</td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <a href="#/workflow-edit/{{workflow.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
