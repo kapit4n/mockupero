@@ -185,7 +185,7 @@ angular.module('mockuperApp')
                 };
                 projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
                     $scope.reload
-Users($scope.sharedProjectId);
+                    Users($scope.sharedProjectId);
                 });
             }
 

@@ -3,11 +3,15 @@
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
     </div>
 </div>
+<div class="alert alert-danger" role="alert" ng-show="err">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error: </span> {{err}}
+</div>
 <view-object></view-object>
 <div class="container">
     <div class="col-sm-6 col-md-6">
-        <button type="button" class="btn {{wf.className}}" ng-repeat="wf in workflows" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-            {{wf.name}}
+        <button type="button" class="btn {{wf.className}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
+            {{wf.action}}
         </button>
     </div>
     <div class="col-sm-6 col-md-6">

@@ -9,9 +9,9 @@
  */
 angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', '$rootScope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
-        'headerService', 'permissionService', 'commentService',
+        'headerService', 'permissionService', 'commentService', 'workflowService',
         function($scope, $rootStore, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
-            headerService, permissionService, commentService) {
+            headerService, permissionService, commentService, workflowService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
@@ -38,30 +38,6 @@ angular.module('mockuperApp')
                 });
             });
 
-            $scope.workflows = [{
-                name: 'start',
-                functionName: '',
-                className: 'btn-primary'
-            }, {
-                name: 'close',
-                functionName: '',
-                className: 'btn-success'
-            }, {
-                name: 'abandon',
-                functionName: '',
-                className: 'btn-danger'
-            }];
-            $scope.mockups = [{
-                id: 0,
-                name: 'Mockup 1',
-                img: 'http://community.protoshare.com/wp-content/uploads/2010/12/example4-anim.gif',
-                description: 'abandon'
-            }, {
-                id: 1,
-                name: 'Mockup 2',
-                img: 'http://cameronbarrett.com/images/lg_ia1.gif',
-                description: 'abandon'
-            }];
             $scope.project = null;
             $scope.viewObject = null;
             projectService.projectById.get({
@@ -75,11 +51,37 @@ angular.module('mockuperApp')
                     $scope.viewObject.title = 'Project View';
                     $scope.viewObject.editUrl = 'project/edit/' + result.id;
                     $scope.reloadComments();
+                    $scope.loadWorkflow();
                     try {
                         permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project', $scope.project);
                         //$rootScope.$digest();
                     } catch (e) { console.log(e); }
                 });
+
+            $scope.loadWorkflow = function() {
+                workflowService.workflow.get({
+                    where: {
+                        name: $scope.project.state
+                    }
+                }).$promise.then(function(result) {
+                    $scope.workflows = result[0].next;
+                });
+            }
+            $scope.workflowAction = function(workflow) {
+                $scope.project.state = workflow.name;
+                $scope.save();
+                $scope.loadWorkflow();
+            }
+
+            $scope.save = function() {
+                projectService.updateProject.update({
+                    id: $scope.project.id
+                }, $scope.project, function(result) {
+
+                }, function(err) {
+                    $scope.err = err;
+                });
+            }
         }
     ]);
