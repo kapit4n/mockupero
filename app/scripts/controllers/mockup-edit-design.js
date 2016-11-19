@@ -104,47 +104,57 @@ angular.module('mockuperApp')
                     $("#btnSave").prop('disabled', false);
                 }
 
-                $scope.createImage();
+                //$scope.createImage();
 
-                var items = [];
-                var toDelete = [];
-                $timeout(function() {
-                    angular.forEach(myEl[0].children, function(child) {
-                        position++;
-                        var item = $scope.getItem('#' + child.id);
-                        items.push(item);
-                        if (item.id == undefined) {
-                            toDelete.push(child);
-                        }
-                    });
-
-                    mockupService.saveAllMockupItems.save({ items: items }, function(result) {
-                        console.log(result);
-                        $timeout(function() {
-                            // this will be called on the save methods to create the version
-                            io.socket.post('/mockupVersion/saveIt', {
-                                number: 'version 1',
-                                mockup: $routeParams.mockupId,
-                                user: $cookieStore.get('userId'),
-                                action: 'update',
-                                message: 'Update the Mockup'
-                            }, function serverResponded(body, JWR) {
-                                toDelete.forEach(function(child) {
-                                    $(child).remove();
+                html2canvas($("#design-div"), {
+                    onrendered: function(canvas) {
+                        var ctx = canvas.getContext('2d');
+                        var dataURL = canvas.toDataURL();
+                        $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
+                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
+                            var items = [];
+                            var toDelete = [];
+                            $timeout(function() {
+                                angular.forEach(myEl[0].children, function(child) {
+                                    position++;
+                                    var item = $scope.getItem('#' + child.id);
+                                    items.push(item);
+                                    if (item.id == undefined) {
+                                        toDelete.push(child);
+                                    }
                                 });
-                                $scope.loadMockupItems();
-                                $scope.reloadMockupVersions();
-                                $("#spinner").hide();
-                                $("#btnSave").prop('disabled', false);
-                            });
-                            try {
-                                $scope.$digest();
-                            } catch (ex) { console.log(ex); }
 
-                        }, myEl[0].children.length * 30);
-                        $scope.loadMockupItems();
-                    });
-                }, myEl[0].children.length * 50);
+                                mockupService.saveAllMockupItems.save({ items: items }, function(result) {
+                                    $timeout(function() {
+                                        // this will be called on the save methods to create the version
+                                        io.socket.post('/mockupVersion/saveIt', {
+                                            number: 'version 1',
+                                            mockup: $routeParams.mockupId,
+                                            user: $cookieStore.get('userId'),
+                                            action: 'update',
+                                            message: 'Update the Mockup'
+                                        }, function serverResponded(body, JWR) {
+                                            toDelete.forEach(function(child) {
+                                                $(child).remove();
+                                            });
+                                            $scope.loadMockupItems();
+                                            $scope.reloadMockupVersions();
+                                            $("#spinner").hide();
+                                            $("#btnSave").prop('disabled', false);
+                                        });
+                                        try {
+                                            $scope.$digest();
+                                        } catch (ex) { console.error(ex); }
+
+                                    }, myEl[0].children.length * 30);
+                                    $scope.loadMockupItems();
+                                });
+                            }, myEl[0].children.length * 50);
+                        });
+                    }
+                });
+
+
 
             };
 
