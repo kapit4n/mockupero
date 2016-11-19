@@ -124,7 +124,7 @@ angular.module('mockuperApp')
                         var userProjectIds = [];
                         for (var i = 0; i < result.length; i++) {
                             if (result[i].project) {
-                                userProjectIds[i] = result[i].project;
+                                userProjectIds[i] = result[i].project.id;
                             }
                         }
                         projectService.projects.get({
