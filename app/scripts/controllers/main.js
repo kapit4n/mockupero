@@ -16,6 +16,7 @@ angular.module('mockuperApp')
             $scope.chatCollapsed = false;
             headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
+            $scope.chatRoom = 'General';
             io.socket.get('/project', function serverResponded(body, JWR) {
                 console.log('Subscribed to socket');
             });
@@ -199,6 +200,12 @@ angular.module('mockuperApp')
             $scope.changeChat = function() {
                 $scope.chatCollapsed = !$scope.chatCollapsed;
             };
+
+            $scope.sendMsgByInput = function(event) {
+                if (event.keyCode == 13) {
+                    chatService.sendMsg($scope);
+                }
+            }
 
             $scope.reloadProject(1);
         }
