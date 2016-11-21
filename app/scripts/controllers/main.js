@@ -8,8 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService', 'GlobalService',
+
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService, GlobalService) {
 
             $scope.logingLog = {};
             loginService.reloadScope();
@@ -151,6 +152,8 @@ angular.module('mockuperApp')
             }
 
             $scope.changeChat = function() {
+                GlobalService.settingsValue.chatCollapsed = $scope.chatCollapsed;
+                GlobalService.saveSettings();
                 $scope.chatCollapsed = !$scope.chatCollapsed;
             };
 
