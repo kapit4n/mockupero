@@ -9,11 +9,12 @@
  */
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
-        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
-        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService',
+        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService',
+        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService','GlobalService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
-            $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
-            mockupSocketService, userService, permissionService, mockupVersionService) {
+            $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService,
+            mockupSocketService, userService, permissionService, mockupVersionService, GlobalService) {
+            //$scope.globalService = GlobalService;
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -24,9 +25,6 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.error = '';
 
-            $scope.changeChat = function() {
-                $scope.chatCollapsed = !$scope.chatCollapsed;
-            };
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
             $scope.createImage = function() {
                 html2canvas($("#design-div"), {
@@ -81,9 +79,6 @@ angular.module('mockuperApp')
                             $scope.lastId = value.position;
                         }
                     }, []);
-                    try {
-                        //$scope.$digest();
-                    } catch (ex) { console.log(ex); }
                 });
             }; // end of the load mockup items
 
@@ -456,17 +451,6 @@ angular.module('mockuperApp')
                 //console.log("Looks like I need to put some delay to fix it");
                 mockupSocketService.subscribeToMockupEdit($scope);
             }, 500);
-
-            chatService.subscribe($scope);
-            $scope.sendMsgByInput = function(event) {
-                if (event.keyCode == 13) {
-                    chatService.sendMsg($scope);
-                }
-            }
-
-            $scope.sendMsg = function() {
-                chatService.sendMsg($scope);
-            }
 
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
             io.socket.on('mockupversion', function(msg) {

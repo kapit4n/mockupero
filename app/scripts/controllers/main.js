@@ -9,15 +9,13 @@
  */
 angular.module('mockuperApp')
     .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService', 'GlobalService',
-
         function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService, GlobalService) {
-
+            $scope.globalService = GlobalService;
             $scope.logingLog = {};
             loginService.reloadScope();
             $scope.chatCollapsed = false;
             headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
-            $scope.chatRoom = 'General';
             io.socket.get('/project', function serverResponded(body, JWR) {
                 console.log('Subscribed to socket');
             });
@@ -145,23 +143,6 @@ angular.module('mockuperApp')
                     $scope.reloadUsers(projectId);
                 });
             };
-
-            chatService.subscribe($scope);
-            $scope.sendMsg = function() {
-                chatService.sendMsg($scope);
-            }
-
-            $scope.changeChat = function() {
-                GlobalService.settingsValue.chatCollapsed = $scope.chatCollapsed;
-                GlobalService.saveSettings();
-                $scope.chatCollapsed = !$scope.chatCollapsed;
-            };
-
-            $scope.sendMsgByInput = function(event) {
-                if (event.keyCode == 13) {
-                    chatService.sendMsg($scope);
-                }
-            }
 
             $scope.reloadProject(1);
         }

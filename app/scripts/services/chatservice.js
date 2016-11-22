@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('chatService', function($http, $rootScope, $timeout) {
+    .service('chatService', function($http, $rootScope, $timeout, $routeParams) {
         var fac = {};
 
         var chatServiceLoad = function($scope) {
@@ -20,6 +20,7 @@ angular.module('mockuperApp')
                             var objDiv = document.getElementById("chatContainer");
                             objDiv.scrollTop = objDiv.scrollHeight;
                             $scope.chatMessage = "";
+
                         }, 200);
                     });
             } else {
@@ -42,7 +43,6 @@ angular.module('mockuperApp')
             io.socket.on('chat', function(obj) {
                 if (obj.verb === 'created') {
                     $scope.chatList.push(obj.data);
-                    $scope.$digest();
                     $timeout(function() {
                         var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
