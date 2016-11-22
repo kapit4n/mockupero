@@ -255,6 +255,33 @@ angular.module('mockuperApp')
             designContentMenu.append($compile(contentMenuHtml)($scope));
         };
 
+        fac.addContainer = function($scope, $compile) {
+            var designDiv = angular.element(document.querySelector('#design-div'));
+            var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
+            $scope.lastId++;
+            var imgHtml = '<div id="new-container-' + $scope.lastId + 'x" context-menu data-target="menu-container-' + $scope.lastId + '" class="resize-drag" ' +
+                'style="width: 100px; height: 100px; padding:0; position: absolute; background: red;  z-index:' + $scope.lastId + '" alt="..."></div>';
+            designDiv.append($compile(imgHtml)($scope));
+
+            var contentMenuHtml = '<div class="dropdown position-fixed" id="menu-container-' + $scope.lastId + '">' +
+                '    <ul class="dropdown-menu" role="menu">' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(\'new-container-' + $scope.lastId + 'x\');">Bring to Front</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="2" ng-click="sendToBackward(\'new-container-' + $scope.lastId + 'x\');">Send Backward</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="loadProperties(\'new-container-' + $scope.lastId + 'x\');">Properties</a>' +
+                '        </li>' +
+                '        <li>' +
+                '            <a class="pointer" role="menuitem" tabindex="3" ng-click="deleteItem(\'new-container-' + $scope.lastId + 'x\');">Delete</a>' +
+                '        </li>' +
+                '    </ul>' +
+                '</div>';
+            designContentMenu.append($compile(contentMenuHtml)($scope));
+        };
+
 
         fac.addInput = function($scope, $compile) {
             var designDiv = angular.element(document.querySelector('#design-div'));
