@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('chatService', function($http, $rootScope, $timeout) {
+    .service('chatService', function($http, $rootScope, $timeout, $routeParams) {
         var fac = {};
 
         var chatServiceLoad = function($scope) {
@@ -20,6 +20,7 @@ angular.module('mockuperApp')
                             var objDiv = document.getElementById("chatContainer");
                             objDiv.scrollTop = objDiv.scrollHeight;
                             $scope.chatMessage = "";
+
                         }, 200);
                     });
             } else {
@@ -36,13 +37,12 @@ angular.module('mockuperApp')
         }
 
         fac.subscribe = function($scope) {
-            io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
+            io.socket.get('http://localhost:1337/chat/addconv?roomName="General"');
             // get all existing date
             chatServiceLoad($scope);
             io.socket.on('chat', function(obj) {
                 if (obj.verb === 'created') {
                     $scope.chatList.push(obj.data);
-                    $scope.$digest();
                     $timeout(function() {
                         var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
@@ -53,10 +53,14 @@ angular.module('mockuperApp')
         };
 
         fac.sendMsg = function($scope) {
+            var chatRoom = 'General';
+            if ($scope.chatRoom) {
+                chatRoom = $scope.chatRoom;
+            }
             io.socket.post('http://localhost:1337/chat/addconv/', {
                 user: $rootScope.userNameLogin,
                 message: $scope.chatMessage,
-                room: $scope.chatRoom,
+                room: chatRoom,
                 userId: $rootScope.userId
             });
             $timeout(function() {

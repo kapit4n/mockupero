@@ -9,11 +9,12 @@
  */
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
-        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
-        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService',
+        '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService',
+        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService', 'GlobalService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
-            $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
-            mockupSocketService, userService, permissionService, mockupVersionService) {
+            $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService,
+            mockupSocketService, userService, permissionService, mockupVersionService, GlobalService) {
+            //$scope.globalService = GlobalService;
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -24,9 +25,6 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.error = '';
 
-            $scope.changeChat = function() {
-                $scope.chatCollapsed = !$scope.chatCollapsed;
-            };
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
             $scope.createImage = function() {
                 html2canvas($("#design-div"), {
@@ -81,9 +79,6 @@ angular.module('mockuperApp')
                             $scope.lastId = value.position;
                         }
                     }, []);
-                    try {
-                        //$scope.$digest();
-                    } catch (ex) { console.log(ex); }
                 });
             }; // end of the load mockup items
 
@@ -118,6 +113,9 @@ angular.module('mockuperApp')
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;
                                     var item = $scope.getItem('#' + child.id);
+                                    if (item.id && item.id.length < 10) {
+                                        item.id = undefined;
+                                    }
                                     items.push(item);
                                     if (item.id == undefined) {
                                         toDelete.push(child);
@@ -169,6 +167,8 @@ angular.module('mockuperApp')
                     idResult = idComp.substring(5);
                 } else if (idComp.indexOf('label') > -1) {
                     idResult = idComp.substring(5);
+                } else if (idComp.indexOf('container') > -1) {
+                    idResult = idComp.substring(9);
                 }
                 return idResult;
             };
@@ -187,6 +187,8 @@ angular.module('mockuperApp')
                         item.id = idComp.substring(6);
                     } else if (idComp.indexOf('label') > -1) {
                         item.id = idComp.substring(6);
+                    } else if (idComp.indexOf('container') > -1) {
+                        item.id = idComp.substring(9);
                     }
                 } else {
                     ////console.log(idComp);
@@ -214,6 +216,10 @@ angular.module('mockuperApp')
                     item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
                     item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
                     item.text = $(idComp).text();
+                } else if (idComp.indexOf('container') > -1) {
+                    item.type = "container";
+                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
+                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
                 }
                 //var zIndex = $( '#' + idComp ).css( "z-index" );
                 var zIndex = $(idComp).css("z-index");
@@ -338,6 +344,10 @@ angular.module('mockuperApp')
                 propertyService.addLabel($scope, $compile);
             };
 
+            $scope.addContainer = function() {
+                propertyService.addContainer($scope, $compile);
+            };
+
             // Throws the mockup item to the front of the designer, use the z-index to fix this
             $scope.bringToFront = function(idComponent) {
                 var zIndex = $scope.getZ_Index(idComponent);
@@ -456,17 +466,6 @@ angular.module('mockuperApp')
                 //console.log("Looks like I need to put some delay to fix it");
                 mockupSocketService.subscribeToMockupEdit($scope);
             }, 500);
-
-            chatService.subscribe($scope);
-            $scope.sendMsgByInput = function(event) {
-                if (event.keyCode == 13) {
-                    chatService.sendMsg($scope);
-                }
-            }
-
-            $scope.sendMsg = function() {
-                chatService.sendMsg($scope);
-            }
 
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
             io.socket.on('mockupversion', function(msg) {

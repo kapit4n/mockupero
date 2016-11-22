@@ -8,9 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService) {
-
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService', 'GlobalService',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService, GlobalService) {
+            $scope.globalService = GlobalService;
             $scope.logingLog = {};
             loginService.reloadScope();
             $scope.chatCollapsed = false;
@@ -100,54 +100,7 @@ angular.module('mockuperApp')
 
             $scope.reloadProject = function(currentPage) {
                 $scope.currentPage = currentPage;
-                projectService.countProject.get({
-                    name: $scope.searchName
-                }).$promise.then(function(countResult) {
-                    $scope.totalSize = countResult.count;
-
-                    $scope.totalPages = parseInt($scope.totalSize / $scope.pageSize);
-                    if (($scope.totalPages * $scope.pageSize) < $scope.totalSize) {
-                        $scope.totalPages += 1;
-                    }
-
-                    if ($scope.totalPages < $scope.currentPage) {
-                        $scope.currentPage -= 1;
-                    }
-                    var sortA = $scope.sortAsc ? 'ASC' : 'DESC';
-
-                    projectService.getProjectUsers.get({
-                        where: {
-                            user: $cookieStore.get('userId'),
-
-                        }
-                    }).$promise.then(function(result) {
-                        var userProjectIds = [];
-                        for (var i = 0; i < result.length; i++) {
-                            if (result[i].project) {
-                                userProjectIds[i] = result[i].project.id;
-                            }
-                        }
-                        projectService.projects.get({
-                                where: {
-                                    or: [{
-                                        userId: $cookieStore.get('userId'),
-                                    }, {
-                                        id: userProjectIds
-                                    }],
-                                    name: {
-                                        "like": "%" + $scope.searchName + "%"
-                                    }
-                                },
-                                limit: $scope.pageSize,
-                                skip: (($scope.currentPage - 1) * $scope.pageSize),
-                                sort: 'name ' + sortA
-                            })
-                            .$promise.then(function(result) {
-                                $scope.projects = result;
-                                $scope.makePagination();
-                            });
-                    });
-                });
+                projectService.reloadProject($scope, $cookieStore);
             };
 
             $scope.deleteProject = function(projectId) {
@@ -189,15 +142,6 @@ angular.module('mockuperApp')
                 }).$promise.then(function(result) {
                     $scope.reloadUsers(projectId);
                 });
-            };
-
-            chatService.subscribe($scope);
-            $scope.sendMsg = function() {
-                chatService.sendMsg($scope);
-            }
-
-            $scope.changeChat = function() {
-                $scope.chatCollapsed = !$scope.chatCollapsed;
             };
 
             $scope.reloadProject(1);
