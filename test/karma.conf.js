@@ -34,6 +34,7 @@ module.exports = function(config) {
       'bower_components/interact/interact.js',
       'bower_components/ng-context-menu/dist/ng-context-menu.js',
       'bower_components/sails.io.js/dist/sails.io.js',
+      'bower_components/remarkable-bootstrap-notify/bootstrap-notify.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

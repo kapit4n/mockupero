@@ -10,10 +10,10 @@
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
         '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService', 'chatService',
-        'mockupSocketService', 'userService', 'permissionService',
+        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
             $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService, chatService,
-            mockupSocketService, userService, permissionService) {
+            mockupSocketService, userService, permissionService, mockupVersionService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -22,6 +22,7 @@ angular.module('mockuperApp')
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
+            $scope.error = '';
 
             $scope.changeChat = function() {
                 $scope.chatCollapsed = !$scope.chatCollapsed;
@@ -34,7 +35,7 @@ angular.module('mockuperApp')
                         var dataURL = canvas.toDataURL();
                         $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
                         mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
-                            //console.log(result);
+
                         });
                     }
                 });
@@ -44,6 +45,7 @@ angular.module('mockuperApp')
                     mockupId: $routeParams.mockupId
                 })
                 .$promise.then(function(result) {
+                    $scope.reloadMockupVersions();
                     $scope.editObject = result;
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
@@ -64,7 +66,6 @@ angular.module('mockuperApp')
 
             $scope.result = [];
 
-
             $scope.loadMockupItems = function() {
                 mockupService.getMockupItems.get({
                     sort: 'position ',
@@ -80,6 +81,9 @@ angular.module('mockuperApp')
                             $scope.lastId = value.position;
                         }
                     }, []);
+                    try {
+                        //$scope.$digest();
+                    } catch (ex) { console.log(ex); }
                 });
             }; // end of the load mockup items
 
@@ -92,42 +96,66 @@ angular.module('mockuperApp')
             $scope.save = function() {
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
+
                 var myEl = angular.element(document.querySelector('#design-div'));
                 var position = 0;
-                angular.forEach(myEl[0].children, function(child) {
-                    $timeout(function() {
-                        position++;
-                        $scope.item = $scope.getItem('#' + child.id);
-                        //$scope.item.position = position;
-                        if ($scope.item.id === undefined) {
-                            mockupService.createMockupItem.save($scope.item, function(result) {
-                                //console.log('Created an item');
-                            });
-                            $(child).remove();
-                        } else {
-                            mockupService.updateMockupItem.save({
-                                id: $scope.item.id
-                            }, $scope.item, function(result) {
-                                //console.log(result);
-                            });
-                        }
-                        $("#spinner").hide();
-                        $("#btnSave").prop('disabled', false);
-                    }, 50);
+                if (myEl[0].children.length == 0) {
+                    $("#spinner").hide();
+                    $("#btnSave").prop('disabled', false);
+                }
+
+                //$scope.createImage();
+
+                html2canvas($("#design-div"), {
+                    onrendered: function(canvas) {
+                        var ctx = canvas.getContext('2d');
+                        var dataURL = canvas.toDataURL();
+                        $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
+                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
+                            var items = [];
+                            var toDelete = [];
+                            $timeout(function() {
+                                angular.forEach(myEl[0].children, function(child) {
+                                    position++;
+                                    var item = $scope.getItem('#' + child.id);
+                                    items.push(item);
+                                    if (item.id == undefined) {
+                                        toDelete.push(child);
+                                    }
+                                });
+
+                                mockupService.saveAllMockupItems.save({ items: items }, function(result) {
+                                    $timeout(function() {
+                                        // this will be called on the save methods to create the version
+                                        io.socket.post('/mockupVersion/saveIt', {
+                                            number: 'version 1',
+                                            mockup: $routeParams.mockupId,
+                                            user: $cookieStore.get('userId'),
+                                            action: 'update',
+                                            message: 'Update the Mockup'
+                                        }, function serverResponded(body, JWR) {
+                                            toDelete.forEach(function(child) {
+                                                $(child).remove();
+                                            });
+                                            $scope.loadMockupItems();
+                                            $scope.reloadMockupVersions();
+                                            $("#spinner").hide();
+                                            $("#btnSave").prop('disabled', false);
+                                        });
+                                        try {
+                                            $scope.$digest();
+                                        } catch (ex) { console.error(ex); }
+
+                                    }, myEl[0].children.length * 30);
+                                    $scope.loadMockupItems();
+                                });
+                            }, myEl[0].children.length * 50);
+                        });
+                    }
                 });
-                $scope.createImage();
-                $timeout(function() {
-                    // this will be called on the save methods to create the version
-                    io.socket.post('/mockupVersion/saveIt', {
-                        number: 'version 1',
-                        mockupId: $routeParams.mockupId,
-                        username: $cookieStore.get('username'),
-                        action: 'update',
-                        message: 'Update the Mockup'
-                    }, function serverResponded(body, JWR) {
-                        //console.log('Creating our first mockup version');
-                    });
-                }, 2000);
+
+
+
             };
 
             // This id has # included in the string
@@ -143,7 +171,7 @@ angular.module('mockuperApp')
                     idResult = idComp.substring(5);
                 }
                 return idResult;
-            }
+            };
 
             /**
                 This id has # included in the string
@@ -364,8 +392,6 @@ angular.module('mockuperApp')
 
             // Method to load the properties for the existend mockup items
             $scope.loadProperties = function(idComponent) {
-                console.log(idComponent);
-                console.log("Here is some error");
                 var propertiesDiv = angular.element(document.querySelector('#wrapper-container'));
                 //console.log(propertiesDiv);
                 var myComponent = '';
@@ -416,7 +442,7 @@ angular.module('mockuperApp')
                     // this will be called on the save methods to create the version
                     io.socket.post('/mockupVersion/saveIt', {
                         number: 'version 1',
-                        mockupId: $routeParams.mockupId,
+                        mockup: $routeParams.mockupId,
                         username: $cookieStore.get('username'),
                         action: 'delete_item',
                         message: 'Update the Mockup'
@@ -446,9 +472,12 @@ angular.module('mockuperApp')
             io.socket.on('mockupversion', function(msg) {
                 $scope.$apply(function() {
                     if (msg.data.mockupId == $routeParams.mockupId) {
-                        var message = '<div style="width:200px; " class="alert"><span class="close" data-dismiss="alert">X</span> <span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span></div>';
-                        var propertiesDiv = angular.element(document.querySelector('#alert_message'));
-                        propertiesDiv.html($compile(message)($scope));
+                        var message = '<span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span>';
+
+                        $.notify(message, {
+                            newest_on_top: true
+                        });
+                        //propertiesDiv.html($compile(message)($scope));
                         $scope.loadMockupItems();
                         // send a little notification by here
                         /*notificationService.sendMail.get({

@@ -123,35 +123,30 @@ angular.module('mockuperApp')
                     }).$promise.then(function(result) {
                         var userProjectIds = [];
                         for (var i = 0; i < result.length; i++) {
-                            //userProjectIds[i] = result[i].project; // Looks like it works in windows
-                            userProjectIds[i] = result[i].project.id; // Looks like it works on linux
+                            if (result[i].project) {
+                                userProjectIds[i] = result[i].project.id;
+                            }
                         }
                         projectService.projects.get({
-                            where: {
-                                or: [
-                                    {
+                                where: {
+                                    or: [{
                                         userId: $cookieStore.get('userId'),
-                                    },
-                                    {
+                                    }, {
                                         id: userProjectIds
+                                    }],
+                                    name: {
+                                        "like": "%" + $scope.searchName + "%"
                                     }
-                                ],
-                                name: {
-                                    "like": "%" + $scope.searchName + "%"
-                                }
-                            },
-                            limit: $scope.pageSize,
-                            skip: (($scope.currentPage - 1) * $scope.pageSize),
-                            sort: 'name ' + sortA
-                        })
-                        .$promise.then(function(result) {
-                            $scope.projects = result;
-                            $scope.makePagination();
-                        });
-
+                                },
+                                limit: $scope.pageSize,
+                                skip: (($scope.currentPage - 1) * $scope.pageSize),
+                                sort: 'name ' + sortA
+                            })
+                            .$promise.then(function(result) {
+                                $scope.projects = result;
+                                $scope.makePagination();
+                            });
                     });
-
-                    
                 });
             };
 
@@ -159,7 +154,6 @@ angular.module('mockuperApp')
                 projectService.deleteProject.get({
                     id: projectId
                 }).$promise.then(function(result) {
-
                     $scope.reloadProject($scope.currentPage);
                 });
             };

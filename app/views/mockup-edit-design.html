@@ -31,11 +31,18 @@
         </div>
     </div>
     <div style=" height: 80px; display:inline-block;" ng-if="editMode">
-        <button type="button" class="btn btn-default" aria-label="save" ng-click="save()">
+        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()">
             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         </button>
-        <img id="spinner" ng-src="static/spinner.gif" style="display:none; " width="30px">
+        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#mockupVersionModal">
+            <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+        </button>
+        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
+</div>
+<div class="alert alert-danger" role="alert" ng-show="err">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span> {{err}}
 </div>
 <div>
     <div style="float: right; width: 800px;">
@@ -92,3 +99,4 @@
 <div id="img-out" style="position: absolute; left: 10px; height: 100px; width: 100px;"> </div>
 <div id="wrapper-container"> </div>
 <chat-directive></chat-directive>
+<mockup-version></mockup-version>

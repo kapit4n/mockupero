@@ -126,7 +126,10 @@ angular.module('mockuperApp')
                     }).$promise.then(function(result) {
                         var userProjectIds = [];
                         for (var i = 0; i < result.length; i++) {
-                            userProjectIds[i] = result[i].project;
+                            //userProjectIds[i] = result[i].project;
+                            if (result[i].project && result[i].project.id) {
+                                userProjectIds[i] = result[i].project.id; // Looks like it works on linux
+                            }
                         }
                         projectService.projects.get({
                                 where: {
@@ -185,7 +188,7 @@ angular.module('mockuperApp')
                 };
                 projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
                     $scope.reload
-Users($scope.sharedProjectId);
+                    Users($scope.sharedProjectId);
                 });
             }
 

@@ -1,0 +1,33 @@
+<div>
+    <h2>Create New Workflow</h2>
+    <form role="form" name="workflowForm">
+        <div class="alert alert-danger" role="alert" ng-show="err">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> {{err}}
+        </div>
+        <div class="form-group">
+            <label for="name">Status:</label>
+            <input type="text" ng-model="wName" class="form-control" name="wName" id="name" placeholder="Workflow Status" required>
+            <p style="color:red" ng-show="workflowForm.wName.$touched && workflowForm.wName.$invalid" class="help-block"> Status cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="name">Action:</label>
+            <input type="text" ng-model="wAction" class="form-control" name="wAction" id="name" placeholder="Workflow Action" required>
+            <p style="color:red" ng-show="workflowForm.wAction.$touched && workflowForm.wAction.$invalid" class="help-block"> Action cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="sel1">Select list (select one):</label>
+            <select class="form-control" ng-model="wClassName">
+                <option>btn-default</option>
+                <option>btn-primary</option>
+                <option>btn-success</option>
+                <option>btn-info</option>
+                <option>btn-warning</option>
+                <option>btn-danger</option>
+                <option>btn-link</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success" ng-click="save(workflowForm)">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </form>
+</div>
