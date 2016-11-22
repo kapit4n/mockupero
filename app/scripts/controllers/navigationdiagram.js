@@ -36,7 +36,7 @@ angular.module('mockuperApp')
 
                         myDiagram.nodeTemplate =
                             goJS(go.Node, "Horizontal", { background: "#44CCFF" },
-                                goJS(go.Picture, { margin: 10, width: 80, height: 80, background: "white" },
+                                goJS(go.Picture, { margin: 10, width: 80, height: 80, background: "#bdc1c1" },
                                     new go.Binding("source")),
                                 goJS(go.TextBlock, "Default Text", { margin: 12, stroke: "white", font: "bold 16px sans-serif" },
                                     new go.Binding("text", "name"))
