@@ -105,14 +105,16 @@ angular.module('mockuperApp')
                     onrendered: function(canvas) {
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
-                        $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
+                        //$('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
                         mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
                             var items = [];
                             var toDelete = [];
                             $timeout(function() {
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;
-                                    var item = $scope.getItem('#' + child.id);
+                                    //var item = $scope.getItem('#' + child.id);
+                                    var item = propertyService.getItem('#' + child.id);
+                                    item.mockupId = $routeParams.mockupId;
                                     if (item.id && item.id.length < 10) {
                                         item.id = undefined;
                                     }
@@ -172,74 +174,6 @@ angular.module('mockuperApp')
                 }
                 return idResult;
             };
-
-            /**
-                This id has # included in the string
-            */
-            $scope.getItem = function(idComp) {
-                var item = {};
-                if (idComp.length > 15) {
-                    if (idComp.indexOf('image') > -1) {
-                        item.id = idComp.substring(6);
-                    } else if (idComp.indexOf('button') > -1) {
-                        item.id = idComp.substring(7);
-                    } else if (idComp.indexOf('input') > -1) {
-                        item.id = idComp.substring(6);
-                    } else if (idComp.indexOf('label') > -1) {
-                        item.id = idComp.substring(6);
-                    } else if (idComp.indexOf('container') > -1) {
-                        item.id = idComp.substring(9);
-                    }
-                } else {
-                    ////console.log(idComp);
-                    item.id = undefined;
-                }
-                item.src = $(idComp)[0].src;
-                item.y = $($(idComp)[0]).position().top;
-                item.x = $($(idComp)[0]).position().left;
-                if (idComp.indexOf('image') > -1) {
-                    item.type = "image";
-                    item.width = $(idComp)[0].width;
-                    item.height = $(idComp)[0].height;
-                } else if (idComp.indexOf('button') > -1) {
-                    item.type = "button";
-                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
-                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
-                    item.text = $(idComp).text();
-                } else if (idComp.indexOf('input') > -1) {
-                    item.type = "input";
-                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
-                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
-                    item.text = $(idComp).val();
-                } else if (idComp.indexOf('label') > -1) {
-                    item.type = "label";
-                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length);
-                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length);
-                    item.text = $(idComp).text();
-                } else if (idComp.indexOf('container') > -1) {
-                    item.type = "container";
-                    item.width = $($(idComp)[0])[0].style.width.substring(0, $($(idComp)[0])[0].style.width.length - 2);
-                    item.height = $($(idComp)[0])[0].style.height.substring(0, $($(idComp)[0])[0].style.height.length - 2);
-                }
-                //var zIndex = $( '#' + idComp ).css( "z-index" );
-                var zIndex = $(idComp).css("z-index");
-                item.idHtml = $(idComp)[0].id;
-                item.mockupId = $routeParams.mockupId;
-
-                return {
-                    "id": item.id,
-                    "text": item.text,
-                    "width": item.width,
-                    "height": item.height,
-                    "y": item.y,
-                    "x": item.x,
-                    "position": zIndex,
-                    "type": item.type,
-                    "idHtml": item.idHtml,
-                    "src": item.src,
-                    "mockupId": item.mockupId
-                };
-            }
 
             $scope.cancel = function() {
                 io.socket.post('/mockupEditor/logout', {
@@ -413,6 +347,8 @@ angular.module('mockuperApp')
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent) + '</div>';
                 } else if (idComponent.indexOf('label') > -1) {
                     myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent) + '</div>';
+                } else if (idComponent.indexOf('container') > -1) {
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.container(idComponent) + '</div>';
                 } else {
                     console.log("Here is another error " + idComponent);
                 }
@@ -432,6 +368,8 @@ angular.module('mockuperApp')
 
             // Update the item selected to edit the properties and close/hide the popup
             $scope.saveImageProperties = propertyService.saveImage;
+
+            $scope.saveContainerProperties = propertyService.saveContainer;
 
             // close the properties popup
             $scope.closeProperties = propertyService.close;
