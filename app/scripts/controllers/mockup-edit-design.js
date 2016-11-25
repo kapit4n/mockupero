@@ -14,7 +14,6 @@ angular.module('mockuperApp')
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
             $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService,
             mockupSocketService, userService, permissionService, mockupVersionService, GlobalService) {
-            //$scope.globalService = GlobalService;
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -31,7 +30,7 @@ angular.module('mockuperApp')
                     onrendered: function(canvas) {
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
-                        $('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
+                        //$('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
                         mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
 
                         });
@@ -99,7 +98,7 @@ angular.module('mockuperApp')
                     $("#btnSave").prop('disabled', false);
                 }
 
-                //$scope.createImage();
+                $scope.createImage();
 
                 html2canvas($("#design-div"), {
                     onrendered: function(canvas) {
@@ -191,7 +190,7 @@ angular.module('mockuperApp')
                     inertia: true,
                     // keep the element within the area of it's parent
                     restrict: {
-                        restriction: "parent.parent",
+                        restriction: "parent",
                         endOnly: true,
                         elementRect: {
                             top: 0,

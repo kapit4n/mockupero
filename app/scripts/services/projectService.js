@@ -79,8 +79,6 @@ angular.module('mockuperApp')
                     user: $cookieStore.get('userId'),
                 }
             }).$promise.then(function(result) {
-                console.log("result");
-                console.log(result);
                 var userProjectIds = [];
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].project) {

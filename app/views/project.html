@@ -1,54 +1,56 @@
-<div style="float: right;">
-    <div ng-repeat="n in logingLog track by $index" style="display:inline-block;">
-        <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
-    </div>
-</div>
-<div class="alert alert-danger" role="alert" ng-show="err">
-    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <span class="sr-only">Error: </span> {{err}}
-</div>
-<view-object></view-object>
 <div class="container">
-    <div class="col-sm-6 col-md-6">
-        <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
-            {{wf.action}}
-        </button>
+    <div style="float: right;">
+        <div ng-repeat="n in logingLog track by $index" style="display:inline-block;">
+            <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
+        </div>
     </div>
-    <div class="col-sm-6 col-md-6">
-        <h3>Members </h3>
-        <div class="row">
-            <div class="col-sm-2 col-md-2" style="padding: 5px;" ng-repeat="member in project.members">
-                <div class="thumbnail" style="height: 60px;">
-                    <img ng-src="http://localhost:1337/images/avatar/{{member.user}}.jpg" style="width: 30px; " alt="...">
-                    <div class="caption">
-                        <p style="font-size: 10px;">
-                            {{member.user.substring(0,1)}}
-                        </p>
+    <div class="alert alert-danger" role="alert" ng-show="err">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error: </span> {{err}}
+    </div>
+    <view-object></view-object>
+    <div class="container">
+        <div class="col-sm-6 col-md-6">
+            <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
+                {{wf.action}}
+            </button>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <h3>Members </h3>
+            <div class="row">
+                <div class="col-sm-2 col-md-2" style="padding: 5px;" ng-repeat="member in project.members">
+                    <div class="thumbnail" style="height: 60px;">
+                        <img ng-src="http://localhost:1337/images/avatar/{{member.user}}.jpg" style="width: 30px; " alt="...">
+                        <div class="caption">
+                            <p style="font-size: 10px;">
+                                {{member.user.substring(0,1)}}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<button type="button" class="btn btn-default" ng-click="gotoDiagram()">
-    <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-</button>
-<h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
+    <button type="button" class="btn btn-default" ng-click="gotoDiagram()">
+        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+    </button>
+    <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button> Mockups </h3>
-<div class="row">
-    <div class="col-sm-4 col-md-4" ng-repeat="mockup in project.mockups track by $index">
-        <div class="thumbnail">
-            <img src="http://localhost:1337/images/{{mockup.id}}.png" height="30px" alt="...">
-            <div class="caption">
-                <h4>{{mockup.name}}</h4>
-                <p>{{mockup.description}}</p>
-                <p>
-                    <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a>
-                    <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit</a>
-                </p>
+    <div class="row">
+        <div class="col-sm-4 col-md-4" ng-repeat="mockup in project.mockups track by $index">
+            <div class="thumbnail">
+                <img src="http://localhost:1337/images/{{mockup.id}}.png" height="30px" alt="...">
+                <div class="caption">
+                    <h4>{{mockup.name}}</h4>
+                    <p>{{mockup.description}}</p>
+                    <p>
+                        <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a>
+                        <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+    <comment></comment>
 </div>
-<comment></comment>
