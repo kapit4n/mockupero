@@ -1,1 +1,34 @@
-<add-object> </add-object>
+<div>
+    <h2>Create New Mockup</h2>
+    <form role="form" name="addObjectForm">
+        <div class="alert alert-danger" role="alert" ng-show="err">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> {{err}}
+        </div>
+        <div class="form-group">
+            <label for="mName">Name:</label>
+            <input type="text" ng-model="newMockup.name" class="form-control" name="mName" id="mName" placeholder="Mockup Name" required>
+            <p style="color:red" ng-show="addObjectForm.mName.$touched && addObjectForm.mName.$invalid" class="help-block"> Name cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="nWidth">Width:</label>
+            <input type="text" ng-model="newMockup.width" class="form-control" name="nWidth" id="nWidth" placeholder="800" required>
+            <p style="color:red" ng-show="addObjectForm.nWidth.$touched && addObjectForm.nWidth.$invalid" class="help-block"> Width cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="mHeight">Height:</label>
+            <input type="text" ng-model="newMockup.height" class="form-control" name="mHeight" id="mHeight" placeholder="{{objName}} Name" required>
+            <p style="color:red" ng-show="addObjectForm.height.$touched && addObjectForm.height.$invalid" class="help-block"> Height cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" cols="30" rows="10" ng-model="newMockup.description" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="imgToShow">Min Img:</label>
+            <input type="textarea" class="form-control" id="imgToShow" ng-model="imgToShow" placeholder="http://www.engraversnetwork.com/files/placeholder.jpg">
+        </div>
+        <button type="submit" class="btn btn-success" ng-click="save(addObjectForm)">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
+    </form>
+</div>
