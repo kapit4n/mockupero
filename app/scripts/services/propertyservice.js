@@ -30,10 +30,11 @@ angular.module('mockuperApp')
                 item.id = undefined;
             }
             item.src = $(idComp)[0].src;
-            item.y = $($(idComp)[0]).position().top;
-            item.x = $($(idComp)[0]).position().left;
+            item.top = $($(idComp)[0]).position().top;
+            item.left = $($(idComp)[0]).position().left;
             item.background = $($(idComp)[0])[0].style.background;
             var position = $(idComp).css("z-index");
+            item.position = position;
             item.idHtml = $(idComp)[0].id;
 
             if (idComp.indexOf('image') > -1) {
@@ -66,11 +67,6 @@ angular.module('mockuperApp')
 
         fac.formGroup = function(labelId, idComponent, type) {
             var modelId = labelId;
-            if (labelId == 'top') {
-                modelId = 'x';
-            } else if (labelId == 'left') {
-                modelId = 'y';
-            }
             if (!type) {
                 type = 'text';
             }
@@ -186,31 +182,36 @@ angular.module('mockuperApp')
 
         fac.saveImage = function(idComponent) {
             var component = angular.element(document.querySelector('#' + idComponent));
+            var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
+            var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
             var hrefValue = angular.element(document.querySelector('#hrefValue'));
-            var heightValue = angular.element(document.querySelector('#heightValue'));
-            var widthValue = angular.element(document.querySelector('#widthValue'));
-            var topValue = angular.element(document.querySelector('#topValue'));
-            var leftValue = angular.element(document.querySelector('#leftValue'));
+            var heightValue = angular.element(document.querySelector('#height'));
+            var widthValue = angular.element(document.querySelector('#width'));
+            var topValue = angular.element(document.querySelector('#top'));
+            var leftValue = angular.element(document.querySelector('#left'));
 
             component[0].style.width = widthValue[0].value + 'px';
             component[0].style.height = heightValue[0].value + 'px';
-            component[0].style.top = topValue[0].value + 'px';
-            component[0].style.left = leftValue[0].value + 'px';
+            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
             component[0].src = hrefValue[0].value;
             $('#myProperties').modal('hide');
         };
 
         fac.saveContainer = function(idComponent) {
             var component = angular.element(document.querySelector('#' + idComponent));
-            var heightValue = angular.element(document.querySelector('#heightValue'));
-            var widthValue = angular.element(document.querySelector('#widthValue'));
-            var topValue = angular.element(document.querySelector('#topValue'));
-            var leftValue = angular.element(document.querySelector('#leftValue'));
-            var backgroundValue = angular.element(document.querySelector('#backgroundValue'));
+            var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
+            var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
+
+            var heightValue = angular.element(document.querySelector('#height'));
+            var widthValue = angular.element(document.querySelector('#width'));
+            var topValue = angular.element(document.querySelector('#top'));
+            var leftValue = angular.element(document.querySelector('#left'));
+            var backgroundValue = angular.element(document.querySelector('#background'));
             component[0].style.width = widthValue[0].value + 'px';
             component[0].style.height = heightValue[0].value + 'px';
-            component[0].style.top = topValue[0].value + 'px';
-            component[0].style.left = leftValue[0].value + 'px';
+            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
             component[0].style.background = backgroundValue[0].value + '';
             $('#myProperties').modal('hide');
         };
@@ -218,49 +219,57 @@ angular.module('mockuperApp')
         fac.saveButton = function(idComponent, $scope) {
             var itemId = $scope.getItemId(idComponent);
             var component = angular.element(document.querySelector('#' + idComponent));
-            var textValue = angular.element(document.querySelector('#textValue'));
-            var heightValue = angular.element(document.querySelector('#heightValue'));
-            var widthValue = angular.element(document.querySelector('#widthValue'));
-            var topValue = angular.element(document.querySelector('#topValue'));
-            var leftValue = angular.element(document.querySelector('#leftValue'));
-            var redirectValue = angular.element(document.querySelector('#redirectValue'));
+            var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
+            var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
+
+            var textValue = angular.element(document.querySelector('#text'));
+            var heightValue = angular.element(document.querySelector('#height'));
+            var widthValue = angular.element(document.querySelector('#width'));
+            var topValue = angular.element(document.querySelector('#top'));
+            var leftValue = angular.element(document.querySelector('#left'));
+            var redirectValue = angular.element(document.querySelector('#link'));
             $('#' + idComponent).text(textValue[0].value);
             component[0].style.width = widthValue[0].value;
             component[0].style.height = heightValue[0].value;
-            component[0].style.top = topValue[0].value + 'px';
-            component[0].style.left = leftValue[0].value + 'px';
+            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
             $scope.resultBykeys[itemId].link = redirectValue[0].value;
             $('#myProperties').modal('hide');
         };
 
         fac.saveInput = function(idComponent) {
             var component = angular.element(document.querySelector('#' + idComponent));
-            var textValue = angular.element(document.querySelector('#textValue'));
-            var heightValue = angular.element(document.querySelector('#heightValue'));
-            var widthValue = angular.element(document.querySelector('#widthValue'));
-            var topValue = angular.element(document.querySelector('#topValue'));
-            var leftValue = angular.element(document.querySelector('#leftValue'));
+            var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
+            var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
+
+            var textValue = angular.element(document.querySelector('#text'));
+            var heightValue = angular.element(document.querySelector('#height'));
+            var widthValue = angular.element(document.querySelector('#width'));
+            var topValue = angular.element(document.querySelector('#top'));
+            var leftValue = angular.element(document.querySelector('#left'));
             $('#' + idComponent).val(textValue[0].value); // just this difference with saveButton method
             component[0].style.width = widthValue[0].value + 'px';;
             component[0].style.height = heightValue[0].value + 'px';;
-            component[0].style.top = topValue[0].value + 'px';
-            component[0].style.left = leftValue[0].value + 'px';
+            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
             $('#myProperties').modal('hide');
         };
 
         fac.saveLabel = function(idComponent) {
-            console.log('save label');
             var component = angular.element(document.querySelector('#' + idComponent));
-            var textValue = angular.element(document.querySelector('#textValue'));
-            var heightValue = angular.element(document.querySelector('#heightValue'));
-            var widthValue = angular.element(document.querySelector('#widthValue'));
-            var topValue = angular.element(document.querySelector('#topValue'));
-            var leftValue = angular.element(document.querySelector('#leftValue'));
+            var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
+            var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
+
+            var textValue = angular.element(document.querySelector('#text'));
+            var heightValue = angular.element(document.querySelector('#height'));
+            var widthValue = angular.element(document.querySelector('#width'));
+            var topValue = angular.element(document.querySelector('#top'));
+            var leftValue = angular.element(document.querySelector('#left'));
             $('#' + idComponent).text(textValue[0].value);
             component[0].style.width = widthValue[0].value + 'px';
             component[0].style.height = heightValue[0].value + 'px';
-            component[0].style.top = topValue[0].value + 'px';
-            component[0].style.left = leftValue[0].value + 'px';
+            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
             $('#myProperties').modal('hide');
         };
 

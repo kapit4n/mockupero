@@ -65,8 +65,9 @@ angular.module('mockuperApp')
             $scope.resultBykeys = {};
 
             $scope.loadStaticValues = function(item) {
-                if (item.id) {
+                if (item.id && $scope.resultBykeys[item.id] && $scope.resultBykeys[item.id].link) {
                     item.link = $scope.resultBykeys[item.id].link;
+                    $scope.editObject.links.push(item.link);
                 }
             }
 
@@ -112,12 +113,16 @@ angular.module('mockuperApp')
                         $('#' + idComponent)[0].style.height = textValue[0].value + 'px';
                         break;
                     case 'top':
+                        var component = angular.element(document.querySelector('#' + idComponent));
+                        var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
                         var textValue = angular.element(document.querySelector('#' + labelId));
-                        $('#' + idComponent)[0].style.top = textValue[0].value + 'px';
+                        $('#' + idComponent)[0].style.top = (parseFloat(textValue[0].value) - translateY) + 'px';
                         break;
                     case 'left':
+                        var component = angular.element(document.querySelector('#' + idComponent));
+                        var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
                         var textValue = angular.element(document.querySelector('#' + labelId));
-                        $('#' + idComponent)[0].style.left = textValue[0].value + 'px';
+                        $('#' + idComponent)[0].style.left = (parseFloat(textValue[0].value) - translateX) + 'px';
                         break;
                     case 'background':
                         var textValue = angular.element(document.querySelector('#' + labelId));
@@ -149,6 +154,7 @@ angular.module('mockuperApp')
                         mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
                             var items = [];
                             var toDelete = [];
+                            $scope.editObject.links = [];
                             $timeout(function() {
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;
@@ -187,6 +193,11 @@ angular.module('mockuperApp')
 
                                     }, myEl[0].children.length * 30);
                                     $scope.loadMockupItems();
+                                });
+                                mockupService.updateMockup.update({
+                                    id: $scope.editObject.id
+                                }, $scope.editObject, function(result) {}, function(err) {
+                                    $scope.err = err;
                                 });
                             }, myEl[0].children.length * 50);
                         });
