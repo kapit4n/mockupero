@@ -62,6 +62,13 @@ angular.module('mockuperApp')
             $scope.menuList = ['menu1', 'menu2', 'menu3'];
 
             $scope.result = [];
+            $scope.resultBykeys = {};
+
+            $scope.loadStaticValues = function(item) {
+                if (item.id) {
+                    item.link = $scope.resultBykeys[item.id].link;
+                }
+            }
 
             $scope.loadMockupItems = function() {
                 mockupService.getMockupItems.get({
@@ -72,6 +79,9 @@ angular.module('mockuperApp')
                     limit: 100
                 }).$promise.then(function(result) {
                     $scope.result = result;
+                    $scope.result.forEach(function(item) {
+                        $scope.resultBykeys[item.id] = item;
+                    });
                     var positionAux = 0;
                     angular.forEach($scope.result, function(value, key) {
                         if (positionAux < value.position) {
@@ -83,6 +93,41 @@ angular.module('mockuperApp')
 
             // This code is duplicated, replace this code using $scope.loadMockupItems();
             $scope.loadMockupItems();
+            $scope.updateInput = function(labelId, idComponent) {
+                switch (labelId) {
+                    case 'text':
+                        var textValue = angular.element(document.querySelector('#' + labelId));
+                        if (idComponent.indexOf('input') > -1) {
+                            $('#' + idComponent).val(textValue[0].value);
+                        } else {
+                            $('#' + idComponent).text(textValue[0].value);
+                        }
+                        break;
+                    case 'width':
+                        var textValue = angular.element(document.querySelector('#' + labelId));
+                        $('#' + idComponent)[0].style.width = textValue[0].value + 'px';
+                        break;
+                    case 'height':
+                        var textValue = angular.element(document.querySelector('#' + labelId));
+                        $('#' + idComponent)[0].style.height = textValue[0].value + 'px';
+                        break;
+                    case 'top':
+                        var textValue = angular.element(document.querySelector('#' + labelId));
+                        $('#' + idComponent)[0].style.top = textValue[0].value + 'px';
+                        break;
+                    case 'left':
+                        var textValue = angular.element(document.querySelector('#' + labelId));
+                        $('#' + idComponent)[0].style.left = textValue[0].value + 'px';
+                        break;
+                    case 'background':
+                        var textValue = angular.element(document.querySelector('#' + labelId));
+                        $('#' + idComponent)[0].style.background = textValue[0].value + 'px';
+                        break;
+                    default:
+                        console.log("Change not applied");
+                }
+
+            }
 
             $scope.item = {};
 
@@ -90,33 +135,29 @@ angular.module('mockuperApp')
             $scope.save = function() {
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
-
                 var myEl = angular.element(document.querySelector('#design-div'));
                 var position = 0;
                 if (myEl[0].children.length == 0) {
                     $("#spinner").hide();
                     $("#btnSave").prop('disabled', false);
                 }
-
                 $scope.createImage();
-
                 html2canvas($("#design-div"), {
                     onrendered: function(canvas) {
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
-                        //$('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
                         mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
                             var items = [];
                             var toDelete = [];
                             $timeout(function() {
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;
-                                    //var item = $scope.getItem('#' + child.id);
                                     var item = propertyService.getItem('#' + child.id);
                                     item.mockupId = $routeParams.mockupId;
                                     if (item.id && item.id.length < 10) {
                                         item.id = undefined;
                                     }
+                                    $scope.loadStaticValues(item);
                                     items.push(item);
                                     if (item.id == undefined) {
                                         toDelete.push(child);
@@ -125,7 +166,6 @@ angular.module('mockuperApp')
 
                                 mockupService.saveAllMockupItems.save({ items: items }, function(result) {
                                     $timeout(function() {
-                                        // this will be called on the save methods to create the version
                                         io.socket.post('/mockupVersion/saveIt', {
                                             number: 'version 1',
                                             mockup: $routeParams.mockupId,
@@ -152,9 +192,6 @@ angular.module('mockuperApp')
                         });
                     }
                 });
-
-
-
             };
 
             // This id has # included in the string
@@ -339,15 +376,15 @@ angular.module('mockuperApp')
                 //console.log(propertiesDiv);
                 var myComponent = '';
                 if (idComponent.indexOf('image') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent) + '</div>';
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.image(idComponent, $scope) + '</div>';
                 } else if (idComponent.indexOf('button') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.button(idComponent) + '</div>';
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.button(idComponent, $scope) + '</div>';
                 } else if (idComponent.indexOf('input') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent) + '</div>';
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.input(idComponent, $scope) + '</div>';
                 } else if (idComponent.indexOf('label') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent) + '</div>';
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.label(idComponent, $scope) + '</div>';
                 } else if (idComponent.indexOf('container') > -1) {
-                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.container(idComponent) + '</div>';
+                    myComponent = '<div class="alert" id="wrapper" style="z-index: 100;"> <span class="close" data-dismiss="alert">X</span>' + propertyService.container(idComponent, $scope) + '</div>';
                 } else {
                     console.log("Here is another error " + idComponent);
                 }
@@ -357,7 +394,9 @@ angular.module('mockuperApp')
             // Loads the button properties to a popup
 
             // save te properties of a button by now
-            $scope.saveButtonProperties = propertyService.saveButton;
+            $scope.saveButtonProperties = function(idComponent) {
+                propertyService.saveButton(idComponent, $scope);
+            }
 
             // save te properties of a button by now
             $scope.saveLabelProperties = propertyService.saveLabel;
