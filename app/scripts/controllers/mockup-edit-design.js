@@ -116,13 +116,22 @@ angular.module('mockuperApp')
                         var component = angular.element(document.querySelector('#' + idComponent));
                         var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
                         var textValue = angular.element(document.querySelector('#' + labelId));
-                        $('#' + idComponent)[0].style.top = (parseFloat(textValue[0].value) - translateY) + 'px';
+                        console.log(parseFloat(textValue[0].value) - translateY);
+                        if (translateY) {
+                            $('#' + idComponent)[0].style.top = (parseFloat(textValue[0].value) - translateY) + 'px';
+                        } else {
+                            $('#' + idComponent)[0].style.top = (parseFloat(textValue[0].value)) + 'px';
+                        }
                         break;
                     case 'left':
                         var component = angular.element(document.querySelector('#' + idComponent));
                         var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
                         var textValue = angular.element(document.querySelector('#' + labelId));
-                        $('#' + idComponent)[0].style.left = (parseFloat(textValue[0].value) - translateX) + 'px';
+                        if (translateX) {
+                            $('#' + idComponent)[0].style.left = (parseFloat(textValue[0].value) - translateX) + 'px';
+                        } else {
+                            $('#' + idComponent)[0].style.left = (parseFloat(textValue[0].value)) + 'px';
+                        }
                         break;
                     case 'background':
                         var textValue = angular.element(document.querySelector('#' + labelId));
