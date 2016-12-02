@@ -41,19 +41,25 @@ angular.module('mockuperApp')
                                 goJS(go.TextBlock, "Default Text", { margin: 12, stroke: "white", font: "bold 16px sans-serif" },
                                     new go.Binding("text", "name"))
                             );
-                        var model = goJS(go.TreeModel);
-
                         var nodeDataArrayAux = [];
-
+                        var linkDataArray = [];
                         for (var i = 0; i < $scope.project.mockups.length; i++) {
+                            if ($scope.project.mockups[i].links) {
+                                for (var j = 0; j < $scope.project.mockups[i].links.length; j++) {
+                                    linkDataArray.push({
+                                        from: $scope.project.mockups[i].id + "",
+                                        to: $scope.project.mockups[i].links[j] + ""
+                                    });
+                                }
+                            }
                             if (i == 0) {
-                                nodeDataArrayAux.push({ key: (i + 1) + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
+                                nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
                             } else {
-                                nodeDataArrayAux.push({ key: (i + 1) + "", parent: (i) + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
+                                nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
                             }
                         }
-                        model.nodeDataArray = nodeDataArrayAux;
-                        myDiagram.model = model;
+
+                        myDiagram.model = new go.GraphLinksModel(nodeDataArrayAux, linkDataArray);
                         $scope.reloadComments();
                         try {
                             permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));
