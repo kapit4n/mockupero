@@ -55,6 +55,6 @@ angular.module('mockuperApp')
                 method: 'DELETE'
             }
         });
-        
+
         return fac;
     });

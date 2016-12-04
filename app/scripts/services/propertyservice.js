@@ -192,8 +192,8 @@ angular.module('mockuperApp')
 
             component[0].style.width = widthValue[0].value + 'px';
             component[0].style.height = heightValue[0].value + 'px';
-            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
-            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
+            component[0].style.top = (parseFloat(topValue[0].value) - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value) - translateX) + 'px';
             component[0].src = hrefValue[0].value;
             $('#myProperties').modal('hide');
         };
@@ -210,8 +210,8 @@ angular.module('mockuperApp')
             var backgroundValue = angular.element(document.querySelector('#background'));
             component[0].style.width = widthValue[0].value + 'px';
             component[0].style.height = heightValue[0].value + 'px';
-            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
-            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
+            component[0].style.top = (parseFloat(topValue[0].value) - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value) - translateX) + 'px';
             component[0].style.background = backgroundValue[0].value + '';
             $('#myProperties').modal('hide');
         };
@@ -231,8 +231,8 @@ angular.module('mockuperApp')
             $('#' + idComponent).text(textValue[0].value);
             component[0].style.width = widthValue[0].value;
             component[0].style.height = heightValue[0].value;
-            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
-            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
+            component[0].style.top = (parseFloat(topValue[0].value) - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value) - translateX) + 'px';
             $scope.resultBykeys[itemId].link = redirectValue[0].value;
             $('#myProperties').modal('hide');
         };
@@ -250,8 +250,8 @@ angular.module('mockuperApp')
             $('#' + idComponent).val(textValue[0].value); // just this difference with saveButton method
             component[0].style.width = widthValue[0].value + 'px';;
             component[0].style.height = heightValue[0].value + 'px';;
-            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
-            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
+            component[0].style.top = (parseFloat(topValue[0].value) - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value) - translateX) + 'px';
             $('#myProperties').modal('hide');
         };
 
@@ -268,8 +268,8 @@ angular.module('mockuperApp')
             $('#' + idComponent).text(textValue[0].value);
             component[0].style.width = widthValue[0].value + 'px';
             component[0].style.height = heightValue[0].value + 'px';
-            component[0].style.top = (parseFloat(topValue[0].value)  - translateY) + 'px';
-            component[0].style.left = (parseFloat(leftValue[0].value)  - translateX)+ 'px';
+            component[0].style.top = (parseFloat(topValue[0].value) - translateY) + 'px';
+            component[0].style.left = (parseFloat(leftValue[0].value) - translateX) + 'px';
             $('#myProperties').modal('hide');
         };
 

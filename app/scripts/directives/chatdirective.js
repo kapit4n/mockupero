@@ -17,7 +17,7 @@ angular.module('mockuperApp')
                     scope.chatList = [];
                     scope.chatMessage = '';
                     scope.chatRoom = $routeParams.mockupId ? $routeParams.mockupId : 'General';
-                    
+
                     scope.changeChat = function() {
                         GlobalService.settingsValue.chatCollapsed = !GlobalService.settingsValue.chatCollapsed;
                         GlobalService.saveSettings();
@@ -32,7 +32,7 @@ angular.module('mockuperApp')
                     scope.sendMsg = function() {
                         chatService.sendMsg(scope);
                     }
-                    
+
                     chatService.subscribe(scope);
                 }
             };

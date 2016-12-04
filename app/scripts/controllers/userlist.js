@@ -10,7 +10,6 @@
 angular.module('mockuperApp')
     .controller('UserlistCtrl', ['$rootScope', '$scope', 'loginService', 'mockupService', 'projectService', 'userService', '$location', 'headerService', 'breadcrumbService',
         function($rootScope, $scope, loginService, mockupService, projectService, userService, $location, headerService, breadcrumbService) {
-
             loginService.reloadScope();
             headerService.updateHeader('users');
             $scope.users = [];

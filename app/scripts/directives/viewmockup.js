@@ -7,11 +7,10 @@
  * # viewMockup
  */
 angular.module('mockuperApp')
-  .directive('viewMockup', function () {
-    return {
-      templateUrl: 'views/templates/viewMockup.html',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-      }
-    };
-  });
+    .directive('viewMockup', function() {
+        return {
+            templateUrl: 'views/templates/viewMockup.html',
+            restrict: 'E',
+            link: function postLink(scope, element, attrs) {}
+        };
+    });
