@@ -55,7 +55,6 @@ angular.module('mockuperApp')
                         //$rootScope.$digest();
                     } catch (e) { console.log(e); }
                 });
-
             $scope.loadWorkflow = function() {
                 workflowService.workflow.get({
                     where: {
@@ -83,5 +82,48 @@ angular.module('mockuperApp')
             $scope.gotoDiagram = function() {
                 $location.path('/project/' + $scope.projectId + '/navigationDiagram');
             }
+            io.socket.get('http://localhost:1337/mockup');
+
+
+            $scope.deleteMockup = function(mockupId) {
+                mockupService.deleteMockup.get({
+                    id: mockupId
+                }).$promise.then(function(result) {});
+            };
+
+            io.socket.on('mockup', function(msg) {
+                if (msg.verb == 'created') {
+                    mockupService.mockupById.get({
+                            mockupId: msg.id
+                        })
+                        .$promise.then(function(result) {
+                            if ($scope.project && $scope.project.mockups) {
+                                $scope.project.mockups.push(result);
+                            }
+                        }, function(error) {
+                            console.error(error);
+                        });
+                } else if (msg.verb == 'destroyed') {
+                    var i = 0;
+                    while (i < $scope.project.mockups.length) {
+                        if ($scope.project.mockups[i].id == msg.id) {
+                            $scope.project.mockups.splice(i, 1);
+                            break;
+                        }
+                        i++;
+                    }
+                } else if (msg.verb == 'updated') {
+                    var i = 0;
+                    $scope.$apply(function() {
+                        while (i < $scope.project.mockups.length) {
+                            if ($scope.project.mockups[i].id == msg.id) {
+                                $scope.project.mockups[i] = msg.data;
+                                break;
+                            }
+                            i++;
+                        }
+                    });
+                }
+            });
         }
     ]);

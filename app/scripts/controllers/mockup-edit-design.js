@@ -117,7 +117,6 @@ angular.module('mockuperApp')
                         var component = angular.element(document.querySelector('#' + idComponent));
                         var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
                         var textValue = angular.element(document.querySelector('#' + labelId));
-                        console.log(parseFloat(textValue[0].value) - translateY);
                         if (translateY) {
                             $('#' + idComponent)[0].style.top = (parseFloat(textValue[0].value) - translateY) + 'px';
                         } else {
@@ -467,9 +466,8 @@ angular.module('mockuperApp')
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
             io.socket.on('mockupversion', function(msg) {
                 $scope.$apply(function() {
-                    if (msg.data.mockupId == $routeParams.mockupId) {
-                        var message = '<span id="alert_message_text">' + 'Updated by ' + msg.data.username + '</span><br> <span> Action: ' + msg.data.action + ' </span>';
-
+                    if (msg.data.mockup == $routeParams.mockupId) {
+                        var message = '<span id="alert_message_text">' + msg.data.message + ' </span>';
                         $.notify(message, {
                             newest_on_top: true
                         });
@@ -505,7 +503,6 @@ angular.module('mockuperApp')
                     },
                     sort: 'createdAt DESC'
                 }).$promise.then(function(result) {
-                    console.log("MOckup version load");
                     $scope.versionMockups = result;
                     try {
                         $scope.$digest();
