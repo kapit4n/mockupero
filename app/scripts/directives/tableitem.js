@@ -7,12 +7,12 @@
  * # tableItem
  */
 angular.module('mockuperApp')
-  .directive('tableItem', function () {
-    return {
-      templateUrl: 'views/templates/tableItem.html',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        
-      }
-    };
-  });
+    .directive('tableItem', function() {
+        return {
+            templateUrl: 'views/templates/tableItem.html',
+            restrict: 'E',
+            link: function postLink(scope, element, attrs) {
+
+            }
+        };
+    });

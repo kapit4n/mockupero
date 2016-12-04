@@ -7,12 +7,12 @@
  * # headerSide
  */
 angular.module('mockuperApp')
-  .directive('headerSide', function () {
-    return {
-      templateUrl: '/views/templates/headerSide.html',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        
-      }
-    };
-  });
+    .directive('headerSide', function() {
+        return {
+            templateUrl: '/views/templates/headerSide.html',
+            restrict: 'E',
+            link: function postLink(scope, element, attrs) {
+
+            }
+        };
+    });

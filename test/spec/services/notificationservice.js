@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Service: notificationService', function () {
+describe('Service: notificationService', function() {
 
-  // load the service's module
-  beforeEach(module('mockuperApp'));
+    // load the service's module
+    beforeEach(module('mockuperApp'));
 
-  // instantiate service
-  var notificationService;
-  beforeEach(inject(function (_notificationService_) {
-    notificationService = _notificationService_;
-  }));
+    // instantiate service
+    var notificationService;
+    beforeEach(inject(function(_notificationService_) {
+        notificationService = _notificationService_;
+    }));
 
-  it('should do something', function () {
-    expect(!!notificationService).toBe(true);
-  });
+    it('should do something', function() {
+        expect(!!notificationService).toBe(true);
+    });
 });

@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc directive
- * @name mockuperApp.directive:viewObject
+ * @name mockuperApp.directive:viewMockup
  * @description
- * # viewObject
+ * # viewMockup
  */
 angular.module('mockuperApp')
-    .directive('viewObject', function() {
+    .directive('viewMockup', function() {
         return {
-            templateUrl: 'views/templates/viewObject.html',
+            templateUrl: 'views/templates/viewMockup.html',
             restrict: 'E',
             link: function postLink(scope, element, attrs) {}
         };

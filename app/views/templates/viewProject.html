@@ -3,8 +3,10 @@
 <div class="col-sm-12" style="padding: 0;">
     <div class="thumbnail" style="height: 199px;">
         <div class="caption" class="col-sm-8">
-            <h4 class="col-sm-4">{{viewObject.name}} </h4>
-            <div class="col-sm-6"><a href="#/{{viewObject.editUrl}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+            <h4 class="col-sm-6">{{viewObject.name}} </h4>
+            <div class="col-sm-6">
+                <a href="#/{{viewObject.editUrl}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+                <a href="#/{{viewObject.editUrl}}" class="btn btn-default" role="button" ng-if="editMode">Share</a>
             </div>
             <div class="col-sm-12" style="color: darkgray;">
                 <div>State: {{viewObject.state}}</div>

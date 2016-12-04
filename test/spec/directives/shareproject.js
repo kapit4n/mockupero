@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: Comment', function() {
+describe('Directive: shareProject', function() {
 
     // load the directive's module
     beforeEach(module('mockuperApp'));
@@ -13,8 +13,8 @@ describe('Directive: Comment', function() {
     }));
 
     it('should make hidden element visible', inject(function($compile) {
-        element = angular.element('<-comment></-comment>');
+        element = angular.element('<share-project></share-project>');
         element = $compile(element)(scope);
-        expect(element.text()).toBe('this is the Comment directive');
+        expect(element.text()).toBe('this is the shareProject directive');
     }));
 });

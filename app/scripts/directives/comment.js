@@ -14,13 +14,16 @@ angular.module('mockuperApp')
                 restrict: 'E',
                 link: function postLink(scope, element, attrs) {
                     scope.newCommentFlag = false;
+                    scope.comments = [];
+                    scope.relationId = attrs.relation;
+
                     scope.addComment = function() {
                         scope.newCommentFlag = true;
                     };
 
                     scope.reloadComments = function() {
                         scope.newCommentFlag = false;
-                        commentService.reloadComments(scope, scope.relationId);
+                        commentService.reloadComments(scope, attrs.relation);
                     };
 
                     scope.shareComment = function() {
@@ -56,6 +59,7 @@ angular.module('mockuperApp')
                             scope.err = err;
                         });
                     };
+                    scope.reloadComments();
                 }
             };
         }

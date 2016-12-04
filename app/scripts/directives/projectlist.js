@@ -7,12 +7,12 @@
  * # projectList
  */
 angular.module('mockuperApp')
-  .directive('projectList', function () {
-    return {
-      templateUrl: 'views/templates/projectList.html',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        
-      }
-    };
-  });
+    .directive('projectList', function() {
+        return {
+            templateUrl: 'views/templates/projectList.html',
+            restrict: 'E',
+            link: function postLink(scope, element, attrs) {
+
+            }
+        };
+    });

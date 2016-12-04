@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: WorkflowlistCtrl', function () {
+describe('Controller: WorkflowlistCtrl', function() {
 
-  // load the controller's module
-  beforeEach(module('mockuperApp'));
+    // load the controller's module
+    beforeEach(module('mockuperApp'));
 
-  var WorkflowlistCtrl,
-    scope;
+    var WorkflowlistCtrl,
+        scope;
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    WorkflowlistCtrl = $controller('WorkflowlistCtrl', {
-      $scope: scope
-      // place here mocked dependencies
+    // Initialize the controller and a mock scope
+    beforeEach(inject(function($controller, $rootScope) {
+        scope = $rootScope.$new();
+        WorkflowlistCtrl = $controller('WorkflowlistCtrl', {
+            $scope: scope
+                // place here mocked dependencies
+        });
+    }));
+
+    it('should attach a list of awesomeThings to the scope', function() {
+        expect(WorkflowlistCtrl.awesomeThings.length).toBe(3);
     });
-  }));
-
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(WorkflowlistCtrl.awesomeThings.length).toBe(3);
-  });
 });

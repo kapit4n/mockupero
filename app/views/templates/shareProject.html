@@ -1,0 +1,39 @@
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Share Project</h4>
+            </div>
+            <div class="modal-body">
+                <p>Share the project with the mockupero users</p>
+                <form class="form">
+                    <div class="form-group">
+                        <label for="people">People</label>
+                        <br/>
+                        <select class="form-control" style="width: 150px; display: inline;" id="people" ng-model="userIdToadd">
+                            <option ng-value="user.id" ng-repeat="user in users">{{user.username}}</option>
+                        </select>
+                        <select class="form-control" style="width: 150px; display: inline;" id="people2" ng-model="permissionIdToadd">
+                            <option ng-value="permission.id" ng-repeat="permission in permissions">Can {{permission.can}}</option>
+                        </select>
+                        <button type="submit" style="width: 100px; display: inline;" class="btn btn-default" ng-click="addUsertoProject()">Share</button>
+                    </div>
+                </form>
+                <div class="col-sm-12" style="max-height: 100px;  overflow: scroll;">
+                    <div class="label-primary">Shared with:</div>
+                    <div ng-repeat="projectShareEntry in projectShareEntries">
+                        <span class=""> {{projectShareEntry.user.username}} Can {{projectShareEntry.permission.can}} </span>
+                        <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="removeProjectShare(projectShareEntry.id, projectShareEntry.project.id)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

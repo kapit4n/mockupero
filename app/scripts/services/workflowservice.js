@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-  .service('workflowService', function($resource, GlobalService) {
+    .service('workflowService', function($resource, GlobalService) {
         var fac = {};
         fac.workflow = $resource(GlobalService.BASE_PATH + '/workflow', {}, {
             get: {

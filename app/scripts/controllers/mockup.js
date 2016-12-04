@@ -9,15 +9,17 @@
  */
 angular.module('mockuperApp')
     .controller('MockupCtrl', ['$scope', '$cookieStore', 'loginService', 'mockupService', 'breadcrumbService',
-        '$routeParams', '$rootScope', 'headerService', 'permissionService', 'commentService',
+        '$routeParams', '$rootScope', 'headerService', 'permissionService',
         function($scope, $cookieStore, loginService, mockupService, breadcrumbService,
-            $routeParams, $rootScope, headerService, permissionService, commentService) {
+            $routeParams, $rootScope, headerService, permissionService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
 
             $scope.mockupList = mockupService.mockups;
             $scope.mockup = null;
             $scope.logingLog = {};
+            $scope.mockupId = $routeParams.mockupId;
+
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 $scope.$apply(function() {
@@ -40,14 +42,12 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.mockup = result;
                     $scope.viewObject = result;
-                    $scope.relationId = $scope.mockup.id;
                     $scope.relationName = $scope.mockup.name;
                     $scope.viewObject.title = 'Mockup View';
                     $scope.viewObject.editUrl = 'project/' + result.project.id + '/mockup/edit/' + result.id;
                     $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
                     $scope.viewObject.parentName = result.project.name;
                     $scope.viewObject.parentUrl = '#/project/' + result.project.id;
-                    $scope.reloadComments();
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
