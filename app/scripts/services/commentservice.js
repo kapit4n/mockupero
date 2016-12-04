@@ -65,12 +65,12 @@ angular.module('mockuperApp')
 
             fac.update = function($scope) {
                 fac.updateComment.update({
-                        id: $scope.relationId
-                    }, $scope.editComment, function(result) {
-                        $window.location.href = '#/project/' + $scope.project.id;
-                    }, function(err) {
-                        $scope.err = err;
-                    });
+                    id: $scope.relationId
+                }, $scope.editComment, function(result) {
+                    $window.location.href = '#/project/' + $scope.project.id;
+                }, function(err) {
+                    $scope.err = err;
+                });
             }
 
             fac.reloadComments = function($scope, relationId) {

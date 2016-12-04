@@ -9,14 +9,13 @@
  */
 angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', '$rootScope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
-        'headerService', 'permissionService', 'commentService', 'workflowService',
+        'headerService', 'permissionService', 'workflowService',
         function($scope, $rootStore, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
-            headerService, permissionService, commentService, workflowService) {
+            headerService, permissionService, workflowService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
             $scope.logingLog = {};
-            $scope.relationId = 0;
             $scope.relationName = "Project";
 
             $scope.addMockup = function() {
@@ -46,11 +45,9 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.viewObject = result;
                     $scope.project = result;
-                    $scope.relationId = $scope.project.id;
                     $scope.relationName = $scope.project.name;
                     $scope.viewObject.title = 'Project View';
                     $scope.viewObject.editUrl = 'project/edit/' + result.id;
-                    $scope.reloadComments();
                     $scope.loadWorkflow();
                     try {
                         permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));

@@ -8,8 +8,11 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService', 'GlobalService',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService, GlobalService) {
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService',
+        'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService',
+        'chatService', 'GlobalService', 'shareService',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService,
+            $location, $rootScope, $window, $http, $timeout, headerService, chatService, GlobalService, shareService) {
             $scope.globalService = GlobalService;
             $scope.logingLog = {};
             loginService.reloadScope();
@@ -110,40 +113,6 @@ angular.module('mockuperApp')
                     $scope.reloadProject($scope.currentPage);
                 });
             };
-
-            $scope.reloadUsers = function(projectId) {
-                $scope.sharedProjectId = projectId;
-                projectService.getProjectUsers.get({
-                    where: {
-                        project: $scope.sharedProjectId
-                    }
-                }).$promise.then(function(result) {
-                    $scope.projectShareEntries = [];
-                    result.forEach(function(projectShare) {
-                        $scope.projectShareEntries.push(projectShare);
-                    });
-                });
-            };
-
-            $scope.addUsertoProject = function() {
-                var userProjectTuple = {
-                    user: $scope.userIdToadd,
-                    project: $scope.sharedProjectId,
-                    permission: $scope.permissionIdToadd
-                };
-                projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
-                    $scope.reloadUsers($scope.sharedProjectId);
-                });
-            }
-
-            $scope.removeProjectShare = function(shareProjectId, projectId) {
-                projectService.deleteProjectShare.delete({
-                    id: shareProjectId
-                }).$promise.then(function(result) {
-                    $scope.reloadUsers(projectId);
-                });
-            };
-
             $scope.reloadProject(1);
         }
     ]);

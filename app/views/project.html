@@ -8,7 +8,8 @@
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error: </span> {{err}}
     </div>
-    <view-object></view-object>
+    <view-project>
+    </view-project>
     <div class="container">
         <div class="col-sm-6 col-md-6">
             <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
@@ -52,5 +53,5 @@
             </div>
         </div>
     </div>
-    <comment></comment>
+    <comment relation="{{projectId}}"></comment>
 </div>
