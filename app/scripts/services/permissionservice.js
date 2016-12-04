@@ -35,9 +35,9 @@ angular.module('mockuperApp')
                             }
                         }
                         //$rootScope.$digest();
-                    } catch(e1) {console.log(e1);}
+                    } catch(e1) {console.error(e1);}
                 });
-        } catch(e) { console.log(e);}
-    }
+        } catch(e) { console.error(e);}
+    };
     return fac;
   });
