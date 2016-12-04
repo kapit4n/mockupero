@@ -23,6 +23,7 @@ angular.module('mockuperApp')
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
             $scope.error = '';
+            $scope.versionMockups = [];
 
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
             $scope.createImage = function() {
@@ -487,6 +488,63 @@ angular.module('mockuperApp')
                     }
                 });
             });
+
+            $scope.versionMockups = [];
+            $scope.newMockupVersion = function() {
+
+            };
+
+            $scope.promoteMockupVersion = function() {
+
+            };
+
+            $scope.reloadMockupVersions = function() {
+                mockupVersionService.getMockupVersions.get({
+                    where: {
+                        mockup: $routeParams.mockupId
+                    },
+                    sort: 'createdAt DESC'
+                }).$promise.then(function(result) {
+                    console.log("MOckup version load");
+                    $scope.versionMockups = result;
+                    try {
+                        $scope.$digest();
+                    } catch (ex) {}
+                }, function(err) {
+                    $scope.err = err;
+                });
+            };
+
+            $scope.deleteVersion = function(versionId) {
+                mockupVersionService.deleteMockupVersion.save({
+                    mockupVersionId: versionId
+                }).$promise.then(function(result) {
+                    $timeout(function() {
+                        $scope.reloadMockupVersions();
+                    }, 2000);
+                }, function(reason) {
+                    $scope.err = err;
+                });
+            };
+
+            $scope.restore = function(versionId) {
+                mockupVersionService.mockupVersionRestore.save({
+                    mockupVersionId: versionId,
+                    action: 'Restoring'
+                }).$promise.then(function(result) {
+                    $timeout(function() {
+                        $scope.loadMockupItems();
+                        $scope.reloadMockupVersions();
+                    }, 1000);
+                }, function(reason) {
+                    $scope.err = err;
+                });
+            };
+            $scope.suggest = function(versionId) {
+                console.log("call the service to suggest");
+                console.log(versionId);
+            };
+            $scope.reloadMockupVersions();
 
         } // end of the controller function
     ]);
