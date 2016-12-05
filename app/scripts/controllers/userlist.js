@@ -12,8 +12,8 @@ angular.module('mockuperApp')
         function($rootScope, $scope, loginService, mockupService, projectService, userService, $location, headerService, breadcrumbService) {
             loginService.reloadScope();
             headerService.updateHeader('users');
-            $scope.users = [];
             $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('user-list', 'user');
+            $scope.users = [];
 
             $scope.reloadUsers = function() {
                 userService.user.get({})

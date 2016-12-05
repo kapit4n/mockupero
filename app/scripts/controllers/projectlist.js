@@ -17,11 +17,18 @@ angular.module('mockuperApp')
             $scope.chatList = [];
             loginService.reloadScope();
             headerService.updateHeader('projects');
-            $scope.userName = $rootScope.userNameLogin;
+            $scope.userName = $rootScope.userNameLogin;            
+            $scope.currentPage = 1;
+            $scope.pageSize = 2;
+            $scope.projects = [];
+            $scope.searchName = '';
+            $scope.totalSize = 0;
+            $scope.totalPages = 0;
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-list', '');
+            $scope.projectPages = [];
+            $scope.sortAsc = true;
 
-            io.socket.get('/project', function serverResponded(body, JWR) {
-                //console.log('project get');
-            });
+            io.socket.get('/project', function serverResponded(body, JWR) {});
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 $scope.$apply(function() {
@@ -41,27 +48,6 @@ angular.module('mockuperApp')
                         $scope.logingLog[msg.data.username].online = msg.data.online; // ((new Date(msg.data.createdAt)).getTime())
                     }
                 });
-            });
-
-            $scope.currentPage = 1;
-            $scope.pageSize = 2;
-            $scope.projects = [];
-            $scope.searchName = '';
-            $scope.totalSize = 0;
-            $scope.totalPages = 0;
-            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-list', '');
-
-            $scope.projectPages = [];
-            $scope.users = [];
-            $scope.sortAsc = true;
-
-            userService.user.get().$promise.then(function(result) {
-                $scope.users = result;
-                //console.log($scope.users);
-            });
-
-            userService.permission.get().$promise.then(function(result) {
-                $scope.permissions = result;
             });
 
             $rootScope.logout = function() {

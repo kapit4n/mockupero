@@ -32,12 +32,10 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-default" ng-click="gotoDiagram()">
-        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-    </button>
+    <a href="#/project/{{projectId}}/navigationDiagram" class="btn btn-sm btn-info" role="button">Show Navigation</a>
     <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button> Mockups </h3>
+</button></h3>
     <div class="row">
         <div class="col-sm-4 col-md-4" ng-repeat="mockup in project.mockups track by $index">
             <div class="thumbnail">
