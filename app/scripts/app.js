@@ -117,6 +117,11 @@ angular
                 controller: 'NavigationdiagramCtrl',
                 controllerAs: 'navigationDiagram'
             })
+            .when('/project/:projectId/mockup-presentation/:mockupId', {
+              templateUrl: 'views/mockuppresentation.html',
+              controller: 'MockuppresentationCtrl',
+              controllerAs: 'mockupPresentation'
+            })
             .otherwise({
                 redirectTo: '/'
             });
