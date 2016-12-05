@@ -11,13 +11,13 @@
     <view-project>
     </view-project>
     <div class="container">
-        <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12 col-md-12">
             <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
                 {{wf.action}}
             </button>
         </div>
-        <div class="col-sm-6 col-md-6">
-            <h3>Members </h3>
+        <div class="col-sm-12 col-md-12">
+            <h5>Members </h5>
             <div class="row">
                 <div class="col-sm-2 col-md-2" style="padding: 5px;" ng-repeat="member in project.members">
                     <div class="thumbnail" style="height: 60px;">
@@ -32,12 +32,10 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-default" ng-click="gotoDiagram()">
-        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-    </button>
+    <a href="#/project/{{projectId}}/navigationDiagram" class="btn btn-sm btn-info" role="button">Show Navigation</a>
     <h3> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button> Mockups </h3>
+</button></h3>
     <div class="row">
         <div class="col-sm-4 col-md-4" ng-repeat="mockup in project.mockups track by $index">
             <div class="thumbnail">
@@ -46,9 +44,11 @@
                     <h4>{{mockup.name}}</h4>
                     <p>{{mockup.description}}</p>
                     <p>
-                        <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-primary" role="button">View</a>
-                        <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit</a>
-                        <a href="" ng-click="deleteMockup(mockup.id)" class="btn btn-danger" role="button">Delete</a>
+                        <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-xs btn-primary" role="button">View</a>
+                        <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-xs btn-default" role="button" ng-if="editMode">Edit</a>
+                        <a href="#/project/{{projectId}}/mockup-edit-design/{{mockup.id}}" class="btn btn-xs btn-info" role="button">Design</a>
+                        <a href="#/project/{{projectId}}/mockup-presentation/{{mockup.id}}" class="btn btn-xs btn-info" role="button">Presentation</a>
+                        <a href="" ng-click="deleteMockup(mockup.id)" class="btn btn-xs btn-danger" role="button">Delete</a>
                     </p>
                 </div>
             </div>

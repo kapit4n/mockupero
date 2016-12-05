@@ -19,6 +19,7 @@ angular.module('mockuperApp')
             $scope.mockup = null;
             $scope.logingLog = {};
             $scope.mockupId = $routeParams.mockupId;
+            $scope.projectId = $routeParams.projectId;
 
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {

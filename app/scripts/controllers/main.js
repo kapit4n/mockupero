@@ -19,6 +19,16 @@ angular.module('mockuperApp')
             $scope.chatCollapsed = false;
             headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
+            $scope.currentPage = 1;
+            $scope.pageSize = 2;
+            $scope.projects = [];
+            $scope.searchName = '';
+            $scope.totalSize = 0;
+            $scope.totalPages = 0;
+            $rootScope.breadcrumb = mockupService.breadcrumb['home'];
+            $scope.projectPages = [];
+            $scope.sortAsc = true;
+
             io.socket.get('/project', function serverResponded(body, JWR) {
                 console.log('Subscribed to socket');
             });
@@ -41,29 +51,6 @@ angular.module('mockuperApp')
                         $scope.logingLog[msg.data.username].online = msg.data.online; // ((new Date(msg.data.createdAt)).getTime())
                     }
                 });
-            });
-
-            $scope.currentPage = 1;
-            $scope.pageSize = 2;
-            $scope.projects = [];
-            $scope.searchName = '';
-            $scope.totalSize = 0;
-            $scope.totalPages = 0;
-            $rootScope.breadcrumb = mockupService.breadcrumb['home'];
-            $scope.projectPages = [];
-            $scope.projectShareEntries = [];
-            $scope.users = [];
-            $scope.sortAsc = true;
-            $scope.userIdToadd = '';
-            $scope.sharedProjectId = '';
-            $scope.permissionIdToadd = '';
-
-            userService.user.get().$promise.then(function(result) {
-                $scope.users = result;
-            });
-
-            userService.permission.get().$promise.then(function(result) {
-                $scope.permissions = result;
             });
 
             $rootScope.logout = function() {
