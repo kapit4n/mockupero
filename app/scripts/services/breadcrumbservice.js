@@ -94,7 +94,7 @@ angular.module('mockuperApp')
                         url: 'workflowList'
                     }, {
                         name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
-                        url: 'project/' + param.id
+                        url: 'workflow/' + param.id
                     }];
                     return result;
                     break;
