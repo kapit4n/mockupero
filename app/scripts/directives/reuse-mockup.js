@@ -26,7 +26,7 @@ angular.module('mockuperApp')
                     refItem.top = 0;
                     refItem.left = 0;
                     refItem.position = 10;
-                    refItem.src = 'http://localhost:1337/images/5840ea72c46db79e46b21a12.png';
+                    refItem.src = 'http://localhost:1337/images/' + mockup.id + '.png';
                     refItem.type = 'reference';
                     refItem.width = mockup.width;
                     refItem.height = mockup.height;
