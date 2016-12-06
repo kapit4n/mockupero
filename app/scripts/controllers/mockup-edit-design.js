@@ -62,12 +62,12 @@ angular.module('mockuperApp')
 
             $scope.menuList = ['menu1', 'menu2', 'menu3'];
 
-            $scope.result = [];
-            $scope.resultBykeys = {};
+            $scope.mockupItems = [];
+            $scope.mockupItemsBykey = {};
 
             $scope.loadStaticValues = function(item) {
-                if (item.id && $scope.resultBykeys[item.id] && $scope.resultBykeys[item.id].link) {
-                    item.link = $scope.resultBykeys[item.id].link;
+                if (item.id && $scope.mockupItemsBykey[item.id] && $scope.mockupItemsBykey[item.id].link) {
+                    item.link = $scope.mockupItemsBykey[item.id].link;
                     $scope.editObject.links.push(item.link);
                 }
             }
@@ -80,12 +80,12 @@ angular.module('mockuperApp')
                     },
                     limit: 100
                 }).$promise.then(function(result) {
-                    $scope.result = result;
-                    $scope.result.forEach(function(item) {
-                        $scope.resultBykeys[item.id] = item;
+                    $scope.mockupItems = result;
+                    $scope.mockupItems.forEach(function(item) {
+                        $scope.mockupItemsBykey[item.id] = item;
                     });
                     var positionAux = 0;
-                    angular.forEach($scope.result, function(value, key) {
+                    angular.forEach($scope.mockupItems, function(value, key) {
                         if (positionAux < value.position) {
                             $scope.lastId = value.position;
                         }
@@ -538,7 +538,7 @@ angular.module('mockuperApp')
                 });
             };
             $scope.suggest = function(versionId) {
-                console.log("call the service to suggest");
+                console.log("Call the service to suggest the version");
                 console.log(versionId);
             };
             $scope.reloadMockupVersions();

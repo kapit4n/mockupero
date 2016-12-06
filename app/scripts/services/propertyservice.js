@@ -15,7 +15,9 @@ angular.module('mockuperApp')
         fac.getItem = function(idComp) {
             var item = {};
             if (idComp.length > 15) {
-                if (idComp.indexOf('image') > -1) {
+                if (idComp.indexOf('reference') > -1) {
+                    item.id = idComp.substring(10);
+                } else if (idComp.indexOf('image') > -1) {
                     item.id = idComp.substring(6);
                 } else if (idComp.indexOf('button') > -1) {
                     item.id = idComp.substring(7);
@@ -39,6 +41,10 @@ angular.module('mockuperApp')
 
             if (idComp.indexOf('image') > -1) {
                 item.type = "image";
+                item.width = $(idComp)[0].width;
+                item.height = $(idComp)[0].height;
+            } else if (idComp.indexOf('reference') > -1) {
+                item.type = "reference";
                 item.width = $(idComp)[0].width;
                 item.height = $(idComp)[0].height;
             } else if (idComp.indexOf('button') > -1) {
@@ -130,7 +136,7 @@ angular.module('mockuperApp')
             var itemId = $scope.getItemId(idComponent);
             var item = fac.getItem('#' + idComponent);
             $scope.auxItem = item;
-            $scope.auxItem.link = $scope.resultBykeys[itemId].link;
+            $scope.auxItem.link = $scope.mockupItemsBykey[itemId].link;
 
             var propertiesValuesDiv = '';
             propertiesValuesDiv += fac.formStart();
@@ -233,7 +239,7 @@ angular.module('mockuperApp')
             component[0].style.height = heightValue[0].value;
             component[0].style.top = (parseFloat(topValue[0].value) - translateY) + 'px';
             component[0].style.left = (parseFloat(leftValue[0].value) - translateX) + 'px';
-            $scope.resultBykeys[itemId].link = redirectValue[0].value;
+            $scope.mockupItemsBykey[itemId].link = redirectValue[0].value;
             $('#myProperties').modal('hide');
         };
 
