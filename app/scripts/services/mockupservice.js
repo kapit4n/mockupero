@@ -72,6 +72,13 @@ angular.module('mockuperApp')
             }
         });
 
+        fac.getMockups = $resource(GlobalService.BASE_PATH + '/mockup', {}, {
+            get: {
+                method: 'GET',
+                isArray: true
+            }
+        });
+
         fac.createMockup = $resource(GlobalService.BASE_PATH + '/mockup/', {}, {
             save: {
                 method: 'POST'
