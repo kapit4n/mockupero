@@ -31,10 +31,11 @@ angular.module('mockuperApp')
                     onrendered: function(canvas) {
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
-                        //$('#img-out').append('<img src="' + dataURL + '" style="width: 100px; height: 100px;"/>');
-                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
+                        mockupService.createMockupItemUploadAvatar.save({
+                            img: dataURL,
+                            mockupId: $routeParams.mockupId
+                        }, function(result) {});
 
-                        });
                     }
                 });
             }

@@ -1,8 +1,11 @@
 <div style="">
-<canvas id="simple_sketch" width="{{mockup.width}}" height="{{mockup.height}}" style="background: url(http://localhost:1337/images/{{mockupId}}.png) no-repeat center center;"></canvas>	
+<button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="saveSuggest()" title="Save Suggest">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        </button>
+<canvas id="suggestMockup" width="{{mockup.width}}" height="{{mockup.height}}" style="background: url(http://localhost:1337/images/{{mockupId}}.png) no-repeat center center;"></canvas>	
 </div>
 <script type="text/javascript">
 $(function() {
-    $('#simple_sketch').sketch();
+    $('#suggestMockup').sketch();
 });
 </script>

@@ -27,5 +27,18 @@ angular.module('mockuperApp')
                 }, function(error) {
                     console.error(error);
                 });
+            $scope.saveSuggest = function() {
+                html2canvas($('#suggestMockup'), {
+                    onrendered: function(canvas) {
+                        var ctx = canvas.getContext('2d');
+                        var dataURL = canvas.toDataURL();
+                        mockupService.createMockupItemUploadAvatar.save({
+                            img: dataURL,
+                            mockupId: $routeParams.mockupId
+                        }, function(result) {});
+
+                    }
+                });
+            }
         }
     ]);

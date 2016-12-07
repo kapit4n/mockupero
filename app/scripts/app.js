@@ -117,7 +117,7 @@ angular
                 controller: 'NavigationdiagramCtrl',
                 controllerAs: 'navigationDiagram'
             })
-            .when('/project/:projectId/mockup-presentation/:mockupId', {
+            .when('/project/:projectId/mockup-suggest/:mockupId', {
               templateUrl: 'views/mockuppresentation.html',
               controller: 'MockuppresentationCtrl',
               controllerAs: 'mockupPresentation'

@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="reloadMockupReuse()" data-toggle="modal" data-target="#mockupReuseModal">
+<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="reloadMockupReuse()" data-toggle="modal" data-target="#mockupReuseModal" title="Reuse Mockup">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
 <div id="mockupReuseModal" class="modal fade" role="dialog">
@@ -25,7 +25,7 @@
                                     <button type="button" class="btn btn-primary btn-xs" ng-click="copyItems(mockupToReuse)">Copy Items</button>
                                 </div>
                                 <div class="col-md-5">
-                                    <img style="padding:0; width: 150px;" src="http://localhost:1337/images/{{mockupToReuse.id}}.png" alt="...">
+                                    <img id="reuse-mockup-{{mockupToReuse.id}}" style="padding:0; width: 150px;" src="http://localhost:1337/images/{{mockupToReuse.id}}.png" alt="...">
                                 </div>
                             </div>
                         </div>
