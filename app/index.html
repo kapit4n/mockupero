@@ -14,6 +14,11 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <script src="bower_components/socket.io-client/socket.io.js"></script>
+    <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
+    <script type="text/javascript">
+        io.sails.url = 'http://localhost:1337';
+    </script>
     <!-- endbuild -->
 </head>
 
@@ -21,13 +26,8 @@
     <script src="static/js/html2canvas.js"></script>
     <script src="static/js/canvas2image.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/socket.io-client/socket.io.js"></script>
-    <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
     <script src="static/js/go.js"></script>
     <script src="static/js/sketch.min.js"></script>
-    <script type="text/javascript">
-    io.sails.url = 'http://localhost:1337';
-    </script>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
