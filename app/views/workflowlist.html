@@ -11,7 +11,7 @@
 </div>
 <br />
 <div class="container" style="background-color: white;">
-        <table class="table table-condensed">
+    <table class="table table-condensed">
         <thead>
             <tr>
                 <th>Status</th>
@@ -22,7 +22,7 @@
             <tr ng-repeat="workflow in workflows">
                 <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
-                <td>
+                <td style="float: right;">
                     <a href="#/workflow-edit/{{workflow.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
                     <button ng-click="deleteWorkflow(workflow.id)" class="btn btn-danger btn-sm" role="button">Delete</button>
                 </td>
