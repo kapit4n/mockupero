@@ -1,16 +1,17 @@
-<div class="col-sm-12" style="padding: 1px;">
+<div class="container" style="padding: 1px;">
     <div class="alert alert-danger" role="alert" ng-show="err">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span> {{err}}
     </div>
-    <div class="col-md-2">
-        <button type="button" class="btn btn-default" ng-click="addUser()" data-toggle="tooltip" title="Popover title">
+    <div class="col-md-5">
+        <h3> <button type="button" class="btn btn-default" ng-click="addUser()" data-toggle="tooltip" title="Popover title">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
+        </button> Users </h3>
     </div>
-    <br/>
-    <br/>
-    <table class="table table-condensed">
+</div>
+<br />
+<div class="container">
+    <table class="table table-condensed" style="background-color: white;">
         <thead>
             <tr>
                 <th>FirstName</th>

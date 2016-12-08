@@ -1,6 +1,6 @@
-<h3 class="col-sm-12">Workflow </h3>
-<a class="col-sm-12" href="{{workflow.parentUrl}}">{{workflow.name}}</a>
-<div class="col-sm-12" style="padding: 0;">
+<h3 class="container">Workflow </h3>
+<br/>
+<div class="container" style="padding: 0; background-color: white">
     <div class="alert alert-danger" role="alert" ng-show="err">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error: </span> {{err}}
@@ -15,11 +15,13 @@
         </div>
     </div>
 </div>
-<div class="container">
+<br/>
+<br/>
+<div class="container" style="background: white;">
     <h3>
-    	<button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#previousWorkflow" >
-    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    	</button>
+        <button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#previousWorkflow" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
     </h3> Previous Workflows
     <table class="table table-condensed">
         <thead>
@@ -39,11 +41,13 @@
         </tbody>
     </table>
 </div>
-<div class="container">
+<br/>
+<br/>
+<div class="container" style="background: white;">
     <h3>
-    	<button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#nextWorkflow" >
-    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    	</button>
+        <button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#nextWorkflow" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
     </h3> Next Workflows
     <table class="table table-condensed">
         <thead>

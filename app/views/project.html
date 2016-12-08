@@ -38,18 +38,18 @@
 </button></h3>
     <div class="row">
         <div class="col-sm-4 col-md-4" ng-repeat="mockup in project.mockups track by $index">
-            <div class="thumbnail">
-                <img src="http://localhost:1337/images/{{mockup.id}}.png" height="30px" alt="...">
+            <div class="thumbnail" style="height: 210px;">
                 <div class="caption">
                     <h4>{{mockup.name}}</h4>
-                    <p>{{mockup.description}}</p>
                     <p>
-                        <a href="#/project/{{projectId}}/mockup/{{mockup.id}}" class="btn btn-xs btn-primary" role="button">View</a>
-                        <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" class="btn btn-xs btn-default" role="button" ng-if="editMode">Edit</a>
-                        <a href="#/project/{{projectId}}/mockup-edit-design/{{mockup.id}}" class="btn btn-xs btn-info" role="button">Design</a>
-                        <a href="#/project/{{projectId}}/mockup-suggest/{{mockup.id}}" class="btn btn-xs btn-info" role="button">Suggest</a>
-                        <a href="" ng-click="deleteMockup(mockup.id)" class="btn btn-xs btn-danger" role="button">Delete</a>
+                        <a href="#/project/{{projectId}}/mockup/{{mockup.id}}"><span class="glyphicon glyphicon-folder-open"></span></a>
+                        <a href="#/project/{{projectId}}/mockup/edit/{{mockup.id}}" ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="#/project/{{projectId}}/mockup-edit-design/{{mockup.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="" ng-click="deleteMockup(mockup.id)" role="button"><span class="glyphicon glyphicon-remove"></span></a>
                     </p>
+                </div>
+                <div style="">
+                    <img src="http://localhost:1337/images/{{mockup.id}}.png" class="col-sm-12 col-md-12" alt="...">
                 </div>
             </div>
         </div>
