@@ -17,7 +17,7 @@
     <script src="bower_components/socket.io-client/socket.io.js"></script>
     <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
     <script type="text/javascript">
-        io.sails.url = 'http://localhost:1337';
+    io.sails.url = 'http://localhost:1337';
     </script>
     <!-- endbuild -->
 </head>
@@ -33,10 +33,19 @@
     <![endif]-->
     <!-- Add your site or application content here -->
     <header-side> </header-side>
-    <div class="container">
-        <div ng-view=""></div>
+    <div style="position: fixed; width: 100%; z-index: -1; opacity: 0.7; top: 215px;">
+        <center>
+            <img src="static/banner.jpg" style="z-index: -1; ">
+        </center>
     </div>
-    <footer-side> </footer-side>
+    <div style="z-index: -1;  position: absolute; width: 100%; opacity: 0.7; height: 950px; background: #edfcee; top: 125px;">
+    </div>
+    <div style="">
+        <div class="container" style="min-height: 700px;">
+            <div ng-view=""></div>
+        </div>
+        <footer-side> </footer-side>
+    </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
     ! function(A, n, g, u, l, a, r) {

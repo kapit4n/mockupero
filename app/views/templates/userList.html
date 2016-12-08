@@ -1,15 +1,16 @@
-<div class="col-sm-12" style="padding: 1px;">
+<div class="container" style="padding: 1px;">
     <div class="alert alert-danger" role="alert" ng-show="err">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span> {{err}}
     </div>
-    <div class="col-md-2">
-        <button type="button" class="btn btn-default" ng-click="addUser()" data-toggle="tooltip" title="Popover title">
+    <div class="col-md-5">
+        <h3> <button type="button" class="btn btn-default" ng-click="addUser()" data-toggle="tooltip" title="Popover title">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
+        </button> Users </h3>
     </div>
-    <br/>
-    <br/>
+</div>
+<br />
+<div class="container"  style="background-color: white;">
     <table class="table table-condensed">
         <thead>
             <tr>
@@ -26,7 +27,7 @@
                 <td>{{user.lastName}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
-                <td>
+                <td style="float: right;">
                     <a href="#/user-edit/{{user.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
                     <button ng-click="deleteUser(user.id)" class="btn btn-danger btn-sm" role="button">Delete</button>
                 </td>
