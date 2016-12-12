@@ -16,10 +16,10 @@
                 {{wf.action}}
             </button>
         </div>
-        <div class="col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <h5>Members </h5>
             <div class="row">
-                <div class="col-sm-2 col-md-2" style="padding: 5px;" ng-repeat="member in project.members">
+                <div class="col-xs-3 col-sm-2 col-md-2" style="padding: 5px;" ng-repeat="member in project.members">
                     <div class="thumbnail" style="height: 60px;">
                         <img ng-src="http://localhost:1337/images/avatar/{{member.user}}.jpg" style="width: 30px; " alt="...">
                         <div class="caption">
@@ -37,7 +37,7 @@
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button></h3>
     <div class="row" style="border: 0;">
-        <div class="col-sm-3 col-md-3" ng-repeat="mockup in project.mockups track by $index" style="background: white; height: 210px; border: 1px; border-color: black; margin: 10px;">
+        <div class="col-xs-4 col-sm-3 col-md-3" ng-repeat="mockup in project.mockups track by $index" style="background: white; height: 210px; border: 3px; border-color: black; margin: 20px;">
             <div class="thumbnail" style="height: 210px;">
                 <div class="caption">
                     <h4>{{mockup.name}}</h4>
@@ -49,7 +49,7 @@
                     </p>
                 </div>
                 <div style="">
-                    <img src="http://localhost:1337/images/{{mockup.id}}.png" class="col-sm-12 col-md-12" alt="...">
+                    <img src="http://localhost:1337/images/{{mockup.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="...">
                 </div>
             </div>
         </div>
