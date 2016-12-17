@@ -12,6 +12,7 @@ angular.module('mockuperApp')
             return {
                 templateUrl: 'views/templates/chatDirective.html',
                 restrict: 'E',
+                scope: false,
                 link: function postLink(scope, element, attrs) {
                     scope.globalService = GlobalService;
                     scope.chatList = [];

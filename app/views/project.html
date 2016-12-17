@@ -30,8 +30,8 @@
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button></h3>
     <div class="row" style="border: 0;">
-        <div class="col-xs-4 col-sm-3 col-md-3" ng-repeat="mockup in project.mockups track by $index" style="background: white; height: 210px; border: 3px; border-color: black; margin: 20px;">
-            <div class="thumbnail" style="height: 210px;">
+        <div class="col-xs-4 col-sm-3 col-md-3" ng-repeat="mockup in project.mockups track by $index" style="background: #aeb2ae; height: 250px; border: 3px; margin: 20px; padding: 0;">
+            <div class="thumbnail" style="height: 250px; background: #aeb2ae;">
                 <div class="caption">
                     <h4>{{mockup.name}}</h4>
                     <p>
@@ -41,8 +41,8 @@
                         <a href="" ng-click="deleteMockup(mockup.id)" role="button"><span class="glyphicon glyphicon-remove"></span></a>
                     </p>
                 </div>
-                <div style="">
-                    <img src="http://localhost:1337/images/{{mockup.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="...">
+                <div >
+                    <img src="http://localhost:1337/images/{{mockup.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="..." style="background: white;">
                 </div>
             </div>
         </div>
