@@ -1,7 +1,13 @@
 <view-mockup></view-mockup>
+<div class="container"  ng-show="mockup.owner == userId">
+    <div class="col-sm-12 col-md-12">
+        <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
+            {{wf.action}}
+        </button>
+    </div>
+</div>
 <div class="container">
-    <a href="#/{{viewObject.editDesign}}" class="btn btn-sm btn-default" role="button" ng-if="editMode">Design</a>
-    <a href="#/{{viewObject.editDesign}}" class="btn btn-sm btn-default" role="button" ng-if="!editMode">Design</a>
+    <a ng-show="currentworkflow.permission.edit == 'YES'" href="#/{{viewObject.editDesign}}" class="btn btn-sm btn-default" role="button" ng-if="editMode">Design</a>
     <a href="#/project/{{projectId}}/mockup-suggest/{{mockupId}}" class="btn btn-sm btn-info" role="button">Suggest</a>
 </div>
 <br>

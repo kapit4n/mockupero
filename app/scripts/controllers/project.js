@@ -17,6 +17,7 @@ angular.module('mockuperApp')
             $scope.projectId = $routeParams.projectId;
             $scope.logingLog = {};
             $scope.relationName = "Project";
+            $scope.currentworkflow = {};
 
             $scope.addMockup = function() {
                 $location.path('/project/' + $scope.projectId + '/mockup-new');
@@ -62,6 +63,7 @@ angular.module('mockuperApp')
                     }
                 }).$promise.then(function(result) {
                     $scope.workflows = result[0].next;
+                    $scope.currentworkflow = result[0];
                 });
             }
             $scope.workflowAction = function(workflow) {
@@ -74,7 +76,6 @@ angular.module('mockuperApp')
                 projectService.updateProject.update({
                     id: $scope.project.id
                 }, $scope.project, function(result) {
-
                 }, function(err) {
                     $scope.err = err;
                 });

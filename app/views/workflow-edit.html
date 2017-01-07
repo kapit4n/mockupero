@@ -1,7 +1,7 @@
 <div class="container">
-<h3>Workflow Edit</h3>
-<br/>
-<br/>
+    <h3>Workflow Edit</h3>
+    <br/>
+    <br/>
     <form role="form" name="workflowForm">
         <div class="alert alert-danger" role="alert" ng-show="err">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -9,13 +9,34 @@
         </div>
         <div class="form-group">
             <label for="name">Workflow Status:</label>
-            <input type="text" ng-model="workflow.name" class="form-control" id="name" placeholder="Project Status" name="workflowName" required>
+            <input type="text" ng-model="workflow.name" class="form-control" id="name" placeholder="Workflow name" name="workflowName" required>
             <p style="color:red" ng-show="workflowForm.workflowName.$touched && workflowForm.workflowName.$invalid" class="help-block"> Status cannot be empty </p>
         </div>
         <div class="form-group">
             <label for="name">Workflow Action:</label>
-            <input type="text" ng-model="workflow.action" class="form-control" id="name" placeholder="Project Name" name="workflowName" required>
+            <input type="text" ng-model="workflow.action" class="form-control" id="name" placeholder="Workflow action" name="workflowName" required>
             <p style="color:red" ng-show="workflowForm.workflowName.$touched && workflowForm.workflowName.$invalid" class="help-block"> Action cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="name">Vote:</label>
+            <input type="checkbox" ng-model="workflow.vote" ng-true-value="'YES'" ng-false-value="'NO'">
+        </div>
+        <div class="form-group">
+            <label for="name">Edit Object:</label>
+            <input type="checkbox" ng-model="workflow.permission.edit" ng-true-value="'YES'" ng-false-value="'NO'">
+        </div>
+        <div class="form-group">
+            <label for="name">Delete Object:</label>
+            <input type="checkbox" ng-model="workflow.permission.delete" ng-true-value="'YES'" ng-false-value="'NO'">
+        </div>
+        <div class="form-group">
+            <label for="name" style="display: block;">Children:</label>
+            <label for="name">Add:</label>
+            <input type="checkbox" ng-model="workflow.permission.children.add" ng-true-value="'YES'" ng-false-value="'NO'">
+            <label for="name">Edit:</label>
+            <input type="checkbox" ng-model="workflow.permission.children.edit" ng-true-value="'YES'" ng-false-value="'NO'">
+            <label for="name">Delete:</label>
+            <input type="checkbox" ng-model="workflow.permission.children.delete" ng-true-value="'YES'" ng-false-value="'NO'">
         </div>
         <div class="form-group">
             <label for="sel1">Select list (select one):</label>
