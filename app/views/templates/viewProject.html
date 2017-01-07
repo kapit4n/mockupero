@@ -13,7 +13,7 @@
                 <div>Created At: {{viewObject.createdAt}}</div>
                 <div>Updated At: {{viewObject.updatedAt}}</div>
             </div>
-            <div class="col-sm-12">{{viewObject.description}} </div>
+            <div class="col-sm-12">{{viewObject.description | cut:true:300:' ...'}} </div>
         </div>
     </div>
 </div>
