@@ -17,7 +17,7 @@
             </button>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <h5>Members </h5>
+            <h5>Members</h5>
             <div class="row">
                 <div style="width: 65px; display: inline-block; height: 65px; padding: 3px; " ng-repeat="member in project.members">
                     <img ng-src="http://localhost:1337/images/avatar/{{member.user}}.jpg" class="img-thumbnail" alt="{{member.user}}" width="100%" title="{{member.user}}">
@@ -26,6 +26,7 @@
         </div>
     </div>
     <a href="#/project/{{projectId}}/navigationDiagram" class="btn btn-sm btn-info" role="button">Show Navigation</a>
+    <presentation></presentation>
     <h3 ng-show="currentworkflow.permission.children.add == 'YES'"> <button type="button" class="btn btn-default" aria-label="Left Align"  ng-click="addMockup()" >
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button></h3>

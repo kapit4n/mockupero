@@ -122,6 +122,11 @@ angular
               controller: 'MockuppresentationCtrl',
               controllerAs: 'mockupPresentation'
             })
+            .when('/presentation', {
+              templateUrl: 'views/presentation.html',
+              controller: 'PresentationCtrl',
+              controllerAs: 'presentation'
+            })
             .otherwise({
                 redirectTo: '/'
             });
