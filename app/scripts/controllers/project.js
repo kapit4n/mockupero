@@ -75,8 +75,7 @@ angular.module('mockuperApp')
             $scope.save = function() {
                 projectService.updateProject.update({
                     id: $scope.project.id
-                }, $scope.project, function(result) {
-                }, function(err) {
+                }, $scope.project, function(result) {}, function(err) {
                     $scope.err = err;
                 });
             }
