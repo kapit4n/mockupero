@@ -9,9 +9,9 @@
  */
 angular.module('mockuperApp')
     .controller('MockupCtrl', ['$scope', '$cookieStore', 'loginService', 'mockupService', 'breadcrumbService',
-        '$routeParams', '$rootScope', 'headerService', 'permissionService',
+        '$routeParams', '$rootScope', 'headerService', 'permissionService', 'workflowService',
         function($scope, $cookieStore, loginService, mockupService, breadcrumbService,
-            $routeParams, $rootScope, headerService, permissionService) {
+            $routeParams, $rootScope, headerService, permissionService, workflowService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
 
@@ -20,7 +20,6 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.mockupId = $routeParams.mockupId;
             $scope.projectId = $routeParams.projectId;
-
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 $scope.$apply(function() {
@@ -37,6 +36,33 @@ angular.module('mockuperApp')
                 });
             });
 
+            $scope.loadWorkflow = function() {
+                workflowService.workflow.get({
+                    where: {
+                        name: 'Mockup.' + $scope.mockup.state
+                    }
+                }).$promise.then(function(result) {
+                    $scope.workflows = result[0].next;
+                    console.log("Loading the workflows");
+                    console.log($scope.workflows);
+                    $scope.currentworkflow = result[0];
+                });
+            }
+
+            $scope.workflowAction = function(workflow) {
+                $scope.mockup.state = workflow.name.substring(7);;
+                $scope.save();
+                $scope.loadWorkflow();
+            }
+
+            $scope.save = function() {
+                mockupService.updateMockup.update({
+                    id: $scope.mockup.id
+                }, $scope.mockup, function(result) {}, function(err) {
+                    $scope.err = err;
+                });
+            }
+
             mockupService.mockupById.get({
                     mockupId: $routeParams.mockupId
                 })
@@ -49,6 +75,7 @@ angular.module('mockuperApp')
                     $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
                     $scope.viewObject.parentName = result.project.name;
                     $scope.viewObject.parentUrl = '#/project/' + result.project.id;
+                    $scope.loadWorkflow();
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
