@@ -43,8 +43,6 @@ angular.module('mockuperApp')
                     }
                 }).$promise.then(function(result) {
                     $scope.workflows = result[0].next;
-                    console.log("Loading the workflows");
-                    console.log($scope.workflows);
                     $scope.currentworkflow = result[0];
                 });
             }
@@ -56,6 +54,14 @@ angular.module('mockuperApp')
             }
 
             $scope.save = function() {
+                mockupService.updateMockup.update({
+                    id: $scope.mockup.id
+                }, $scope.mockup, function(result) {}, function(err) {
+                    $scope.err = err;
+                });
+            }
+
+            $scope.saveSuggest = function() {
                 mockupService.updateMockup.update({
                     id: $scope.mockup.id
                 }, $scope.mockup, function(result) {}, function(err) {
