@@ -3,11 +3,21 @@
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}
         </div>
     </div>
-    <div style=" height: 80px; display: inline-block;" ng-if="editMode">
+    <div style="height: 80px; display: inline-block;" ng-if="!suggest">
         <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Mockup">
             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         </button>
         <mockup-version></mockup-version>
+        <reuse-mockup></reuse-mockup>
+        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
+    </div>
+    <div style="height: 80px; display: inline-block;" ng-if="suggest">
+        <div style="background: yellow; display: inline-block;">
+            [Suggest]
+        </div>
+        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Suggest">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        </button>
         <reuse-mockup></reuse-mockup>
         <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
@@ -32,7 +42,7 @@
 </div>
 <div style="height: 40px;  background: #f9f9f9; position: absolute; top: 115px; border: 1px dashed #ccc; width: {{(editObject.width < 400 ? 400 : editObject.width)}}px; padding: 5px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 200)}}px;" ng-if="editMode">
     <div style="display: inline-block; width: 30px;">
-        <img height="25px" ng-click="addImage()" src="static/icons/image.png" alt="..."  data-toggle="tooltip" title="Add Image"/>
+        <img height="25px" ng-click="addImage()" src="static/icons/image.png" alt="..." data-toggle="tooltip" title="Add Image" />
     </div>|
     <div style="display: inline-block;  width: 30px;">
         <img style="height: 15px; width: 27px;" ng-click="addButton()" src="static/icons/button.png" alt="..." data-toggle="tooltip" title="Add Button" />
@@ -44,7 +54,7 @@
         <img height="25px" ng-click="addLabel()" src="static/icons/text.png" alt="..." data-toggle="tooltip" title="Add Text Label" />
     </div>|
     <div style="display: inline-block; width: 30px; border: 1px; border-color: red; border-width: 1px; border-style: dashed;">
-        <img height="25px" style="width: 27px;" ng-click="addContainer()" src="static/icons/container.png" alt="..."  data-toggle="tooltip" title="Add Container"/>
+        <img height="25px" style="width: 27px;" ng-click="addContainer()" src="static/icons/container.png" alt="..." data-toggle="tooltip" title="Add Container" />
     </div>
 </div>
 <div id="design-div" style="border-width: 2px; border-style: solid; border-color: black; position: absolute; top: 156px; width: {{editObject.width}}px; height: {{editObject.height}}px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 200)}}px;">

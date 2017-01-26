@@ -63,6 +63,10 @@ angular
                 templateUrl: 'views/mockup-edit.html',
                 controller: 'MockupEditCtrl'
             })
+            .when('/project/:projectId/mockup-edit-design/:mockupId/suggest/:suggestId', {
+                templateUrl: 'views/mockup-edit-design.html',
+                controller: 'MockupEditDesignCtrl'
+            })
             .when('/project/:projectId/mockup-edit-design/:mockupId', {
                 templateUrl: 'views/mockup-edit-design.html',
                 controller: 'MockupEditDesignCtrl'
