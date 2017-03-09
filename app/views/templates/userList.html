@@ -23,12 +23,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
-                <td><a href="#/user/{{user.id}}">{{user.firstName}}</a> </td>
+                <td><a href="/#!/user/{{user.id}}">{{user.firstName}}</a> </td>
                 <td>{{user.lastName}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td style="float: right;">
-                    <a href="#/user-edit/{{user.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
+                    <a href="/#!/user-edit/{{user.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
                     <button ng-click="deleteUser(user.id)" class="btn btn-danger btn-sm" role="button">Delete</button>
                 </td>
             </tr>

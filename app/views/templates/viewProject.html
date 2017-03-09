@@ -5,7 +5,7 @@
         <div class="caption" class="col-sm-8">
             <h4 class="col-sm-6">{{viewObject.name}} </h4>
             <div ng-show="currentworkflow.permission.edit == 'YES'" class="col-sm-6">
-                <a href="#/{{viewObject.editUrl}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+                <a href="/#!/{{viewObject.editUrl}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
                 <button class="btn btn-sm btn-primary" role="button" data-toggle="modal" ng-click="reloadUsers(viewObject.id)" data-target="#myModal">Share</button>
             </div>
             <div class="col-sm-12" style="color: darkgray;">

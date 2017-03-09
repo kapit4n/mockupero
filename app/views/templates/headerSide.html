@@ -12,19 +12,19 @@
             </div>
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="{{current_active == 'home'? 'active' :''}}"><a href="#/">Home</a>
+                    <li class="{{current_active == 'home'? 'active' :''}}"><a href="/#!/">Home</a>
                     </li>
-                    <li class="{{current_active == 'projects'? 'active' :''}}"><a href="#/projectlist">Projects</a>
+                    <li class="{{current_active == 'projects'? 'active' :''}}"><a href="/#!/projectlist">Projects</a>
                     </li>
-                    <li class="{{current_active == 'users'? 'active' :''}}"><a href="#/userlist">Users</a>
+                    <li class="{{current_active == 'users'? 'active' :''}}"><a href="/#!/userlist">Users</a>
                     </li>
-                    <li class="{{current_active == 'workflow'? 'active' :''}}"><a href="#/workflowList">Workflows</a>
+                    <li class="{{current_active == 'workflow'? 'active' :''}}"><a href="/#!/workflowList">Workflows</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-hide="isAuthenticated"><a href="#/registerUser"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    <li ng-hide="isAuthenticated"><a href="/#!/registerUser"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
                     </li>
-                    <li ng-hide="isAuthenticated"><a href="#/login">Login <span class="glyphicon glyphicon-log-in"></span> </a>
+                    <li ng-hide="isAuthenticated"><a href="/#!/login">Login <span class="glyphicon glyphicon-log-in"></span> </a>
                     </li>
                     <li ng-show="isAuthenticated" style="padding-top: 14px;">
                         <center>
@@ -47,7 +47,7 @@
                                                     </div>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="#/user/{{userId}}" title="Profile">Profile</a>
+                                                            <a href="/#!/user/{{userId}}" title="Profile">Profile</a>
                                                         </li>
                                                         <li ng-show="isAuthenticated">
                                                             <a>Logout <span ng-click="logoutUser()" class="glyphicon glyphicon-log-in"></span></a>
@@ -60,13 +60,13 @@
                                     </div>
                                     <div class="collapse navbar-collapse navbar-left">
                                         <ul class="nav navbar-nav pull-right">
-                                            <li class="{{current_active == 'home'? 'active' :''}}"><a href="#/">Home</a>
+                                            <li class="{{current_active == 'home'? 'active' :''}}"><a href="/#!/">Home</a>
                                             </li>
-                                            <li class="{{current_active == 'projects'? 'active' :''}}"><a href="#/projectlist">Projects</a>
+                                            <li class="{{current_active == 'projects'? 'active' :''}}"><a href="/#!/projectlist">Projects</a>
                                             </li>
-                                            <li class="{{current_active == 'users'? 'active' :''}}"><a href="#/userlist">Users</a>
+                                            <li class="{{current_active == 'users'? 'active' :''}}"><a href="/#!/userlist">Users</a>
                                             </li>
-                                            <li class="{{current_active == 'workflow'? 'active' :''}}"><a href="#/workflowList">Workflows</a>
+                                            <li class="{{current_active == 'workflow'? 'active' :''}}"><a href="/#!/workflowList">Workflows</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -78,7 +78,7 @@
             </div>
             <ol class="breadcrumb">
                 <li ng-repeat="bread in breadcrumb track by $index">
-                    <a href="#/{{bread.url}}">{{bread.name}}</a>
+                    <a href="/#!/{{bread.url}}">{{bread.name}}</a>
                 </li>
             </ol>
         </div>

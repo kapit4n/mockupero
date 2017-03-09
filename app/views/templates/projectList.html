@@ -10,9 +10,9 @@
                 <div class="caption" class="col-xs-7 col-sm-7 col-md-8">
                     <h4 class="col-xs-6 col-sm-4">{{project.name}} </h4>
                     <div class="col-xs-6 col-sm-6">
-                        <a href="#/project/{{project.id}}" class="btn btn-sm btn-primary" role="button">View</a>
+                        <a href="/#!/project/{{project.id}}" class="btn btn-sm btn-primary" role="button">View</a>
                         <button class="btn btn-sm btn-primary" role="button" data-toggle="modal" ng-click="reloadUsers(project.id)" data-target="#myModal">Share</button>
-                        <a href="#/project/edit/{{project.id}}" class="btn btn-sm btn-default" role="button">Edit</a>
+                        <a href="/#!/project/edit/{{project.id}}" class="btn btn-sm btn-default" role="button">Edit</a>
                         <a href="" ng-click="deleteProject(project.id)" class="btn btn-sm btn-danger" role="button">Delete</a>
                     </div>
                     <div class="col-xs-12 col-sm-12">{{project.description  | cut:true:200:' ...'}} </div>

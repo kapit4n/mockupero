@@ -20,10 +20,10 @@
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflows">
-                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
                 <td style="float: right;">
-                    <a href="#/workflow-edit/{{workflow.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
+                    <a href="/#!/workflow-edit/{{workflow.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
                     <button ng-click="deleteWorkflow(workflow.id)" class="btn btn-danger btn-sm" role="button">Delete</button>
                 </td>
             </tr>

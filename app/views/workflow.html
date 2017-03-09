@@ -8,7 +8,7 @@
     <div class="thumbnail" style="height: 100px;">
         <div class="caption">
             <h4 class="col-sm-4">{{workflow.name}} </h4>
-            <div class="col-sm-6"><a href="#/workflow-edit/{{workflow.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+            <div class="col-sm-6"><a href="/#!/workflow-edit/{{workflow.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
             </div>
             <div class="col-sm-12"><strong>Action:</strong> {{workflow.action}} </div>
             <div class="col-sm-12"><strong>Class Name:</strong> {{workflow.wClassName}} </div>
@@ -36,7 +36,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflow.previous">
-                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <button ng-click="removePreviousWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
@@ -62,7 +62,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflow.next">
-                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <button ng-click="removeNextWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
@@ -89,7 +89,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="workflow in workflows">
-                                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                                 <td>{{workflow.name}}</td>
                                 <td>{{workflow.action}}</td>
                                 <td>
@@ -124,7 +124,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="workflow in workflows">
-                                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                                 <td>{{workflow.name}}</td>
                                 <td>{{workflow.action}}</td>
                                 <td>
