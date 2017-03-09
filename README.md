@@ -7,7 +7,7 @@ This project is a collaborative tool to design the user interfaz prototypes of t
 
 ## wiki
 https://github.com/kapit4n/mockupero-ui/wiki
-![Mockup Designer](https://github.com/kapit4n/mockupero-ui/raw/develop-la/mockups/mockup-editor-chat.jpg)
+![Mockup Designer](https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup designer mockupero.png)
 
 ## Prerequisites
 * node 6
