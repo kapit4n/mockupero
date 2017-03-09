@@ -104,8 +104,8 @@ angular.module('mockuperApp')
             io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
             // get all existing date
             $http.get('http://localhost:1337/chat')
-                .success(function(success_data) {
-                    $scope.chatList = success_data;
+                .then(function(success_data) {
+                    $scope.chatList = success_data.data;
                     $timeout(function() {
                         // looks like we will not have chat here by now
                         /*var objDiv = document.getElementById("chatContainer");
@@ -115,6 +115,8 @@ angular.module('mockuperApp')
                         */
                     }, 200);
 
+                }, function(error){
+                    console.error(error);
                 });
 
             io.socket.on('chat', function(obj) {
