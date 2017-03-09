@@ -1,9 +1,9 @@
-<div>
+<div class="container">
     <h2>Create New {{objType}}</h2>
     <form role="form" name="addObjectForm">
         <div class="alert alert-danger" role="alert" ng-show="err">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error: </span> {{err}}
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> {{err}}
         </div>
         <div class="form-group">
             <label for="name">Name:</label>
@@ -12,13 +12,12 @@
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea class="form-control" id="description" cols="30" rows="10"  ng-model="description" placeholder="Description"></textarea>
+            <textarea class="form-control" id="description" cols="30" rows="10" ng-model="description" placeholder="Description"></textarea>
         </div>
         <div class="form-group">
             <label for="imgToShow">Min Img:</label>
             <input type="textarea" class="form-control" id="imgToShow" ng-model="imgToShow" placeholder="http://www.engraversnetwork.com/files/placeholder.jpg">
         </div>
-
         <button type="submit" class="btn btn-success" ng-click="save(addObjectForm)">Save</button>
         <button type="submit" class="btn btn-danger" ng-click="cancel()">cancel</button>
     </form>

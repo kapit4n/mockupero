@@ -7,12 +7,12 @@
  * # addObject
  */
 angular.module('mockuperApp')
-  .directive('addObject', function () {
-    return {
-      templateUrl: 'views/templates/addObject.html',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        
-      }
-    };
-  });
+    .directive('addObject', function() {
+        return {
+            templateUrl: 'views/templates/addObject.html',
+            restrict: 'E',
+            link: function postLink(scope, element, attrs) {
+
+            }
+        };
+    });

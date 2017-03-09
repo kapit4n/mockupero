@@ -63,6 +63,10 @@ angular
                 templateUrl: 'views/mockup-edit.html',
                 controller: 'MockupEditCtrl'
             })
+            .when('/project/:projectId/mockup-edit-design/:mockupId/suggest/:suggestId', {
+                templateUrl: 'views/mockup-edit-design.html',
+                controller: 'MockupEditDesignCtrl'
+            })
             .when('/project/:projectId/mockup-edit-design/:mockupId', {
                 templateUrl: 'views/mockup-edit-design.html',
                 controller: 'MockupEditDesignCtrl'
@@ -113,9 +117,19 @@ angular
                 controllerAs: 'workflowEdit'
             })
             .when('/project/:projectId/navigationDiagram', {
-              templateUrl: 'views/navigationdiagram.html',
-              controller: 'NavigationdiagramCtrl',
-              controllerAs: 'navigationDiagram'
+                templateUrl: 'views/navigationdiagram.html',
+                controller: 'NavigationdiagramCtrl',
+                controllerAs: 'navigationDiagram'
+            })
+            .when('/project/:projectId/mockup-suggest/:mockupId', {
+              templateUrl: 'views/mockuppresentation.html',
+              controller: 'MockuppresentationCtrl',
+              controllerAs: 'mockupPresentation'
+            })
+            .when('/presentation', {
+              templateUrl: 'views/presentation.html',
+              controller: 'PresentationCtrl',
+              controllerAs: 'presentation'
             })
             .otherwise({
                 redirectTo: '/'

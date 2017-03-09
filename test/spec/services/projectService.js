@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: projectService', function () {
+describe('Service: projectService', function() {
 
-  // load the service's module
-  beforeEach(module('mockuperApp'));
+    // load the service's module
+    beforeEach(module('mockuperApp'));
 
-  // instantiate service
-  var projectService;
-  beforeEach(inject(function (_projectService_) {
-    projectService = _projectService_;
-  }));
+    // instantiate service
+    var projectService;
+    beforeEach(inject(function(_projectService_) {
+        projectService = _projectService_;
+    }));
 
-  it('should do something', function () {
-    expect(!!projectService).toBe(true);
-  });
+    it('should do something', function() {
+        expect(!!projectService).toBe(true);
+    });
 
 });

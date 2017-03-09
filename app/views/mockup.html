@@ -1,17 +1,17 @@
-
-<div style="float: right;">
-	<div ng-repeat="n in logingLog track by $index" style="display:inline-block;">
-	    <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}</div>
-	</div>
+<view-mockup></view-mockup>
+<div class="container"  ng-show="mockup.owner == userId">
+    <div class="col-sm-12 col-md-12">
+        <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
+            {{wf.action}}
+        </button>
+    </div>
 </div>
-
-<view-object> </view-object>
 <div class="container">
-    <div class="col-sm-6" style="padding-left: 0;"><a href="#/{{viewObject.editDesign}}" class="btn btn-default" role="button"  ng-if="editMode">Edit Design</a>
-    </div>
-    <div class="col-sm-6"><a href="#/{{viewObject.editDesign}}" class="btn btn-default" role="button"  ng-if="!editMode">View Design</a>
-    </div>
-    <img style="padding:0;" class="col-sm-12" src="http://localhost:1337/images/{{viewObject.id}}.png" alt="...">
+    <a ng-show="currentworkflow.permission.edit == 'YES'" href="/#!/{{viewObject.editDesign}}" class="btn btn-sm btn-default" role="button" ng-if="editMode">Design</a>
+    <a ng-show="currentworkflow.permission.edit == 'NO'"  href="/#!/{{viewObject.editDesign}}/suggest/New" class="btn btn-sm btn-info" role="button">Suggest</a>
 </div>
-
-<comment></comment>
+<br>
+<p style="text-align:center;">
+    <img style="padding: 0; width: {{viewObject.width > 950 ? 950 : viewObject.width}}px; background: #f9f9f9;" src="http://localhost:1337/images/{{viewObject.id}}.png" alt="...">
+</p>
+<comment relation="{{mockupId}}"></comment>

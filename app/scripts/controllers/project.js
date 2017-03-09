@@ -9,15 +9,15 @@
  */
 angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', '$rootScope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
-        'headerService', 'permissionService', 'commentService', 'workflowService',
+        'headerService', 'permissionService', 'workflowService',
         function($scope, $rootStore, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
-            headerService, permissionService, commentService, workflowService) {
+            headerService, permissionService, workflowService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
             $scope.logingLog = {};
-            $scope.relationId = 0;
             $scope.relationName = "Project";
+            $scope.currentworkflow = {};
 
             $scope.addMockup = function() {
                 $location.path('/project/' + $scope.projectId + '/mockup-new');
@@ -46,11 +46,9 @@ angular.module('mockuperApp')
                 .$promise.then(function(result) {
                     $scope.viewObject = result;
                     $scope.project = result;
-                    $scope.relationId = $scope.project.id;
                     $scope.relationName = $scope.project.name;
                     $scope.viewObject.title = 'Project View';
                     $scope.viewObject.editUrl = 'project/edit/' + result.id;
-                    $scope.reloadComments();
                     $scope.loadWorkflow();
                     try {
                         permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));
@@ -58,7 +56,6 @@ angular.module('mockuperApp')
                         //$rootScope.$digest();
                     } catch (e) { console.log(e); }
                 });
-
             $scope.loadWorkflow = function() {
                 workflowService.workflow.get({
                     where: {
@@ -66,6 +63,7 @@ angular.module('mockuperApp')
                     }
                 }).$promise.then(function(result) {
                     $scope.workflows = result[0].next;
+                    $scope.currentworkflow = result[0];
                 });
             }
             $scope.workflowAction = function(workflow) {
@@ -77,14 +75,55 @@ angular.module('mockuperApp')
             $scope.save = function() {
                 projectService.updateProject.update({
                     id: $scope.project.id
-                }, $scope.project, function(result) {
-
-                }, function(err) {
+                }, $scope.project, function(result) {}, function(err) {
                     $scope.err = err;
                 });
             }
             $scope.gotoDiagram = function() {
                 $location.path('/project/' + $scope.projectId + '/navigationDiagram');
             }
+            io.socket.get('http://localhost:1337/mockup');
+
+
+            $scope.deleteMockup = function(mockupId) {
+                mockupService.deleteMockup.get({
+                    id: mockupId
+                }).$promise.then(function(result) {});
+            };
+
+            io.socket.on('mockup', function(msg) {
+                if (msg.verb == 'created') {
+                    mockupService.mockupById.get({
+                            mockupId: msg.id
+                        })
+                        .$promise.then(function(result) {
+                            if ($scope.project && $scope.project.mockups) {
+                                $scope.project.mockups.push(result);
+                            }
+                        }, function(error) {
+                            console.error(error);
+                        });
+                } else if (msg.verb == 'destroyed') {
+                    var i = 0;
+                    while (i < $scope.project.mockups.length) {
+                        if ($scope.project.mockups[i].id == msg.id) {
+                            $scope.project.mockups.splice(i, 1);
+                            break;
+                        }
+                        i++;
+                    }
+                } else if (msg.verb == 'updated') {
+                    var i = 0;
+                    $scope.$apply(function() {
+                        while (i < $scope.project.mockups.length) {
+                            if ($scope.project.mockups[i].id == msg.id) {
+                                $scope.project.mockups[i] = msg.data;
+                                break;
+                            }
+                            i++;
+                        }
+                    });
+                }
+            });
         }
     ]);

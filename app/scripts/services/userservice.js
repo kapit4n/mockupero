@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('userService', function($resource, GlobalService) {
+    .service('userService', function($resource, GlobalService, projectService) {
         var fac = {};
         fac.user = $resource(GlobalService.BASE_PATH + '/user', {}, {
             get: {
@@ -55,5 +55,6 @@ angular.module('mockuperApp')
                 method: 'DELETE'
             }
         });
+
         return fac;
     });

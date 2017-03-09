@@ -1,6 +1,14 @@
 # Mockuper
 This project is a collaborative tool to design the user interfaz prototypes of the web system.
 
+## Planning
+[Planning Board](https://github.com/kapit4n/mockupero/projects/1)
+
+
+## wiki
+https://github.com/kapit4n/mockupero-ui/wiki
+![Mockup Designer](https://github.com/kapit4n/mockupero-ui/raw/develop-la/mockups/mockup-editor-chat.jpg)
+
 ## Prerequisites
 * node 6
 * npm 3.10.6

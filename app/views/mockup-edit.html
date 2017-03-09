@@ -1,13 +1,26 @@
-<div>
+<div class="container">
+    <br />
+    <h3>Mockup Edit</h3>
+    <br />
     <form role="form" name="editMockupForm">
-      <div class="alert alert-danger" role="alert" ng-show="err">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error: </span> {{err}}
-      </div>
+        <div class="alert alert-danger" role="alert" ng-show="err">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> {{err}}
+        </div>
         <div class="form-group">
             <label for="name">Mockup Name:</label>
             <input type="text" ng-model="editObject.name" class="form-control" id="name" name="mockupName" required>
             <p style="color:red" ng-show="editMockupForm.mockupName.$touched && editMockupForm.mockupName.$invalid" class="help-block"> Name cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="width">Mockup Width:</label>
+            <input type="text" ng-model="editObject.width" class="form-control" id="width" name="mockupName" required>
+            <p style="color:red" ng-show="editMockupForm.mockupName.$touched && editMockupForm.mockupName.$invalid" class="help-block"> Width cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="height">Mockup Height:</label>
+            <input type="text" ng-model="editObject.height" class="form-control" id="height" name="mockupName" required>
+            <p style="color:red" ng-show="editMockupForm.mockupName.$touched && editMockupForm.mockupName.$invalid" class="help-block"> Height cannot be empty </p>
         </div>
         <div class="form-group">
             <label for="description">Description:</label>

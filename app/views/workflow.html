@@ -1,6 +1,6 @@
-<h3 class="col-sm-12">Workflow </h3>
-<a class="col-sm-12" href="{{workflow.parentUrl}}">{{workflow.name}}</a>
-<div class="col-sm-12" style="padding: 0;">
+<h3 class="container">Workflow </h3>
+<br/>
+<div class="container" style="padding: 0; background-color: white">
     <div class="alert alert-danger" role="alert" ng-show="err">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error: </span> {{err}}
@@ -8,18 +8,24 @@
     <div class="thumbnail" style="height: 100px;">
         <div class="caption">
             <h4 class="col-sm-4">{{workflow.name}} </h4>
-            <div class="col-sm-6"><a href="#/workflow-edit/{{workflow.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+            <div class="col-sm-6"><a href="/#!/workflow-edit/{{workflow.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
             </div>
             <div class="col-sm-12"><strong>Action:</strong> {{workflow.action}} </div>
             <div class="col-sm-12"><strong>Class Name:</strong> {{workflow.wClassName}} </div>
+            <div class="col-sm-12"><strong>Vote:</strong> {{workflow.vote}} </div>
+            <div class="col-sm-12"><strong>Edit Object:</strong> {{workflow.permission.edit}} </div>
+            <div class="col-sm-12"><strong>Delete Object:</strong> {{workflow.permission.delete}} </div>
+            <div class="col-sm-12"><strong>Children Object:</strong> {{workflow.permission.children}} </div>
         </div>
     </div>
 </div>
-<div class="container">
+<br/>
+<br/>
+<div class="container" style="background: white;">
     <h3>
-    	<button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#previousWorkflow" >
-    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    	</button>
+        <button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#previousWorkflow" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
     </h3> Previous Workflows
     <table class="table table-condensed">
         <thead>
@@ -30,7 +36,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflow.previous">
-                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <button ng-click="removePreviousWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
@@ -39,11 +45,13 @@
         </tbody>
     </table>
 </div>
-<div class="container">
+<br/>
+<br/>
+<div class="container" style="background: white;">
     <h3>
-    	<button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#nextWorkflow" >
-    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    	</button>
+        <button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#nextWorkflow" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
     </h3> Next Workflows
     <table class="table table-condensed">
         <thead>
@@ -54,7 +62,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflow.next">
-                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
                 <td>
                     <button ng-click="removeNextWorkflow(workflow)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
@@ -81,7 +89,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="workflow in workflows">
-                                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                                 <td>{{workflow.name}}</td>
                                 <td>{{workflow.action}}</td>
                                 <td>
@@ -116,7 +124,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="workflow in workflows">
-                                <td><a href="#/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
+                                <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                                 <td>{{workflow.name}}</td>
                                 <td>{{workflow.action}}</td>
                                 <td>

@@ -1,42 +1,24 @@
-<style>
-.resize-drag {
-    font-family: sans-serif;
-}
-
-.resize-drag:hover {
-    opacity: 0.7;
-}
-
-.resize-container {
-    width: 100%;
-    height: 240px;
-}
-
-.position-fixed {
-    position: fixed;
-}
-
-#wrapper {
-    box-shadow: 10px 10px 5px #d;
-    position: fixed;
-    right: 0;
-    height: 100%;
-    width: 180px;
-    background-color: #f2f3f2;
-}
-</style>
 <div style="position: absolute; top: 60px; left: 77%;height: 80px;">
     <div ng-repeat="n in logingLog" style="display:inline-block;">
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}
         </div>
     </div>
-    <div style=" height: 80px; display:inline-block;" ng-if="editMode">
-        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()">
+    <div style="height: 80px; display: inline-block;" ng-if="!suggest">
+        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Mockup">
             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         </button>
-        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#mockupVersionModal">
-            <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+        <mockup-version></mockup-version>
+        <reuse-mockup></reuse-mockup>
+        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
+    </div>
+    <div style="height: 80px; display: inline-block;" ng-if="suggest">
+        <div style="background: yellow; display: inline-block;">
+            [Suggest]
+        </div>
+        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Suggest">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         </button>
+        <reuse-mockup></reuse-mockup>
         <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
 </div>
@@ -45,23 +27,9 @@
     <span class="sr-only">Error:</span> {{err}}
 </div>
 <div>
-    <div style="float: right; width: 800px;">
+    <div style="width: {{(editObject.width + editObject.width/3)}}px;">
         <div ng-repeat="mockupEditor in mockupEditors track by $index" style="display:inline-block;">
             <div ng-show="mockupEditor.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{mockupEditor.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{mockupEditor.username.substring(0,1)}}</div>
-        </div>
-    </div>
-    <div style="height: 40px; position: absolute; top: 115px; border: 1px dashed #ccc; width: 800px; padding: 5px;" ng-if="editMode">
-        <div style="display: inline-block; width: 30px;">
-            <img height="25px" ng-click="addImage()" src="static/icons/image.png" alt="..." />
-        </div>|
-        <div style="display: inline-block;  width: 30px;">
-            <img height="25px" ng-click="addButton()" src="static/icons/button.png" alt="..." />
-        </div>|
-        <div style="display: inline-block; width: 30px;">
-            <img height="25px" ng-click="addInput()" src="static/icons/input.png" alt="..." />
-        </div>|
-        <div style="display: inline-block; width: 30px;">
-            <img height="25px" ng-click="addLabel()" src="static/icons/text.png" alt="..." />
         </div>
     </div>
     <div class="container">
@@ -71,15 +39,34 @@
         </div>
     </div>
     <div id="alert_message" style="position: absolute; top: 91px; right: 1px; background: green; z-index: 150; "></div>
-    <div id="design-div" style="height: 600px; border-width: 1px; border-style: solid; border-color: black; position: absolute; top: 156px; width: 800px; overflow: scroll;">
-        <img ng-if="ite.type == 'image'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in result" alt="" context-menu data-target="menu-image-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.y}}px; left: {{ite.x}}px;" src="{{ite.src}}" alt="..." height="">
-        <button ng-if="ite.type == 'button'" id="{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result" data-target="menu-button-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px;" alt="...">{{ite.text}}</button>
-        <input ng-if="ite.type == 'input'" id="{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result" data-target="menu-input-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; " alt="..." type="text" value="{{ite.text}}"></input>
-        <span ng-if="ite.type == 'label'" id="{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in result" data-target="menu-label-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height?ite.height: '20px'}}; width: {{ite.width?ite.width: '80px'}}; top: {{ite.y}}px; left: {{ite.x}}px; z-index:{{ite.position}}; border-width: 5px; " alt="...">{{ite.text}}</span>
+</div>
+<div style="height: 40px;  background: #f9f9f9; position: absolute; top: 115px; border: 1px dashed #ccc; width: {{(editObject.width < 400 ? 400 : editObject.width)}}px; padding: 5px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 200)}}px;" ng-if="editMode">
+    <div style="display: inline-block; width: 30px;">
+        <img height="25px" ng-click="addImage()" src="static/icons/image.png" alt="..." data-toggle="tooltip" title="Add Image" />
+    </div>|
+    <div style="display: inline-block;  width: 30px;">
+        <img style="height: 15px; width: 27px;" ng-click="addButton()" src="static/icons/button.png" alt="..." data-toggle="tooltip" title="Add Button" />
+    </div>|
+    <div style="display: inline-block; width: 30px;">
+        <img height="25px" ng-click="addInput()" src="static/icons/input.png" alt="..." data-toggle="tooltip" title="Add Input Text" />
+    </div>|
+    <div style="display: inline-block; width: 30px;">
+        <img height="25px" ng-click="addLabel()" src="static/icons/text.png" alt="..." data-toggle="tooltip" title="Add Text Label" />
+    </div>|
+    <div style="display: inline-block; width: 30px; border: 1px; border-color: red; border-width: 1px; border-style: dashed;">
+        <img height="25px" style="width: 27px;" ng-click="addContainer()" src="static/icons/container.png" alt="..." data-toggle="tooltip" title="Add Container" />
     </div>
 </div>
+<div id="design-div" style="border-width: 2px; border-style: solid; border-color: black; position: absolute; top: 156px; width: {{editObject.width}}px; height: {{editObject.height}}px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 200)}}px;">
+    <img ng-if="ite.type == 'image'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in mockupItems" alt="" context-menu data-target="menu-image-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.top}}px; left: {{ite.left}}px;" src="{{ite.src}}" alt="..." height="">
+    <img ng-if="ite.type == 'reference'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in mockupItems" alt="" context-menu data-target="menu-reference-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.top}}px; left: {{ite.left}}px;" src="{{ite.src}}" alt="..." height="">
+    <div ng-if="ite.type == 'container'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in mockupItems" alt="" context-menu data-target="menu-container-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.top}}px; left: {{ite.left}}px; background: {{ite.background}};" alt="..." height=""></div>
+    <button ng-if="ite.type == 'button'" id="{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in mockupItems" data-target="menu-button-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.top}}px; left: {{ite.left}}px; z-index:{{ite.position}}; " alt="...">{{ite.text}}</button>
+    <input ng-if="ite.type == 'input'" id="{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in mockupItems" data-target="menu-input-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height}}px; width: {{ite.width}}px; top: {{ite.top}}px; left: {{ite.left}}px; z-index:{{ite.position}}; " alt="..." type="text" value="{{ite.text}}"></input>
+    <span ng-if="ite.type == 'label'" id="{{ite.type}}{{ite.id}}" context-menu="" ng-repeat="ite in mockupItems" data-target="menu-label-{{ite.id}}" class="{{itemStyle}}" style="padding: 0px; position: absolute; height: {{ite.height?ite.height + 'px': '20px'}}; width: {{ite.width?ite.width + 'px': '80px'}}; top: {{ite.top}}px; left: {{ite.left}}px; z-index:{{ite.position}}; border-width: 5px; " alt="...">{{ite.text}}</span>
+</div>
 <div id="design-div-content-menu" style="z-index:100;">
-    <div class="dropdown position-fixed" style="z-index:100;" id="menu-{{ite.type}}-{{ite.id}}" ng-repeat="ite in result">
+    <div class="dropdown position-fixed" style="z-index:100;" id="menu-{{ite.type}}-{{ite.id}}" ng-repeat="ite in mockupItems">
         <ul class="dropdown-menu" role="menu">
             <li>
                 <a class="pointer" role="menuitem" tabindex="1" ng-click="bringToFront(ite.type + ite.id);">Bring to Front</a>
@@ -98,5 +85,3 @@
 </div>
 <div id="img-out" style="position: absolute; left: 10px; height: 100px; width: 100px;"> </div>
 <div id="wrapper-container"> </div>
-<chat-directive></chat-directive>
-<mockup-version></mockup-version>

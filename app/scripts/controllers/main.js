@@ -8,14 +8,27 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService', 'chatService',
-        function($scope, $cookieStore, mockupService, projectService, loginService, userService, $location, $rootScope, $window, $http, $timeout, headerService, chatService) {
-
+    .controller('MainCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService', 'loginService',
+        'userService', '$location', '$rootScope', '$window', '$http', '$timeout', 'headerService',
+        'chatService', 'GlobalService', 'shareService',
+        function($scope, $cookieStore, mockupService, projectService, loginService, userService,
+            $location, $rootScope, $window, $http, $timeout, headerService, chatService, GlobalService, shareService) {
+            $scope.globalService = GlobalService;
             $scope.logingLog = {};
             loginService.reloadScope();
             $scope.chatCollapsed = false;
             headerService.updateHeader('home');
             $scope.userName = $rootScope.userNameLogin;
+            $scope.currentPage = 1;
+            $scope.pageSize = 2;
+            $scope.projects = [];
+            $scope.searchName = '';
+            $scope.totalSize = 0;
+            $scope.totalPages = 0;
+            $rootScope.breadcrumb = mockupService.breadcrumb['home'];
+            $scope.projectPages = [];
+            $scope.sortAsc = true;
+
             io.socket.get('/project', function serverResponded(body, JWR) {
                 console.log('Subscribed to socket');
             });
@@ -38,29 +51,6 @@ angular.module('mockuperApp')
                         $scope.logingLog[msg.data.username].online = msg.data.online; // ((new Date(msg.data.createdAt)).getTime())
                     }
                 });
-            });
-
-            $scope.currentPage = 1;
-            $scope.pageSize = 2;
-            $scope.projects = [];
-            $scope.searchName = '';
-            $scope.totalSize = 0;
-            $scope.totalPages = 0;
-            $rootScope.breadcrumb = mockupService.breadcrumb['home'];
-            $scope.projectPages = [];
-            $scope.projectShareEntries = [];
-            $scope.users = [];
-            $scope.sortAsc = true;
-            $scope.userIdToadd = '';
-            $scope.sharedProjectId = '';
-            $scope.permissionIdToadd = '';
-
-            userService.user.get().$promise.then(function(result) {
-                $scope.users = result;
-            });
-
-            userService.permission.get().$promise.then(function(result) {
-                $scope.permissions = result;
             });
 
             $rootScope.logout = function() {
@@ -100,54 +90,7 @@ angular.module('mockuperApp')
 
             $scope.reloadProject = function(currentPage) {
                 $scope.currentPage = currentPage;
-                projectService.countProject.get({
-                    name: $scope.searchName
-                }).$promise.then(function(countResult) {
-                    $scope.totalSize = countResult.count;
-
-                    $scope.totalPages = parseInt($scope.totalSize / $scope.pageSize);
-                    if (($scope.totalPages * $scope.pageSize) < $scope.totalSize) {
-                        $scope.totalPages += 1;
-                    }
-
-                    if ($scope.totalPages < $scope.currentPage) {
-                        $scope.currentPage -= 1;
-                    }
-                    var sortA = $scope.sortAsc ? 'ASC' : 'DESC';
-
-                    projectService.getProjectUsers.get({
-                        where: {
-                            user: $cookieStore.get('userId'),
-
-                        }
-                    }).$promise.then(function(result) {
-                        var userProjectIds = [];
-                        for (var i = 0; i < result.length; i++) {
-                            if (result[i].project) {
-                                userProjectIds[i] = result[i].project.id;
-                            }
-                        }
-                        projectService.projects.get({
-                                where: {
-                                    or: [{
-                                        userId: $cookieStore.get('userId'),
-                                    }, {
-                                        id: userProjectIds
-                                    }],
-                                    name: {
-                                        "like": "%" + $scope.searchName + "%"
-                                    }
-                                },
-                                limit: $scope.pageSize,
-                                skip: (($scope.currentPage - 1) * $scope.pageSize),
-                                sort: 'name ' + sortA
-                            })
-                            .$promise.then(function(result) {
-                                $scope.projects = result;
-                                $scope.makePagination();
-                            });
-                    });
-                });
+                projectService.reloadProject($scope, $cookieStore);
             };
 
             $scope.deleteProject = function(projectId) {
@@ -157,49 +100,6 @@ angular.module('mockuperApp')
                     $scope.reloadProject($scope.currentPage);
                 });
             };
-
-            $scope.reloadUsers = function(projectId) {
-                $scope.sharedProjectId = projectId;
-                projectService.getProjectUsers.get({
-                    where: {
-                        project: $scope.sharedProjectId
-                    }
-                }).$promise.then(function(result) {
-                    $scope.projectShareEntries = [];
-                    result.forEach(function(projectShare) {
-                        $scope.projectShareEntries.push(projectShare);
-                    });
-                });
-            };
-
-            $scope.addUsertoProject = function() {
-                var userProjectTuple = {
-                    user: $scope.userIdToadd,
-                    project: $scope.sharedProjectId,
-                    permission: $scope.permissionIdToadd
-                };
-                projectService.shareProject.save(userProjectTuple).$promise.then(function(result) {
-                    $scope.reloadUsers($scope.sharedProjectId);
-                });
-            }
-
-            $scope.removeProjectShare = function(shareProjectId, projectId) {
-                projectService.deleteProjectShare.delete({
-                    id: shareProjectId
-                }).$promise.then(function(result) {
-                    $scope.reloadUsers(projectId);
-                });
-            };
-
-            chatService.subscribe($scope);
-            $scope.sendMsg = function() {
-                chatService.sendMsg($scope);
-            }
-
-            $scope.changeChat = function() {
-                $scope.chatCollapsed = !$scope.chatCollapsed;
-            };
-
             $scope.reloadProject(1);
         }
     ]);

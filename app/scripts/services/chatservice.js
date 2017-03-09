@@ -8,41 +8,44 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('chatService', function($http, $rootScope, $timeout) {
+    .service('chatService', function($http, $rootScope, $timeout, $routeParams) {
         var fac = {};
 
         var chatServiceLoad = function($scope) {
             if ($scope.chatRoom != '') {
                 $http.get('http://localhost:1337/chat?sort=createdAt%20ASC&limit=100&where={"room":%20"' + $scope.chatRoom + '"}')
-                    .success(function(success_data) {
-                        $scope.chatList = success_data;
+                    .then(function(success_data) {
+                        $scope.chatList = success_data.data;
                         $timeout(function() {
                             var objDiv = document.getElementById("chatContainer");
                             objDiv.scrollTop = objDiv.scrollHeight;
                             $scope.chatMessage = "";
                         }, 200);
+                    }, function(error){
+                        console.error(error);
                     });
             } else {
                 $http.get('http://localhost:1337/chat?sort=createdAt%20DESC&limit=100&where={"room":%20""}')
-                    .success(function(success_data) {
-                        $scope.chatList = success_data;
+                    .then(function(success_data) {
+                        $scope.chatList = success_data.data;
                         $timeout(function() {
                             var objDiv = document.getElementById("chatContainer");
                             objDiv.scrollTop = objDiv.scrollHeight;
                             $scope.chatMessage = "";
                         }, 200);
+                    }, function(error){
+                        console.error(error);
                     });
             }
         }
 
         fac.subscribe = function($scope) {
-            io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
+            io.socket.get('http://localhost:1337/chat/addconv?roomName="General"');
             // get all existing date
             chatServiceLoad($scope);
             io.socket.on('chat', function(obj) {
                 if (obj.verb === 'created') {
                     $scope.chatList.push(obj.data);
-                    $scope.$digest();
                     $timeout(function() {
                         var objDiv = document.getElementById("chatContainer");
                         objDiv.scrollTop = objDiv.scrollHeight;
@@ -53,10 +56,14 @@ angular.module('mockuperApp')
         };
 
         fac.sendMsg = function($scope) {
+            var chatRoom = 'General';
+            if ($scope.chatRoom) {
+                chatRoom = $scope.chatRoom;
+            }
             io.socket.post('http://localhost:1337/chat/addconv/', {
                 user: $rootScope.userNameLogin,
                 message: $scope.chatMessage,
-                room: $scope.chatRoom,
+                room: chatRoom,
                 userId: $rootScope.userId
             });
             $timeout(function() {
