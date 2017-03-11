@@ -24,10 +24,13 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.error = '';
             $scope.versionMockups = [];
-            $scope.suggest = false;
-
-            if ($routeParams.suggestId) {
+            //$scope.suggestId = $routeParams.mockupId;
+            //$scope.suggestId = 'New';
+            if ($scope.suggestId) {
+                console.log("This is suggest mockup");
                 $scope.suggest = true;
+            } else {
+                $scope.suggest = false;
             }
 
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
@@ -90,8 +93,8 @@ angular.module('mockuperApp')
 
             $scope.loadMockupItems = function() {
                 var mockupId = $routeParams.mockupId;
-                if ($scope.suggest && $routeParams.suggestId != 'New') {
-                    mockupId = $routeParams.suggestId;
+                if ($scope.suggest == true && $scope.suggestId != 'New') {
+                    mockupId = $scope.suggestId;
                 }
                 mockupService.getMockupItems.get({
                     sort: 'position ',
@@ -257,7 +260,7 @@ angular.module('mockuperApp')
                             var items = [];
                             var toDelete = [];
                             $scope.editObject.links = [];
-                            $scope.editObject.suggest = true;
+                            //$scope.editObject.suggest = false;
                             $timeout(function() {
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;
@@ -633,10 +636,6 @@ angular.module('mockuperApp')
                 }, function(reason) {
                     $scope.err = err;
                 });
-            };
-            $scope.suggest = function(versionId) {
-                console.log("Call the service to suggest the version");
-                console.log(versionId);
             };
             $scope.reloadMockupVersions();
 

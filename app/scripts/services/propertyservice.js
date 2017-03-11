@@ -136,7 +136,9 @@ angular.module('mockuperApp')
             var itemId = $scope.getItemId(idComponent);
             var item = fac.getItem('#' + idComponent);
             $scope.auxItem = item;
-            $scope.auxItem.link = $scope.mockupItemsBykey[itemId].link;
+            if ($scope.mockupItemsBykey[itemId].link) {
+                $scope.auxItem.link = $scope.mockupItemsBykey[itemId].link;
+            }
 
             var propertiesValuesDiv = '';
             propertiesValuesDiv += fac.formStart();
