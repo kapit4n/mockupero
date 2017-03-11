@@ -3,15 +3,15 @@
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}
         </div>
     </div>
-    <div style="height: 80px; display: inline-block;" ng-if="!suggest">
+    <div style="height: 80px; display: inline-block;" ng-show="!suggest">
         <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Mockup">
             <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         </button>
-        <mockup-version></mockup-version>
+        <mockup-version></mockup-version>|
         <reuse-mockup></reuse-mockup>
         <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
-    <div style="height: 80px; display: inline-block;" ng-if="suggest">
+    <div style="height: 80px; display: inline-block;" ng-show="suggest">
         <div style="background: yellow; display: inline-block;">
             [Suggest]
         </div>
