@@ -121,7 +121,7 @@ angular.module('mockuperApp')
                         var dataURL = canvas.toDataURL();
                         mockupService.createMockupItemUploadAvatar.save({
                             img: dataURL,
-                            mockupId: $routeParams.mockupId
+                            mockupId: $scope.editObject.id
                         }, function(result) {});
 
                     }
@@ -207,7 +207,6 @@ angular.module('mockuperApp')
 
             $scope.item = {};
 
-
             // save the mockup item modifications
             $scope.save = function() {
                 $("#spinner").show();
@@ -282,7 +281,7 @@ angular.module('mockuperApp')
             // save the mockup in a copy that will be the suggest
             // copy the items with the mockupSuggest id
             // open that mockup that will be the suggest
-            $scope.saveSuggest = function() {
+            $scope.save = function() {
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
                 var myEl = angular.element(document.querySelector('#design-div'));
@@ -307,7 +306,7 @@ angular.module('mockuperApp')
                                     var item = propertyService.getItem('#' + child.id);
                                     // if it is the first time that we save, copy the item
                                     // if it is the seconf time or more just update the item.
-                                    item.mockupId = $routeParams.mockupId;
+                                    item.mockupId = $scope.editObject.id;
                                     if (item.id && item.id.length < 10) {
                                         item.id = undefined;
                                     }
@@ -323,7 +322,7 @@ angular.module('mockuperApp')
                                     $timeout(function() {
                                         io.socket.post('/mockupVersion/saveIt', {
                                             number: 'version 1',
-                                            mockup: $routeParams.mockupId,
+                                            mockup: $scope.editObject.id,
                                             user: $cookieStore.get('userId'),
                                             action: 'update',
                                             message: 'Update the Mockup'
@@ -588,7 +587,7 @@ angular.module('mockuperApp')
                     // this will be called on the save methods to create the version
                     io.socket.post('/mockupVersion/saveIt', {
                         number: 'version 1',
-                        mockup: $routeParams.mockupId,
+                        mockup: $scope.editObject.id,
                         username: $cookieStore.get('username'),
                         action: 'delete_item',
                         message: 'Update the Mockup'
@@ -606,7 +605,7 @@ angular.module('mockuperApp')
             // I need to listen the changes on the mockups, take care the eventIdentity must it be lowercase
             io.socket.on('mockupversion', function(msg) {
                 $scope.$apply(function() {
-                    if (msg.data.mockup == $routeParams.mockupId) {
+                    if (msg.data.mockup == $routeParams.mockupId || msg.data.mockup == $routeParams.suggestId ) {
                         var message = '<span id="alert_message_text">' + msg.data.message + ' </span>';
                         $.notify(message, {
                             newest_on_top: true
