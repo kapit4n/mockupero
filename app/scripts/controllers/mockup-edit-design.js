@@ -10,10 +10,10 @@
 angular.module('mockuperApp')
     .controller('MockupEditDesignCtrl', ['$scope', '$rootScope', 'loginService', '$compile', '$window', '$routeParams', 'mockupService',
         '$timeout', '$http', '$cookieStore', 'propertyService', 'notificationService', 'breadcrumbService', 'headerService',
-        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService', 'GlobalService', 'workflowService',
+        'mockupSocketService', 'userService', 'permissionService', 'mockupVersionService', 'GlobalService', 'workflowService', 'commentService',
         function($scope, $rootScope, loginService, $compile, $window, $routeParams, mockupService,
             $timeout, $http, $cookieStore, propertyService, notificationService, breadcrumbService, headerService,
-            mockupSocketService, userService, permissionService, mockupVersionService, GlobalService, workflowService) {
+            mockupSocketService, userService, permissionService, mockupVersionService, GlobalService, workflowService, commentService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
@@ -202,86 +202,27 @@ angular.module('mockuperApp')
                     default:
                         console.log("Change not applied");
                 }
-
             }
-
             $scope.item = {};
-
             // save the mockup item modifications
-            $scope.save = function() {
-                $("#spinner").show();
-                $("#btnSave").prop('disabled', true);
-                var myEl = angular.element(document.querySelector('#design-div'));
-                var position = 0;
-                if (myEl[0].children.length == 0) {
-                    $("#spinner").hide();
-                    $("#btnSave").prop('disabled', false);
-                }
-                $scope.createImage();
-                html2canvas($("#design-div"), {
-                    onrendered: function(canvas) {
-                        var ctx = canvas.getContext('2d');
-                        var dataURL = canvas.toDataURL();
-                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $scope.editObject.id }, function(result) {
-                            var items = [];
-                            var toDelete = [];
-                            $scope.editObject.links = [];
-                            $timeout(function() {
-                                angular.forEach(myEl[0].children, function(child) {
-                                    position++;
-                                    var item = propertyService.getItem('#' + child.id);
-                                    item.mockupId = $scope.editObject.id;
-                                    if (item.id && item.id.length < 10) {
-                                        item.id = undefined;
-                                    }
-                                    $scope.loadStaticValues(item);
-                                    items.push(item);
-                                    if (item.id == undefined) {
-                                        toDelete.push(child);
-                                    }
-                                });
 
-                                mockupService.saveAllMockupItems.save({ items: items }, function(result) {
-                                    $timeout(function() {
-                                        io.socket.post('/mockupVersion/saveIt', {
-                                            number: 'version 1',
-                                            mockup: $scope.editObject.id,
-                                            user: $cookieStore.get('userId'),
-                                            action: 'update',
-                                            message: 'Update the Mockup'
-                                        }, function serverResponded(body, JWR) {
-                                            toDelete.forEach(function(child) {
-                                                $(child).remove();
-                                            });
-                                            $scope.loadMockupItems();
-                                            $scope.reloadMockupVersions();
-                                            $("#spinner").hide();
-                                            $("#btnSave").prop('disabled', false);
-                                        });
-                                        try {
-                                            $scope.$digest();
-                                        } catch (ex) { console.error(ex); }
-
-                                    }, myEl[0].children.length * 30);
-                                    $scope.loadMockupItems();
-                                });
-
-                                mockupService.updateMockup.update({
-                                    id: $scope.editObject.id
-                                }, $scope.editObject, function(result) {}, function(err) {
-                                    $scope.err = err;
-                                });
-                            }, myEl[0].children.length * 50);
-                        });
-                    }
-                });
+            $scope.publishSuggest = function() {
+                $scope.newComment = "Mockup suggest published";
+                $scope.isMockupSuggest = true;
+                $scope.relationName = $scope.editObject.name;
+                $scope.relationId = $routeParams.mockupId;
+                $scope.mockupSuggestId = $scope.editObject.id;
+                commentService.share($scope);
             };
+
+
 
             // set a variable in the mockup that will say that the mockup designer will design a suggest
             // save the mockup in a copy that will be the suggest
             // copy the items with the mockupSuggest id
             // open that mockup that will be the suggest
             $scope.save = function() {
+                $scope.publishSuggest();
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
                 var myEl = angular.element(document.querySelector('#design-div'));

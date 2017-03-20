@@ -53,9 +53,13 @@ angular.module('mockuperApp')
                         userId: $cookieStore.get('userId'),
                         userName: $rootScope.userNameLogin,
                         relationId: $scope.relationId,
-                        relationName: $scope.relationName
+                        relationName: $scope.relationName,
+                        isMockupSuggest: $scope.isMockupSuggest,
+                        mockupSuggestId: $scope.mockupSuggestId
                     }, function(result) {
-                        $scope.reloadComments();
+                        try {
+                            $scope.reloadComments();
+                        } catch (ez) {}
                         $scope.newComment = '';
                     }, function(err) {
                         $scope.err = err;

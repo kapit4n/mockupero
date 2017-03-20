@@ -54,6 +54,9 @@
                     </div>
                     <div class="panel-body">
                         {{comment.comment}}
+                        <div class="thumbnail" ng-show="comment.isMockupSuggest">
+                            <img class="img-responsive user-photo" src="http://localhost:1337/images/{{comment.mockupSuggestId}}.png"
+                    </div>
                     </div>
                 </div>
             </div>
