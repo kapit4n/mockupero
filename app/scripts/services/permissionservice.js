@@ -18,22 +18,8 @@ angular.module('mockuperApp')
                     userId: userId
                 }).$promise.then(function(result) {
                     try {
-                        if (result.permission[0].can == 'edit') {
-                            scope.editMode = true;
-                            if (scope.editMode) {
-                                scope.itemStyle = 'resize-drag';
-                            } else {
-                                scope.itemStyle = '';
-                            }
-                        } else {
-                            scope.editMode = false;
-                            if (scope.editMode) {
-                                scope.itemStyle = 'resize-drag';
-                            } else {
-                                scope.itemStyle = '';
-                            }
-                        }
-                        //$rootScope.$digest();
+                        scope.itemStyle = 'resize-drag';
+                        scope.editMode = true;
                     } catch (e1) { console.error(e1); }
                 });
             } catch (e) { console.error(e); }

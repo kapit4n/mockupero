@@ -20,6 +20,7 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.mockupId = $routeParams.mockupId;
             $scope.projectId = $routeParams.projectId;
+            $scope.suggestObject = {id: 'New'};
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 $scope.$apply(function() {
@@ -73,6 +74,19 @@ angular.module('mockuperApp')
                     mockupId: $routeParams.mockupId
                 })
                 .$promise.then(function(result) {
+                    mockupService.getMockups.get({
+                        mockupParent: $routeParams.mockupId,
+                        owner: $cookieStore.get('userId')
+                    })
+                    .$promise.then(function(suggest) {
+                        if (suggest.length > 0) {
+                            $scope.suggestObject = suggest[0];
+                        }
+                    }, function(err) {
+                        console.error(err);
+                    });
+
+
                     $scope.mockup = result;
                     $scope.viewObject = result;
                     $scope.relationName = $scope.mockup.name;
@@ -85,7 +99,6 @@ angular.module('mockuperApp')
                     try {
                         permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
                         $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
-                        //$rootScope.$digest();
                     } catch (e) { console.error(e); }
                 }, function(error) {
                     console.error(error);

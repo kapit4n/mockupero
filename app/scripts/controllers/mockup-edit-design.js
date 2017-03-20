@@ -18,19 +18,99 @@ angular.module('mockuperApp')
             headerService.updateHeader('projects');
             $scope.chatRoom = $routeParams.mockupId;
             $scope.editObject = null;
+
+            $scope.mockupSuggest = null;
+
             $scope.chatCollapsed = true;
             $scope.lastId = 0;
             $rootScope.hideFooter = true;
             $scope.logingLog = {};
             $scope.error = '';
             $scope.versionMockups = [];
-            //$scope.suggestId = $routeParams.mockupId;
-            //$scope.suggestId = 'New';
-            if ($scope.suggestId) {
-                console.log("This is suggest mockup");
-                $scope.suggest = true;
+
+            $scope.loadMockupItems = function() {
+                var mockupId = $scope.editObject.id;
+                mockupService.getMockupItems.get({
+                    sort: 'position ',
+                    where: {
+                        mockupId: mockupId
+                    },
+                    limit: 100
+                }).$promise.then(function(result) {
+                    $scope.mockupItems = result;
+                    $scope.mockupItems.forEach(function(item) {
+                        $scope.mockupItemsBykey[item.id] = item;
+                    });
+                    var positionAux = 0;
+                    angular.forEach($scope.mockupItems, function(value, key) {
+                        if (positionAux < value.position) {
+                            $scope.lastId = value.position;
+                        }
+                    }, []);
+                });
+            }; // end of the load mockup items
+
+            $scope.mockupItems = [];
+            $scope.mockupItemsBykey = {};
+            if ($routeParams.suggestId) {
+                mockupService.mockupById.get({
+                    mockupId: $routeParams.suggestId
+                })
+                .$promise.then(function(result) {
+                    $scope.editObject = result;
+                    $scope.loadMockupItems();
+                }, function(err) {
+                    mockupService.mockupById.get({
+                        mockupId: $routeParams.mockupId
+                    })
+                    .$promise.then(function(result) {
+                        $scope.editObject = result;
+                        $scope.mockupSuggest = $scope.editObject;
+                        $scope.mockupSuggest.mockupParent = $scope.editObject.id;
+                        $scope.mockupSuggest.owner = $cookieStore.get('userId');
+                        $scope.mockupSuggest.isSuggest = true;
+                        delete $scope.mockupSuggest.id;
+                        mockupService.createMockup.save($scope.mockupSuggest, function(resultSaved) {
+                            $scope.editObject = resultSaved;
+                            var mockupId = $routeParams.mockupId;
+                            mockupService.getMockupItems.get({
+                                where: {
+                                    mockupId: mockupId
+                                },
+                                limit: 100
+                            }).$promise.then(function(resultItems) {
+                                for (var i = 0; i < resultItems.length; i++) {
+                                    delete resultItems[i].id;
+                                    resultItems[i].mockupId = resultSaved.id;
+                                }
+                                mockupService.saveAllMockupItems.save({ items: resultItems }, function(resultItemsSaved) {
+                                    $scope.loadMockupItems();
+                                });
+                            }, function(err3) {
+                                $scope.err = err3;
+                            });
+                        }, function(err2) {
+                            $scope.err = err2;
+                        });
+                    }, function(err1) {
+                        $scope.err1 = err1;
+                    });
+
+                });
             } else {
-                $scope.suggest = false;
+                mockupService.mockupById.get({
+                    mockupId: $routeParams.mockupId
+                })
+                .$promise.then(function(result) {
+                    $scope.reloadMockupVersions();
+                    $scope.editObject = result;
+                    $scope.loadWorkflow();
+                    try {
+                        permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
+                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
+                    } catch (e) { console.log(e); }
+                    $scope.loadMockupItems();
+                });
             }
 
             // Some source code to save min image that we are to use on the mockup preview and version of the mockup
@@ -58,19 +138,6 @@ angular.module('mockuperApp')
                 });
             }
 
-            mockupService.mockupById.get({
-                    mockupId: $routeParams.mockupId
-                })
-                .$promise.then(function(result) {
-                    $scope.reloadMockupVersions();
-                    $scope.editObject = result;
-                    $scope.loadWorkflow();
-                    try {
-                        permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
-                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.editObject);
-                        //$rootScope.$digest(); // review when we need to run this method
-                    } catch (e) { console.log(e); }
-                });
 
             $scope.moveToTop = function($event) {
                 //console.log($event);
@@ -81,8 +148,6 @@ angular.module('mockuperApp')
                 //console.log(item);
             };
 
-            $scope.mockupItems = [];
-            $scope.mockupItemsBykey = {};
 
             $scope.loadStaticValues = function(item) {
                 if (item.id && $scope.mockupItemsBykey[item.id] && $scope.mockupItemsBykey[item.id].link) {
@@ -91,33 +156,7 @@ angular.module('mockuperApp')
                 }
             }
 
-            $scope.loadMockupItems = function() {
-                var mockupId = $routeParams.mockupId;
-                if ($scope.suggest == true && $scope.suggestId != 'New') {
-                    mockupId = $scope.suggestId;
-                }
-                mockupService.getMockupItems.get({
-                    sort: 'position ',
-                    where: {
-                        mockupId: mockupId
-                    },
-                    limit: 100
-                }).$promise.then(function(result) {
-                    $scope.mockupItems = result;
-                    $scope.mockupItems.forEach(function(item) {
-                        $scope.mockupItemsBykey[item.id] = item;
-                    });
-                    var positionAux = 0;
-                    angular.forEach($scope.mockupItems, function(value, key) {
-                        if (positionAux < value.position) {
-                            $scope.lastId = value.position;
-                        }
-                    }, []);
-                });
-            }; // end of the load mockup items
-
             // This code is duplicated, replace this code using $scope.loadMockupItems();
-            $scope.loadMockupItems();
             $scope.updateInput = function(labelId, idComponent) {
                 switch (labelId) {
                     case 'text':
@@ -168,6 +207,7 @@ angular.module('mockuperApp')
 
             $scope.item = {};
 
+
             // save the mockup item modifications
             $scope.save = function() {
                 $("#spinner").show();
@@ -183,7 +223,7 @@ angular.module('mockuperApp')
                     onrendered: function(canvas) {
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
-                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
+                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $scope.editObject.id }, function(result) {
                             var items = [];
                             var toDelete = [];
                             $scope.editObject.links = [];
@@ -191,7 +231,7 @@ angular.module('mockuperApp')
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;
                                     var item = propertyService.getItem('#' + child.id);
-                                    item.mockupId = $routeParams.mockupId;
+                                    item.mockupId = $scope.editObject.id;
                                     if (item.id && item.id.length < 10) {
                                         item.id = undefined;
                                     }
@@ -206,7 +246,7 @@ angular.module('mockuperApp')
                                     $timeout(function() {
                                         io.socket.post('/mockupVersion/saveIt', {
                                             number: 'version 1',
-                                            mockup: $routeParams.mockupId,
+                                            mockup: $scope.editObject.id,
                                             user: $cookieStore.get('userId'),
                                             action: 'update',
                                             message: 'Update the Mockup'
@@ -226,6 +266,7 @@ angular.module('mockuperApp')
                                     }, myEl[0].children.length * 30);
                                     $scope.loadMockupItems();
                                 });
+
                                 mockupService.updateMockup.update({
                                     id: $scope.editObject.id
                                 }, $scope.editObject, function(result) {}, function(err) {
@@ -256,11 +297,10 @@ angular.module('mockuperApp')
                         var ctx = canvas.getContext('2d');
                         var dataURL = canvas.toDataURL();
                         // the avatar will be created as usual
-                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $routeParams.mockupId }, function(result) {
+                        mockupService.createMockupItemUploadAvatar.save({ img: dataURL, mockupId: $scope.editObject.id }, function(result) {
                             var items = [];
                             var toDelete = [];
                             $scope.editObject.links = [];
-                            //$scope.editObject.suggest = false;
                             $timeout(function() {
                                 angular.forEach(myEl[0].children, function(child) {
                                     position++;

@@ -72,6 +72,7 @@ angular.module('mockuperApp')
             }
         });
 
+
         fac.getMockups = $resource(GlobalService.BASE_PATH + '/mockup', {}, {
             get: {
                 method: 'GET',
