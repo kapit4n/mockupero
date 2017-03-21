@@ -36,7 +36,6 @@ angular.module('mockuperApp')
                 permissionItemService.permissionItem.get({})
                     .$promise.then(function(result) {
                         $scope.permissionItems = result;
-                        $scope.permissionItemsGroup = result;
                     }, function(error) {
                         $scope.err = error;
                         console.error(e);
@@ -44,6 +43,9 @@ angular.module('mockuperApp')
             };
 
             $scope.addPermissionItem = function(permissionItem) {
+                if (!$scope.permissionGroup.items) {
+                    $scope.permissionGroup.items = [];
+                }
                 $scope.permissionGroup.items.push(permissionItem);
                 $scope.save();
             };

@@ -27,12 +27,14 @@
             <tr>
                 <th>Name</th>
                 <th>Model</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="permissionItem in permissionItemsGroup">
+            <tr ng-repeat="permissionItem in permissionGroup.items">
                 <td>{{permissionItem.name}}</td>
                 <td>{{permissionItem.model}}</td>
+                <td>{{permissionItem.action}}</td>
                 <td>
                     <button ng-click="removePermissionItem(permissionItem)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
                 </td>
@@ -54,6 +56,7 @@
                         <thead>
                             <tr>
                                 <th>Status</th>
+                                <th>Model</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -61,6 +64,7 @@
                             <tr ng-repeat="permissionItem in permissionItems">
                                 <td>{{permissionItem.name}}</td>
                                 <td>{{permissionItem.model}}</td>
+                                <td>{{permissionItem.action}}</td>
                                 <td>
                                     <a ng-click="addPermissionItem(permissionItem)" class="btn btn-default btn-sm" role="button">Add</a>
                                 </td>
