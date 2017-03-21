@@ -12,8 +12,7 @@
         </div>
         <div class="form-group">
             <label for="pGroupDescription">description:</label>
-            <input type="text" ng-model="pGroupDescription" class="form-control" name="pGroupDescription" id="name" placeholder="Description" required>
-            <p style="color:red" ng-show="pGroupForm.pGroupDescription.$touched && pGroupForm.pGroupDescription.$invalid" class="help-block"> Description cannot be empty </p>
+            <input type="text" ng-model="pGroupDescription" class="form-control" name="pGroupDescription" id="name" placeholder="Description">
         </div>
         <button type="submit" class="btn btn-success" ng-click="save(pGroupForm)">Save</button>
         <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
