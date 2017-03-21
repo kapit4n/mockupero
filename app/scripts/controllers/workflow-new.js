@@ -13,7 +13,7 @@ angular.module('mockuperApp')
         function($scope, $window, $cookieStore, workflowService,
             breadcrumbService, headerService) {
 
-            headerService.updateHeader('workflow');
+            headerService.updateHeader('administration');
             $scope.wName = "";
             $scope.wAction = "";
             $scope.wClassName = "btn-default";

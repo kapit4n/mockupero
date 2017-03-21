@@ -2,20 +2,20 @@
 
 /**
  * @ngdoc function
- * @name mockuperApp.controller:WorkflowlistCtrl
+ * @name mockuperApp.controller:AdministrationCtrl
  * @description
- * # WorkflowlistCtrl
+ * # AdministrationCtrl
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('WorkflowlistCtrl', ['$scope', 'workflowService', 'loginService', 'headerService',
+    .controller('AdministrationCtrl', ['$scope', 'workflowService', 'loginService', 'headerService',
         'breadcrumbService', '$location', '$rootScope',
         function($scope, workflowService, loginService, headerService, breadcrumbService, $location, $rootScope) {
             loginService.reloadScope();
             headerService.updateHeader('administration');
             $scope.workflows = [];
             $scope.editMode = true;
-            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('workflow-list', 'workflow-list');
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('administration', 'admin');
             $scope.err = "";
 
             $scope.reloadWorkflows = function() {

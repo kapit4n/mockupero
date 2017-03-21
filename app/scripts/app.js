@@ -156,6 +156,11 @@ angular
               controller: 'PermissionGroupEditCtrl',
               controllerAs: 'permissionGroupEdit'
             })
+            .when('/administration', {
+              templateUrl: 'views/administration.html',
+              controller: 'AdministrationCtrl',
+              controllerAs: 'administration'
+            })
             .otherwise({
                 redirectTo: '/'
             });

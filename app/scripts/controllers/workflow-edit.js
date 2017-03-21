@@ -14,7 +14,7 @@ angular.module('mockuperApp')
         function($scope, $routeParams, $rootScope, $window, $cookieStore, workflowService, loginService,
             headerService, breadcrumbService, permissionService) {
             loginService.reloadScope();
-            headerService.updateHeader('workflow');
+            headerService.updateHeader('administration');
             $scope.user = null;
             $scope.editMode = true;
             //$rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('workflow', 'workflow');

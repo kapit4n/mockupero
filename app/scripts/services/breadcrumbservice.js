@@ -20,6 +20,9 @@ angular.module('mockuperApp')
                         name: 'Home',
                         url: ''
                     }, {
+                        name: 'admin',
+                        url: 'administration'
+                    }, {
                         name: 'Permission Groups',
                         url: 'permission-group-list'
                     }];
@@ -29,6 +32,9 @@ angular.module('mockuperApp')
                     var result = [{
                         name: 'Home',
                         url: '#/'
+                    }, {
+                        name: 'admin',
+                        url: 'administration'
                     }, {
                         name: 'Permission Groups',
                         url: 'permission-group-list'
@@ -40,6 +46,9 @@ angular.module('mockuperApp')
                         name: 'Home',
                         url: ''
                     }, {
+                        name: 'admin',
+                        url: 'administration'
+                    }, {
                         name: 'Workflows',
                         url: 'workflowlist'
                     }];
@@ -49,6 +58,9 @@ angular.module('mockuperApp')
                     var result = [{
                         name: 'Home',
                         url: '#/'
+                    }, {
+                        name: 'admin',
+                        url: 'administration'
                     }, {
                         name: 'Workflows',
                         url: 'workflowList'
@@ -110,6 +122,9 @@ angular.module('mockuperApp')
                         name: 'Home',
                         url: '#/'
                     }, {
+                        name: 'admin',
+                        url: 'administration'
+                    }, {
                         name: 'Workflows',
                         url: 'workflowList'
                     }, {
@@ -122,6 +137,9 @@ angular.module('mockuperApp')
                     var result = [{
                         name: 'Home',
                         url: '#/'
+                    }, {
+                        name: 'admin',
+                        url: 'administration'
                     }, {
                         name: 'Permission Groups',
                         url: 'permission-group-list'
