@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="alert alert-danger" role="alert" ng-show="err">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span> {{err}}
+    </div>
+</div>
+<br />
+<div class="container" style="background-color: white;">
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Model</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="permissionItem in permissionItems">
+                <td>{{permissionItem.name}}</td>
+                <td>{{permissionItem.model}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

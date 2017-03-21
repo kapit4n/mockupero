@@ -1,0 +1,77 @@
+<h3 class="container">Permission Group </h3>
+<br/>
+<div class="container" style="padding: 0; background-color: white">
+    <div class="alert alert-danger" role="alert" ng-show="err">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error: </span> {{err}}
+    </div>
+    <div class="thumbnail" style="height: 100px;">
+        <div class="caption">
+            <h4 class="col-sm-4">{{permissionGroup.name}} </h4>
+            <div class="col-sm-6"><a href="/#!/permission-group-edit/{{permissionGroup.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+            </div>
+            <div class="col-sm-12"><strong>Description:</strong> {{permissionGroup.description}} </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<div class="container" style="background: white;">
+    <h3>
+        <button type="button" class="btn btn-default" aria-label="Left Align"  data-toggle="modal" data-target="#permissionItemsModal" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </h3> Permission Items
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Model</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="permissionItem in permissionItemsGroup">
+                <td>{{permissionItem.name}}</td>
+                <td>{{permissionItem.model}}</td>
+                <td>
+                    <button ng-click="removePermissionItem(permissionItem)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+<div id="permissionItemsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Permission Item</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="permissionItem in permissionItems">
+                                <td>{{permissionItem.name}}</td>
+                                <td>{{permissionItem.model}}</td>
+                                <td>
+                                    <a ng-click="addPermissionItem(permissionItem)" class="btn btn-default btn-sm" role="button">Add</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

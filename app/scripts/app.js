@@ -131,6 +131,26 @@ angular
               controller: 'PresentationCtrl',
               controllerAs: 'presentation'
             })
+            .when('/permission-item-list', {
+              templateUrl: 'views/permission-item-list.html',
+              controller: 'PermissionItemListCtrl',
+              controllerAs: 'permissionItemList'
+            })
+            .when('/permission-group-list', {
+              templateUrl: 'views/permission-group-list.html',
+              controller: 'PermissionGroupListCtrl',
+              controllerAs: 'permissionGroupList'
+            })
+            .when('/permission-group/:permissionGroupId', {
+              templateUrl: 'views/permission-group.html',
+              controller: 'PermissionGroupCtrl',
+              controllerAs: 'permissionGroup'
+            })
+            .when('/permission-group-new', {
+              templateUrl: 'views/permission-group-new.html',
+              controller: 'PermissionGroupNewCtrl',
+              controllerAs: 'permissionGroupNew'
+            })
             .otherwise({
                 redirectTo: '/'
             });
