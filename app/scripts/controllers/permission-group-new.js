@@ -8,9 +8,9 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-  .controller('PermissionGroupNewCtrl', ['$scope', '$window', '$cookieStore',
+    .controller('PermissionGroupNewCtrl', ['$scope', '$window', '$location', '$cookieStore',
         'permissionGroupService', 'breadcrumbService', 'headerService',
-        function($scope, $window, $cookieStore, permissionGroupService,
+        function($scope, $window, $location, $cookieStore, permissionGroupService,
             breadcrumbService, headerService) {
 
             headerService.updateHeader('permission-group');
@@ -19,16 +19,16 @@ angular.module('mockuperApp')
             $scope.wClassName = "btn-default";
 
             try {
-                $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-new', 'Home');
+                $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('permission-group-new', 'Home');
             } catch (e) {}
 
             $scope.save = function(workflowForm) {
                 if (workflowForm.$valid) {
-                    permissionGroupService.createWorkflow.save({
+                    permissionGroupService.createPermissionGroup.save({
                         name: $scope.pGroupName,
                         description: $scope.pGroupDescription
                     }, function(result) {
-                        $window.location.href = '#/permission-group/' + result.id;
+                        $location.path("/permission-group/" + result.id);
                     }, function(err) {
                         $scope.err = err;
                     });
@@ -36,7 +36,7 @@ angular.module('mockuperApp')
             };
 
             $scope.cancel = function() {
-                $window.location.href = '#/permission-group-list';
+                $location.path('/permission-group-list');
             }
         }
     ]);

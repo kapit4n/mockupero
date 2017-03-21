@@ -25,7 +25,7 @@ angular.module('mockuperApp')
                     $scope.permissionGroup = result;
                     try {
                         permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));
-                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('permissionGroup', $scope.permissionGroup);
+                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('permission-group', $scope.permissionGroup);
                     } catch (e) {
                         $scope.err = error;
                         console.error(e);

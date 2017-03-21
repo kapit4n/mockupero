@@ -1,0 +1,23 @@
+<div class="container">
+    <h3>Permission Group Edit</h3>
+    <br/>
+    <br/>
+    <form role="form" name="permissionGroupForm">
+        <div class="alert alert-danger" role="alert" ng-show="err">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> {{err}}
+        </div>
+        <div class="form-group">
+            <label for="permissionGroupName">Group Name:</label>
+            <input type="text" ng-model="permissionGroup.name" class="form-control" id="name" placeholder="Workflow name" name="permissionGroupName" required>
+            <p style="color:red" ng-show="permissionGroupForm.permissionGroupName.$touched && permissionGroupForm.permissionGroupName.$invalid" class="help-block"> Name cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="permissionGroupDescription">Description:</label>
+            <input type="text" ng-model="permissionGroup.description" class="form-control" id="name" placeholder="Description action" name="permissionGroupDescription">
+            
+        </div>      
+        <button type="submit" class="btn btn-success" ng-click="save(permissionGroupForm)">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </form>
+</div>

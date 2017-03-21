@@ -151,6 +151,11 @@ angular
               controller: 'PermissionGroupNewCtrl',
               controllerAs: 'permissionGroupNew'
             })
+            .when('/permission-group-edit/:permissionGroupId', {
+              templateUrl: 'views/permission-group-edit.html',
+              controller: 'PermissionGroupEditCtrl',
+              controllerAs: 'permissionGroupEdit'
+            })
             .otherwise({
                 redirectTo: '/'
             });

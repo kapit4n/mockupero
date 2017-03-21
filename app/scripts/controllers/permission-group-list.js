@@ -15,7 +15,7 @@ angular.module('mockuperApp')
             headerService.updateHeader('permissionGroup');
             $scope.permissionGroups = [];
             $scope.editMode = true;
-            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('permissionGroup-list', 'permissionGroup-list');
+            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('permission-group-list', 'permission-group-list');
             $scope.err = "";
 
             $scope.reloadPermissionGroups = function() {

@@ -15,6 +15,26 @@ angular.module('mockuperApp')
          */
         fac.updateBreadcrumb = function(type, param) {
             switch (type) {
+                case 'permission-group-list':
+                    var result = [{
+                        name: 'Home',
+                        url: ''
+                    }, {
+                        name: 'Permission Groups',
+                        url: 'permission-group-list'
+                    }];
+                    return result;
+                    break;
+                case 'permission-group-new':
+                    var result = [{
+                        name: 'Home',
+                        url: '#/'
+                    }, {
+                        name: 'Permission Groups',
+                        url: 'permission-group-list'
+                    }];
+                    return result;
+                    break;
                 case 'workflow-list':
                     var result = [{
                         name: 'Home',
@@ -95,6 +115,19 @@ angular.module('mockuperApp')
                     }, {
                         name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
                         url: 'workflow/' + param.id
+                    }];
+                    return result;
+                    break;
+                case 'permission-group':
+                    var result = [{
+                        name: 'Home',
+                        url: '#/'
+                    }, {
+                        name: 'Permission Groups',
+                        url: 'permission-group-list'
+                    }, {
+                        name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
+                        url: 'permission-group/' + param.id
                     }];
                     return result;
                     break;
