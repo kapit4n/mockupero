@@ -9,8 +9,8 @@
  */
 angular.module('mockuperApp')
     .controller('ProjectNewCtrl', ['$scope', '$window', '$cookieStore',
-        'projectService', 'breadcrumbService', 'headerService',
-        function($scope, $window, $cookieStore, projectService,
+        'projectService', 'commentService', 'breadcrumbService', 'headerService',
+        function($scope, $window, $cookieStore, projectService, commentService,
             breadcrumbService, headerService) {
             headerService.updateHeader('projects');
             $scope.projectName = '';
@@ -31,7 +31,8 @@ angular.module('mockuperApp')
                         imgToShow: $scope.imgToShow,
                         userId: $cookieStore.get('userId')
                     }, function(result) {
-                        $window.location.href = '#/project/' + result.id;
+                        projectService.publishCreate($scope, result);
+                        $window.location.href = '#!/project/' + result.id;
                     }, function(err) {
                         $scope.err = err;
                     });

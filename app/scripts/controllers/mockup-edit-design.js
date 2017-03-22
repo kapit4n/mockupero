@@ -71,6 +71,7 @@ angular.module('mockuperApp')
                         $scope.mockupSuggest.isSuggest = true;
                         delete $scope.mockupSuggest.id;
                         mockupService.createMockup.save($scope.mockupSuggest, function(resultSaved) {
+                            mockupService.publishSuggestCreate($scope, resultSaved);
                             $scope.editObject = resultSaved;
                             var mockupId = $routeParams.mockupId;
                             mockupService.getMockupItems.get({
@@ -204,26 +205,18 @@ angular.module('mockuperApp')
                 }
             }
             $scope.item = {};
-            // save the mockup item modifications
-
-            $scope.publishSuggest = function() {
-                $scope.newComment = "Mockup suggest published";
-                $scope.isMockupSuggest = true;
-                $scope.relationName = $scope.editObject.name;
-                $scope.relationId = $routeParams.mockupId;
-                scope.relationType = 'mockup';
-                $scope.mockupSuggestId = $scope.editObject.id;
-                commentService.share($scope);
-            };
-
-
 
             // set a variable in the mockup that will say that the mockup designer will design a suggest
             // save the mockup in a copy that will be the suggest
             // copy the items with the mockupSuggest id
             // open that mockup that will be the suggest
             $scope.save = function() {
-                $scope.publishSuggest();
+                if ($scope.editObject.isSuggest) {
+                    mockupService.publishSuggestUpdate($scope, $scope.editObject);
+                } else {
+                    mockupService.publishUpdate($scope, $scope.editObject);
+                }
+
                 $("#spinner").show();
                 $("#btnSave").prop('disabled', true);
                 var myEl = angular.element(document.querySelector('#design-div'));

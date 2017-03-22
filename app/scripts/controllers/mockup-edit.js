@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupEditCtrl', ['$scope', 'loginService', '$window', '$routeParams', 'mockupService', 'breadcrumbService', 'headerService',
-        function($scope, loginService, $window, $routeParams, mockupService, breadcrumbService, headerService) {
+    .controller('MockupEditCtrl', ['$scope', 'loginService', '$location', '$routeParams', 'mockupService', 'commentService', 'breadcrumbService', 'headerService',
+        function($scope, loginService, $location, $routeParams, mockupService, commentService, breadcrumbService, headerService) {
 
             $scope.editObject = null;
             loginService.reloadScope();
@@ -30,7 +30,8 @@ angular.module('mockuperApp')
                     mockupService.updateMockup.update({
                         id: $scope.editObject.id
                     }, $scope.editObject, function(result) {
-                        $window.location.href = '#/mockup/' + $scope.editObject.id;
+                        mockupService.publishUpdate($scope, result);
+                        $location.path('/mockup/' + $scope.editObject.id);
                     }, function(err) {
                         $scope.err = err;
                     });
@@ -38,7 +39,7 @@ angular.module('mockuperApp')
             }
 
             $scope.cancel = function() {
-                $window.location.href = '#/mockup/' + $scope.editObject.id;
+                $location.path('/mockup/' + $scope.editObject.id);
             }
         }
     ]);

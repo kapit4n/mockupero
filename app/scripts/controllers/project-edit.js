@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('ProjectEditCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'projectService', 'breadcrumbService', 'headerService',
-        function($rootScope, $scope, loginService, $window, $routeParams, projectService, breadcrumbService, headerService) {
+    .controller('ProjectEditCtrl', ['$rootScope', '$scope', 'loginService', '$window', '$routeParams', 'projectService', 'commentService', 'breadcrumbService', 'headerService',
+        function($rootScope, $scope, loginService, $window, $routeParams, projectService, commentService, breadcrumbService, headerService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.project = null;
@@ -30,7 +30,8 @@ angular.module('mockuperApp')
                     projectService.updateProject.update({
                         id: $scope.project.id
                     }, $scope.project, function(result) {
-                        $window.location.href = '#/project/' + $scope.project.id;
+                        projectService.publishUpdate($scope, result);
+                        $window.location.href = '#!/project/' + $scope.project.id;
                     }, function(err) {
                         $scope.err = err;
                     });
@@ -38,7 +39,7 @@ angular.module('mockuperApp')
             }
 
             $scope.cancel = function() {
-                $window.location.href = '#/project/' + $scope.project.id;
+                $window.location.href = '#!/project/' + $scope.project.id;
             }
 
             $scope.projectTypes = projectService.projectTypes;

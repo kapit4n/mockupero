@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('projectService', function($resource, GlobalService) {
+    .service('projectService', function($resource, GlobalService, commentService) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var fac = {};
 
@@ -132,6 +132,22 @@ angular.module('mockuperApp')
                 });
             });
         }
+
+        fac.publishCreate = function($scope, project) {
+            $scope.newComment = "Project (" + project.name + ") has been Created";
+            $scope.relationName = project.name;
+            $scope.relationId = project.id;
+            $scope.relationType = 'project';
+            commentService.share($scope);
+        };
+
+        fac.publishUpdate = function($scope, project) {
+            $scope.newComment = "Project (" + project.name + ") has been Updated";
+            $scope.relationName = project.name;
+            $scope.relationId = project.id;
+            $scope.relationType = 'project';
+            commentService.share($scope);
+        };
 
         fac.projectTypes = ['Type 1', 'Type 2'];
 

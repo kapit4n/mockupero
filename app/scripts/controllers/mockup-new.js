@@ -8,8 +8,8 @@
  * Controller of the mockuperApp
  */
 angular.module('mockuperApp')
-    .controller('MockupNewCtrl', ['$rootScope', '$scope', '$cookieStore', '$window', '$location', '$routeParams', 'mockupService', 'projectService', 'breadcrumbService', 'headerService',
-        function($rootScope, $scope, $cookieStore, $window, $location, $routeParams, mockupService, projectService, breadcrumbService, headerService) {
+    .controller('MockupNewCtrl', ['$rootScope', '$scope', '$cookieStore', '$window', '$location', '$routeParams', 'mockupService', 'projectService', 'commentService', 'breadcrumbService', 'headerService',
+        function($rootScope, $scope, $cookieStore, $window, $location, $routeParams, mockupService, projectService, commentService, breadcrumbService, headerService) {
             headerService.updateHeader('projects');
             $scope.name = '';
             $scope.objType = 'Mockup';
@@ -24,7 +24,8 @@ angular.module('mockuperApp')
                     $scope.newMockup.owner = $cookieStore.get('userId');
                     $scope.newMockup.project = $scope.project;
                     mockupService.createMockup.save($scope.newMockup, function(result) {
-                        $window.location.href = '#/mockup/' + result.id;
+                        mockupService.publishCreate($scope, result);
+                        $window.location.href = '#!/mockup/' + result.id;
                     }, function(err) {
                         $scope.err = err;
                     });
@@ -41,7 +42,7 @@ angular.module('mockuperApp')
                 });
 
             $scope.cancel = function() {
-                $window.location.href = '#/project/' + $routeParams.projectId;
+                $window.location.href = '#!/project/' + $routeParams.projectId;
             }
         }
     ]);

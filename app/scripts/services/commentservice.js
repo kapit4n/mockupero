@@ -77,7 +77,7 @@ angular.module('mockuperApp')
                 }, function(err) {
                     $scope.err = err;
                 });
-            }
+            };
 
             fac.reloadComments = function($scope, relationId) {
                 fac.getComments.get({

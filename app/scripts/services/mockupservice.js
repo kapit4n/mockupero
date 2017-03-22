@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('mockupService', function($resource, GlobalService) {
+    .service('mockupService', function($resource, GlobalService, commentService) {
         // AngularJS will instantiate a singleton by calling "new" on this function
         var fac = {};
 
@@ -134,6 +134,42 @@ angular.module('mockuperApp')
                 method: 'POST'
             }
         });
+
+        fac.publishCreate = function($scope, mockup) {
+            $scope.newComment = "Mockup " + mockup.name + " has been Created";
+            $scope.relationName = mockup.name;
+            $scope.relationId = mockup.id;
+            $scope.relationType = 'mockup';
+            commentService.share($scope);
+        };
+
+        fac.publishUpdate = function($scope, mockup) {
+            $scope.newComment = "Mockup " + mockup.name + " has been Updated";
+            $scope.relationName = mockup.name;
+            $scope.relationId = mockup.id;
+            $scope.relationType = 'mockup';
+            commentService.share($scope);
+        };
+
+        fac.publishSuggestUpdate = function($scope, mockup) {
+            $scope.newComment = "Mockup suggest has been Updated for mockup (" + mockup.name + ")";
+            $scope.isMockupSuggest = true;
+            $scope.relationName = mockup.name;
+            $scope.relationId = mockup.id;
+            $scope.relationType = 'mockup';
+            $scope.mockupSuggestId = mockup.id;
+            commentService.share($scope);
+        };
+
+        fac.publishSuggestCreate = function($scope, mockup) {
+            $scope.newComment = "Mockup suggest has been created for mockup (" + mockup.name + ")";
+            $scope.isMockupSuggest = true;
+            $scope.relationName = mockup.name;
+            $scope.relationId = mockup.id;
+            $scope.relationType = 'mockup';
+            $scope.mockupSuggestId = mockup.id;
+            commentService.share($scope);
+        };
 
         return fac;
     });
