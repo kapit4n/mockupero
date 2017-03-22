@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-  .service('permissionGroupService', function($resource, GlobalService) {
+    .service('permissionGroupService', function($resource, $cookieStore, GlobalService) {
         var fac = {};
         fac.permissionGroup = $resource(GlobalService.BASE_PATH + '/permissionGroup', {}, {
             get: {
@@ -42,5 +42,19 @@ angular.module('mockuperApp')
                 method: 'DELETE'
             }
         });
+
+        fac.getActionsByModel = function(model) {
+            fac.permissionGroup.get({
+                where: {
+                    model: model,
+                    user: $cookieStore.get('userId')
+                }
+            }).$promise.then(function(result) {
+                console.log(result);
+            }, function(err) {
+                $scope.err = err;
+            });
+        };
+
         return fac;
     });
