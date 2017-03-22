@@ -1,4 +1,3 @@
-</style>
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -55,35 +54,34 @@
                     <div class="panel-body">
                         {{comment.comment}}
                         <div class="thumbnail" ng-show="comment.isMockupSuggest">
-                            <img class="img-responsive user-photo" src="http://localhost:1337/images/{{comment.mockupSuggestId}}.png"
-                    </div>
+                            <img class="img-responsive user-photo" src="http://localhost:1337/images/{{comment.mockupSuggestId}}.png" </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </dir>
+        </div>
     </div>
-</div>
-<div id="commentEdit" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Comment</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="4" ng-model="commentToEdit.comment"></textarea>
-                        <br />
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-success" ng-click="updateComment()" data-dismiss="modal">Share
-                </button>
+    <div id="commentEdit" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Comment</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" rows="4" ng-model="commentToEdit.comment"></textarea>
+                            <br />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success" ng-click="updateComment()" data-dismiss="modal">Share
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>

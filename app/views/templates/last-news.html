@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <dir ng-repeat="comment in comments">
+            <div class="col-xs-3 col-sm-2 col-md-2">
+                <div class="thumbnail" style="width: 60px;">
+                    <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{comment.userId}}.jpg" style="width: 60px;">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>{{comment.userName}}</strong> <span class="text-muted"> Published At <time pubdate>{{comment.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</time></span>
+                    </div>
+                    <div class="panel-body">
+                        {{comment.comment}}
+                        <div>
+                            <a href="/#!/mockup/{{comment.relationId}}" ng-show="comment.relationType == 'comment'">{{comment.relationName}}</a>
+                            <a href="/#!/project/{{comment.relationId}}" ng-show="comment.relationType == 'project'">{{comment.relationName}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dir>
+    </div>
+</div>

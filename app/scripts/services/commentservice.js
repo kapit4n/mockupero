@@ -48,11 +48,13 @@ angular.module('mockuperApp')
 
             fac.share = function($scope) {
                 if ($scope.newComment) {
+                    mockupSuggestId: $scope.mockupSuggestId
                     fac.createComment.save({
                         comment: $scope.newComment,
                         userId: $cookieStore.get('userId'),
                         userName: $rootScope.userNameLogin,
                         relationId: $scope.relationId,
+                        relationType: $scope.relationType,
                         relationName: $scope.relationName,
                         isMockupSuggest: $scope.isMockupSuggest,
                         mockupSuggestId: $scope.mockupSuggestId
@@ -83,6 +85,17 @@ angular.module('mockuperApp')
                         relationId: relationId
                     },
                     sort: 'createdAt DESC'
+                }).$promise.then(function(result) {
+                    $scope.comments = result;
+                }, function(err) {
+                    $scope.err = err;
+                });
+            };
+
+            fac.reloadLastComments = function($scope) {
+                fac.getComments.get({
+                    sort: 'createdAt DESC',
+                    limit: 15
                 }).$promise.then(function(result) {
                     $scope.comments = result;
                 }, function(err) {

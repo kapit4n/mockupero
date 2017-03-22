@@ -30,7 +30,7 @@ angular.module('mockuperApp')
                     mockupService.updateMockup.update({
                         id: $scope.editObject.id
                     }, $scope.editObject, function(result) {
-                        $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+                        $window.location.href = '#/mockup/' + $scope.editObject.id;
                     }, function(err) {
                         $scope.err = err;
                     });
@@ -38,7 +38,7 @@ angular.module('mockuperApp')
             }
 
             $scope.cancel = function() {
-                $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+                $window.location.href = '#/mockup/' + $scope.editObject.id;
             }
         }
     ]);

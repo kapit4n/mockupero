@@ -24,7 +24,7 @@ angular.module('mockuperApp')
                     $scope.newMockup.owner = $cookieStore.get('userId');
                     $scope.newMockup.project = $scope.project;
                     mockupService.createMockup.save($scope.newMockup, function(result) {
-                        $window.location.href = '#/project/' + $routeParams + '/mockup/' + result.id;
+                        $window.location.href = '#/mockup/' + result.id;
                     }, function(err) {
                         $scope.err = err;
                     });

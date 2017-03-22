@@ -19,8 +19,7 @@ angular.module('mockuperApp')
             $scope.mockup = null;
             $scope.logingLog = {};
             $scope.mockupId = $routeParams.mockupId;
-            $scope.projectId = $routeParams.projectId;
-            $scope.suggestObject = {id: 'New'};
+            $scope.suggestObject = { id: 'New' };
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 $scope.$apply(function() {
@@ -75,24 +74,24 @@ angular.module('mockuperApp')
                 })
                 .$promise.then(function(result) {
                     mockupService.getMockups.get({
-                        mockupParent: $routeParams.mockupId,
-                        owner: $cookieStore.get('userId')
-                    })
-                    .$promise.then(function(suggest) {
-                        if (suggest.length > 0) {
-                            $scope.suggestObject = suggest[0];
-                        }
-                    }, function(err) {
-                        console.error(err);
-                    });
+                            mockupParent: $routeParams.mockupId,
+                            owner: $cookieStore.get('userId')
+                        })
+                        .$promise.then(function(suggest) {
+                            if (suggest.length > 0) {
+                                $scope.suggestObject = suggest[0];
+                            }
+                        }, function(err) {
+                            console.error(err);
+                        });
 
 
                     $scope.mockup = result;
                     $scope.viewObject = result;
                     $scope.relationName = $scope.mockup.name;
                     $scope.viewObject.title = 'Mockup View';
-                    $scope.viewObject.editUrl = 'project/' + result.project.id + '/mockup/edit/' + result.id;
-                    $scope.viewObject.editDesign = 'project/' + result.project.id + '/mockup-edit-design/' + result.id;
+                    $scope.viewObject.editUrl = 'mockup/edit/' + result.id;
+                    $scope.viewObject.editDesign = 'mockup-edit-design/' + result.id;
                     $scope.viewObject.parentName = result.project.name;
                     $scope.viewObject.parentUrl = '#/project/' + result.project.id;
                     $scope.loadWorkflow();

@@ -211,6 +211,7 @@ angular.module('mockuperApp')
                 $scope.isMockupSuggest = true;
                 $scope.relationName = $scope.editObject.name;
                 $scope.relationId = $routeParams.mockupId;
+                scope.relationType = 'mockup';
                 $scope.mockupSuggestId = $scope.editObject.id;
                 commentService.share($scope);
             };
@@ -318,7 +319,7 @@ angular.module('mockuperApp')
                 }, function serverResponded(body, JWR) {
                     ////console.log('Mockup editor out');
                 });
-                $window.location.href = '#/project/' + $routeParams.projectId + '/mockup/' + $scope.editObject.id;
+                $window.location.href = '#/mockup/' + $scope.editObject.id;
             }
 
             interact('.resize-drag')

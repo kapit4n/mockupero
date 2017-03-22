@@ -43,7 +43,7 @@ angular
                 templateUrl: 'views/project.html',
                 controller: 'ProjectCtrl'
             })
-            .when('/project/:projectId/mockup/:mockupId', {
+            .when('/mockup/:mockupId', {
                 templateUrl: 'views/mockup.html',
                 controller: 'MockupCtrl'
             })
@@ -59,15 +59,15 @@ angular
                 templateUrl: 'views/mockup-new.html',
                 controller: 'MockupNewCtrl'
             })
-            .when('/project/:projectId/mockup/edit/:mockupId', {
+            .when('/mockup/edit/:mockupId', {
                 templateUrl: 'views/mockup-edit.html',
                 controller: 'MockupEditCtrl'
             })
-            .when('/project/:projectId/mockup-edit-design/:mockupId/suggest/:suggestId', {
+            .when('/mockup-edit-design/:mockupId/suggest/:suggestId', {
                 templateUrl: 'views/mockup-edit-design.html',
                 controller: 'MockupEditDesignCtrl'
             })
-            .when('/project/:projectId/mockup-edit-design/:mockupId', {
+            .when('/mockup-edit-design/:mockupId', {
                 templateUrl: 'views/mockup-edit-design.html',
                 controller: 'MockupEditDesignCtrl'
             })
@@ -121,7 +121,7 @@ angular
                 controller: 'NavigationdiagramCtrl',
                 controllerAs: 'navigationDiagram'
             })
-            .when('/project/:projectId/mockup-suggest/:mockupId', {
+            .when('/mockup-suggest/:mockupId', {
               templateUrl: 'views/mockuppresentation.html',
               controller: 'MockuppresentationCtrl',
               controllerAs: 'mockupPresentation'

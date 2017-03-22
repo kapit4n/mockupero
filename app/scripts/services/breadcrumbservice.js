@@ -174,7 +174,7 @@ angular.module('mockuperApp')
                         url: 'project/' + param.project.id
                     }, {
                         name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
-                        url: 'project/' + param.id + '/mockup/' + param.id
+                        url: 'mockup/' + param.id
                     }];
                     return result;
                     break;

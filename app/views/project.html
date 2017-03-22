@@ -36,9 +36,9 @@
                 <div class="caption">
                     <h4>{{mockup.name | cut:true:10:' ...'}}</h4>
                     <p>
-                        <a style="margin-right: 10px;" href="/#!/project/{{projectId}}/mockup/{{mockup.id}}"><span class="glyphicon glyphicon-folder-open"></span></a>
-                        <a ng-show="currentworkflow.permission.children.edit == 'YES'" style="margin-right: 10px;" href="/#!/project/{{projectId}}/mockup/edit/{{mockup.id}}" ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a ng-show="currentworkflow.permission.children.edit == 'YES'" style="margin-right: 10px;" href="/#!/project/{{projectId}}/mockup-edit-design/{{mockup.id}}"><span class="glyphicon glyphicon-picture"></span></a>
+                        <a style="margin-right: 10px;" href="/#!/mockup/{{mockup.id}}"><span class="glyphicon glyphicon-folder-open"></span></a>
+                        <a ng-show="currentworkflow.permission.children.edit == 'YES'" style="margin-right: 10px;" href="/#!/mockup/edit/{{mockup.id}}" ng-if="editMode"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a ng-show="currentworkflow.permission.children.edit == 'YES'" style="margin-right: 10px;" href="/#!/mockup-edit-design/{{mockup.id}}"><span class="glyphicon glyphicon-picture"></span></a>
                         <a ng-show="currentworkflow.permission.children.delete == 'YES'" style="margin-right: 10px;" href="" ng-click="deleteMockup(mockup.id)" role="button"><span class="glyphicon glyphicon-remove"></span></a>
                     </p>
                 </div>
@@ -48,5 +48,5 @@
             </div>
         </div>
     </div>
-    <comment relation="{{projectId}}"></comment>
+    <comment relation="{{projectId}}" relationtype="project"></comment>
 </div>

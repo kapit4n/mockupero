@@ -58,7 +58,7 @@ angular.module('mockuperApp')
                 url: '/project'
             }, {
                 name: 'Mockup',
-                url: '/project/1/mockup'
+                url: '/mockup'
             }]
         };
 

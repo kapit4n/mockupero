@@ -16,6 +16,8 @@ angular.module('mockuperApp')
                     scope.newCommentFlag = false;
                     scope.comments = [];
                     scope.relationId = attrs.relation;
+                    scope.relationType = attrs.relationType;
+                    scope.relationType = attrs.relationtype;
 
                     scope.addComment = function() {
                         scope.newCommentFlag = true;
