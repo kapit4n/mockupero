@@ -20,6 +20,7 @@ angular.module('mockuperApp')
             $scope.logingLog = {};
             $scope.mockupId = $routeParams.mockupId;
             $scope.suggestObject = { id: 'New' };
+            $scope.mockups = [];
 
             io.socket.get('/loginlog', function serverResponded(body, JWR) {
                 $scope.$apply(function() {
@@ -69,38 +70,65 @@ angular.module('mockuperApp')
                 });
             }
 
-            mockupService.mockupById.get({
-                    mockupId: $routeParams.mockupId
-                })
-                .$promise.then(function(result) {
-                    mockupService.getMockups.get({
-                            mockupParent: $routeParams.mockupId,
-                            owner: $cookieStore.get('userId')
-                        })
-                        .$promise.then(function(suggest) {
-                            if (suggest.length > 0) {
-                                $scope.suggestObject = suggest[0];
-                            }
-                        }, function(err) {
-                            console.error(err);
-                        });
-
-
-                    $scope.mockup = result;
-                    $scope.viewObject = result;
-                    $scope.relationName = $scope.mockup.name;
-                    $scope.viewObject.title = 'Mockup View';
-                    $scope.viewObject.editUrl = 'mockup/edit/' + result.id;
-                    $scope.viewObject.editDesign = 'mockup-edit-design/' + result.id;
-                    $scope.viewObject.parentName = result.project.name;
-                    $scope.viewObject.parentUrl = '#/project/' + result.project.id;
-                    $scope.loadWorkflow();
-                    try {
-                        permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
-                        $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
-                    } catch (e) { console.error(e); }
+            $scope.loadMockupSuggests = function() {
+                mockupService.getMockups.get({
+                    where: {
+                        isSuggest: true,
+                        mockupParent: $routeParams.mockupId
+                    },
+                    limit: 10
+                }).$promise.then(function(result) {
+                    $scope.mockups = result;
                 }, function(error) {
                     console.error(error);
                 });
+            };
+
+            $scope.loadMockup = function() {
+                mockupService.mockupById.get({
+                        mockupId: $routeParams.mockupId
+                    })
+                    .$promise.then(function(result) {
+                        mockupService.getMockups.get({
+                                mockupParent: $routeParams.mockupId,
+                                owner: $cookieStore.get('userId')
+                            })
+                            .$promise.then(function(suggest) {
+                                if (suggest.length > 0) {
+                                    $scope.suggestObject = suggest[0];
+                                }
+                            }, function(err) {
+                                console.error(err);
+                            });
+
+                        $scope.mockup = result;
+                        $scope.viewObject = result;
+                        $scope.relationName = $scope.mockup.name;
+                        $scope.viewObject.title = 'Mockup View';
+                        $scope.viewObject.editUrl = 'mockup/edit/' + result.id;
+                        $scope.viewObject.editDesign = 'mockup-edit-design/' + result.id;
+                        $scope.viewObject.parentName = result.project.name;
+                        $scope.viewObject.parentUrl = '#/project/' + result.project.id;
+                        $scope.loadWorkflow();
+                        try {
+                            permissionService.loadPermission($scope, result.project.id, $cookieStore.get('userId'));
+                            $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('mockup', $scope.mockup);
+                        } catch (e) { console.error(e); }
+                    }, function(error) {
+                        console.error(error);
+                    });
+            }
+
+            $scope.deleteMockupSuggest = function(mockupId) {
+                mockupService.deleteMockup.get({
+                    id: mockupId
+                }).$promise.then(function(result) {
+                    $scope.loadMockupSuggests();
+                });
+            };
+
+            $scope.loadMockup();
+            $scope.loadMockupSuggests();
+
         }
     ]);
