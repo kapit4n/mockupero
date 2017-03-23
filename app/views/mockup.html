@@ -8,7 +8,7 @@
 </div>
 <div class="container">
     <a ng-show="currentworkflow.permission.edit == 'YES'" href="/#!/{{viewObject.editDesign}}" class="btn btn-sm btn-default" role="button" ng-if="editMode">Design</a>
-    <a ng-show="currentworkflow.permission.edit == 'NO'"  href="/#!/{{viewObject.editDesign}}/suggest/{{suggestObject.id}}" class="btn btn-sm btn-info" role="button">Suggest</a>
+    <a href="/#!/{{viewObject.editDesign}}/suggest/{{suggestObject.id}}" class="btn btn-sm btn-info" role="button">Suggest</a>
 </div>
 <br>
 <p style="text-align:center;">

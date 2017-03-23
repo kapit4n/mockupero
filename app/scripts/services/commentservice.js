@@ -95,7 +95,24 @@ angular.module('mockuperApp')
             fac.reloadLastComments = function($scope) {
                 fac.getComments.get({
                     sort: 'createdAt DESC',
-                    limit: 15
+                    limit: 50
+                }).$promise.then(function(result) {
+                    $scope.comments = result;
+                }, function(err) {
+                    $scope.err = err;
+                });
+            };
+
+            fac.reloadCommentsByUser = function($scope) {
+                fac.getComments.get({
+                    where: {
+                        or: [
+                            { relationId: $scope.relationId },
+                            { userId: $scope.relationId }
+                        ]
+                    },
+                    sort: 'createdAt DESC',
+                    limit: 50
                 }).$promise.then(function(result) {
                     $scope.comments = result;
                 }, function(err) {

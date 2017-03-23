@@ -13,6 +13,7 @@ angular.module('mockuperApp')
             loginService.reloadScope();
             headerService.updateHeader('users');
             $scope.user = null;
+            $scope.userId = $routeParams.userId;
             $scope.editMode = true;
             $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('user', 'user');
 

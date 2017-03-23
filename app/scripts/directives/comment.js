@@ -16,7 +16,6 @@ angular.module('mockuperApp')
                     scope.newCommentFlag = false;
                     scope.comments = [];
                     scope.relationId = attrs.relation;
-                    scope.relationType = attrs.relationType;
                     scope.relationType = attrs.relationtype;
 
                     scope.addComment = function() {
@@ -25,7 +24,11 @@ angular.module('mockuperApp')
 
                     scope.reloadComments = function() {
                         scope.newCommentFlag = false;
-                        commentService.reloadComments(scope, attrs.relation);
+                        if (scope.relationType === 'user') {
+                            commentService.reloadCommentsByUser(scope);
+                        } else {
+                            commentService.reloadComments(scope, attrs.relation);
+                        }
                     };
 
                     scope.shareComment = function() {

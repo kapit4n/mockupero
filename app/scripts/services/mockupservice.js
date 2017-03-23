@@ -155,7 +155,7 @@ angular.module('mockuperApp')
             $scope.newComment = "Mockup suggest has been Updated for mockup (" + mockup.name + ")";
             $scope.isMockupSuggest = true;
             $scope.relationName = mockup.name;
-            $scope.relationId = mockup.id;
+            $scope.relationId = mockup.mockupParent;
             $scope.relationType = 'mockup';
             $scope.mockupSuggestId = mockup.id;
             commentService.share($scope);
@@ -165,7 +165,7 @@ angular.module('mockuperApp')
             $scope.newComment = "Mockup suggest has been created for mockup (" + mockup.name + ")";
             $scope.isMockupSuggest = true;
             $scope.relationName = mockup.name;
-            $scope.relationId = mockup.id;
+            $scope.relationId = mockup.mockupParent;
             $scope.relationType = 'mockup';
             $scope.mockupSuggestId = mockup.id;
             commentService.share($scope);
