@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('userService', function($resource, GlobalService, projectService) {
+    .service('userService', function($resource, GlobalService, projectService, commentService) {
         var fac = {};
         fac.user = $resource(GlobalService.BASE_PATH + '/user', {}, {
             get: {
@@ -55,6 +55,22 @@ angular.module('mockuperApp')
                 method: 'DELETE'
             }
         });
+
+        fac.publishCreate = function($scope, user) {
+            $scope.newComment = "User (" + user.username + ") has been Created";
+            $scope.relationName = user.username;
+            $scope.relationId = user.id;
+            $scope.relationType = 'user';
+            commentService.share($scope);
+        };
+
+        fac.publishUpdate = function($scope, user) {
+            $scope.newComment = "User (" + user.username + ") has been Updated";
+            $scope.relationName = user.username;
+            $scope.relationId = user.id;
+            $scope.relationType = 'user';
+            commentService.share($scope);
+        };
 
         return fac;
     });

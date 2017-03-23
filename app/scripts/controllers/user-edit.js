@@ -46,6 +46,7 @@ angular.module('mockuperApp')
                     userService.updateUser.save({
                         id: $scope.user.id
                     }, $scope.user, function(result) {
+                            userService.publishUpdate($scope, result);
                         $scope.err = undefined;
                         $window.location.href = '#/user/' + $scope.user.id;
                     }, function(err) {
