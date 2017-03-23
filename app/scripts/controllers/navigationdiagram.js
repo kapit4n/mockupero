@@ -41,21 +41,22 @@ angular.module('mockuperApp')
                         var nodeDataArrayAux = [];
                         var linkDataArray = [];
                         for (var i = 0; i < $scope.project.mockups.length; i++) {
-                            if ($scope.project.mockups[i].links) {
-                                for (var j = 0; j < $scope.project.mockups[i].links.length; j++) {
-                                    linkDataArray.push({
-                                        from: $scope.project.mockups[i].id + "",
-                                        to: $scope.project.mockups[i].links[j] + ""
-                                    });
+                            if (!$scope.project.mockups[i].isSuggest) {
+                                if ($scope.project.mockups[i].links) {
+                                    for (var j = 0; j < $scope.project.mockups[i].links.length; j++) {
+                                        linkDataArray.push({
+                                            from: $scope.project.mockups[i].id + "",
+                                            to: $scope.project.mockups[i].links[j] + ""
+                                        });
+                                    }
+                                }
+                                if (i == 0) {
+                                    nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
+                                } else {
+                                    nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
                                 }
                             }
-                            if (i == 0) {
-                                nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
-                            } else {
-                                nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
-                            }
                         }
-
                         myDiagram.model = new go.GraphLinksModel(nodeDataArrayAux, linkDataArray);
                         try {
                             permissionService.loadPermission($scope, result.id, $cookieStore.get('userId'));

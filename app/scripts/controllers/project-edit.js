@@ -13,6 +13,7 @@ angular.module('mockuperApp')
             loginService.reloadScope();
             headerService.updateHeader('projects');
             $scope.project = null;
+            $scope.commentService = commentService;
 
             projectService.projectById.get({
                     projectId: $routeParams.projectId

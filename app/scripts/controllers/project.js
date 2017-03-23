@@ -9,13 +9,14 @@
  */
 angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', '$rootScope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
-        'headerService', 'permissionService', 'workflowService',
+        'headerService', 'permissionService', 'workflowService', 'commentService',
         function($scope, $rootStore, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
-            headerService, permissionService, workflowService) {
+            headerService, permissionService, workflowService, commentService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
             $scope.logingLog = {};
+            $scope.commentService = commentService;
             $scope.relationName = "Project";
             $scope.currentworkflow = {};
 

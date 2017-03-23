@@ -8,8 +8,8 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('commentService', ['$resource', '$cookieStore', '$rootScope',
-        function($resource, $cookieStore, $rootScope) {
+    .service('commentService', ['$resource', '$cookieStore', '$rootScope', 'projectService',
+        function($resource, $cookieStore, $rootScope, projectService) {
             // AngularJS will instantiate a singleton by calling "new" on this function
             var fac = {};
 
@@ -90,6 +90,30 @@ angular.module('mockuperApp')
                 }, function(err) {
                     $scope.err = err;
                 });
+            };
+
+            fac.reloadCommentByProject = function($scope, relationId) {
+                projectService.projectById.get({
+                        projectId: relationId,
+                        sort: 'createdAt DESC'
+                    })
+                    .$promise.then(function(project) {
+                        var ids = [relationId];
+
+                        for (var i = 0; i < project.mockups.lenght; i++) {
+                            ids.push(project[i].id);
+                        }
+                        fac.getComments.get({
+                            where: {
+                                relationId: ids
+                            },
+                            sort: 'createdAt DESC'
+                        }).$promise.then(function(result) {
+                            $scope.comments = result;
+                        }, function(err) {
+                            $scope.err = err;
+                        });
+                    });
             };
 
             fac.reloadLastComments = function($scope) {

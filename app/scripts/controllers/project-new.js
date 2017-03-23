@@ -18,6 +18,7 @@ angular.module('mockuperApp')
             $scope.objName = "";
             $scope.description = '';
             $scope.imgToShow = '';
+            $scope.commentService = commentService;
 
             try {
                 $rootScope.breadcrumb = breadcrumbService.updateBreadcrumb('project-new', 'Home');

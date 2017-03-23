@@ -55,6 +55,11 @@
                     <div class="thumbnail" ng-show="comment.isMockupSuggest">
                         <img class="img-responsive user-photo" src="http://localhost:1337/images/{{comment.mockupSuggestId}}.png" </div>
                     </div>
+                    <div>
+                        <a href="/#!/mockup/{{comment.relationId}}" ng-show="comment.relationType == 'mockup'">{{comment.relationName}}</a>
+                        <a href="/#!/project/{{comment.relationId}}" ng-show="comment.relationType == 'project'">{{comment.relationName}}</a>
+                        <a href="/#!/user/{{comment.relationId}}" ng-show="comment.relationType == 'user'">{{comment.relationName}}</a>
+                    </div>
                 </div>
             </div>
     </dir>

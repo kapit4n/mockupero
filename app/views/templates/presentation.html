@@ -26,11 +26,11 @@
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="$index" class="{{$index == 0? 'active' : ''}}" ng-repeat="mockup in project.mockups track by $index"></li>
+                        <li ng-if="!mockup.isSuggest" data-target="#myCarousel" data-slide-to="$index" class="{{$index == 0? 'active' : ''}}" ng-repeat="mockup in project.mockups track by $index"></li>
                     </ol>
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
-                        <div class="item {{$index == 0? 'active' : ''}}" ng-repeat="mockup in project.mockups track by $index">
+                        <div ng-if="!mockup.isSuggest" class="item {{$index == 0? 'active' : ''}}" ng-repeat="mockup in project.mockups track by $index">
                             <img src="http://localhost:1337/images/{{mockup.id}}.png" alt="Chania">
                         </div>
                     </div>
