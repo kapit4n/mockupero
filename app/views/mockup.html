@@ -1,19 +1,18 @@
 <view-mockup></view-mockup>
-<div class="container" ng-show="mockup.owner.id == userId">
+<div class="row" ng-show="mockup.owner.id == userId">
     <div class="col-sm-12 col-md-12">
         <button type="button" class="btn {{wf.wClassName}}" ng-repeat="wf in workflows" ng-click="workflowAction(wf)">
             {{wf.action}}
         </button>
     </div>
 </div>
-<div class="container">
+<div class="row">
     <a ng-show="currentworkflow.permission.edit == 'YES'" href="/#!/{{viewObject.editDesign}}" class="btn btn-sm btn-default" role="button" ng-if="editMode">Design</a>
     <a href="/#!/{{viewObject.editDesign}}/suggest/{{suggestObject.id}}" class="btn btn-sm btn-info" role="button">Suggest</a>
 </div>
 <br>
-<p style="text-align:center;">
-    <img style="padding: 0; width: {{viewObject.width > 950 ? 950 : viewObject.width}}px; background: #f9f9f9;" src="http://localhost:1337/images/{{viewObject.id}}.png" alt="...">
-</p>
+<div class="row">
+    <img style="width: {{viewObject.width}}px; max-width: 96%; background: #f9f9f9; position: relative; left: 4%;" src="http://localhost:1337/images/{{viewObject.id}}.png" alt="..."> </div>
 <div class="row" ng-show="mockups.length > 0">
 	<h4>Mockup Suggests</h4>
     <div class="col-xs-4 col-sm-3 col-md-3" ng-repeat="suggest in mockups" style="background: #aeb2ae; height: 270px; border: 3px; margin: 20px; padding: 0;">
