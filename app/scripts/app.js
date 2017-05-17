@@ -171,6 +171,11 @@ angular
               controller: 'PermissionItemNewCtrl',
               controllerAs: 'permissionItemNew'
             })
+            .when('/permission-item', {
+              templateUrl: 'views/permission-item.html',
+              controller: 'PermissionItemCtrl',
+              controllerAs: 'permissionItem'
+            })
             .otherwise({
                 redirectTo: '/'
             });
