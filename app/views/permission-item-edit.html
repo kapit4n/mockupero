@@ -1,1 +1,27 @@
-<p>This is the permission-item-edit view.</p>
+<div class="row">
+    <h3>Permission Item Edit</h3>
+    <br/>
+    <br/>
+    <form role="form" name="permissionItemForm">
+        <div class="alert alert-danger" role="alert" ng-show="err">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> {{err}}
+        </div>
+        <div class="form-group">
+            <label for="permissionItemName">Permission Item Name:</label>
+            <input type="text" ng-model="permissionItem.name" class="form-control" id="name" placeholder="Workflow name" name="permissionItemName" required>
+            <p style="color:red" ng-show="permissionItemForm.permissionItemName.$touched && permissionItemForm.permissionItemName.$invalid" class="help-block"> Name cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="permissionItemModel">Permission Item Model:</label>
+            <input type="text" ng-model="permissionItem.model" class="form-control" id="name" placeholder="Workflow model" name="permissionItemModel" required>
+            <p style="color:red" ng-show="permissionItemForm.permissionItemModel.$touched && permissionItemForm.permissionItemModel.$invalid" class="help-block"> Model cannot be empty </p>
+        </div>
+        <div class="form-group">
+            <label for="permissionItemDescription">Description:</label>
+            <input type="text" ng-model="permissionItem.description" class="form-control" id="name" placeholder="Description action" name="permissionItemDescription">
+        </div>      
+        <button type="submit" class="btn btn-success" ng-click="save(permissionItemForm)">Save</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </form>
+</div>
