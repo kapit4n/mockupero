@@ -26,7 +26,7 @@ angular.module('mockuperApp')
                 if (pItemForm.$valid) {
                     permissionItemService.createPermissionItem.save({
                         name: $scope.pItemName,
-                        description: $scope.pItemModel,
+                        model: $scope.pItemModel,
                         description: $scope.pItemDescription
                     }, function(result) {
                         $location.path("/permission-item/" + result.id);

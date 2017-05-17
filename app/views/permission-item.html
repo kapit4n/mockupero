@@ -1,1 +1,19 @@
-<p>This is the permission-item view.</p>
+<h3 class="container">Permission Item </h3>
+<br/>
+<div class="container" style="padding: 0; background-color: white">
+    <div class="alert alert-danger" role="alert" ng-show="err">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error: </span> {{err}}
+    </div>
+    <div class="thumbnail" style="height: 100px;">
+        <div class="caption">
+            <h4 class="col-sm-4">{{permissionItem.name}} </h4>
+            <div class="col-sm-6"><a href="/#!/permission-item-edit/{{permissionItem.id}}" class="btn btn-default" role="button" ng-if="editMode">Edit Info</a>
+            </div>
+            <div class="col-sm-12"><strong>Model:</strong> {{permissionItem.model}} </div>
+            <div class="col-sm-12"><strong>Description:</strong> {{permissionItem.description}} </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>

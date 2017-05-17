@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="permissionItem in permissionItems">
-                <td>{{permissionItem.name}}</td>
+                <td><a href="/#!/permission-item/{{permissionItem.id}}">{{permissionItem.name}}</a></td>
                 <td>{{permissionItem.model}}</td>
                 <td style="float: right;">
                     <a href="/#!/permission-item-edit/{{permissionItem.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>

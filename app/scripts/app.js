@@ -171,7 +171,7 @@ angular
               controller: 'PermissionItemNewCtrl',
               controllerAs: 'permissionItemNew'
             })
-            .when('/permission-item', {
+            .when('/permission-item/:permissionItemId', {
               templateUrl: 'views/permission-item.html',
               controller: 'PermissionItemCtrl',
               controllerAs: 'permissionItem'

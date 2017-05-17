@@ -32,11 +32,11 @@ angular.module('mockuperApp')
                 $location.path('/permission-item-new');
             }
 
-            $scope.deletePermissionItem = function(userId) {
+            $scope.deletePermissionItem = function(pItemId) {
                 permissionItemService.deletePermissionItem.delete({
-                    id: userId
+                    id: pItemId
                 }).$promise.then(function(result) {
-                    $scope.reloadPermissionGroups();
+                    $scope.reloadPermissionItems();
                 }, function(error) {
                     $scope.err = error;
                 });
