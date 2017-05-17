@@ -3,6 +3,11 @@
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span> {{err}}
     </div>
+     <div class="col-md-5">
+        <h3> <button type="button" class="btn btn-default" ng-click="addPermissionItem()" data-toggle="tooltip" title="Popover title">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button> Permission Item </h3>
+    </div>
 </div>
 <br />
 <div class="container" style="background-color: white;">
@@ -17,6 +22,10 @@
             <tr ng-repeat="permissionItem in permissionItems">
                 <td>{{permissionItem.name}}</td>
                 <td>{{permissionItem.model}}</td>
+                <td style="float: right;">
+                    <a href="/#!/permission-item-edit/{{permissionItem.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
+                    <button ng-click="deletePermissionItem(permissionItem.id)" class="btn btn-danger btn-sm" role="button">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -31,9 +31,9 @@ angular.module('mockuperApp')
                 $location.path('/permission-group-new');
             }
 
-            $scope.deletePermissionGroup = function(userId) {
+            $scope.deletePermissionGroup = function(permissionGroupId) {
                 permissionGroupService.deletePermissionGroup.delete({
-                    id: userId
+                    id: permissionGroupId
                 }).$promise.then(function(result) {
                     $scope.reloadPermissionGroups();
                 }, function(error) {

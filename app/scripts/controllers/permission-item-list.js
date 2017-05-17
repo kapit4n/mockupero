@@ -27,6 +27,20 @@ angular.module('mockuperApp')
                     });
             }
 
+            $scope.addPermissionItem = function() {
+                $location.path('/permission-item-new');
+            }
+
+            $scope.deletePermissionItem = function(userId) {
+                permissionItemService.deletePermissionItem.delete({
+                    id: userId
+                }).$promise.then(function(result) {
+                    $scope.reloadPermissionGroups();
+                }, function(error) {
+                    $scope.err = error;
+                });
+            }
+
             $scope.reloadPermissionItems();
         }
     ]);
