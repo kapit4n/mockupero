@@ -9,8 +9,9 @@
  */
 angular.module('mockuperApp')
   .controller('PermissionItemListCtrl', ['$scope', 'permissionItemService', 'loginService', 'headerService',
-        'breadcrumbService', '$rootScope',
-        function($scope, permissionItemService, loginService, headerService, breadcrumbService, $rootScope) {
+        'breadcrumbService', '$rootScope', '$location',
+        function($scope, permissionItemService, loginService, headerService, breadcrumbService,
+            $rootScope, $location) {
             loginService.reloadScope();
             headerService.updateHeader('permissionItem');
             $scope.permissionItems = [];

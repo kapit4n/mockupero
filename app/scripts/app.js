@@ -161,6 +161,16 @@ angular
               controller: 'AdministrationCtrl',
               controllerAs: 'administration'
             })
+            .when('/permission-item-edit/:permissionItemId', {
+              templateUrl: 'views/permission-item-edit.html',
+              controller: 'PermissionItemEditCtrl',
+              controllerAs: 'permissionItemEdit'
+            })
+            .when('/permission-item-new', {
+              templateUrl: 'views/permission-item-new.html',
+              controller: 'PermissionItemNewCtrl',
+              controllerAs: 'permissionItemNew'
+            })
             .otherwise({
                 redirectTo: '/'
             });
