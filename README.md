@@ -5,33 +5,36 @@ This project is a collaborative tool to design the user interfaz prototypes of t
 [Planning Board](https://github.com/kapit4n/mockupero/projects/1)
 
 
-## wiki
+## Wiki
 https://github.com/kapit4n/mockupero-ui/wiki
-![Mockup List](https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup_list_mockupero.png)
 
-https://github.com/kapit4n/mockupero-ui/wiki
-![Mockup Show](https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup_view_mockupero.png)
+### Mockup List
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup_list_mockupero.png" alt="Drawing" width="100%"/>
 
-https://github.com/kapit4n/mockupero-ui/wiki
-![Mockup Designer](https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup_designer_mockupero.png)
+### Mockup Show
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup_view_mockupero.png" alt="Drawing" width="100%"/>
+
+## Mockup Designer
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockup_designer_mockupero.png" alt="Drawing" width="100%"/>
 
 ## Prerequisites
 * node 6
 * npm 3.10.6
 * grunt-cli v1.2.0
+* bower
 * run (https://github.com/larce1212/mockupero-api)
 
 ## Install
 * npm install
 * bower install
 
-## Build & development
+## Build & Development
 
 * Run `grunt` for building and `grunt serve` for preview.
 
 * http://localhost:9001
 
-## Testing
+## Run Unit Tests
 
 * Running `grunt test` will run the unit tests with karma.
 
