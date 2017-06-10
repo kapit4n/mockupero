@@ -3,26 +3,25 @@
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span> {{err}}
     </div>
-    <div class="col-md-5">
-        <h3> <button type="button" class="btn btn-default" ng-click="addWorkflow()" data-toggle="tooltip" title="Popover title">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button> Workflows </h3>
-    </div>
 </div>
+<button style="position: relative; left: -15px;" type="button" class="btn btn-default btn-sm" ng-click="addWorkflow()" data-toggle="tooltip" title="Add new Workflow">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+</button>
 <br />
-<div class="container" style="background-color: white;">
-    <table class="table table-condensed">
+<div class="row" style="background-color: white;">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Status</th>
                 <th>Action</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="workflow in workflows">
                 <td><a href="/#!/workflow/{{workflow.id}}">{{workflow.name}}</a> </td>
                 <td>{{workflow.action}}</td>
-                <td style="float: right;">
+                <td>
                     <a href="/#!/workflow-edit/{{workflow.id}}" ng-click="" class="btn btn-default btn-sm" role="button">Edit</a>
                     <button ng-click="deleteWorkflow(workflow.id)" class="btn btn-danger btn-sm" role="button">Delete</button>
                 </td>
