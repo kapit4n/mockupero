@@ -25,29 +25,23 @@
         width: 180px;
         background-color: #f2f3f2;
     }
+
+    .tool-div {
+        background-color: white;
+        box-shadow: 2px 2px 2px #888888;
+        opacity: 0.6;
+        filter: alpha(opacity=60); /* For IE8 and earlier */
+    }
+
+    .tool-div:hover {
+        opacity: 1.0;
+        filter: alpha(opacity=100); /* For IE8 and earlier */
+    }
 </style>
 <div style="position: absolute; top: 60px; left: 77%;height: 80px;">
     <div ng-repeat="n in logingLog" style="display:inline-block;">
         <div ng-show="n.online" style=" border-radius: 8px; padding: 1px; padding-left: 8px; font-size: 150%;text-transform: uppercase;display: inline-block; width: 30px; {{($index % 2 == 0) ? 'color:#660A44; background: #CFD4E5;': 'color:#CFD4E5; background: #660A44;'}} {{n.online ? 'opacity: 1;': 'opacity: 0.5;'}} ">{{n.username.substring(0,1)}}
         </div>
-    </div>
-    <div style="height: 80px; display: inline-block;" ng-show="!editObject.isSuggest">
-        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Mockup">
-            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
-        </button>
-        <mockup-version></mockup-version>|
-        <reuse-mockup></reuse-mockup>
-        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
-    </div>
-    <div style="height: 80px; display: inline-block;" ng-show="editObject.isSuggest">
-        <div style="background: yellow; display: inline-block;">
-            [Suggest]
-        </div>
-        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Suggest">
-            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
-        </button>
-        <reuse-mockup></reuse-mockup>
-        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
 </div>
 <div class="alert alert-danger" role="alert" ng-show="err">
@@ -68,24 +62,43 @@
     </div>
     <div id="alert_message" style="position: absolute; top: 91px; right: 1px; background: green; z-index: 150; "></div>
 </div>
-<div style="height: 40px;  background: #f9f9f9; position: absolute; top: 115px; border: 1px dashed #ccc; width: {{(editObject.width < 400 ? 400 : editObject.width)}}px; padding: 5px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 200)}}px;">
-    <div style="display: inline-block; width: 30px;">
-        <img height="25px" ng-click="addImage()" src="static/icons/image.png" alt="..." data-toggle="tooltip" title="Add Image" />
-    </div>|
-    <div style="display: inline-block;  width: 30px;">
-        <img style="height: 15px; width: 27px;" ng-click="addButton()" src="static/icons/button.png" alt="..." data-toggle="tooltip" title="Add Button" />
-    </div>|
-    <div style="display: inline-block; width: 30px;">
-        <img height="25px" ng-click="addInput()" src="static/icons/input.png" alt="..." data-toggle="tooltip" title="Add Input Text" />
-    </div>|
-    <div style="display: inline-block; width: 30px;">
-        <img height="25px" ng-click="addLabel()" src="static/icons/text.png" alt="..." data-toggle="tooltip" title="Add Text Label" />
-    </div>|
-    <div style="display: inline-block; width: 30px; border: 1px; border-color: red; border-width: 1px; border-style: dashed;">
-        <img height="25px" style="width: 27px;" ng-click="addContainer()" src="static/icons/container.png" alt="..." data-toggle="tooltip" title="Add Container" />
+<div style="height: 40px;  background: #f9f9f9; position: absolute; top: 115px; border: 1px dashed #ccc; width: {{(editObject.width < 400 ? 400 : editObject.width)}}px; padding: 5px; left: {{editObject.width < 500 ? 200: (1000/editObject.width * 280)}}px;">
+    <div style="display: inline-block; width: 30px; height: 30px;" class="tool-div">
+        <img height="25px" ng-click="addImage()" src="static/icons/image1.png" alt="..." data-toggle="tooltip" title="Add Image"/>
+    </div>
+    <div style="display: inline-block;  width: 30px; height: 30px;" class="tool-div">
+        <img style="height: 15px; width: 27px;" ng-click="addButton()" src="static/icons/button1.png" alt="..." data-toggle="tooltip" title="Add Button"/>
+    </div>
+    <div style="display: inline-block; width: 30px; height: 30px;" class="tool-div">
+        <img height="25px" style="height: 12px; width: 27px;" ng-click="addInput()" src="static/icons/input3.png" alt="..." data-toggle="tooltip" title="Add Input Text"/>
+    </div>
+    <div style="display: inline-block; width: 30px; height: 30px;" class="tool-div">
+        <img height="20px" ng-click="addLabel()" src="static/icons/text3.png" alt="..." data-toggle="tooltip" title="Add Text Label"/>
+    </div>
+    <div style="display: inline-block; width: 30px; height: 30px;" class="tool-div">
+        <img height="25px" style="width: 27px;" ng-click="addContainer()" src="static/icons/container3.png" alt="..." data-toggle="tooltip" title="Add Container"/>
+    </div>
+
+    <div style="display: inline-block; height: 30px; position: absolute; display: inline-block; right: 0px;" ng-show="!editObject.isSuggest">
+        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Mockup">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        </button>
+        <mockup-version></mockup-version>
+        <reuse-mockup></reuse-mockup>
+        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
+    </div>
+    <div style="height: 80px; display: inline-block;" ng-show="editObject.isSuggest" style="float: right;">
+        <div style="background: yellow; display: inline-block;">
+            [Suggest]
+        </div>
+        <button id="btnSave" type="button" class="btn btn-default" aria-label="save" ng-click="save()" title="Save Suggest">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        </button>
+        <reuse-mockup></reuse-mockup>
+        <img id="spinner" ng-src="static/spinner.gif" style="display:none;" width="30px">
     </div>
 </div>
-<div id="design-div" style="border-width: 2px; border-style: solid; border-color: black; position: absolute; top: 156px; width: {{editObject.width}}px; height: {{editObject.height}}px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 200)}}px; background: white;">
+<div id="design-div" style="border-width: 2px; border-style: solid; border-color: black; position: absolute; top: 156px; width: {{editObject.width}}px; height: {{editObject.height}}px; left: {{editObject.width < 500 ? 100: (1000/editObject.width * 280)}}px; background: white;">
     <img ng-if="ite.type == 'image'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in mockupItems" alt="" context-menu data-target="menu-image-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.top}}px; left: {{ite.left}}px;" src="{{ite.src}}" alt="..." height="">
     <img ng-if="ite.type == 'reference'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in mockupItems" alt="" context-menu data-target="menu-reference-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.top}}px; left: {{ite.left}}px;" src="{{ite.src}}" alt="..." height="">
     <div ng-if="ite.type == 'container'" id="{{ite.type}}{{ite.id}}" ng-repeat="ite in mockupItems" alt="" context-menu data-target="menu-container-{{ite.id}}" class="{{itemStyle}}" style="padding:0; position: absolute; z-index:{{ite.position}}; width: {{ite.width}}px; height: {{ite.height}}px; top: {{ite.top}}px; left: {{ite.left}}px; background: {{ite.background}};" alt="..." height=""></div>
