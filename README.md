@@ -14,8 +14,8 @@ https://github.com/kapit4n/mockupero-ui/wiki
 ### Mockup View
 <img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_view.png" alt="Drawing" width="100%"/>
 
-## Mockup Designer
-<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_designer.png" alt="Drawing" width="100%"/>
+## Mockup Design
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_design.png" alt="Drawing" width="100%"/>
 
 ## Prerequisites
 * node 6
