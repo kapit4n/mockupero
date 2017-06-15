@@ -333,7 +333,7 @@ angular.module('mockuperApp')
             var designContentMenu = angular.element(document.querySelector('#design-div-content-menu'));
             $scope.lastId++;
             var imgHtml = '<div id="new-container-' + $scope.lastId + 'x" context-menu data-target="menu-container-' + $scope.lastId + '" class="resize-drag" ' +
-                'style="width: 100px; height: 100px; padding:0; position: absolute; background: red;  z-index:' + $scope.lastId + '" alt="..."></div>';
+                'style="width: 100px; height: 100px; padding:0; position: absolute; background: #e7e7e7;  z-index:' + $scope.lastId + '" alt="..."></div>';
             designDiv.append($compile(imgHtml)($scope));
             var contentMenuHtml = fac.contentMenu($scope.lastId, 'container');
             designContentMenu.append($compile(contentMenuHtml)($scope));
