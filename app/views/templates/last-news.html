@@ -3,7 +3,7 @@
         <div ng-repeat="comment in comments">
             <div class="col-xs-3 col-sm-2 col-md-2">
                 <div class="thumbnail" style="width: 60px;">
-                    <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{comment.userId}}.jpg" style="width: 60px;">
+                    <img class="img-responsive user-photo" src="{{globalService.BASE_PATH}}/images/avatar/{{comment.userId}}.jpg" style="width: 60px;">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-10 col-md-10">
@@ -22,9 +22,9 @@
                                 </div>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                                <img class="img-responsive user-photo" src="http://localhost:1337/images/{{comment.relationId}}.png" ng-show="comment.relationType == 'mockup'">
+                                <img class="img-responsive user-photo" src="{{globalService.BASE_PATH}}/images/{{comment.relationId}}.png" ng-show="comment.relationType == 'mockup'">
                                 <img class="img-responsive user-photo" src="https://www.alcaweb.org/archfs/v3/gsacket/8/gNFtNF63rU.png" ng-show="comment.relationType == 'project'">
-                                <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{comment.relationId}}.jpg" ng-show="comment.relationType == 'user'">
+                                <img class="img-responsive user-photo" src="{{globalService.BASE_PATH}}/images/avatar/{{comment.relationId}}.jpg" ng-show="comment.relationType == 'user'">
 
                             </div>
                         </div>

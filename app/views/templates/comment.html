@@ -6,7 +6,7 @@
 <div class="row" ng-show="newCommentFlag">
     <div class="col-xs-3 col-sm-2 col-md-2" style="padding: 0;">
         <div class="thumbnail">
-            <img class="img-responsive user-photo" ng-src="http://localhost:1337/images/avatar/{{userId}}.jpg">
+            <img class="img-responsive user-photo" ng-src="{{globalService.BASE_PATH}}/images/avatar/{{userId}}.jpg">
         </div>
     </div>
     <div class="col-xs-12 col-sm-10 col-md-10" style="padding-bottom: 0;">
@@ -36,7 +36,7 @@
     <dir ng-repeat="comment in comments">
         <div class="col-xs-3 col-sm-2 col-md-2">
             <div class="thumbnail">
-                <img class="img-responsive user-photo" src="http://localhost:1337/images/avatar/{{comment.userId}}.jpg">
+                <img class="img-responsive user-photo" src="{{globalService.BASE_PATH}}/images/avatar/{{comment.userId}}.jpg">
             </div>
         </div>
         <div class="col-xs-12 col-sm-10 col-md-10">
@@ -53,7 +53,7 @@
                 <div class="panel-body">
                     {{comment.comment}}
                     <div class="thumbnail" ng-show="comment.isMockupSuggest">
-                        <img class="img-responsive user-photo" src="http://localhost:1337/images/{{comment.mockupSuggestId}}.png" </div>
+                        <img class="img-responsive user-photo" src="{{globalService.BASE_PATH}}/images/{{comment.mockupSuggestId}}.png" </div>
                     </div>
                     <div>
                         <a href="/#!/mockup/{{comment.relationId}}" ng-show="comment.relationType == 'mockup'">{{comment.relationName}}</a>

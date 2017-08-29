@@ -25,7 +25,7 @@
                                     <button type="button" class="btn btn-primary btn-xs" ng-click="copyItems(mockupToReuse)">Copy Items</button>
                                 </div>
                                 <div class="col-md-5">
-                                    <img id="reuse-mockup-{{mockupToReuse.id}}" style="padding:0; width: 150px;" src="http://localhost:1337/images/{{mockupToReuse.id}}.png" alt="...">
+                                    <img id="reuse-mockup-{{mockupToReuse.id}}" style="padding:0; width: 150px;" src="{{globalService.BASE_PATH}}/images/{{mockupToReuse.id}}.png" alt="...">
                                 </div>
                             </div>
                         </div>

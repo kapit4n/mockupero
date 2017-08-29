@@ -7,8 +7,8 @@
  * # Comment
  */
 angular.module('mockuperApp')
-    .directive('comment', ['$cookieStore', 'commentService',
-        function($cookieStore, commentService) {
+    .directive('comment', ['$cookieStore', 'commentService', 'GlobalService',
+        function($cookieStore, commentService, GlobalService) {
             return {
                 templateUrl: 'views/templates/comment.html',
                 restrict: 'E',
@@ -17,6 +17,7 @@ angular.module('mockuperApp')
                     scope.comments = [];
                     scope.relationId = attrs.relation;
                     scope.relationType = attrs.relationtype;
+                    scope.globalService = GlobalService;
 
                     scope.addComment = function() {
                         scope.newCommentFlag = true;

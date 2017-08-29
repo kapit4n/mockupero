@@ -14,6 +14,7 @@ angular.module('mockuperApp')
             scope: false,
             link: function postLink(scope, element, attrs) {
                 scope.mockupsToReuse = [];
+                scope.globalService = GlobalService;
                 scope.loadMockups = function() {
                     mockupService.getMockups.get({}).$promise.then(function(result) {
                         scope.mockupsToReuse = result;

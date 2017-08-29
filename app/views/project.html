@@ -20,7 +20,7 @@
             <h5>Project Members</h5>
             <div class="row">
                 <div style="width: 65px; display: inline-block; height: 65px; padding: 3px; " ng-repeat="member in project.members">
-                    <img ng-src="http://localhost:1337/images/avatar/{{member.user}}.jpg" class="img-thumbnail" alt="{{member.user}}" width="100%" title="{{member.user}}">
+                    <img ng-src="{{globalService.BASE_PATH}}/images/avatar/{{member.user}}.jpg" class="img-thumbnail" alt="{{member.user}}" width="100%" title="{{member.user}}">
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     </p>
                 </div>
                 <div>
-                    <img src="http://localhost:1337/images/{{mockup.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="..." style="background: white;">
+                    <img src="{{globalService.BASE_PATH}}/images/{{mockup.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="..." style="background: white;">
                 </div>
             </div>
         </div>

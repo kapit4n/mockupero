@@ -7,13 +7,13 @@
  * # presentation
  */
 angular.module('mockuperApp')
-    .directive('presentation', function() {
+    .directive('presentation', 'GlobalService', function(GlobalService) {
         return {
             templateUrl: 'views/templates/presentation.html',
             restrict: 'E',
             scope: false,
             link: function postLink(scope, element, attrs) {
-                
+                scope.globalService = GlobalService;
                 scope.goPrev = function() {
                     $("#myCarousel").carousel("prev");
                 };

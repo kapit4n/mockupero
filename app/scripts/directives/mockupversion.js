@@ -7,13 +7,13 @@
  * # mockupVersion
  */
 angular.module('mockuperApp')
-    .directive('mockupVersion', ['$cookieStore', '$timeout', 'mockupVersionService', '$routeParams',
-        function($cookieStore, $timeout, mockupVersionService, $routeParams) {
+    .directive('mockupVersion', ['$cookieStore', '$timeout', 'mockupVersionService', '$routeParams', 'GlobalService',
+        function($cookieStore, $timeout, mockupVersionService, $routeParams, GlobalService) {
             return {
                 templateUrl: 'views/templates/mockupVersion.html',
                 restrict: 'E',
                 link: function postLink(scope, element, attrs) {
-
+                    scope.globalService = GlobalService;
                 }
             };
         }

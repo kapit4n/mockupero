@@ -31,7 +31,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div ng-if="!mockup.isSuggest" class="item {{$index == 0? 'active' : ''}}" ng-repeat="mockup in project.mockups track by $index">
-                            <img src="http://localhost:1337/images/{{mockup.id}}.png" alt="Chania">
+                            <img src="{{globalService.BASE_PATH}}/images/{{mockup.id}}.png" alt="Chania">
                         </div>
                     </div>
                     <!-- Left and right controls -->

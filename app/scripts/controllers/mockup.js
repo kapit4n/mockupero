@@ -9,12 +9,13 @@
  */
 angular.module('mockuperApp')
     .controller('MockupCtrl', ['$scope', '$cookieStore', 'loginService', 'mockupService', 'breadcrumbService',
-        '$routeParams', '$rootScope', 'headerService', 'permissionService', 'workflowService',
+        '$routeParams', '$rootScope', 'headerService', 'permissionService', 'workflowService', 'GlobalService',
         function($scope, $cookieStore, loginService, mockupService, breadcrumbService,
-            $routeParams, $rootScope, headerService, permissionService, workflowService) {
+            $routeParams, $rootScope, headerService, permissionService, workflowService, GlobalService) {
             loginService.reloadScope();
             headerService.updateHeader('projects');
-
+            
+            $scope.globalService = GlobalService;
             $scope.mockupList = mockupService.mockups;
             $scope.mockup = null;
             $scope.logingLog = {};

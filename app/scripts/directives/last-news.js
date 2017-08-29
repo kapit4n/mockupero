@@ -7,12 +7,13 @@
  * # lastNews
  */
 angular.module('mockuperApp')
-    .directive('lastNews', ['commentService',
-        function(commentService) {
+    .directive('lastNews', ['commentService', 'GlobalService',
+        function(commentService, GlobalService) {
             return {
                 templateUrl: 'views/templates/last-news.html',
                 restrict: 'E',
                 link: function postLink(scope, element, attrs) {
+                    scope.globalService = GlobalService;
                     scope.comments = [];
                     scope.relationId = '';
 

@@ -15,8 +15,8 @@
                 <div>Email: {{user.email}}</div>
             </div>
             <div class="col-sm-5" style="color: darkgray;">
-                <img ng-src="http://localhost:1337/images/avatar/{{user.id}}.jpg" width="130">
-                <form action="http://localhost:1337/user/uploadAvatar" enctype="multipart/form-data" method="post">
+                <img ng-src="{{globalService.BASE_PATH}}/images/avatar/{{user.id}}.jpg" width="130">
+                <form action="{{globalService.BASE_PATH}}/user/uploadAvatar" enctype="multipart/form-data" method="post">
                     <br>
                     <input type="file" name="avatar" accept="image/*">
                     <input type="submit" value="Upload">

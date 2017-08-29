@@ -12,7 +12,7 @@
 </div>
 <br>
 <div class="row">
-    <img style="width: {{viewObject.width}}px; max-width: 100%; background: #f9f9f9;" src="http://localhost:1337/images/{{viewObject.id}}.png" alt="..."> </div>
+    <img style="width: {{viewObject.width}}px; max-width: 100%; background: #f9f9f9;" src="{{globalService.BASE_PATH}}/images/{{viewObject.id}}.png" alt="..."> </div>
 <div class="row" ng-show="mockups.length > 0">
 	<h4>Mockup Suggests</h4>
     <div class="col-xs-4 col-sm-3 col-md-3" ng-repeat="suggest in mockups" style="background: #aeb2ae; height: 270px; border: 3px; margin: 20px; padding: 0;">
@@ -26,7 +26,7 @@
                 </p>
             </div>
             <div>
-                <img src="http://localhost:1337/images/{{suggest.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="..." style="background: white;">
+                <img src="{{globalService.BASE_PATH}}/images/{{suggest.id}}.png" class="col-xs-10 col-sm-12 col-md-12" alt="..." style="background: white;">
             </div>
         </div>
     </div>
