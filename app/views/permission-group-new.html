@@ -6,13 +6,16 @@
             <span class="sr-only">Error: </span> {{err}}
         </div>
         <div class="form-group">
-            <label for="pGroupName">Name:</label>
-            <input type="text" ng-model="pGroupName" class="form-control" name="pGroupName" id="name" placeholder="Permission Group Name" required>
+            <label for="pGroupName">Group Name:</label>
+            <input type="text" ng-model="pGroupName" class="form-control" name="pGroupName" id="name" placeholder="Permission Group Name"
+                required>
             <p style="color:red" ng-show="pGroupForm.pGroupName.$touched && pGroupForm.pGroupName.$invalid" class="help-block"> Name cannot be empty </p>
         </div>
         <div class="form-group">
             <label for="pGroupDescription">description:</label>
-            <input type="text" ng-model="pGroupDescription" class="form-control" name="pGroupDescription" id="name" placeholder="Description">
+            <textarea rows="4" cols="50" ng-model="pGroupDescription" class="form-control" name="pGroupDescription" id="name"
+                placeholder="Description">
+            </textarea>
         </div>
         <button type="submit" class="btn btn-success" ng-click="save(pGroupForm)">Save</button>
         <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>

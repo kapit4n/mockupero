@@ -11,13 +11,14 @@
             <p style="color:red" ng-show="pItemForm.pItemName.$touched && pItemForm.pItemName.$invalid" class="help-block"> Name cannot be empty </p>
         </div>
         <div class="form-group">
-            <label for="pItemModel">Name:</label>
+            <label for="pItemModel">Permission Item Model Name:</label>
             <input type="text" ng-model="pItemModel" class="form-control" name="pItemModel" id="name" placeholder="Permission Item Model" required>
             <p style="color:red" ng-show="pItemForm.pItemModel.$touched && pItemForm.pItemModel.$invalid" class="help-block"> Model cannot be empty </p>
         </div>
         <div class="form-group">
-            <label for="pItemDescription">description:</label>
-            <input type="text" ng-model="pItemDescription" class="form-control" name="pItemDescription" id="name" placeholder="Description">
+            <label for="pItemDescription">Description:</label>
+            <textarea rows="4" cols="50" ng-model="pItemDescription" class="form-control" name="pItemDescription" id="name" placeholder="Description">
+            </textarea>
         </div>
         <button type="submit" class="btn btn-success" ng-click="save(pItemForm)">Save</button>
         <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
