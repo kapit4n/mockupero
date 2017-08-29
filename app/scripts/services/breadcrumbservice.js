@@ -63,7 +63,7 @@ angular.module('mockuperApp')
                         url: 'administration'
                     }, {
                         name: 'Workflows',
-                        url: 'workflowList'
+                        url: 'workflowlist'
                     }];
                     return result;
                     break;
@@ -126,7 +126,7 @@ angular.module('mockuperApp')
                         url: 'administration'
                     }, {
                         name: 'Workflows',
-                        url: 'workflowList'
+                        url: 'workflowlist'
                     }, {
                         name: '' + (param.name.length > 20 ? param.name.substr(0, 20 - 1) + '...' : param.name),
                         url: 'workflow/' + param.id

@@ -36,7 +36,7 @@ angular.module('mockuperApp')
             };
 
             $scope.cancel = function() {
-                $window.location.href = '#/workflowList';
+                $window.location.href = '#/workflowlist';
             }
         }
     ]);

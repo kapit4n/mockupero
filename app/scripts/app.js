@@ -101,10 +101,10 @@ angular
                 controller: 'WorkflowCtrl',
                 controllerAs: 'workflow'
             })
-            .when('/workflowList', {
+            .when('/workflowlist', {
                 templateUrl: 'views/workflowlist.html',
                 controller: 'WorkflowlistCtrl',
-                controllerAs: 'workflowList'
+                controllerAs: 'workflowlist'
             })
             .when('/workflow-new', {
                 templateUrl: 'views/workflow-new.html',
