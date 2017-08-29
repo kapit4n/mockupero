@@ -8,12 +8,12 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('chatService', function($http, $rootScope, $timeout, $routeParams) {
+    .service('chatService', function($http, $rootScope, $timeout, $routeParams, GlobalService) {
         var fac = {};
 
         var chatServiceLoad = function($scope) {
             if ($scope.chatRoom != '') {
-                $http.get('http://localhost:1337/chat?sort=createdAt%20ASC&limit=100&where={"room":%20"' + $scope.chatRoom + '"}')
+                $http.get(GlobalService.BASE_PATH + '/chat?sort=createdAt%20ASC&limit=100&where={"room":%20"' + $scope.chatRoom + '"}')
                     .then(function(success_data) {
                         $scope.chatList = success_data.data;
                         $timeout(function() {
@@ -25,7 +25,7 @@ angular.module('mockuperApp')
                         console.error(error);
                     });
             } else {
-                $http.get('http://localhost:1337/chat?sort=createdAt%20DESC&limit=100&where={"room":%20""}')
+                $http.get(GlobalService.BASE_PATH + '/chat?sort=createdAt%20DESC&limit=100&where={"room":%20""}')
                     .then(function(success_data) {
                         $scope.chatList = success_data.data;
                         $timeout(function() {
@@ -40,7 +40,7 @@ angular.module('mockuperApp')
         }
 
         fac.subscribe = function($scope) {
-            io.socket.get('http://localhost:1337/chat/addconv?roomName="General"');
+            io.socket.get(GlobalService.BASE_PATH + '/chat/addconv?roomName="General"');
             // get all existing date
             chatServiceLoad($scope);
             io.socket.on('chat', function(obj) {
@@ -60,7 +60,7 @@ angular.module('mockuperApp')
             if ($scope.chatRoom) {
                 chatRoom = $scope.chatRoom;
             }
-            io.socket.post('http://localhost:1337/chat/addconv/', {
+            io.socket.post(GlobalService.BASE_PATH + '/chat/addconv/', {
                 user: $rootScope.userNameLogin,
                 message: $scope.chatMessage,
                 room: chatRoom,

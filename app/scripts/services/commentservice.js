@@ -8,19 +8,19 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('commentService', ['$resource', '$cookieStore', '$rootScope', 'projectService',
-        function($resource, $cookieStore, $rootScope, projectService) {
+    .service('commentService', ['$resource', '$cookieStore', '$rootScope', 'projectService', 'GlobalService',
+        function($resource, $cookieStore, $rootScope, projectService, GlobalService) {
             // AngularJS will instantiate a singleton by calling "new" on this function
             var fac = {};
 
-            fac.getComments = $resource('http://localhost:1337/comment', {}, {
+            fac.getComments = $resource(GlobalService.BASE_PATH + '/comment', {}, {
                 get: {
                     method: 'GET',
                     isArray: true
                 }
             });
 
-            fac.commentById = $resource('http://localhost:1337/comment/:id', {
+            fac.commentById = $resource(GlobalService.BASE_PATH + '/comment/:id', {
                 id: '@id'
             }, {
                 get: {
@@ -28,19 +28,19 @@ angular.module('mockuperApp')
                 }
             });
 
-            fac.createComment = $resource('http://localhost:1337/comment/', {}, {
+            fac.createComment = $resource(GlobalService.BASE_PATH + '/comment/', {}, {
                 save: {
                     method: 'POST'
                 }
             });
 
-            fac.updateComment = $resource('http://localhost:1337/comment/:id', {}, {
+            fac.updateComment = $resource(GlobalService.BASE_PATH + '/comment/:id', {}, {
                 update: {
                     method: 'PUT'
                 }
             });
 
-            fac.deleteComment = $resource('http://localhost:1337/comment/:id', {}, {
+            fac.deleteComment = $resource(GlobalService.BASE_PATH + '/comment/:id', {}, {
                 delete: {
                     method: 'DELETE'
                 }

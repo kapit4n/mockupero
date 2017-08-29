@@ -9,7 +9,7 @@
  */
 angular.module('mockuperApp')
     .service('loginService',
-        function($resource, $rootScope, $cookieStore, $cookies, $location, $window, userService) {
+        function($resource, $rootScope, $cookieStore, $cookies, $location, $window, userService, GlobalService) {
             var fac = {};
 
             $rootScope.logoutUser = function() {
@@ -25,19 +25,19 @@ angular.module('mockuperApp')
                 $window.location.reload();
             };
 
-            fac.loginUser = $resource('http://localhost:1337/login', {}, {
+            fac.loginUser = $resource(GlobalService.BASE_PATH + '/login', {}, {
                 save: {
                     method: 'POST'
                 }
             });
 
-            fac.loginLog = $resource('http://localhost:1337/loginlog', {}, {
+            fac.loginLog = $resource(GlobalService.BASE_PATH + '/loginlog', {}, {
                 save: {
                     method: 'POST'
                 }
             });
 
-            fac.loginLogLogin = $resource('http://localhost:1337/loginlog/login', {}, {
+            fac.loginLogLogin = $resource(GlobalService.BASE_PATH + '/loginlog/login', {}, {
                 save: {
                     method: 'POST'
                 }

@@ -9,9 +9,9 @@
  */
 angular.module('mockuperApp')
     .controller('ProjectCtrl', ['$scope', '$rootScope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
-        'headerService', 'permissionService', 'workflowService', 'commentService',
+        'headerService', 'permissionService', 'workflowService', 'commentService', 'GlobalService',
         function($scope, $rootStore, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
-            headerService, permissionService, workflowService, commentService) {
+            headerService, permissionService, workflowService, commentService, GlobalService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
@@ -83,7 +83,7 @@ angular.module('mockuperApp')
             $scope.gotoDiagram = function() {
                 $location.path('/project/' + $scope.projectId + '/navigationDiagram');
             }
-            io.socket.get('http://localhost:1337/mockup');
+            io.socket.get(GlobalService.BASE_PATH + '/mockup');
 
 
             $scope.deleteMockup = function(mockupId) {

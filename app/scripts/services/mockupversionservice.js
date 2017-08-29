@@ -8,19 +8,19 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('mockupVersionService', ['$resource', '$cookieStore', '$routeParams',
-        function($resource, $cookieStore, $routeParams) {
+    .service('mockupVersionService', ['$resource', '$cookieStore', '$routeParams', 'GlobalService',
+        function($resource, $cookieStore, $routeParams, GlobalService) {
             // AngularJS will instantiate a singleton by calling "new" on this function
             var fac = {};
 
-            fac.getMockupVersions = $resource('http://localhost:1337/mockupVersion', {}, {
+            fac.getMockupVersions = $resource(GlobalService.BASE_PATH + '/mockupVersion', {}, {
                 get: {
                     method: 'GET',
                     isArray: true
                 }
             });
 
-            fac.versionMockupById = $resource('http://localhost:1337/mockupVersion/:id', {
+            fac.versionMockupById = $resource(GlobalService.BASE_PATH + '/mockupVersion/:id', {
                 id: '@id'
             }, {
                 get: {
@@ -28,31 +28,31 @@ angular.module('mockuperApp')
                 }
             });
 
-            fac.createMockupVersion = $resource('http://localhost:1337/mockupVersion/', {}, {
+            fac.createMockupVersion = $resource(GlobalService.BASE_PATH + '/mockupVersion/', {}, {
                 save: {
                     method: 'POST'
                 }
             });
 
-            fac.updateMockupVersion = $resource('http://localhost:1337/mockupVersion/:id', {}, {
+            fac.updateMockupVersion = $resource(GlobalService.BASE_PATH + '/mockupVersion/:id', {}, {
                 update: {
                     method: 'PUT'
                 }
             });
 
-            fac.deleteMockupVersion = $resource('http://localhost:1337/mockupVersion/:id', {}, {
+            fac.deleteMockupVersion = $resource(GlobalService.BASE_PATH + '/mockupVersion/:id', {}, {
                 delete: {
                     method: 'DELETE'
                 }
             });
 
-            fac.mockupVersionRestore = $resource('http://localhost:1337/mockupVersionRestore/', {}, {
+            fac.mockupVersionRestore = $resource(GlobalService.BASE_PATH + '/mockupVersionRestore/', {}, {
                 save: {
                     method: 'POST'
                 }
             });
 
-            fac.deleteMockupVersion = $resource('http://localhost:1337/deleteMockupVersion/', {}, {
+            fac.deleteMockupVersion = $resource(GlobalService.BASE_PATH + '/deleteMockupVersion/', {}, {
                 save: {
                     method: 'POST'
                 }

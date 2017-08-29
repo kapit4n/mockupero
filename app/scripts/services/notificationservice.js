@@ -8,11 +8,11 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('notificationService', function($resource) {
+    .service('notificationService', function($resource, GlobalService) {
 
         var fac = {};
 
-        fac.sendMail = $resource('http://localhost:1337/SendEmail/mail', {
+        fac.sendMail = $resource(GlobalService.BASE_PATH + '/SendEmail/mail', {
             to: '@to',
             subject: '@subject',
             text: '@text',

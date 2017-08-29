@@ -10,9 +10,9 @@
 angular.module('mockuperApp')
     .controller('ProjectlistCtrl', ['$scope', '$cookieStore', 'mockupService', 'projectService',
         'loginService', 'userService', '$location', '$rootScope', '$window', '$http', '$timeout',
-        'breadcrumbService', 'headerService', 'shareService',
+        'breadcrumbService', 'headerService', 'shareService', 'GlobalService',
         function($scope, $cookieStore, mockupService, projectService, loginService, userService,
-            $location, $rootScope, $window, $http, $timeout, breadcrumbService, headerService, shareService) {
+            $location, $rootScope, $window, $http, $timeout, breadcrumbService, headerService, shareService, GlobalService) {
             $scope.logingLog = {};
             $scope.chatList = [];
             loginService.reloadScope();
@@ -101,9 +101,9 @@ angular.module('mockuperApp')
 
             $scope.reloadProject(1);
 
-            io.socket.get('http://localhost:1337/chat/addconv?roomName="roomNameTest"');
+            io.socket.get(GlobalService.BASE_PATH + '/chat/addconv?roomName="roomNameTest"');
             // get all existing date
-            $http.get('http://localhost:1337/chat')
+            $http.get(GlobalService.BASE_PATH + '/chat')
                 .then(function(success_data) {
                     $scope.chatList = success_data.data;
                     $timeout(function() {
@@ -132,7 +132,7 @@ angular.module('mockuperApp')
             });
 
             $scope.sendMsg = function() {
-                io.socket.post('http://localhost:1337/chat/addconv/', {
+                io.socket.post(GlobalService.BASE_PATH + '/chat/addconv/', {
                     user: $rootScope.userNameLogin,
                     message: $scope.chatMessage
                 });

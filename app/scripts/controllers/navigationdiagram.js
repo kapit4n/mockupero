@@ -9,9 +9,9 @@
  */
 angular.module('mockuperApp')
     .controller('NavigationdiagramCtrl', ['$scope', '$rootScope', '$cookieStore', 'mockupService', 'loginService', 'projectService', '$routeParams', '$location', '$rootScope', 'breadcrumbService',
-        'headerService', 'permissionService', 'workflowService',
+        'headerService', 'permissionService', 'workflowService', 'GlobalService',
         function($scope, $rootStore, $cookieStore, mockupService, loginService, projectService, $routeParams, $location, $rootScope, breadcrumbService,
-            headerService, permissionService, workflowService) {
+            headerService, permissionService, workflowService, GlobalService) {
             headerService.updateHeader('projects');
             loginService.reloadScope();
             $scope.projectId = $routeParams.projectId;
@@ -51,9 +51,9 @@ angular.module('mockuperApp')
                                     }
                                 }
                                 if (i == 0) {
-                                    nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
+                                    nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: GlobalService.BASE_PATH + "/images/" + $scope.project.mockups[i].id + ".png" })
                                 } else {
-                                    nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: "http://localhost:1337/images/" + $scope.project.mockups[i].id + ".png" })
+                                    nodeDataArrayAux.push({ key: $scope.project.mockups[i].id + "", name: "Mockup " + i, source: GlobalService.BASE_PATH + "/images/" + $scope.project.mockups[i].id + ".png" })
                                 }
                             }
                         }

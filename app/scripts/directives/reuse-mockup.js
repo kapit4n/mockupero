@@ -7,7 +7,7 @@
  * # reuseMockup
  */
 angular.module('mockuperApp')
-    .directive('reuseMockup', ['mockupService', '$http', function(mockupService, $http) {
+    .directive('reuseMockup', ['mockupService', '$http', 'GlobalService', function(mockupService, $http, GlobalService) {
         return {
             templateUrl: 'views/templates/reuse-mockup.html',
             restrict: 'E',
@@ -22,7 +22,7 @@ angular.module('mockuperApp')
                     });
                 };
                 scope.useReference = function(mockup) {
-                    $http.get('http://localhost:1337/images/' + mockup.id + '.png', { responseType: "arraybuffer" }).success(function(data) {
+                    $http.get(GlobalService.BASE_PATH + '/images/' + mockup.id + '.png', { responseType: "arraybuffer" }).success(function(data) {
                         var arrayBufferView = new Uint8Array(data);
                         var blob = new Blob([arrayBufferView], { type: "image/png" });
                         var urlCreator = window.URL || window.webkitURL;
@@ -32,7 +32,7 @@ angular.module('mockuperApp')
                         refItem.left = 0;
                         refItem.position = 10;
                         //refItem.src = imageUrl;
-                        refItem.src = 'http://localhost:1337/images/' + mockup.id + '.png';
+                        refItem.src = GlobalService.BASE_PATH + '/images/' + mockup.id + '.png';
                         refItem.type = 'reference';
                         refItem.width = mockup.width;
                         refItem.height = mockup.height;

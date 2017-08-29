@@ -8,7 +8,7 @@
  * Service in the mockuperApp.
  */
 angular.module('mockuperApp')
-    .service('mockupSocketService', function($cookieStore, $routeParams, $compile, $timeout) {
+    .service('mockupSocketService', function($cookieStore, $routeParams, $compile, $timeout, GlobalService) {
         var fac = {};
         fac.subscribeToMockupEdit = function($scope) {
 
