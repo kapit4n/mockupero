@@ -12,7 +12,7 @@ angular.module('mockuperApp')
         function($rootScope, $scope, loginService, $window, $routeParams, userService, breadcrumbService, headerService, GlobalService) {
             loginService.reloadScope();
             headerService.updateHeader('users');
-            scope.globalService = GlobalService;
+            $scope.globalService = GlobalService;
             $scope.user = null;
             $scope.userId = $routeParams.userId;
             $scope.editMode = true;
@@ -28,5 +28,13 @@ angular.module('mockuperApp')
                         $rootScope.$digest();
                     } catch (e) {}
                 });
+            
+            $scope.getUserUrl = function() {
+                return $scope.globalService.BASE_PATH + "/images/avatar/" + $scope.user.id + ".jpg";
+            };
+            
+            $scope.getAvatarActionUrl = function() {
+                return $scope.globalService.BASE_PATH + "/user/uploadAvatar";
+            }
         }
     ]);
