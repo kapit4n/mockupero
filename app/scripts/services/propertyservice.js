@@ -192,7 +192,7 @@ angular.module('mockuperApp')
             var component = angular.element(document.querySelector('#' + idComponent));
             var translateX = parseInt($(component[0]).css('transform').split(',')[4]);
             var translateY = parseInt($(component[0]).css('transform').split(',')[5]);
-            var hrefValue = angular.element(document.querySelector('#hrefValue'));
+            var hrefValue = angular.element(document.querySelector('#href'));
             var heightValue = angular.element(document.querySelector('#height'));
             var widthValue = angular.element(document.querySelector('#width'));
             var topValue = angular.element(document.querySelector('#top'));
