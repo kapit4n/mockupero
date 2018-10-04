@@ -9,13 +9,13 @@ This project is a collaborative tool to design the user interfaz prototypes of t
 https://github.com/kapit4n/mockupero-ui/wiki
 
 ### Project View
-<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_project_view.png" alt="Drawing" width="100%"/>
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_project_view.png" alt="Drawing" width="80%"/>
 
 ### Mockup View
-<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_view.png" alt="Drawing" width="100%"/>
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_view.png" alt="Drawing" width="80%"/>
 
 ## Mockup Design
-<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_design.png" alt="Drawing" width="100%"/>
+<img src="https://github.com/kapit4n/mockupero-ui/raw/develop/mockups/mockupero_mockup_design.png" alt="Drawing" width="80%"/>
 
 ## Prerequisites
 * node 6
