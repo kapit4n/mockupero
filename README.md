@@ -17,6 +17,7 @@ https://github.com/kapit4n/mockupero-ui/wiki
 * grunt-cli v1.2.0
 * bower
 * run (https://github.com/larce1212/mockupero-api)
+* go run https://github.com/kapit4n/mockupero-go
 
 ## Install
 * npm install
